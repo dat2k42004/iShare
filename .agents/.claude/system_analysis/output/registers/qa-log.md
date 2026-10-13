@@ -142,6 +142,8 @@
 - **New issue spawned:** ISS-GRP-01 (Phase 4 backlog) — deep dive Public vs Private group: ai tạo được private group, ai thấy private group tồn tại, cơ chế join private group, v.v.
 - **Traceability note:** Cho Guest xem post + comment là quyết định quan trọng về SEO và discoverability — content iShare sẽ được index bởi search engine, tạo organic traffic. Không cho Guest dùng Semantic Search bảo vệ AI cost budget (ISS-026). Report yêu cầu auth để đảm bảo accountability và chống spam.
 
+**[Amended 2026-10-13 — DEC-171: Guest xem được trang hồ sơ, chỉ đọc]**
+
 ---
 
 ### QA-012
@@ -240,6 +242,8 @@
   - Admin/Mod không có quyền "xóa tài khoản" — chỉ warn hoặc ban
 - **Implication:** USR module cần: (1) status enum trên account (ACTIVE/DEACTIVATED/DELETED/BANNED/WARNED); (2) scheduled job auto-delete sau 14 ngày DEACTIVATED; (3) reactivation flow với email OTP; (4) API filter author display theo account status.
 - **Traceability note:** Grace period 14 ngày cân bằng giữa UX (cho phép đổi ý) và data hygiene (không giữ zombie accounts mãi). Email OTP để kích hoạt lại là bước xác thực quan trọng — tránh kích hoạt vô tình và đảm bảo chỉ owner tài khoản mới restore được.
+
+**[Amended 2026-10-11 — DEC-149: bình luận của tài khoản đã xóa giữ nội dung, tác giả "[Người dùng đã xóa]"]**
 
 ---
 
@@ -431,6 +435,8 @@
 - **Answer:** Không tự động. User tự update. Hệ thống có thể gửi notification nhắc nhở đầu năm học. `grade_level` trên User và trên Post là 2 field độc lập, đều optional.
 - **Decision triggered:** —
 - **Implication:** User profile schema: `grade_level` ENUM('10','11','12') NULL. Notification template cho school-year reminder.
+
+**[Amended 2026-10-13 — DEC-176: không nhắc cập nhật Lớp/Khối ở MS1]**
 
 ---
 
@@ -685,7 +691,7 @@
 
 | ID | Question | Answer |
 |----|----------|--------|
-| QA-067 | Profile page info? | Avatar, display_name, username, bio, points, badges, followers/following count+list, content tabs |
+| QA-067 | Profile page info? | Avatar, display_name, username, bio, points, badges, followers/following count+list, content tabs **[Amended 2026-10-13 — DEC-173: thêm Lớp/Khối, ngày tham gia]** |
 | QA-068 | Content tabs owner vs visitor? | Owner: Posts+Bookmarks; Visitor: Posts only |
 | QA-069 | Followers/following list hidden? | No — fully public |
 | QA-070 | Username change history on profile? | No — dropped, extra table not worth v1 |
@@ -1025,3 +1031,73 @@
 | QA-289 | ISS-229: Mod/Admin đổi Topic, Tag bài người khác có thông báo, có ghi lịch sử sửa không? | "không thông báo, cũng không cần ghi vào lịch sử sửa bài" |
 | QA-290 | ISS-230: Ghi nhật ký thao tác Tag/Topic của Mod? | A: "ghi log là được" — ghi vào nhật ký kiểm duyệt |
 | QA-291 | ISS-231: Công bố việc gửi nội dung cho AI gợi ý Topic? | "Có" — bổ sung vào trang Chính sách quyền riêng tư |
+
+---
+
+## Functional Requirement — M01: Authentication & Account (QA-292 → QA-308)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-292 | ISS-232: Có thông báo sau khi tự liên kết Google không, qua kênh nào? | A: giữ thông báo, gửi trong ứng dụng và email, cùng nhóm bảo mật với đổi mật khẩu |
+| QA-293 | ISS-233: Bình luận của tài khoản DELETED hiển thị thế nào? | A: giữ nội dung, tên tác giả "[Người dùng đã xóa]", avatar mặc định |
+| QA-294 | ISS-234: Mod/Admin có xem được bài bị ẩn và danh tính thật của tác giả đã vô hiệu hóa không? | A: có, trong khi tài khoản ở DEACTIVATED (theo lý do của QA-015); người dùng thường thấy như cũ |
+| QA-295 | ISS-235: Quy tắc mật khẩu? | Tối thiểu 8, tối đa 64 ký tự; không bắt buộc loại ký tự; nhận mọi ký tự kể cả khoảng trắng, chữ có dấu, không tự cắt khoảng trắng; "rõ ràng khi đổi/đặt lại mật khẩu, nó phải khác với mật khẩu hiện tại". Không chặn mật khẩu phổ biến, không so với email/username |
+| QA-296 | ISS-236: username có dấu? phân biệt hoa thường? giới hạn display_name? | username "chỉ alphabet (a-z, A-Z, 0-9 và _)", không dấu; so trùng không phân biệt hoa thường, hiển thị giữ nguyên chữ hoa thường người dùng gõ. display_name 1–50 ký tự, "không nhận emoji, chỉ text", chấp nhận dấu; gồm chữ cái, chữ số, khoảng trắng và . , - _ ' ( ) |
+| QA-297 | ISS-237: Email Google trùng tài khoản email chưa xác minh thì sao? | "hành động y hệt như vậy đi, gộp và chuyển email thành đã xác minh" (chấp nhận rủi ro người khác đăng ký trước bằng email của mình) |
+| QA-298 | ISS-238: Hạn 30 ngày của phiên làm mới? | Tính lại 30 ngày từ mỗi lần làm mới (ok cả nhóm) |
+| QA-299 | ISS-239: 14 ngày tính thế nào? | Đủ 14 × 24 giờ từ lúc vô hiệu hóa (ok cả nhóm) |
+| QA-300 | ISS-240: Mã kích hoạt lại? | Trang kích hoạt chỉ nhập email; mã 6 chữ số, hạn 15 phút, sai tối đa 5 lần thì mã mất hiệu lực, xin lại cách ít nhất 60 giây; kích hoạt xong "tự động đăng nhập luôn" |
+| QA-301 | ISS-241: Danh sách gợi ý và thông báo nhắc tên? | Trong cùng tầng xếp theo mức khớp; bình luận dùng ngữ cảnh bài chứa nó; không hiện DEACTIVATED, DELETED, chưa xong bước 3, và "BANNED cũng sẽ không xuất hiện trong mention"; lượt nhắc cũ tới DEACTIVATED/DELETED hiện tên thay thế "và click vào sẽ không dẫn hướng sang trang cá nhân đó"; thông báo gửi khi nội dung hiển thị công khai, sửa nội dung chỉ báo người mới được nhắc |
+| QA-302 | ISS-242: Email cảnh báo xóa; thông báo khi đặt lại mật khẩu? | Email cảnh báo gửi một lần, 24 giờ trước khi tự xóa; đặt lại mật khẩu cũng gửi "mật khẩu đã đổi" trong ứng dụng và email (ok cả nhóm) |
+| QA-303 | ISS-243: Công tắc tạm dừng đăng ký, chế độ bảo trì? | Tạm dừng đăng ký chặn cả tạo tài khoản Google lần đầu, liên kết Google vào tài khoản có sẵn vẫn được; tài khoản đã qua bước 1 làm tiếp bước 2, 3; bảo trì: chỉ ADMIN đăng nhập, phiên của người khác không dùng được (ok cả nhóm) |
+| QA-304 | ISS-244: Ban tạm thời hết hạn? | Tự về ACTIVE ngay lúc hết hạn (ok cả nhóm) |
+| QA-305 | ISS-245: Đổi tên; dùng lại email, username của tài khoản DELETED? | Đổi được cả hai ở trang sửa hồ sơ, không giới hạn số lần; username cũ được giải phóng khi đổi. Tài khoản DELETED: "email cho dùng lại, và username sẽ bị khoá vĩnh viễn" |
+| QA-306 | ISS-246: Magic link dùng mấy lần? | Một lần; gửi link mới thì link cũ mất hiệu lực (ok cả nhóm) |
+| QA-307 | ISS-247: Nút OK trên màn hình bị khóa? | Đăng xuất (ok cả nhóm) |
+| QA-308 | ISS-248: "Quên mật khẩu" với email lạ, tài khoản không ACTIVE? | Mọi yêu cầu (kể cả email không thuộc tài khoản nào) hiện cùng một câu: "Liên kết đã được gửi, vui lòng kiểm tra email của bạn". DEACTIVATED: không gửi link, hướng tới trang kích hoạt. Đổi mật khẩu, đổi thông tin chỉ khi tài khoản ACTIVE; riêng BANNED: "BAN thì cho đặt mật khẩu nhé, vì cần khiếu nại mà!" — đặt lại chỉ để đăng nhập vào màn hình tài khoản bị khóa và gửi khiếu nại |
+| QA-309 | ISS-249: Danh mục dữ liệu cá nhân? Trình bày trên trang thế nào? | Stakeholder giao assistant đề xuất ("phải nhờ bạn vì tôi chẳng rõ"). Trang không liệt kê chi tiết; gộp tài khoản và hồ sơ thành một nhóm; không nêu phiên đăng nhập. Bốn nhóm: thông tin tài khoản và hồ sơ (kể cả dữ liệu nhận từ Google khi đăng nhập Google); nội dung bạn tạo; dữ liệu giữ an toàn cộng đồng; dữ liệu được xử lý bởi AI. Danh mục chi tiết giữ trong tài liệu nội bộ (FR) |
+| QA-310 | ISS-250: Có lưu việc đồng ý không? Khi nào phải đồng ý lại? | Lưu thời điểm và phiên bản đã đồng ý; "chỉ khi thay đổi policy mới cần đồng ý thêm" — hỏi lại ở lần đăng nhập kế tiếp sau khi chính sách đổi phiên bản |
+| QA-311 | ISS-251: Khi DELETED xóa gì, giữ gì? | "bạn cứ đề xuất sao cho hệ thống hoạt động được" — chấp nhận đề xuất: xóa email, mật khẩu, liên kết Google, display_name, avatar, bio, Lớp/Khối, phiên đăng nhập, bookmark, quan hệ theo dõi, bản ghi đồng ý; giữ username (khóa vĩnh viễn), trạng thái, vai trò, bài viết ở trạng thái ẩn, bình luận với tên "[Người dùng đã xóa]", upvote đã cho (không còn biết ai cho) |
+| QA-312 | ISS-252: Tin nhắn và nhật ký của người đã xóa tài khoản? | "okey" — A: giữ nội dung, người gửi hiện "[Người dùng đã xóa]"; nhật ký kiểm duyệt và nhật ký AI vẫn gắn với tài khoản đã xóa qua username để Mod, Admin tra cứu; trang chính sách nêu việc giữ lại vì an toàn cộng đồng |
+| QA-313 | ISS-253: Nêu xử lý bởi AI thế nào? | "không nên nói xử lý bởi AI bên thứ ba" → "write theo kiểu xử lý bởi nhà cung cấp dịch vụ AI" (không nêu tên nhà cung cấp). Các dịch vụ bên ngoài khác (đăng nhập, lưu ảnh, gửi email) nêu chung một mục, không liệt kê tên; cam kết không bán dữ liệu |
+| QA-314 | ISS-254: Cơ sở xử lý và các mục của trang? | Chấp nhận đề xuất: cơ sở là sự đồng ý khi đăng ký và khi chính sách đổi; dữ liệu giữ lại sau khi xóa tài khoản dựa trên mục đích an toàn cộng đồng. Trang gồm: dữ liệu thu thập, mục đích, dịch vụ bên ngoài, thời gian lưu, quyền của bạn, người dùng dưới 16 tuổi, thay đổi chính sách, liên hệ; phần Điều khoản gồm quy tắc cộng đồng, kiểm duyệt và cảnh báo, khóa tài khoản và khiếu nại, quyền với nội dung đăng. Liên hệ: "tạm chưa cần, có thể chốt khi triển khai" |
+| QA-315 | ISS-255: Nhận bản sao dữ liệu? Rút lại đồng ý? | Bản sao dữ liệu: "khá phức tạp" → không làm chức năng ở MS1, trang nêu quyền này và cách yêu cầu công bố khi triển khai. Rút lại đồng ý = vô hiệu hóa tài khoản; không đồng ý phiên bản chính sách mới thì chỉ chọn được đăng xuất hoặc vô hiệu hóa ("okey chốt") |
+| QA-316 | ISS-256: Người dùng dưới 16 tuổi? | "chọn A" — không hỏi tuổi; ô đồng ý ở bước 1 kèm cam kết "nếu dưới 16 tuổi, tôi đã được cha mẹ hoặc người giám hộ đồng ý"; trang có mục riêng cho người dưới 16 tuổi |
+| QA-317 | ISS-257: Người đang giữ phiên đăng nhập có được hỏi đồng ý lại ngay khi mở ứng dụng không? | A — hỏi ở lần mở ứng dụng kế tiếp, kể cả khi đang giữ phiên đăng nhập |
+| QA-318 | ISS-258: Ai phát hành phiên bản chính sách mới? | A — đội phát triển, khi triển khai bản mới; nội dung trang và số phiên bản nằm trong mã nguồn, không có màn hình Admin |
+| QA-319 | ISS-259: Lượt theo dõi Topic, bài viết của tài khoản đã xóa? | Theo đề xuất — xóa cùng các quan hệ theo dõi khác |
+| QA-320 | ISS-260: Phản hồi gợi ý Topic của tài khoản đã xóa? | Theo đề xuất — giữ lại như nhật ký AI; bản ghi chỉ gồm Topic gợi ý và Topic được chọn, không còn gắn danh tính |
+
+---
+## Functional Requirement — M03: Post & Content (QA-321 → QA-333)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-321 | ISS-261: Bài viết có được đính kèm tài liệu (PDF/DOCX/XLSX/PPTX) không? | A — giữ theo DEC-035. "kệ đi, nó là vấn đề security, ta có thể sửa sau này. Hiện tại sẽ focus vào việc cho upload là được" |
+| QA-322 | ISS-262: Bài mới tạo mang trạng thái kiểm duyệt nào; "gỡ" bài là gì? | "Bài vừa tạo, ta cứ cho trạng thái bình thường đi"; "gỡ chính là ẩn đó!" |
+| QA-323 | ISS-263: Sửa bài đã đăng, quét lại: xử lý theo điểm và khi AI lỗi? | "với bài sửa, ta chỉ hoạt động dựa trên mức nghi ngờ thôi, ẩn và chờ mod xét!"; "khi AI lỗi, ta hoạt động theo đề xuất" (để nguyên, bài vẫn hiện) |
+| QA-324 | ISS-264: Sửa, xóa, khôi phục theo trạng thái bài? | "okey theo đề xuất" — bảng sửa/xóa/khôi phục theo trạng thái (DEC-162) |
+| QA-325 | ISS-265: MEDIUM, HEAVY chặn những thao tác nào? | A — chặn mọi thao tác đưa bài chưa từng công khai ra công khai; vẫn cho sửa, khôi phục bài cũ và bình chọn |
+| QA-326 | ISS-266: Phần bắt buộc, giới hạn độ dài? | Gửi: bắt buộc tiêu đề và nội dung, "pool có thể tính như content và thay thế content"; tệp đính kèm không thay nội dung. Nháp: chỉ cần "không trắng tinh". Tiêu đề 150 ký tự; nội dung "tầm 5000 từ (hoặc lớn hơn chút)" → chốt 6.000 từ, chỉ xét chữ người đọc thấy. Nháp áp dụng như bình thường và "có cảnh báo ngay khi soạn thảo" |
+| QA-327 | ISS-267: Chi tiết poll? | Đổi phiếu luôn được khi còn hạn (bỏ tùy chọn); có tùy chọn chọn một/chọn nhiều, "chọn nhiều luôn là mặc định"; khóa cấu hình sau khi gửi; chỉ chủ bài thêm lựa chọn, sau khi gửi chỉ thêm lựa chọn và sửa hạn, tối đa 10; hạn ≥ hiện tại, đổi được khi còn mở, kết thúc ngay = hạn bằng hiện tại; "cho phép bỏ chọn bình thường"; thêm/bỏ poll chỉ khi chưa gửi; % "tính trên tổng lượt chọn", làm tròn số nguyên (A); tác giả được bình chọn poll của mình |
+| QA-328 | ISS-268: Bài bị AI tự từ chối? | "đúng vậy" — thấy nhóm vi phạm, gửi lại không giới hạn, khiếu nại qua M09 |
+| QA-329 | ISS-269: Khóa toàn bộ chặn gì? | Chặn bình luận mới, upvote và "khoá cả pool"; bookmark, báo cáo vẫn được |
+| QA-330 | ISS-270: Đếm 7 ngày khôi phục thế nào? | "7 ngày tính từ lúc bắt đầu chọn xoá" (7 × 24 giờ) |
+| QA-331 | ISS-271: Mod xem bài chưa công khai của người khác? | "không mở nháp nhé, vì tinh thần nháp chưa public thì ai duyệt? ta hiểu duyệt là bài mà để cho người khác đọc được!" — áp dụng cả bài tự ẩn, bài bị từ chối |
+| QA-332 | ISS-272: Accepted Answer có trong MS1? | "MS1 không hỗ trợ chức năng accepted answer!" |
+| QA-333 | ISS-273: Ảnh bìa bài viết? | "không có ảnh bìa, nếu có ảnh đính kèm thì dùng thôi!" |
+
+---
+
+## Functional Requirement — M02: User Profile (QA-334 → QA-341)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-334 | ISS-274: Chủ hồ sơ có ba tab (Bài viết, Bookmark, Đã xóa) hay "Đã xóa" nằm chỗ khác? | "bổ sung tab đã xoá nhé!" — ba tab, mặc định Bài viết; người xem chỉ Bài viết |
+| QA-335 | ISS-275: Guest xem trang hồ sơ, danh sách theo dõi? | "guest xem được trang hồ sơ, chỉ đọc. xem danh sách theo dõi yêu cầu đăng nhập" |
+| QA-336 | ISS-276: "Đang theo dõi" gồm gì; DEACTIVATED, BANNED? | "chỉ tính người dùng thôi nhé. các tài khoản deactive, ban sẽ không xuất hiện (nếu tài khoản trở lại trạng thái kích hoạt thì hiện lại)" |
+| QA-337 | ISS-277: Hiện Lớp/Khối, ngày tham gia, stars nhận/cho? | "Chọn A đi, không cần hiện số star đã nhận / cho nữa" — hiện Lớp/Khối (khi đã đặt) và ngày tham gia |
+| QA-338 | ISS-278: Bài đã lưu không còn xem được? | Chọn B: "chỉ cần hiển thị 'Nội dung không hiển thị' (hoặc câu gì đó tương đương)"; chốt dùng câu "Nội dung không tồn tại", giữ vị trí, bỏ lưu được; bài xóa hẳn hoặc tác giả DELETED thì bookmark bị xóa — "okey đó!" |
+| QA-339 | ISS-279: Tab Bài viết hiện bài nào? | "chọn A đi, đồng ý!" — người xem: bài đã đăng công khai, không ẩn danh, bài nhóm Private chỉ với thành viên; chủ hồ sơ thêm nháp, chờ duyệt, bị từ chối, tự ẩn và bài ẩn danh của mình (có dấu "ẩn danh") |
+| QA-340 | ISS-280: Danh sách xác nhận chi tiết hồ sơ | Nhắc Lớp/Khối: "cái này không làm ở ms1"; thứ tự: "cứ mới nhất là ưu tiên"; avatar: "hiện avatar mặc định, hoặc avatar là chữ cái đầu tiên của displayname or smth else"; bio: "không xét khoảng trắng đầu/cuối", Lớp/Khối optional; địa chỉ /u/: "ok" |
+| QA-341 | ISS-281: Mod gỡ avatar, bio vi phạm? | "không cần quản lý cái đó đâu" |

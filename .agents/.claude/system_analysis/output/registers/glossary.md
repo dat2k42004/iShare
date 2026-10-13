@@ -9,7 +9,7 @@
 | THPT | Trung học phổ thông — Vietnamese high school (grades 10–12) | Draft |
 | Post | The central content unit of the platform. Can represent a question, knowledge share, tutorial, discussion, review, resource, or news item. | Draft |
 | Comment | A response or reply to a Post. Can be starred, reported, and accepted as an answer. | Draft |
-| Accepted Answer | A Comment marked by the Post author as the best response. Only the Post author can set this (not AI, not Moderators). | Draft |
+| Accepted Answer | A Comment marked by the Post author as the best response. Only the Post author can set this (not AI, not Moderators). **[Amended 2026-10-11 — DEC-169: không có ở MS1]** | Draft |
 | Anonymous Post | A Post where the author's identity is hidden from other users. The system retains the real identity for moderation purposes. | Draft |
 | Topic | A broad subject-area classification for Posts (e.g. Mathematics, Life Skills). Not limited to school curriculum. List to be finalized in BA. **[Amended 2026-10-07 — DEC-048, DEC-141: 11 Topic ban đầu, Admin thêm được]** | Draft |
 | Tag | A free-form keyword attached to a Post. More granular than Topic. A Post can have multiple Tags. **[Amended 2026-10-07 — DEC-051, DEC-143: tối đa 5/bài, 30 ký tự, chữ cái/chữ số/_]** | Draft |

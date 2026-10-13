@@ -351,3 +351,73 @@
 | ISS-229 | Mod/Admin đổi Topic, Tag bài người khác: có thông báo, có ghi lịch sử sửa bài không? | Closed | Xem DEC-142 |
 | ISS-230 | Có ghi nhật ký thao tác Tag/Topic của Mod không? | Closed | Xem DEC-146 |
 | ISS-231 | Trang Chính sách quyền riêng tư có nêu việc gửi nội dung bài cho AI gợi ý Topic không? | Closed | Xem DEC-146 |
+
+---
+
+## Functional Requirement — M01: Authentication & Account | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-232 | Có thông báo sau khi tự liên kết Google không? (DEC-010 có, danh sách sự kiện DEC-065 không có) | Closed | Xem DEC-147 |
+| ISS-233 | Bình luận của tài khoản DELETED hiển thị thế nào? (QA-018 vs DEC-019) | Closed | Xem DEC-149 |
+| ISS-234 | Mod/Admin có xem được bài bị ẩn và danh tính tác giả đã vô hiệu hóa tài khoản không? | Closed | Xem DEC-150 |
+| ISS-235 | Quy tắc mật khẩu | Closed | Xem DEC-148 |
+| ISS-236 | Chi tiết quy tắc username, display_name | Closed | Xem DEC-148 |
+| ISS-237 | Đăng nhập Google khi email trùng tài khoản email chưa xác minh | Closed | Xem DEC-147 |
+| ISS-238 | Hạn 30 ngày của phiên làm mới tính thế nào? | Closed | Xem DEC-151 |
+| ISS-239 | Thời hạn vô hiệu hóa 14 ngày tính thế nào? | Closed | Xem DEC-149 |
+| ISS-240 | Chi tiết mã kích hoạt lại (OTP) và trang kích hoạt | Closed | Xem DEC-149 |
+| ISS-241 | Danh sách gợi ý nhắc tên và thời điểm gửi thông báo nhắc tên | Closed | Xem DEC-153 |
+| ISS-242 | Email cảnh báo trước khi tự xóa gửi lúc nào; đặt lại mật khẩu có gửi thông báo "mật khẩu đã đổi" không? | Closed | Xem DEC-149, DEC-151 |
+| ISS-243 | Công tắc tạm dừng đăng ký và chế độ bảo trì tác động tới đăng ký, đăng nhập thế nào? | Closed | Xem DEC-152 |
+| ISS-244 | Ban tạm thời hết hạn thì tài khoản có tự về ACTIVE không? | Closed | Xem DEC-152 |
+| ISS-245 | Đổi username, display_name; dùng lại email, username của tài khoản DELETED | Closed | Xem DEC-148 |
+| ISS-246 | Magic link dùng được mấy lần? | Closed | Xem DEC-151 |
+| ISS-247 | Nút OK trên màn hình tài khoản bị khóa làm gì? | Closed | Xem DEC-152 |
+| ISS-248 | "Quên mật khẩu" với email lạ và với tài khoản không ACTIVE | Closed | Xem DEC-151 |
+| ISS-249 | Privacy: danh mục dữ liệu cá nhân và cách trình bày trên trang Privacy Policy | Closed | Xem DEC-154 |
+| ISS-250 | Privacy: lưu việc đồng ý và đồng ý lại khi chính sách đổi phiên bản | Closed | Xem DEC-155 |
+| ISS-251 | Privacy: khi tài khoản DELETED thì xóa gì, giữ gì | Closed | Xem DEC-156 |
+| ISS-252 | Privacy: tin nhắn và nhật ký giữ vĩnh viễn khi người liên quan đã xóa tài khoản | Closed | Xem DEC-156 |
+| ISS-253 | Privacy: trang chính sách nêu việc xử lý bởi AI và dịch vụ bên ngoài thế nào | Closed | Xem DEC-154 |
+| ISS-254 | Privacy: cơ sở xử lý dữ liệu và các mục của trang Privacy Policy/ToS | Closed | Xem DEC-154 |
+| ISS-255 | Privacy: quyền nhận bản sao dữ liệu và rút lại sự đồng ý | Closed | Xem DEC-155, DEC-157 |
+| ISS-256 | Privacy: người dùng dưới 16 tuổi | Closed | Xem DEC-157 |
+| ISS-257 | Privacy: "đồng ý lại ở lần đăng nhập kế tiếp" áp dụng thế nào khi người dùng đang giữ phiên đăng nhập | Closed | Xem DEC-158 |
+| ISS-258 | Privacy: ai phát hành phiên bản chính sách mới | Closed | Xem DEC-158 |
+| ISS-259 | Privacy: khi tài khoản DELETED, lượt theo dõi Topic và bài viết của tài khoản đó xử lý thế nào | Closed | Xem DEC-159 |
+| ISS-260 | Privacy: phản hồi gợi ý Topic (M05) của tài khoản đã xóa có giữ không | Closed | Xem DEC-159 |
+
+---
+## Functional Requirement — M03: Post & Content | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-261 | Bài viết có được đính kèm tài liệu không? (DEC-035 cho PDF/DOCX/XLSX/PPTX, DEC-130 coi phạm vi tải lên chỉ là ảnh) | Closed | Xem DEC-160 |
+| ISS-262 | Trạng thái kiểm duyệt của bài mới tạo; "Mod gỡ bài" là trạng thái nào? | Closed | Xem DEC-161 |
+| ISS-263 | Quét lại khi sửa bài đã đăng: xử lý theo điểm quét và khi AI lỗi | Closed | Xem DEC-161 |
+| ISS-264 | Bài ở trạng thái nào thì tác giả sửa, xóa được; khôi phục về trạng thái nào | Closed | Xem DEC-162 |
+| ISS-265 | Mức cảnh cáo MEDIUM, HEAVY chặn những thao tác nào trên bài viết | Closed | Xem DEC-163 |
+| ISS-266 | Phần bắt buộc khi gửi bài, khi lưu nháp; giới hạn độ dài tiêu đề, nội dung | Closed | Xem DEC-164 |
+| ISS-267 | Chi tiết poll: cấu hình, đổi và bỏ phiếu, hạn kết thúc, thêm lựa chọn, cách tính % | Closed | Xem DEC-165 |
+| ISS-268 | Bài bị AI tự từ chối: tác giả thấy gì, gửi lại thế nào | Closed | Xem DEC-166 |
+| ISS-269 | "Khóa toàn bộ" chặn những tương tác nào | Closed | Xem DEC-167 |
+| ISS-270 | Thời hạn khôi phục 7 ngày đếm thế nào | Closed | Xem DEC-162 |
+| ISS-271 | Mod/Admin có xem được bài nháp, bài tự ẩn, bài bị từ chối của người khác không | Closed | Xem DEC-168 |
+| ISS-272 | Accepted Answer (draft DM-4.2.1) có trong MS1 không | Closed | Xem DEC-169 |
+| ISS-273 | Ảnh bìa bài viết (draft DM-2.1) có làm không | Closed | Xem DEC-169 |
+
+---
+
+## Functional Requirement — M02: User Profile | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-274 | Tab nội dung của chủ hồ sơ: DEC-023, DEC-024 chỉ có Bài viết + Bookmark, DEC-038 đặt thêm tab "Đã xóa" | Closed | Xem DEC-170 |
+| ISS-275 | Guest có xem được trang hồ sơ và danh sách người theo dõi, đang theo dõi không | Closed | Xem DEC-171 |
+| ISS-276 | Danh sách "đang theo dõi" gồm những gì; tài khoản DEACTIVATED, BANNED trong danh sách theo dõi | Closed | Xem DEC-172 |
+| ISS-277 | Hồ sơ có hiện Lớp/Khối, ngày tham gia, stars nhận, stars cho (draft DM-1.2) ngoài danh sách QA-067 không | Closed | Xem DEC-173 |
+| ISS-278 | Bài đã lưu sau đó không còn xem được thì tab Bookmark hiện thế nào | Closed | Xem DEC-174 |
+| ISS-279 | Tab Bài viết hiện những bài nào với chủ hồ sơ và với người xem | Closed | Xem DEC-175 |
+| ISS-280 | Chi tiết hồ sơ: nhắc cập nhật Lớp/Khối, thứ tự danh sách, avatar mặc định, đếm ký tự bio, bỏ chọn Lớp/Khối, địa chỉ /u/{username} | Closed | Xem DEC-176 |
+| ISS-281 | Mod/Admin có được gỡ avatar, bio vi phạm khi xử lý báo cáo người dùng không (mở rộng phạm vi) | Closed | Xem DEC-177 |

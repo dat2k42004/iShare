@@ -2,11 +2,11 @@
 module: M05
 ten_module: Topic & Tag
 ma_tai_lieu: FR-M05
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
-ngay: 2026-10-07
+ngay: 2026-10-11
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-146, QA-291, ISS-231, OPEN-009
+moc_nguon: DEC-159, QA-320, ISS-260, OPEN-009
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M05 Topic & Tag
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M05 — Topic & Tag |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
-| Ngày | 2026-10-07 |
+| Phiên bản | 1.2 |
+| Ngày | 2026-10-11 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -87,7 +87,7 @@ phần khám phá nội dung sử dụng.
 | Gửi bài viết | Thao tác tác giả nộp bài viết để đăng, làm bài rời trạng thái nháp (M03). |
 | Bài nháp | Bài viết tác giả đang soạn và chưa gửi (M03). |
 | Bài mới (trong Trending) | Bài viết được đăng trong cửa sổ 7 ngày. |
-| Feed chính | Dòng bài viết chung của hệ thống (M14), gồm bài đã đăng, không bị ẩn bởi kiểm duyệt, kể cả bài của nhóm Public, không gồm bài của nhóm Private. |
+| Feed chính | Dòng bài viết chung của hệ thống (M14), gồm bài đã đăng, không bị ẩn bởi kiểm duyệt, không bị ẩn vì tác giả vô hiệu hóa hoặc xóa tài khoản (M01), kể cả bài của nhóm Public, không gồm bài của nhóm Private. |
 | Nhật ký kiểm duyệt | Nhật ký ghi thao tác của Mod và Admin (M08): người thực hiện, loại thao tác, đối tượng, lý do, thời điểm. |
 | Sửa bài viết | Thao tác thay đổi một bài viết đã gửi, do tác giả, Mod hoặc Admin thực hiện. |
 | Tương tác | Một trong các sự kiện được tính vào điểm Trending: bài viết được đăng, upvote cho bài viết, comment, bookmark. |
@@ -112,13 +112,13 @@ phần khám phá nội dung sử dụng.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp (2026-09-19) |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-146, QA-291, ISS-231, OPEN-009 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-159, QA-320, ISS-260, OPEN-009 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
 | Module | Liên quan ở điểm nào |
 |---|---|
-| M01 Authentication & Account | Trang Chính sách quyền riêng tư nêu việc gửi nội dung bài cho AI khi gợi ý Topic. |
+| M01 Authentication & Account | Trang Privacy Policy/ToS (thuộc M01) nêu việc gửi nội dung bài cho nhà cung cấp dịch vụ AI khi gợi ý Topic; bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn nên không tính Trending; dữ liệu của tài khoản đã xóa (upvote giữ, bookmark bị xóa, phản hồi gợi ý giữ). |
 | M02 User Profile | Bookmark của người dùng, một tương tác được tính vào Trending. |
 | M03 Post & Content | Bài viết là đối tượng được gán Topic và Tag; trình soạn bài là nơi chọn Topic, gắn Tag và bấm gợi ý; trạng thái bài (nháp, đã đăng…); upvote bài viết; sở hữu Lớp/Khối trên bài. |
 | M04 Comment | Comment và reply, tương tác được tính vào Trending. |
@@ -244,6 +244,7 @@ cột MoSCoW ở dòng M05 của bảng Module List bị lệch nên không dùn
 | FR-M05-02.19 | Nếu một phần Topic AI trả về không thuộc danh mục Topic hiện tại, hệ thống phải bỏ các Topic đó và chỉ hiển thị các Topic hợp lệ. |
 | FR-M05-02.20 | Khi tác giả sửa bài viết đã gửi, hệ thống phải cho tác giả dùng gợi ý Topic theo cùng các quy tắc như khi soạn bài. |
 | FR-M05-02.21 | Khi Mod hoặc Admin đổi Topic trên bài viết của người khác, hệ thống phải không cung cấp gợi ý Topic. |
+| FR-M05-02.22 | Khi tài khoản tác giả chuyển sang DELETED, hệ thống phải giữ các phản hồi gợi ý của tài khoản đó để đánh giá AI, không gắn với danh tính tác giả. |
 
 ### 5.3 FR-M05-03 Gắn Tag cho bài viết
 
@@ -307,7 +308,7 @@ cột MoSCoW ở dòng M05 của bảng Module List bị lệch nên không dùn
 | FR-M05-05.08 | Hệ thống phải không tính lượt xem bài viết vào điểm Trending. |
 | FR-M05-05.09 | Hệ thống phải xếp danh sách Trending Topic và Trending Tag theo điểm Trending giảm dần, rồi theo số bài mới giảm dần, rồi theo tên từ A đến Z. |
 | FR-M05-05.10 | Trong khi chưa đến lần tính kế tiếp, hệ thống phải cung cấp kết quả của lần tính gần nhất. |
-| FR-M05-05.11 | Hệ thống phải chỉ tính tương tác trên các bài viết đang hiển thị trên feed chính: đã đăng, không bị ẩn bởi kiểm duyệt, gồm bài của nhóm Public và không gồm bài của nhóm Private. |
+| FR-M05-05.11 | Hệ thống phải chỉ tính tương tác trên các bài viết đang hiển thị trên feed chính: đã đăng, không bị ẩn bởi kiểm duyệt, không bị ẩn vì tác giả vô hiệu hóa hoặc xóa tài khoản, gồm bài của nhóm Public và không gồm bài của nhóm Private. |
 | FR-M05-05.12 | Hệ thống phải không tính upvote cho comment vào điểm Trending. |
 | FR-M05-05.13 | Khi tính comment vào điểm Trending, hệ thống phải tính cả reply của comment. |
 | FR-M05-05.14 | Hệ thống phải chỉ đưa vào danh sách Trending các Topic và Tag có điểm Trending lớn hơn 0. |
@@ -450,7 +451,7 @@ cột MoSCoW ở dòng M05 của bảng Module List bị lệch nên không dùn
 | BR-M05-26 | Suy diễn | Tag bị vô hiệu hóa không hiện trong gợi ý tự động khi nhập, Trending Tag và danh sách Tag; bài viết cũ giữ liên kết với Tag nhưng Tag không hiển thị trên bài; nếu người dùng nhập lại tên Tag đó, phần nhập được hiển thị như văn bản, không thành Tag. | #abc bị vô hiệu hóa; bài X có #abc: X không hiện #abc. Tác giả bài Y nhập "#abc": Y hiện "#abc" như văn bản, Y không có Tag #abc. |
 | BR-M05-27 | Suy diễn | Khi Tag được kích hoạt lại, Tag hiện lại trong gợi ý tự động, Trending Tag, danh sách Tag và trên các bài viết còn liên kết với nó; phần chữ đã nhập trong thời gian Tag bị vô hiệu hóa không tự thành Tag. | Kích hoạt lại #abc: X hiện lại #abc. Y (nhập "#abc" lúc Tag bị vô hiệu hóa) vẫn hiện "#abc" như văn bản cho tới khi được sửa. |
 | BR-M05-28 | Ràng buộc | Comment không có Topic hay Tag riêng; comment thuộc ngữ cảnh Topic, Tag của bài viết. | — |
-| BR-M05-29 | Tính toán | Điểm Trending của một Topic hoặc Tag = tổng điểm các tương tác xảy ra trong cửa sổ 7 ngày trên các bài viết có Topic hoặc Tag đó, bất kể bài viết được đăng lúc nào: bài viết được đăng = 1, mỗi upvote cho bài = 2, mỗi comment (kể cả reply) = 1, mỗi bookmark = 1. Chỉ tính bài đang hiển thị trên feed chính. Tương tác đã bị rút lại, upvote cho comment và lượt xem không được tính. Bài viết có nhiều Topic hoặc Tag góp điểm cho tất cả. Tag bị vô hiệu hóa không có điểm Trending. | Tính lúc 07/10 10:00, cửa sổ từ 30/09 10:00. Topic Toán học: bài A đăng 05/10, có 3 upvote, 2 comment, 1 bookmark trong cửa sổ: 1 + 6 + 2 + 1 = 10. Bài B đăng 20/09: 2 upvote trong cửa sổ = 4; 1 upvote lúc 29/09 không tính; 1 comment đã bị xóa không tính. Bài C đăng 30/09 09:00 (ngay trước cửa sổ): không có điểm đăng bài; 1 comment ngày 01/10 = 1. Bài D trong nhóm Private có 20 upvote: không tính. Tổng Toán học = 15. Nếu bài A có thêm Topic Tin học, Tin học cũng nhận 10 từ bài A. |
+| BR-M05-29 | Tính toán | Điểm Trending của một Topic hoặc Tag = tổng điểm các tương tác xảy ra trong cửa sổ 7 ngày trên các bài viết có Topic hoặc Tag đó, bất kể bài viết được đăng lúc nào: bài viết được đăng = 1, mỗi upvote cho bài = 2, mỗi comment (kể cả reply) = 1, mỗi bookmark = 1. Chỉ tính bài đang hiển thị trên feed chính. Tương tác đã bị rút lại, upvote cho comment và lượt xem không được tính. Bài viết có nhiều Topic hoặc Tag góp điểm cho tất cả. Tag bị vô hiệu hóa không có điểm Trending. Tương tác của tài khoản đã xóa (M01): upvote vẫn được tính, bookmark đã bị xóa nên không còn được tính. | Tính lúc 07/10 10:00, cửa sổ từ 30/09 10:00. Topic Toán học: bài A đăng 05/10, có 3 upvote, 2 comment, 1 bookmark trong cửa sổ: 1 + 6 + 2 + 1 = 10. Bài B đăng 20/09: 2 upvote trong cửa sổ = 4; 1 upvote lúc 29/09 không tính; 1 comment đã bị xóa không tính. Bài C đăng 30/09 09:00 (ngay trước cửa sổ): không có điểm đăng bài; 1 comment ngày 01/10 = 1. Bài D trong nhóm Private có 20 upvote: không tính. Tổng Toán học = 15. Nếu bài A có thêm Topic Tin học, Tin học cũng nhận 10 từ bài A. Tài khoản X đã upvote và bookmark bài A trong cửa sổ, rồi X chuyển sang DELETED: upvote của X vẫn góp 2 điểm, bookmark của X không còn góp điểm. |
 | BR-M05-30 | Kích hoạt | Điểm Trending được tính lại định kỳ với chu kỳ từ 15 đến 30 phút; mọi tương tác có mặt trong điểm chậm nhất 30 phút sau khi xảy ra; người xem thấy kết quả của lần tính gần nhất. | Upvote lúc 10:05: điểm hiển thị lúc 10:35 phải đã có upvote này; lúc 10:20 có thể chưa có. |
 | BR-M05-31 | Suy diễn | Danh sách Trending Topic và Trending Tag chỉ gồm mục có điểm lớn hơn 0, xếp theo điểm giảm dần; bằng điểm thì mục có nhiều bài mới hơn xếp trước; vẫn bằng thì xếp theo tên từ A đến Z. Mỗi mục một hạng riêng. | Ngữ văn 12 điểm (0 bài mới), Tin học 10 (2 bài mới), Hướng nghiệp 10 (1), Toán học 10 (1), Góc Chill 0: thứ tự 1 Ngữ văn, 2 Tin học, 3 Hướng nghiệp, 4 Toán học; Góc Chill không xuất hiện. |
 
@@ -475,11 +476,11 @@ cột MoSCoW ở dòng M05 của bảng Module List bị lệch nên không dùn
 | Tag | FR-M05-03.02 | FR-M05-04.02 | FR-M05-09.01, FR-M05-10.01 (chỉ trạng thái); tên: Không có (BR-M05-25) | Không có (BR-M05-25) |
 | Liên kết bài viết–Tag | FR-M05-03.01 | FR-M05-04.04, M03 | Không có (chỉ thêm hoặc bỏ liên kết) | FR-M05-03.10, FR-M05-11.02; khi bài viết bị xóa: M03 |
 | Lượt gợi ý Topic | FR-M05-02.03 | FR-M05-02.03 | FR-M05-02.09 | — |
-| Phản hồi gợi ý | FR-M05-02.12 | M13 | Không có | — |
+| Phản hồi gợi ý | FR-M05-02.12 | M13 | Không có | Không có (giữ cả khi tài khoản tác giả bị xóa, FR-M05-02.22) |
 | Điểm Trending | FR-M05-05.01 | M14 | FR-M05-05.01 | Không có (được thay ở lần tính kế tiếp, BR-M05-30) |
 
-<!-- Ô "—" ở cột Xóa của Lượt gợi ý Topic và Phản hồi gợi ý: nguồn không nói thời gian lưu; không ảnh hưởng hành vi người dùng thấy,
-     nên không tạo GAP. Việc lưu giữ dữ liệu cá nhân thuộc OPEN-008. -->
+<!-- Ô "—" ở cột Xóa của Lượt gợi ý Topic: nguồn không nói thời gian lưu; không ảnh hưởng hành vi người dùng thấy,
+     nên không tạo GAP. Phản hồi gợi ý được giữ cả khi tài khoản tác giả bị xóa (DEC-159). -->
 
 ### 5.14 Chuyển trạng thái
 
@@ -516,7 +517,8 @@ Tag không có trạng thái kết thúc: Tag không bị xóa (BR-M05-25).
 | Dùng | M03, M04, M12, M02 | Các tương tác dùng cho Trending: upvote bài viết, comment, bookmark, kèm thời điểm và việc rút lại | FR-M05-05.01 |
 | Cung cấp | M14 | Danh sách Trending Topic và Trending Tag kèm điểm, theo thứ tự của BR-M05-31, cho tab Trending (kể cả Guest) | FR-M05-05.09, FR-M05-05.14 |
 | Dùng | M08 | Nhật ký kiểm duyệt: ghi việc vô hiệu hóa, kích hoạt lại Tag và việc đổi Topic, Tag trên bài người khác | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 |
-| Dùng | M01 | Trang Chính sách quyền riêng tư nêu việc tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, được gửi cho dịch vụ AI bên thứ ba khi bấm "Gợi ý topic" | FR-M05-02.01 |
+| Dùng | M01 | Trang Privacy Policy/ToS (thuộc M01) nêu việc tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, được xử lý bởi nhà cung cấp dịch vụ AI khi bấm "Gợi ý topic" (FR-M01-15.04) | FR-M05-02.01 |
+| Dùng | M01 | Trạng thái tài khoản tác giả: bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn nên không tính Trending; dữ liệu của tài khoản đã xóa: upvote giữ, bookmark và lượt theo dõi Topic bị xóa, phản hồi gợi ý giữ | FR-M05-05.11, FR-M05-02.22 |
 | Cung cấp | M15 | Liên kết bài viết–Topic để thống kê phân bố bài viết theo Topic | FR-M05-01.02 |
 
 ### 5.16 AI hỗ trợ và hành vi khi tắt AI
@@ -542,6 +544,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-07 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-07 | Chốt sau 7 bước; ghi register DEC-140–146, QA-267–291, ISS-207–231, OPEN-009 | Phạm Văn Đức |
 | 1.1 | 2026-10-07 | Cập nhật Phụ lục C.2 và ghi chú, trạng thái ở C.1 theo DEC-140–146 (C.2 còn ghi trước bước 6 và công thức Trending cũ); thân tài liệu không đổi; thêm DEC-092 vào chuỗi DEC-008. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-11 | Đối chiếu lại với FR-M01 1.0: cách ghi "nhà cung cấp dịch vụ AI" (DEC-154); không tính Trending cho bài bị ẩn vì tác giả vô hiệu hóa hoặc xóa tài khoản; tương tác của tài khoản đã xóa (DEC-156); giữ phản hồi gợi ý của tài khoản đã xóa (DEC-159). Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -580,6 +583,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M05-02.19 | DEC-144 | Nói thẳng | — |
 | FR-M05-02.20 | DEC-142 | Nói thẳng | — |
 | FR-M05-02.21 | DEC-142 | Nói thẳng | — |
+| FR-M05-02.22 | DEC-159 | Nói thẳng | — |
 | FR-M05-03 | DEC-047, DEC-051, DEC-143, DEC-142, QA-017, DM-3.2, DM-3.4, DG-3, DEC-140  | Nói thẳng | Lý do lấy từ DEC-047, DG-3, QA-017 |
 | FR-M05-03.01 | DEC-051 | Nói thẳng | Không bắt buộc có Tag: nguồn chỉ nêu tối đa (BR-M05-22) |
 | FR-M05-03.02 | DEC-051 | Nói thẳng | "Auto-created, no approval" |
@@ -613,7 +617,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M05-05.08 | DEC-145 | Nói thẳng | Xem TBD-M05-02 |
 | FR-M05-05.09 | DEC-145 | Nói thẳng | — |
 | FR-M05-05.10 | DEC-052, DEC-145  | Nói thẳng | "cached, not live query" |
-| FR-M05-05.11 | DEC-145 | Nói thẳng | — |
+| FR-M05-05.11 | DEC-145 | Suy ra | DEC-145 chỉ tính bài trên feed chính; bài của tài khoản DEACTIVATED, DELETED bị ẩn (M01: DEC-019, FR-M01-13.01) ⇒ không tính |
 | FR-M05-05.12 | DEC-145 | Nói thẳng | — |
 | FR-M05-05.13 | DEC-145 | Nói thẳng | "comment (replies included)" |
 | FR-M05-05.14 | DEC-145 | Nói thẳng | — |
@@ -691,7 +695,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M05-26 | DEC-051 | Nói thẳng | — |
 | BR-M05-27 | DEC-143 | Nói thẳng | — |
 | BR-M05-28 | QA-108 | Nói thẳng | — |
-| BR-M05-29 | DEC-145, DEC-051 | Nói thẳng | "Tag bị vô hiệu hóa không có điểm" từ DEC-051, DEC-145 |
+| BR-M05-29 | DEC-145, DEC-051, DEC-156 | Nói thẳng | "Tag bị vô hiệu hóa không có điểm" từ DEC-051, DEC-145; tương tác của tài khoản đã xóa theo DEC-156 |
 | BR-M05-30 | DEC-052, DEC-145 | Nói thẳng | — |
 | BR-M05-31 | DEC-145 | Nói thẳng | — |
 
@@ -724,6 +728,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | Q-21 | Thiếu chi tiết | Nguồn không nói thứ tự khi bằng điểm, và Topic/Tag có điểm 0 có xuất hiện trong Trending không (QA-235 chỉ nói không đặt ngưỡng tối thiểu). | Chỉ hiện Topic/Tag có điểm lớn hơn 0. Thứ tự: điểm Trending giảm dần; bằng điểm thì số bài mới (bài được đăng trong cửa sổ 7 ngày) nhiều hơn xếp trước; vẫn bằng thì theo tên A–Z. Mỗi mục một hạng riêng (tên không trùng nên không có cùng hạng). | QA-287, DEC-145 |
 | Q-22 | Thiếu chi tiết | Q-07 cho đổi Topic khi sửa bài viết đã gửi. Lúc sửa bài, tác giả có dùng được nút gợi ý Topic không? | A: tác giả dùng được gợi ý Topic khi sửa bài đã gửi, cùng quy tắc như lúc soạn, có ghi phản hồi; Mod/Admin đổi Topic trên bài người khác không dùng gợi ý. | QA-288, DEC-142 |
 | Q-23 | Thiếu chi tiết | Q-07, Q-08 cho Mod/Admin đổi Topic, Tag trên bài người khác. Khi đó tác giả có được thông báo không (M07), và thay đổi có được ghi vào lịch sử sửa bài công khai (DEC-037) không? | Không gửi thông báo cho tác giả; không ghi thay đổi Topic, Tag vào lịch sử sửa bài. | QA-289, DEC-142 |
+| Q-24 | Thiếu chi tiết | (Hỏi khi làm FR M01) Phản hồi gợi ý của tài khoản đã xóa có giữ không? | Giữ lại như nhật ký AI, không còn gắn danh tính. | QA-320, DEC-159 |
 
 ### B.2 TBD
 
@@ -737,7 +742,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | Mã | Điểm cần cân nhắc | Vì sao cần | Quyết định |
 |---|---|---|---|
 | CC-01 | Ghi nhật ký khi Mod vô hiệu hóa hoặc kích hoạt lại Tag, và khi Mod đổi Topic, Tag trên bài người khác. | Chạm tới quyền: đây là thao tác của Mod lên dữ liệu chung hoặc bài của người khác. Thao tác Admin đã được ghi (nhật ký Admin, M10), nhưng nhật ký kiểm duyệt (M08) chỉ liệt kê warn, ban, hide, resolve. | Chấp nhận: ghi vào nhật ký kiểm duyệt — QA-290, DEC-146 |
-| CC-02 | Trang Chính sách quyền riêng tư nêu thêm rằng tiêu đề và nội dung bài viết được gửi cho dịch vụ AI bên thứ ba khi tác giả bấm "Gợi ý topic". | Chạm tới an toàn dữ liệu: trang công bố hiện chỉ nêu Moderation và Embedding, trong khi gợi ý Topic cũng gửi nội dung bài (của học sinh, có thể chưa đủ 18 tuổi) ra ngoài. | Chấp nhận: bổ sung trang Chính sách quyền riêng tư — QA-291, DEC-146 |
+| CC-02 | Trang Chính sách quyền riêng tư nêu thêm rằng tiêu đề và nội dung bài viết được gửi cho dịch vụ AI bên ngoài khi tác giả bấm "Gợi ý topic" (DEC-154 chốt cách ghi "nhà cung cấp dịch vụ AI", không nêu tên). | Chạm tới an toàn dữ liệu: trang công bố hiện chỉ nêu Moderation và Embedding, trong khi gợi ý Topic cũng gửi nội dung bài (của học sinh, có thể chưa đủ 18 tuổi) ra ngoài. | Chấp nhận: bổ sung trang Chính sách quyền riêng tư — QA-291, DEC-146 |
 
 ## Phụ lục C. Sổ nguồn
 
@@ -867,7 +872,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-226 | Nhắc tới | Hiện hành | Không áp dụng: M14: xác nhận DEC-052 giữ nguyên | Nhóm B. M14: xác nhận DEC-052 giữ nguyên |
 | QA-227 | Phụ thuộc | Hiện hành | Chuyển M14 | Nhóm B. M14: Guest xem Trending Topic/Tag |
 | QA-228 | Phụ thuộc | Hiện hành | Chuyển M14 | Nhóm B. M14/M07: Tag không phải đối tượng follow |
-| QA-231 | Nhắc tới | Hiện hành | Không áp dụng: Trending Post (M14) | Nhóm B. Trending Post (M14) |
+| QA-231 | Nhắc tới | Hiện hành | FR-M05-05 | Nhóm B. Trending Post (M14) |
 | QA-232 | Nhắc tới | Sửa một phần bởi QA-233 | Không áp dụng: Trending Post (M14) | Nhóm B. Trending Post (M14) |
 | QA-233 | Nhắc tới | Hiện hành | Không áp dụng: Trending Post (M14) | Nhóm B. Trending Post (M14) |
 | QA-234 | Nhắc tới | Sửa một phần bởi QA-256 | Không áp dụng: M14: phân trang feed | Nhóm B. M14: phân trang feed |
@@ -890,7 +895,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-128 | Nhắc tới | Hiện hành | Không áp dụng: i18n giao diện | Nhóm D. i18n giao diện |
 | DEC-129 | Phụ thuộc | Hiện hành | FR-M05-08.01 | Nhóm D. Nguyên tắc chỉ xóa cứng khi an toàn |
 | DEC-130 | Nhắc tới | Hiện hành | Không áp dụng: chỉ nhắc tới, không quy định hành vi M05 | Nhóm D |
-| DEC-131 | Phụ thuộc | Sửa một phần bởi DEC-146 | Không áp dụng: không quy định hành vi M05; xem CC-02 ở B.3 | Nhóm D. Công bố xử lý nội dung bởi AI bên thứ ba; chưa nêu Topic suggestion |
+| DEC-131 | Phụ thuộc | Sửa một phần bởi DEC-146, DEC-154 | Không áp dụng: không quy định hành vi M05; xem CC-02 ở B.3 | Nhóm D. Công bố xử lý nội dung bởi AI; DEC-146 thêm Topic suggestion; DEC-154 đổi cách ghi thành "nhà cung cấp dịch vụ AI", trang thuộc M01 |
 | DEC-134 | Nhắc tới | Hiện hành | Không áp dụng: chỉ nhắc tới, không quy định hành vi M05 | Nhóm D |
 | DEC-135 | Nhắc tới | Hiện hành | Không áp dụng: chỉ nhắc tới, không quy định hành vi M05 | Nhóm D |
 | DEC-136 | Nhắc tới | Hiện hành | Không áp dụng: chỉ nhắc tới, không quy định hành vi M05 | Nhóm D |
@@ -932,6 +937,13 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-144 | Sở hữu | Hiện hành | FR-M05-02, FR-M05-02.05, FR-M05-02.06, FR-M05-02.15, FR-M05-02.19, BR-M05-12, BR-M05-14, BR-M05-17 | Nhóm A. Chi tiết gợi ý Topic |
 | DEC-145 | Sở hữu | Hiện hành | FR-M05-05, FR-M05-05.01, FR-M05-05.02, FR-M05-05.03, FR-M05-05.04, FR-M05-05.05, FR-M05-05.06, FR-M05-05.08, FR-M05-05.09, FR-M05-05.10, FR-M05-05.11, FR-M05-05.12, FR-M05-05.13, FR-M05-05.14, BR-M05-29, BR-M05-30, BR-M05-31 | Nhóm A. Công thức Trending Topic/Tag mới |
 | DEC-146 | Sở hữu | Hiện hành | FR-M05-09, FR-M05-09.07, FR-M05-10.06, FR-M05-11, FR-M05-11.07 | Nhóm A. Nhật ký thao tác Mod; công bố AI |
+| DEC-156 | Phụ thuộc | Sửa một phần bởi DEC-159 | BR-M05-29 | Nhóm B. M01: dữ liệu khi tài khoản bị xóa (upvote giữ, bookmark xóa) |
+| DEC-159 | Sở hữu | Hiện hành | FR-M05-02.22 | Nhóm B. Giữ phản hồi gợi ý của tài khoản đã xóa; xóa lượt theo dõi Topic (M01, M07) |
+| ISS-259 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-159 | Nhóm B. Đã có DEC-159 |
+| ISS-260 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-159 | Nhóm B. Đã có DEC-159 |
+| QA-319 | Phụ thuộc | Trùng với DEC-159 | — | Nhóm B. Lời trả lời của stakeholder (hỏi khi làm FR M01) |
+| QA-320 | Sở hữu | Trùng với DEC-159 | — | Nhóm B. Lời trả lời của stakeholder (hỏi khi làm FR M01) |
+| DEC-154 | Phụ thuộc | Hiện hành | Chuyển M01 | Thêm tay khi đối chiếu với FR-M01 (scan M05 không bắt được). Trang Privacy Policy/ToS thuộc M01, cách ghi "nhà cung cấp dịch vụ AI" |
 | ISS-207 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-140 | Nhóm A. Đã có DEC-140 |
 | ISS-208 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-140 | Nhóm A. Đã có DEC-140 |
 | ISS-209 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-140 | Nhóm A. Đã có DEC-140 |
@@ -1007,5 +1019,6 @@ Chưa có — chờ giai đoạn thiết kế.
 | DM-7.1 → QA-225 → DEC-125 | Feed gồm 4 tab; tab Trending có sub-view Topic và Tag (M14 hiển thị, M05 cung cấp). Feed Latest/Popular/Personalized của draft bị thay. |
 | DM-4.5, DM-8.1 → QA-043 | Chỉ theo dõi được User, Topic, Post; Tag và Group không phải đối tượng theo dõi (QA-228 nhắc lại cho Tag). Thuộc M07. |
 | QA-022 → DEC-053 | Tìm kiếm gồm cả Tag và Topic (khớp chính xác hoặc tiền tố). Thuộc M06. |
-| DEC-081, DEC-131 → DEC-146 | Nhật ký kiểm duyệt ghi thêm việc vô hiệu hóa, kích hoạt lại Tag và việc đổi Topic, Tag trên bài người khác, cho cả Mod và Admin. Trang Chính sách quyền riêng tư nêu thêm việc gửi tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, cho AI khi gợi ý Topic. |
+| DEC-081, DEC-131 → DEC-146 → DEC-154 | Nhật ký kiểm duyệt ghi thêm việc vô hiệu hóa, kích hoạt lại Tag và việc đổi Topic, Tag trên bài người khác, cho cả Mod và Admin. Trang Chính sách quyền riêng tư nêu thêm việc gửi tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, cho AI khi gợi ý Topic. DEC-154 (M01) chốt cách ghi trên trang là "nhà cung cấp dịch vụ AI", không nêu tên nhà cung cấp; trang thuộc M01. |
+| DEC-156 → DEC-159 (M01) | Khi tài khoản bị xóa: upvote đã cho vẫn được tính, bookmark và lượt theo dõi Topic bị xóa (Trending và lượt theo dõi Topic thay đổi theo); phản hồi gợi ý Topic được giữ để đánh giá AI, không gắn danh tính. Bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn nên không tính Trending. |
 | QA-232 → QA-233; QA-234 → QA-256; DEC-139 → QA-266 | Không ảnh hưởng hành vi M05 (Trending Post, SSR, quy ước tài liệu). |

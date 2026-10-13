@@ -49,6 +49,8 @@
 - **Source:** QA-026 / ISS-043
 - **Rationale:** Đảm bảo đồng nhất account, tránh duplicate. Auto-link là practice phổ biến (Google, GitHub, Facebook đều làm vậy với verified email).
 
+**[Amended 2026-10-11 — DEC-147: liên kết cả khi email chưa xác minh; thông báo trong ứng dụng và email]**
+
 ---
 
 ### DEC-011
@@ -57,6 +59,8 @@
 - **Decision:** Post bị xóa sử dụng soft delete: set `deleted_at` timestamp, `publish_state = 'deleted'`. Cron job hard-delete sau 7 ngày. User có thể khôi phục trong 7 ngày nếu mod chưa removed. Sau 7 ngày không thể khôi phục.
 - **Source:** QA-027 / ISS-044
 - **Rationale:** 7 ngày đủ để user nhận ra lỡ tay xóa mà không tích lũy data rác lâu dài.
+
+**[Amended 2026-10-11 — DEC-162: xóa ở mọi trạng thái, khôi phục về trạng thái trước khi xóa, hạn 7 × 24 giờ]**
 
 ---
 
@@ -76,6 +80,8 @@
 - **Source:** QA-030, QA-031 / ISS-044
 - **Rationale:** Platform phục vụ học sinh — pre-scan cần thiết để kiểm soát nội dung. Edit pre-scan gây UX tệ cho đã-vetted content. Retroactive scan khi re-enable gây burst load không kiểm soát được.
 
+**[Amended 2026-10-11 — DEC-161: quét lại khi sửa — điểm ≥ 0.5 thì FLAGGED, lỗi thì giữ nguyên]**
+
 ---
 
 ### DEC-014
@@ -94,6 +100,8 @@
 - **Source:** QA-050, QA-051, QA-052 / ISS-054
 - **Rationale:** Forum community norm (free display name) + mention usability (unique handle without spaces).
 
+**[Amended 2026-10-11 — DEC-148: so trùng username không phân biệt hoa thường; giới hạn display_name; đổi tên]**
+
 ---
 
 ### DEC-016
@@ -103,6 +111,8 @@
 - **Source:** QA-049, QA-059, QA-060, QA-061 / ISS-054, ISS-056
 - **Rationale:** Reset = security event (revoke); change = normal update (no revoke). 15min for reset = tighter security window.
 
+**[Amended 2026-10-11 — DEC-151: magic link dùng một lần; đặt lại mật khẩu gửi thông báo]**
+
 ---
 
 ### DEC-017
@@ -111,6 +121,8 @@
 - **Decision:** JWT (stateless). Access token 1 hour. Refresh token 30 days, rotating (new token each use, old invalidated). `refresh_tokens` table in PostgreSQL. Multi-device: allowed — each device independent JWT + SSE connection. SSE pub/sub naturally handles multi-device (multiple SSEConnections per user in Set).
 - **Source:** QA-057, QA-058 / ISS-055
 - **Rationale:** JWT simple for thesis scale. Rotating refresh token adds security without Redis overhead. Multi-device doesn't complicate SSE architecture.
+
+**[Amended 2026-10-11 — DEC-151: hạn 30 ngày tính lại sau mỗi lần làm mới]**
 
 ---
 
@@ -130,6 +142,10 @@
 - **Source:** QA-063, QA-064, QA-065, QA-066 / ISS-057
 - **Rationale:** Posts are standalone → safe to hide. Comments are part of others' threads → tombstone preserves thread integrity. 14 days sufficient for accidental deactivation recovery.
 
+**[Amended 2026-10-11 — DEC-148, DEC-149: 14 × 24 giờ; username giữ vĩnh viễn, email giải phóng khi DELETED]**
+
+**[Amended 2026-10-11 — DEC-156: danh mục dữ liệu xóa và giữ khi DELETED]**
+
 ---
 
 ### DEC-020
@@ -138,6 +154,8 @@
 - **Decision:** Trigger: @ + min 1 char, debounce 300ms, spaces allowed in query. Search: pg_trgm on display_name AND username. Priority (Group): following > same group > global. Priority (Post, no group): following > common group > global. Dropdown: top 5. Each item: avatar + display_name + @username (muted). Render: display_name + brand highlight (no @ shown). Stored: user_id (auto-updates on name change). Node atomic: no trim/edit label.
 - **Source:** QA-054, QA-055, QA-056 / ISS-054
 - **Rationale:** pg_trgm handles Vietnamese names + spaces naturally. Priority tiers surface relevant people first. Atomic node prevents misrepresentation via label editing.
+
+**[Amended 2026-10-11 — DEC-153: thứ tự trong tầng, loại tài khoản không ACTIVE khỏi danh sách gợi ý]**
 
 ---
 ## Phase 5 — M02: User Profile
@@ -160,13 +178,19 @@
 - Visitor: read-only, tabs = Posts only
 - Conditional on `request.user === profile.user`
 
+**[Amended 2026-10-13 — DEC-170: chủ hồ sơ thêm tab "Đã xóa"]**
+
 ### DEC-024: Profile content tabs
 - Owner: Posts | Bookmarks (default: Posts)
 - Visitor: Posts only
 
+**[Amended 2026-10-13 — DEC-170: chủ hồ sơ thêm tab "Đã xóa"]**
+
 ### DEC-025: Followers / Following display
 - Count shown on profile
 - Full list public (no privacy restriction)
+
+**[Amended 2026-10-13 — DEC-171, DEC-172: Guest phải đăng nhập mới xem danh sách; danh sách chỉ người dùng, không hiện DEACTIVATED, BANNED]**
 
 ### DEC-026: Username change history
 - NOT displayed on profile — no history table in v1
@@ -189,6 +213,8 @@ Bold, italic, underline, strikethrough, highlight; Heading H1–H3; Bullet/numbe
 - Fields: title, content_json (ProseMirror JSON), content_text (plain text for search)
 - Optional poll (separate table), attachment section below body
 
+**[Amended 2026-10-11 — DEC-164, DEC-169: phần bắt buộc, giới hạn độ dài; không có ảnh bìa]**
+
 ### DEC-031: publish_state machine
 DRAFT | PENDING | PUBLISHED | HIDDEN | REJECTED | DELETED
 - DRAFT: composing, not submitted
@@ -203,12 +229,16 @@ NORMAL | FLAGGED | HIDDEN
 - FLAGGED: AI/report flagged, awaiting mod
 - HIDDEN: mod-hidden, author cannot self-unhide, must appeal (M09)
 
+**[Amended 2026-10-11 — DEC-161: bài mới NORMAL; "gỡ" = HIDDEN]**
+
 ### DEC-033: lock_level + locked_by
 - lock_level: NONE | COMMENT_LOCKED | FULLY_LOCKED
 - COMMENT_LOCKED: author OR mod can set (blocks new comments)
 - FULLY_LOCKED: mod only (blocks comments + reactions)
 - locked_by: NULL | AUTHOR | MOD — if MOD, author cannot override
 - Visibility rule: publish_state=PUBLISHED AND mod_state=NORMAL
+
+**[Amended 2026-10-11 — DEC-167: FULLY_LOCKED chặn bình luận, upvote, bình chọn poll]**
 
 ### DEC-034: Pre-scan flow
 Submit → PENDING → AI scan → clean: PUBLISHED; flagged: stay PENDING → mod review → approve: PUBLISHED | reject: REJECTED + reason → author resubmit → PENDING
@@ -227,6 +257,8 @@ Submit → PENDING → AI scan → clean: PUBLISHED; flagged: stay PENDING → m
 - Once closed: cannot reopen
 - After close: always show result % regardless of show_result_before_vote
 
+**[Amended 2026-10-11 — DEC-165: bỏ allow_change_vote, mặc định chọn nhiều, khóa cấu hình sau khi gửi, thêm lựa chọn, hạn, rút phiếu, %]**
+
 ### DEC-037: Edit history
 - Post: full history in post_edits table; public badge "(đã chỉnh sửa)" + "Xem lịch sử"
 - Comment: edited_at timestamp only; badge "(đã chỉnh sửa)"; no history UI
@@ -235,6 +267,8 @@ Submit → PENDING → AI scan → clean: PUBLISHED; flagged: stay PENDING → m
 - DELETED: hidden from feed
 - 7-day window: author can recover → PUBLISHED (tab "Đã xóa" on profile)
 - After 7 days: cron job hard deletes
+
+**[Amended 2026-10-11 — DEC-162: khôi phục về trạng thái trước khi xóa; 7 × 24 giờ]**
 
 ---
 ## Phase 5 — M04: Comment
@@ -266,6 +300,8 @@ Not supported in comments. Share files via post instead.
 
 ### DEC-045: @Mention + Notification
 @mention uses shared M01 logic. Always triggers notification regardless of mention location (post or comment).
+
+**[Amended 2026-10-11 — DEC-153: thông báo nhắc tên gửi khi nội dung công khai]**
 
 ### DEC-046: Quote-reply
 Click Reply → editor auto-inserts blockquote with original content + author name. Uses Tiptap blockquote extension.
@@ -399,6 +435,8 @@ Infinite scroll, 15 results/load, max 120 total results (8 loads), cursor-based 
 | DM / Group chat message | Yes | No |
 Email limited to: security (password change), account-deletion warning, ban/unban, ban-related appeals only. No digest email.
 
+**[Amended 2026-10-11 — DEC-147, DEC-151: thêm sự kiện liên kết Google (in-app + email); đặt lại mật khẩu cũng là "password changed"]**
+
 ### DEC-066: Upvote notification batching
 Batch upvotes (post + comment) within a 5-minute rolling window into one notification ("A và N người khác đã upvote..."). Single upvote shows the voter's name directly.
 
@@ -476,12 +514,16 @@ Warning status is fully PRIVATE — visible only to the user themselves and to m
 
 > **AMENDED by DEC-118 and DEC-122 (Phase 5, M12):** the private scope above is narrowed by one deliberate, explicit public exception — a user at HEAVY warning level, or a BANNED user, is excluded from the public leaderboard for the duration of that state. This is the only public-facing consequence carved out of DEC-079's privacy guarantee; LIGHT/MEDIUM warn levels remain unaffected, and for BANNED users specifically, their profile/post/comment content stays visible as normal (see DEC-122) — only leaderboard eligibility is affected.
 
+**[Amended 2026-10-11 — DEC-163: phạm vi "tạo bài mới" ở M03]**
+
 ### DEC-080: Ban types + escalation
 - Temporary ban (auto-escalating): 1st ban = 30 days, 2nd ban = 90 days, 3rd+ ban = permanent
 - Permanent ban (manual): mod/admin can directly issue for severe first-offense violations, bypassing escalation
 - Auto-ban trigger: user violates again while already at HEAVY warning level (warn #7+) → escalates to ban instead of another warning cycle
 - 2 separate mod UI actions: "Ban" (auto-escalating duration) vs "Ban vĩnh viễn" (manual permanent override)
 - Both always require MOD/ADMIN — never AI-triggered
+
+**[Amended 2026-10-11 — DEC-152: ban tạm thời hết hạn thì tự về ACTIVE]**
 
 ### DEC-081: Moderation audit log
 - Log fields: actor_id (mod/AI), action_type (warn/ban/hide/resolve), target_id, reason, timestamp
@@ -550,6 +592,8 @@ Each resolved report action, warning, or ban may be appealed exactly once. A rej
 5. Site-wide announcement banner
 (Email service toggle explicitly excluded — not needed for v1)
 
+**[Amended 2026-10-11 — DEC-152: phạm vi của tạm dừng đăng ký và chế độ bảo trì]**
+
 ### DEC-093: AI toggle granularity
 Two-tier hierarchy:
 - Master "AI Layer" toggle: overrides everything OFF when disabled
@@ -578,6 +622,8 @@ One Moderation API call drives two independent decision branches from the same c
 - **Branch A (Content Gate)**: score≥0.9 → AI auto-reject (Post) / auto-hide (Comment), skip mod; 0.5≤score<0.9 → hold for mod review (Post stays PENDING, Comment stays hidden+queued); <0.5 → publish/show normally
 - **Branch B (Warning)**: score≥0.9 → AI auto-issues warning; 0.5≤score<0.9 → mod decides during their review; <0.5 → no warning
 Same 0.9/0.5 thresholds shared across Post and Comment. Values are placeholder/tunable pending real usage data.
+
+**[Amended 2026-10-11 — DEC-166: bài bị AI từ chối — lý do, gửi lại]**
 
 ### DEC-099: AI failure handling (distinct from admin AI-off toggle)
 Two distinct scenarios:
@@ -728,13 +774,19 @@ Vietnamese-only at MS1 (no language switcher), but the UI is built with an i18n-
 Audit/mod action log and chat message content are both kept indefinitely — no hard-delete, no archival/cleanup cron — consistent with the existing Notification retention decision (DEC-071: "no retention policy"). Rationale: log/audit-type data is conventionally never deleted in production systems (compliance/transparency/trace value), unlike user content which users may legitimately want removed. Additional technical reason: many other tables reference audit log/chat message rows via FK (reports reference message_id, warn actions reference report rows, etc.) — hard-deleting them risks breaking referential integrity or losing investigative context.
 **General principle established for all future hard-delete decisions in this project:** hard-delete only when it is genuinely safe — i.e. there is a clear justification (privacy/PII that must be erased, or cleaning up content a user deliberately deleted with a sensible UX reason) AND it does not break referential integrity with other tables that reference it. Existing hard-delete decisions (Post 7-day soft-delete then hard-delete — DEC-011; Comment permanent delete — DEC-038; Account PII wipe on DELETED — DEC-019) all satisfy this principle and remain unchanged.
 
+**[Amended 2026-10-11 — DEC-156: tin nhắn, nhật ký của tài khoản đã xóa hiện "[Người dùng đã xóa]", vẫn tra cứu qua username]**
+
 ### DEC-130: File/media upload — no virus/malware scanning
 No dedicated malware scan layer is added. The existing per-feature type/size whitelist (image formats only — JPEG/PNG/WebP, size caps per feature) combined with CDN-side (Cloudinary) image re-encoding/transcoding on upload (which naturally strips malicious payloads hidden in image files) is considered sufficient for MS1, given upload scope is image-only (no executable file types accepted).
+
+**[Amended 2026-10-11 — DEC-160: tài liệu đính kèm bài vẫn được, không quét virus]**
 
 ### DEC-131: AI — third-party data privacy disclosure
 A public Privacy Policy / Terms of Service page is added, explicitly disclosing that publicly posted content (posts/comments) is processed by a third-party AI service (OpenAI — Moderation API for content scanning, Embedding API for semantic search). Linked from the footer and/or the registration flow. Low-cost (a single static content page) but materially increases transparency — judged especially important given the user base includes minors (THPT students).
 
 **[Amended 2026-10-07 — DEC-146: công bố thêm Topic Suggestion, kể cả nội dung chưa đăng]**
+
+**[Amended 2026-10-11 — DEC-154: ghi "nhà cung cấp dịch vụ AI", không nêu tên; trang thuộc M01]**
 
 ### DEC-132: AI — Topic Suggestion hallucination handling
 Topic Suggestion (GPT-4o-mini) output is validated against the system's fixed 11-topic whitelist. If the returned topic does not match, it is treated as a suggestion failure: a non-blocking error is shown ("Không thể gợi ý chủ đề lúc này, vui lòng chọn thủ công") and the user selects manually. This deliberately reuses the exact same UX pattern already established for AI transient failure (DEC-099: timeout/retry exhausted) — even though the underlying technical cause differs (hallucination vs. timeout), the user-facing experience is identical, requiring no new UI pattern.
@@ -768,6 +820,8 @@ ISS-197 through ISS-203 and ISS-029 (see issue-queue.md / qa-log.md QA-256–QA-
 
 ### DEC-138: Consent to Privacy Policy/ToS is mandatory at registration
 A user cannot register unless they explicitly consent to the Privacy Policy/ToS (the public page decided in DEC-131). Privacy is a mandatory part of the product; its detailed scope (personal-data inventory, user rights, handling of users under 18, legal basis, and how permanent retention in DEC-129 relates to PII erasure on account deletion) is deliberately deferred and tracked as **OPEN-008**. Source: QA-264.
+
+**[Amended 2026-10-11 — DEC-155, DEC-157: lưu phiên bản đã đồng ý, đồng ý lại khi chính sách đổi; ô đồng ý kèm cam kết dưới 16 tuổi]**
 
 ### Issues Closed
 ISS-204 (partial; see OPEN-008).
@@ -841,3 +895,208 @@ Source: QA-290, QA-291
 
 ### Issues Closed
 ISS-207 – ISS-231.
+
+---
+
+## Functional Requirement — M01: Authentication & Account
+
+### DEC-147: M01 — Google sign-in linking (amends DEC-010, DEC-065)
+- Signing in with Google whose email matches an existing email account links Google to that account automatically, without confirmation, whether or not the account's email was verified. If it was not verified (verify_level NONE), it becomes EMAIL_VERIFIED and the user continues at Step 3. Accepted risk: someone who registered first with another person's email keeps their password.
+- After linking, the owner is notified in-app and by email (security group, like password change). DEC-065 gains the event "Google account linked — In-app: Yes, Email: Yes".
+- Source: QA-292, QA-297
+
+### DEC-148: M01 — Credential and identity rules (amends DEC-015, DEC-019)
+- Password: 8–64 characters; no required character classes; any character allowed, including spaces and Vietnamese diacritics; no trimming. A new password (change or reset) must differ from the current one. No common-password blocklist, no comparison with email/username.
+- username: letters a–z, A–Z, digits, "_" only, 3–20 characters (DEC-015). Uniqueness and @mention search are case-insensitive; displayed with the case the user typed ("Duc_PV" and "duc_pv" are the same username).
+- display_name: 1–50 characters after trimming leading/trailing spaces; letters (with diacritics), digits, spaces and . , - _ ' ( ) only; no emoji or other symbols; not unique (DEC-015).
+- Both names can be changed any number of times on the Edit Profile page (M02) under the same rules; a username given up by a rename becomes available immediately.
+- When an account becomes DELETED: its email is released and can register a new account; its username is retired permanently and can never be taken again.
+- Source: QA-295, QA-296, QA-305
+
+### DEC-149: M01 — Deactivation window, reactivation and deleted-account display (clarifies DEC-019, amends QA-018)
+- The 14-day window is exactly 14 × 24 hours from the moment of deactivation (e.g. deactivated 01/10 21:00 → reactivation possible until before 15/10 21:00, DELETED at 15/10 21:00).
+- One warning email is sent 24 hours before automatic deletion.
+- Reactivation page: the user enters only the account email and receives a 6-digit code by email. The code is valid 15 minutes; a code becomes invalid after 5 wrong entries; a new code can be requested at least 60 seconds after the previous one. Correct code → ACTIVE and the device is signed in automatically.
+- Comments of a DELETED account keep their content; author shown as "[Người dùng đã xóa]" with the default avatar. This replaces QA-018's "[Bình luận từ tài khoản đã xóa]" tombstone.
+- Source: QA-293, QA-299, QA-300, QA-302
+
+### DEC-150: M01 — Moderator view of deactivated authors (scope extension)
+- While an account is DEACTIVATED, MOD and ADMIN can see its hidden posts and the real identity behind the "Tài khoản tạm thời vô hiệu hoá" author label, so that deactivation cannot be used to escape moderation (same reasoning as QA-015). Regular users see the replacement display. After DELETED, personal data is erased, so there is no identity left to show.
+- Source: QA-294
+
+### DEC-151: M01 — Sessions, magic links, password reset (amends DEC-016, DEC-017, DEC-065)
+- Each refresh issues a new refresh session valid 30 days from that refresh (e.g. sign-in 01/10, refresh 25/10 → expires 24/11).
+- Every magic link (verification, password reset) is single-use; sending a new link invalidates the previous one.
+- A successful password reset also sends the "password changed" notification in-app and by email.
+- "Forgot password": every request, including an email with no account, shows the same message "Liên kết đã được gửi, vui lòng kiểm tra email của bạn". A DEACTIVATED account gets no link and is pointed to the reactivation page. A BANNED account may reset its password, only so it can sign in to the locked screen and submit an appeal (DEC-085); after the reset it still sees only the locked screen.
+- Changing password (in Settings) or profile information is available only while the account is ACTIVE.
+- Source: QA-298, QA-302, QA-306, QA-308
+
+### DEC-152: M01 — Registration pause, maintenance mode, ban expiry, locked screen (amends DEC-092, DEC-080)
+- While the registration pause (DEC-092) is on, new accounts cannot be created by email or by first-time Google sign-in; linking Google to an existing account still works; accounts that finished Step 1 can still complete Steps 2 and 3.
+- While maintenance mode is on, only ADMIN can sign in; other users are refused and their existing sessions cannot be used.
+- A temporary ban returns the account to ACTIVE automatically at the moment it expires.
+- The OK button on the locked (banned) screen signs the user out.
+- Source: QA-303, QA-304, QA-307
+
+### DEC-153: M01 — @mention list and notification (amends DEC-020, DEC-045)
+- Within the same priority tier, users who match the typed text more closely come first.
+- A mention inside a comment uses the context of the post containing the comment (post in a Group → Group ordering).
+- The suggestion list never shows DEACTIVATED, DELETED or BANNED accounts, nor accounts that have not completed Step 3.
+- Existing mentions of a DEACTIVATED or DELETED account show the replacement name ("Tài khoản tạm thời vô hiệu hoá" / "[Người dùng đã xóa]") and do not link to a profile.
+- The mention notification is sent when the content becomes publicly visible (after the pre-publish scan); editing content notifies only newly added mentions.
+- Source: QA-301
+
+### DEC-154: M01 — Privacy Policy/ToS page: data categories, AI wording, legal basis, sections (amends DEC-131; narrows OPEN-008)
+- The page groups data into four categories, without field-level detail: (1) account and profile information, including the email and name received from Google when signing in with Google; (2) content you create (posts, comments, messages, attachments, likes, bookmarks); (3) data kept for community safety (reports, warnings, bans, appeals); (4) data processed by an AI service provider. Login sessions are not mentioned. The field-level inventory is kept in the FR documents for design.
+- AI wording: "processed by an AI service provider" — the provider is not named (amends DEC-131's naming of OpenAI; the disclosure that content leaves iShare is kept). Other external services (sign-in, image storage, email) are covered by one general section; no provider names; the page states that iShare does not sell user data.
+- Legal basis: consent at registration and at each new policy version; data retained after account deletion is kept for community safety.
+- Sections: data collected; purposes; external services; retention; your rights; users under 16; policy changes; contact. Terms of Service part: community rules and prohibited content; moderation and warnings; account locking and appeals; rights over posted content. Exact wording is written later; the contact address is decided at deployment.
+- The page belongs to M01 (shown and consented to in the registration flow).
+- Source: QA-309, QA-313, QA-314
+
+### DEC-155: M01 — Consent record and re-consent (amends DEC-138)
+- The system records the time and the policy version each user consented to.
+- Users are asked to consent again only when the policy changes to a new version, at their next sign-in. A user who declines cannot use the system and may only sign out or deactivate the account; they are asked again at the next sign-in.
+- Withdrawing consent is done by deactivating the account (existing flow, DEC-019).
+- Source: QA-310, QA-315
+
+**[Amended 2026-10-11 — DEC-158: hỏi lại ở lần mở ứng dụng kế tiếp; phiên bản do đội phát triển phát hành khi triển khai]**
+
+### DEC-156: M01 — Data on account deletion (amends DEC-019, DEC-129)
+- On DELETED, erased: email (released, DEC-148), password, Google link, display_name, avatar, bio, Lớp/Khối, all login sessions, bookmarks, follow relations (both directions), consent records.
+- Kept: username (retired, DEC-148), account state, role; posts stay hidden (DEC-019); comments show "[Người dùng đã xóa]" (DEC-149); upvotes already given still count for their recipients without identifying the giver.
+- Chat messages, moderation logs and AI decision logs are kept (DEC-129): message content stays, sender shown as "[Người dùng đã xóa]"; logs stay linked to the deleted account through its retained username so MOD/ADMIN can investigate. The policy page states that some data is kept after deletion for community safety.
+- Source: QA-311, QA-312
+
+**[Amended 2026-10-11 — DEC-159: xóa cả theo dõi Topic, bài viết; giữ phản hồi gợi ý Topic]**
+
+### DEC-157: M01 — Data copy right and users under 16 (amends DEC-138; narrows OPEN-008)
+- No "download my data" feature in MS1. The policy page states the right to obtain a copy; how to request it is announced at deployment.
+- No age question. The Step 1 consent checkbox reads: "Tôi đồng ý với Điều khoản và Chính sách quyền riêng tư. Nếu dưới 16 tuổi, tôi đã được cha mẹ hoặc người giám hộ đồng ý." The policy page has a section for users under 16. A parent-confirmation flow can be added later if real deployment requires it.
+- Source: QA-315, QA-316
+
+### DEC-158: M01 — Re-consent timing and policy versioning (amends DEC-155)
+- "Next sign-in" in DEC-155 means the next time the user opens the app, including while an existing login session is still valid; the user must consent to the new version before continuing.
+- New policy versions are released by the development team as part of a deployment: the page content and its version number live in the codebase (same approach as policy constants, DEC-090). There is no Admin screen for editing or publishing the policy.
+- Source: QA-317, QA-318
+
+### DEC-159: M01/M05 — Follows and Topic-suggestion feedback on account deletion (amends DEC-156)
+- On DELETED, all follows held by the account are erased: users, Topics and posts it followed, plus users following it. Follower counts of those Topics and users decrease accordingly.
+- Topic-suggestion feedback records (M05: suggested Topics vs. chosen Topics) are kept, like AI decision logs (DEC-156), for AI quality evaluation (M13); they contain no post content and no longer identify the user.
+- Source: QA-319, QA-320
+
+### Issues Closed
+ISS-232 → ISS-260
+
+---
+## Functional Requirement — M03: Post & Content
+
+### DEC-160: M03 — Document attachments kept without malware scanning (amends DEC-130)
+- Posts keep document attachments as in DEC-035 (PDF/DOCX/XLSX/PPTX, 20 MB/file, max 3), alongside images (JPEG/PNG/WebP, 5 MB/file, max 10).
+- Documents are not scanned for malware. DEC-130's "image-only" premise does not cover them; the stakeholder accepts this risk for MS1 and will revisit it as a security item later.
+- Source: QA-321
+
+### DEC-161: M03 — Moderation state of posts (clarifies DEC-032, amends DEC-013)
+- A new post starts with moderation state NORMAL; while it is PENDING, it is hidden by its publish state.
+- "Removed by Mod/Admin" (DEC-011, DEC-113, DEC-115) is the moderation state HIDDEN; no separate "removed" state.
+- Re-scan after editing a PUBLISHED post: score < 0.5 → unchanged; score ≥ 0.5 (including ≥ 0.9) → FLAGGED (hidden, awaiting Mod); scan failure → unchanged, the post stays visible. The 0.9 auto-reject applies only to newly submitted posts.
+- Source: QA-322, QA-323
+
+### DEC-162: M03 — Edit, delete and restore by post state; restore window (amends DEC-011, DEC-038)
+- Author may edit: DRAFT, REJECTED, PUBLISHED, self-HIDDEN, and posts under any lock level. Not editable: PENDING, moderation-HIDDEN (must appeal), DELETED (restore first).
+- Author may delete a post in any state except DELETED; every deletion goes through the DELETED window.
+- Restore returns the post to the state it had before deletion (PUBLISHED → PUBLISHED as in DEC-038); a PENDING post is restored as DRAFT. A post removed by Mod (moderation-HIDDEN) cannot be restored.
+- The restore window is 7 × 24 hours from the moment of deletion (e.g. deleted 01/10 21:00 → restorable until before 08/10 21:00).
+- Source: QA-324, QA-330
+
+### DEC-163: M03 — Posting restrictions under MEDIUM/HEAVY warning (clarifies DEC-079)
+- "Cannot create new posts" covers every action that makes a never-public post public or starts one: saving a new draft, submitting an existing draft, resubmitting a REJECTED post.
+- Still allowed: editing an already published post, restoring a deleted post, voting in polls.
+- Source: QA-325
+
+### DEC-164: M03 — Required content and length limits (amends DEC-030)
+- Submit requires a title and either content or a poll (a poll substitutes for content; attachments do not).
+- A draft must not be empty: at least one of title, content, poll, attachment.
+- Title max 150 characters; content max 6,000 words, a word being a whitespace-separated token (as DEC-144), counted over the text readers see. Limits apply to drafts and submissions.
+- The editor warns immediately when a limit is exceeded, showing the current count against the limit; saving or submitting over the limit is rejected and the text is kept.
+- Source: QA-326
+
+### DEC-165: M03 — Poll details (amends DEC-036)
+- The allow_change_vote option is removed: while a poll is open, voters can always change or withdraw their vote.
+- Options: single/multiple choice (default multiple), show results before voting (default off). Both are locked once the post is submitted.
+- A poll can be added or removed only before the post is submitted. After submission the author can only add options (total still ≤ 10) and change the end time; existing options cannot be edited or deleted. Only the author adds options.
+- End time is required and must be ≥ now; while the poll is open it can be moved earlier or later (≥ now); "close now" sets it to now. A closed poll cannot be reopened.
+- Result % = selections of an option ÷ total selections, rounded to whole numbers (the displayed sum may be 99% or 101%). The author may vote in their own poll.
+- Source: QA-327
+
+### DEC-166: M03 — Posts auto-rejected by AI (details DEC-098 for posts)
+- The author sees the violation category detected by AI (DEC-097 categories).
+- The author can edit and resubmit without limit; each resubmission is scanned again. Disputes go through M09 (DEC-133).
+- Source: QA-328
+
+### DEC-167: M03 — Scope of FULLY_LOCKED (clarifies DEC-033)
+- FULLY_LOCKED blocks new comments, upvotes and poll voting (including changing or withdrawing a vote). Bookmark and report remain available.
+- Source: QA-329
+
+### DEC-168: M03 — Moderator visibility of non-public posts
+- MOD and ADMIN do not see other users' DRAFT, self-HIDDEN or REJECTED posts. They see PENDING posts through the review queue, and FLAGGED or moderation-HIDDEN posts through M08/M09.
+- Rationale (stakeholder): review applies to content that others will read.
+- Source: QA-331
+
+### DEC-169: MS1 scope — no Accepted Answer, no post cover image
+- Accepted Answer (draft DM-4.2.1) is not supported in MS1, system-wide (affects M03, M04, M12).
+- Posts have no cover image; images are used through attachments.
+- Source: QA-332, QA-333
+
+### Issues Closed
+ISS-261 → ISS-273
+
+## Functional Requirement — M02: User Profile
+
+### DEC-170: M02 — Profile tabs of the owner (amends DEC-023, DEC-024)
+- Owner sees three tabs: Posts | Bookmarks | Deleted (default: Posts). Visitors see Posts only.
+- The Deleted tab lists the owner's deleted posts still inside the restore window; listing and restore are M03 (DEC-038, DEC-162).
+- Source: QA-334
+
+### DEC-171: M02 — Guest access to profiles (extends QA-011)
+- Guest can view any profile page read-only (profile info, follower/following counts, Posts tab).
+- Opening the follower or following list requires login; the counts stay visible.
+- Source: QA-335
+
+### DEC-172: M02 — Follower/following lists (amends DEC-025)
+- "Following" on the profile counts and lists users only; followed Topics and posts are not shown.
+- DEACTIVATED and BANNED accounts do not appear in either list and are not counted; they reappear when the account is ACTIVE again. DELETED accounts are removed by DEC-159.
+- A BANNED account's own profile page remains visible with its label (DEC-122); this decision covers the lists only.
+- Source: QA-336
+
+### DEC-173: M02 — Additional profile fields (clarifies QA-067)
+- Besides QA-067, the profile shows Lớp/Khối (only when set) and the joined date.
+- Stars received and stars given are not shown on the profile.
+- Source: QA-337
+
+### DEC-174: M02 — Bookmarks of posts that become unavailable
+- When a saved post becomes unviewable to the saver (deleted by author within the restore window, hidden by moderation, author DEACTIVATED, saver no longer a member of the Private group), the bookmark is kept and the Bookmarks tab shows "Nội dung không tồn tại" at the same position, with no reason; the user can remove it.
+- When the post becomes viewable again, the entry shows the post again.
+- When the post is permanently deleted or its author becomes DELETED, the bookmark is removed.
+- Source: QA-338
+
+### DEC-175: M02 — Posts tab content
+- Visitors (including Guest) see the user's published posts that are not hidden and not posted anonymously; posts in a Private group are shown only to members of that group.
+- The owner additionally sees own DRAFT, PENDING, REJECTED and self-HIDDEN posts, and own anonymous posts marked as anonymous.
+- Source: QA-339
+
+### DEC-176: M02 — Profile details
+- No start-of-school-year reminder to update Lớp/Khối in MS1 (resolves QA-034's "có thể").
+- All profile lists are newest first: Posts by creation time, Bookmarks by save time, follower/following lists by follow time.
+- A user without an avatar shows a default avatar; its form (generic image or the first letter of display_name) is decided at design. DELETED accounts use the generic image.
+- Bio: leading/trailing spaces are trimmed before counting; a bio of only spaces is empty; each emoji and each line break counts as one character. Lớp/Khối can be cleared back to empty.
+- /u/{username} is case-insensitive. After a rename the old address does not redirect: it shows "người dùng không tồn tại" unless another user has taken that username. An unknown username also shows "người dùng không tồn tại".
+- Source: QA-340
+
+### DEC-177: M02 — No moderator removal of avatar or bio in MS1
+- MOD and ADMIN cannot remove or reset another user's avatar or bio. Handling a user report stays as in M08 (warning or ban).
+- Source: QA-341
+
+### Issues Closed
+ISS-274 → ISS-281
