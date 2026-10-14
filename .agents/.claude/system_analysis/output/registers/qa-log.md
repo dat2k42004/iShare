@@ -1069,7 +1069,7 @@
 | QA-320 | ISS-260: Phản hồi gợi ý Topic của tài khoản đã xóa? | Theo đề xuất — giữ lại như nhật ký AI; bản ghi chỉ gồm Topic gợi ý và Topic được chọn, không còn gắn danh tính |
 
 ---
-## Functional Requirement — M03: Post & Content (QA-321 → QA-333)
+## Functional Requirement — M03: Post & Content (QA-321 → QA-333, QA-350 → QA-351)
 
 | ID | Question | Answer |
 |----|----------|--------|
@@ -1086,6 +1086,8 @@
 | QA-331 | ISS-271: Mod xem bài chưa công khai của người khác? | "không mở nháp nhé, vì tinh thần nháp chưa public thì ai duyệt? ta hiểu duyệt là bài mà để cho người khác đọc được!" — áp dụng cả bài tự ẩn, bài bị từ chối |
 | QA-332 | ISS-272: Accepted Answer có trong MS1? | "MS1 không hỗ trợ chức năng accepted answer!" |
 | QA-333 | ISS-273: Ảnh bìa bài viết? | "không có ảnh bìa, nếu có ảnh đính kèm thì dùng thôi!" |
+| QA-350 | ISS-290: Bài hết 7 ngày khôi phục xử lý thế nào; ai xem lại bài đã xóa hẳn? | Đồng ý 4 đề xuất (giữ toàn bộ dữ liệu, Mod/Admin và tác giả xem lại như DEC-179, bookmark và trừ điểm tính tại lúc chuyển cờ); "thêm note định nghĩa đã xoá hẳn trong trường hợp này là như nào nhé, chứ không phải là xoá hết dữ liệu đâu" |
+| QA-351 | ISS-291: Bài tự ẩn có né được kiểm duyệt không (Mod không xem được; sửa trong lúc ẩn rồi hiện lại không bị quét)? | Mod xem bài Tự ẩn trong báo cáo, lịch sử báo cáo, khiếu nại: "Đồng ý với bạn nói"; quét lại: "Chọn cách 2 nhé!" — quét khi tác giả hiện lại bài Tự ẩn đã được sửa trong lúc ẩn |
 
 ---
 
@@ -1101,3 +1103,18 @@
 | QA-339 | ISS-279: Tab Bài viết hiện bài nào? | "chọn A đi, đồng ý!" — người xem: bài đã đăng công khai, không ẩn danh, bài nhóm Private chỉ với thành viên; chủ hồ sơ thêm nháp, chờ duyệt, bị từ chối, tự ẩn và bài ẩn danh của mình (có dấu "ẩn danh") |
 | QA-340 | ISS-280: Danh sách xác nhận chi tiết hồ sơ | Nhắc Lớp/Khối: "cái này không làm ở ms1"; thứ tự: "cứ mới nhất là ưu tiên"; avatar: "hiện avatar mặc định, hoặc avatar là chữ cái đầu tiên của displayname or smth else"; bio: "không xét khoảng trắng đầu/cuối", Lớp/Khối optional; địa chỉ /u/: "ok" |
 | QA-341 | ISS-281: Mod gỡ avatar, bio vi phạm? | "không cần quản lý cái đó đâu" |
+
+---
+
+## Functional Requirement — M04: Comment (QA-342 → QA-349)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-342 | ISS-282: Sửa, xóa bình luận khi bài khóa / mức HEAVY / bình luận bị ẩn? | Khóa bình luận/khóa toàn bộ: "không sửa", cho xóa (đồng ý đề xuất); HEAVY: "vậy ok" — vẫn sửa, xóa bình luận cũ; bị ẩn: "không sửa/xoá là đúng rồi" |
+| QA-343 | ISS-283: Xóa bình luận vĩnh viễn hay xóa mềm? | "post, comment và những thứ có thể report ta chỉ cho xoá mềm thôi, gắn cờ vào là được"; bài viết: "vẫn giữ tính năng 7 ngày để khôi phục, sau đó thay vì xoá hẳn ta có thể chuyển cờ" (mở OPEN-010); M11, M16: "tạo gì đó để ta sẽ trao đổi thêm khi làm các module đó" (OPEN-011); Mod/Admin xem nội dung đã xóa qua báo cáo, lịch sử báo cáo, khiếu nại (đồng ý đề xuất) |
+| QA-344 | ISS-284: Bài bị xóa hẳn thì bình luận ra sao? | "bài bị xoá thì đâu ai xem được bình luận đâu mà phải lo xoá. cứ giữ cùng bài đi" |
+| QA-345 | ISS-285: Bình luận bị ẩn: chủ bình luận thấy ở đâu; Mod xóa là gì; quét AI; khiếu nại? | "Làm giống bài nhé" — chủ bình luận chỉ xem khi mở từ thông báo; Mod chỉ có thao tác Ẩn (đồng ý đề xuất); quét AI: "ta giữ kiểm duyệt như vậy đi"; khiếu nại: "không khiếu nại!" |
+| QA-346 | ISS-286: Gốc bị ẩn còn trả lời; dấu khi hết trả lời; trả lời vào luồng có dấu? | Gốc bị ẩn: "chọn C" — dùng chung dấu "[Bình luận đã bị xóa]"; dấu khi hết trả lời, trả lời vào luồng có dấu: "ok" theo đề xuất |
+| QA-347 | ISS-287: Số bình luận; thứ tự Top khi cùng upvote? | Số bình luận: "chọn A" — đếm gốc và trả lời đang hiển thị bình thường; Top: "ok" — đăng trước đứng trước |
+| QA-348 | ISS-288: Giới hạn độ dài; trích dẫn có tính không? | "cho 1000 từ"; "không tính trích dẫn nhé, trích dẫn chỉ là phần hiển thị, và cũng chỉ hiển thị 1 phần nếu quá dài"; "cho trích dẫn chỉ hiển thị 1 dòng" |
+| QA-349 | ISS-289: Người bị xử lý có xem lại nội dung đã xóa khi khiếu nại hoặc xem mình bị báo cáo vì gì? | "chọn A" — chỉ chủ nội dung, chỉ đọc, mở từ thông báo xử lý hoặc khiếu nại; không thấy thông tin người báo cáo |

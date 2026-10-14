@@ -62,6 +62,8 @@
 
 **[Amended 2026-10-11 — DEC-162: xóa ở mọi trạng thái, khôi phục về trạng thái trước khi xóa, hạn 7 × 24 giờ]**
 
+**[Amended 2026-10-14 — DEC-184: hết 7 ngày chỉ gắn cờ "đã xóa hẳn", không xóa dữ liệu]**
+
 ---
 
 ### DEC-012
@@ -270,6 +272,8 @@ Submit → PENDING → AI scan → clean: PUBLISHED; flagged: stay PENDING → m
 
 **[Amended 2026-10-11 — DEC-162: khôi phục về trạng thái trước khi xóa; 7 × 24 giờ]**
 
+**[Amended 2026-10-14 — DEC-184: hết 7 ngày chỉ gắn cờ "đã xóa hẳn", không xóa dữ liệu]**
+
 ---
 ## Phase 5 — M04: Comment
 
@@ -295,6 +299,8 @@ Child replies always sort chronological (oldest first) regardless of filter.
 - Root without replies → hard delete
 - Child → hard delete; replies of child show "reply to [bình luận đã bị xóa]"
 
+**[Amended 2026-10-14 — DEC-179: xóa mềm, nội dung giữ vĩnh viễn]**
+
 ### DEC-044: Attachments
 Not supported in comments. Share files via post instead.
 
@@ -305,6 +311,8 @@ Not supported in comments. Share files via post instead.
 
 ### DEC-046: Quote-reply
 Click Reply → editor auto-inserts blockquote with original content + author name. Uses Tiptap blockquote extension.
+
+**[Amended 2026-10-14 — DEC-183: trích dẫn chỉ hiển thị, một dòng, không thuộc nội dung]**
 
 ---
 ## Phase 5 — M05: Topic & Tag
@@ -437,6 +445,8 @@ Email limited to: security (password change), account-deletion warning, ban/unba
 
 **[Amended 2026-10-11 — DEC-147, DEC-151: thêm sự kiện liên kết Google (in-app + email); đặt lại mật khẩu cũng là "password changed"]**
 
+**[Amended 2026-10-14 — DEC-180: thêm sự kiện "Bình luận của bạn đã bị ẩn" (in-app)]**
+
 ### DEC-066: Upvote notification batching
 Batch upvotes (post + comment) within a 5-minute rolling window into one notification ("A và N người khác đã upvote..."). Single upvote shows the voter's name directly.
 
@@ -497,6 +507,8 @@ No auto-deletion / no retention policy — notifications kept indefinitely, cons
 - Re-trigger: velocity threshold crossed again AND content not yet scanned with current version (edit alone does not trigger — waits for next velocity trigger)
 - If AI flags → comment auto-hidden (author only sees it) + pushed into report queue for mod review
 - Report system works independently of velocity/scan status at all times
+
+**[Amended 2026-10-14 — DEC-180: chủ bình luận cũng không thấy bình luận bị ẩn trong luồng]**
 
 ### DEC-078: Warning issuance mechanism
 - AI high confidence → auto-issues warning directly, no mod involved (user can appeal via M09 if wrong)
@@ -1003,12 +1015,16 @@ ISS-232 → ISS-260
 - Re-scan after editing a PUBLISHED post: score < 0.5 → unchanged; score ≥ 0.5 (including ≥ 0.9) → FLAGGED (hidden, awaiting Mod); scan failure → unchanged, the post stays visible. The 0.9 auto-reject applies only to newly submitted posts.
 - Source: QA-322, QA-323
 
+**[Amended 2026-10-14 — DEC-185: quét lại cả khi hiện lại bài tự ẩn đã sửa trong lúc ẩn]**
+
 ### DEC-162: M03 — Edit, delete and restore by post state; restore window (amends DEC-011, DEC-038)
 - Author may edit: DRAFT, REJECTED, PUBLISHED, self-HIDDEN, and posts under any lock level. Not editable: PENDING, moderation-HIDDEN (must appeal), DELETED (restore first).
 - Author may delete a post in any state except DELETED; every deletion goes through the DELETED window.
 - Restore returns the post to the state it had before deletion (PUBLISHED → PUBLISHED as in DEC-038); a PENDING post is restored as DRAFT. A post removed by Mod (moderation-HIDDEN) cannot be restored.
 - The restore window is 7 × 24 hours from the moment of deletion (e.g. deleted 01/10 21:00 → restorable until before 08/10 21:00).
 - Source: QA-324, QA-330
+
+**[Amended 2026-10-14 — DEC-184: hết hạn khôi phục chuyển "đã xóa hẳn" (cờ); Mod/Admin, tác giả xem lại theo DEC-179]**
 
 ### DEC-163: M03 — Posting restrictions under MEDIUM/HEAVY warning (clarifies DEC-079)
 - "Cannot create new posts" covers every action that makes a never-public post public or starts one: saving a new draft, submitting an existing draft, resubmitting a REJECTED post.
@@ -1044,13 +1060,27 @@ ISS-232 → ISS-260
 - Rationale (stakeholder): review applies to content that others will read.
 - Source: QA-331
 
+**[Amended 2026-10-14 — DEC-185: Mod/Admin xem bài tự ẩn của người khác trong báo cáo, lịch sử báo cáo, khiếu nại]**
+
 ### DEC-169: MS1 scope — no Accepted Answer, no post cover image
 - Accepted Answer (draft DM-4.2.1) is not supported in MS1, system-wide (affects M03, M04, M12).
 - Posts have no cover image; images are used through attachments.
 - Source: QA-332, QA-333
 
+### DEC-184: M03 — Posts are soft-deleted only (amends DEC-011, DEC-038, DEC-162; closes OPEN-010)
+- When the 7-day restore window ends, the post is flagged "permanently deleted" ("Đã xóa hẳn") instead of being removed. "Permanently deleted" is only a flag: no data is erased — content, attachments, poll, votes, edit history, Topic/Tag links and comments are all kept.
+- Users see no change: the post leaves the Deleted tab, its link shows "not found", and it cannot be restored, edited or deleted again.
+- MOD/ADMIN see a permanently deleted post only in its moderation context (open report, report history, appeal); there is no browsing or searching of deleted posts. The author can view it read-only from a report outcome notification or their own appeal, never seeing reporter information (same as DEC-179 for comments).
+- Bookmark removal (DEC-174) and point deduction for a self-deleted post (DEC-113) happen when the post is flagged, as they did at permanent deletion.
+- Source: QA-350
+
+### DEC-185: M03 — Self-hidden posts in moderation (amends DEC-161, DEC-168)
+- MOD/ADMIN can see another user's self-HIDDEN post only in its moderation context (open report, report history, appeal), as for deleted posts (DEC-184). DRAFT and REJECTED posts of others stay invisible to them (DEC-168).
+- Edits saved while a post is self-HIDDEN are not scanned at save time. When the author unhides a post that has at least one edit saved while it was self-HIDDEN, the post returns to PUBLISHED and is re-scanned exactly as after editing a PUBLISHED post (DEC-161): it stays visible during the scan; score < 0.5 → unchanged; score ≥ 0.5 → FLAGGED (hidden, awaiting Mod); scan failure → unchanged, stays visible. No scan while the master AI or Moderation switch is off.
+- Source: QA-351
+
 ### Issues Closed
-ISS-261 → ISS-273
+ISS-261 → ISS-273, ISS-290 → ISS-291
 
 ## Functional Requirement — M02: User Profile
 
@@ -1100,3 +1130,48 @@ ISS-261 → ISS-273
 
 ### Issues Closed
 ISS-274 → ISS-281
+
+---
+
+## Functional Requirement — M04: Comment
+
+### DEC-178: M04 — Editing and deleting own comments under restrictions
+- On a post at COMMENT_LOCKED or FULLY_LOCKED, the author cannot edit own comments on that post but can delete them.
+- At HEAVY warning level only creating new comments and replies is blocked; editing and deleting existing own comments stay allowed (same principle as DEC-163 for posts).
+- A comment whose moderation state is HIDDEN can be neither edited nor deleted by its author.
+- Source: QA-342
+
+### DEC-179: M04 — Comments are soft-deleted only; viewing deleted content (amends DEC-043; scope extension)
+- Deleting a comment sets a deleted flag. What users see is unchanged from DEC-043 (placeholder or removal) and there is no restore. The content is kept permanently; comments are never hard-deleted.
+- Comments stay with their post when the post is deleted; there is no separate removal of comments.
+- MOD/ADMIN see deleted content only in the moderation context of that content: an open report, the report history of the target (DEC-076), or an appeal (M09). There is no browsing or searching of deleted content.
+- The content owner can view their own handled content (deleted or hidden), read-only, when opening it from a report outcome notification (DEC-074) or from their own appeal; they never see reporters' identity, chosen reasons, descriptions or evidence.
+- Posts: see OPEN-010. Groups and chat: see OPEN-011. Account deletion (DEC-156) is unchanged.
+- Source: QA-343, QA-344, QA-349
+
+### DEC-180: M04 — Hidden comments: visibility and moderator action (amends DEC-077, DEC-065)
+- A HIDDEN comment is shown in the thread to no one, its author included. The author can view it read-only, with a "hidden" label, only when opening it from a notification: the report outcome (DEC-074) or a new in-app event "Bình luận của bạn đã bị ẩn" sent when AI hides the comment (added to DEC-065; in-app only). Label wording is decided at design.
+- MOD/ADMIN have a single action on comments: Hide (state HIDDEN). "Delete comment" in draft DM-10.2 means Hide.
+- Comment AI scanning stays as DEC-077 (velocity-triggered thread scan).
+- Comments have no appeal (DEC-115 unchanged). Whether a comment is shown again when a related warning or ban is overturned on appeal: see OPEN-012.
+- Source: QA-345
+
+### DEC-181: M04 — Thread display with deleted or hidden comments
+- A HIDDEN root comment with at least one visible reply shows "[Bình luận đã bị xóa]" in its place, like an author-deleted root; replies stay. A HIDDEN reply is not shown; replies pointing to it show "trả lời [bình luận đã bị xóa]".
+- When a root showing the placeholder no longer has any visible reply, the placeholder disappears from the thread (data kept, DEC-179).
+- In a thread whose root shows the placeholder, users can reply to visible replies but not to the placeholder.
+- Source: QA-346
+
+### DEC-182: M04 — Comment count and Top ordering
+- A post's comment count = root comments and replies shown normally; placeholders and HIDDEN comments are not counted; all viewers see the same number. Example: root A (placeholder) with replies B, C; root D with HIDDEN reply E; root F → count 4 (B, C, D, F).
+- Top ordering: comments with equal upvotes are ordered by posting time, earlier first.
+- Source: QA-347
+
+### DEC-183: M04 — Comment length and reply quote (amends DEC-046)
+- Comment and reply content: max 1,000 words, a word counted as in DEC-164. The editor warns immediately, showing the count against the limit; sending or saving an edit over the limit is rejected and the text is kept. Empty or whitespace-only content is rejected.
+- The reply quote is display only: shown above the reply, built from the replied comment's current own content (not the quotes it displays) plus its author's name, on one line. It is not part of the reply's content and not counted. If the replied comment is deleted or hidden, "trả lời [bình luận đã bị xóa]" is shown instead.
+- Users can still type their own blockquote (DEC-039); it is content and is counted.
+- Source: QA-348
+
+### Issues Closed
+ISS-282 → ISS-289

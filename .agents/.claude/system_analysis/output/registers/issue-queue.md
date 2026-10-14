@@ -406,6 +406,8 @@
 | ISS-271 | Mod/Admin có xem được bài nháp, bài tự ẩn, bài bị từ chối của người khác không | Closed | Xem DEC-168 |
 | ISS-272 | Accepted Answer (draft DM-4.2.1) có trong MS1 không | Closed | Xem DEC-169 |
 | ISS-273 | Ảnh bìa bài viết (draft DM-2.1) có làm không | Closed | Xem DEC-169 |
+| ISS-290 | Áp xóa mềm cho bài viết (OPEN-010): hết hạn khôi phục giữ gì, ai xem lại bài đã xóa hẳn | Closed | Xem DEC-184 |
+| ISS-291 | Bài tự ẩn né kiểm duyệt: Mod không xem được bài Tự ẩn bị báo cáo; sửa trong lúc ẩn rồi hiện lại không bị quét | Closed | Xem DEC-185 |
 
 ---
 
@@ -421,3 +423,18 @@
 | ISS-279 | Tab Bài viết hiện những bài nào với chủ hồ sơ và với người xem | Closed | Xem DEC-175 |
 | ISS-280 | Chi tiết hồ sơ: nhắc cập nhật Lớp/Khối, thứ tự danh sách, avatar mặc định, đếm ký tự bio, bỏ chọn Lớp/Khối, địa chỉ /u/{username} | Closed | Xem DEC-176 |
 | ISS-281 | Mod/Admin có được gỡ avatar, bio vi phạm khi xử lý báo cáo người dùng không (mở rộng phạm vi) | Closed | Xem DEC-177 |
+
+---
+
+## Functional Requirement — M04: Comment | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-282 | Tác giả có sửa, xóa bình luận của mình khi bài bị khóa, khi ở mức HEAVY, khi bình luận đang bị ẩn không | Closed | Xem DEC-178 |
+| ISS-283 | Xóa bình luận là vĩnh viễn hay xóa mềm; ai được xem lại nội dung đã xóa (liên quan báo cáo) | Closed | Xem DEC-179 |
+| ISS-284 | Bài bị xóa hẳn thì bình luận của bài xử lý thế nào | Closed | Xem DEC-179 |
+| ISS-285 | Chủ bình luận thấy bình luận bị ẩn ở đâu; "Mod xóa bình luận" là ẩn hay xóa; quét AI bình luận; khiếu nại bình luận | Closed | Xem DEC-180 |
+| ISS-286 | Bình luận gốc bị ẩn còn trả lời; dấu đã xóa khi hết trả lời; trả lời vào luồng có dấu | Closed | Xem DEC-181 |
+| ISS-287 | Số bình luận của bài đếm gì; thứ tự Top khi cùng số upvote | Closed | Xem DEC-182 |
+| ISS-288 | Giới hạn độ dài bình luận; trích dẫn khi trả lời có tính vào độ dài không | Closed | Xem DEC-183 |
+| ISS-289 | Xem lại nội dung đã xóa khi bị xử lý hoặc khiếu nại (mở rộng phạm vi) | Closed | Xem DEC-179 |
