@@ -233,6 +233,8 @@ NORMAL | FLAGGED | HIDDEN
 
 **[Amended 2026-10-11 — DEC-161: bài mới NORMAL; "gỡ" = HIDDEN]**
 
+**[Amended 2026-10-15 — DEC-190: báo cáo không đổi trạng thái kiểm duyệt; chỉ AI quét lại làm bài Bị gắn cờ]**
+
 ### DEC-033: lock_level + locked_by
 - lock_level: NONE | COMMENT_LOCKED | FULLY_LOCKED
 - COMMENT_LOCKED: author OR mod can set (blocks new comments)
@@ -480,6 +482,8 @@ No auto-deletion / no retention policy — notifications kept indefinitely, cons
 - Group (4): Nội dung người lớn/Không phù hợp, Group giả mạo, Quấy rối/Bắt nạt có hệ thống, Khác
 - Only logged-in users can report (no guest reporting)
 
+**[Amended 2026-10-15 — DEC-191, DEC-194: không báo cáo chính mình, không báo cáo trùng khi vụ còn mở; nhóm bị báo cáo: Ẩn hoặc Khóa]**
+
 ### DEC-073: Report submission
 - Evidence: max 3 images, 5MB/file (shared with platform image limit)
 - Description text: optional, REQUIRED only when reason = "Khác"
@@ -488,10 +492,14 @@ No auto-deletion / no retention policy — notifications kept indefinitely, cons
 - Reporter: vague outcome only ("đã xử lý — nội dung vi phạm đã gỡ/ẩn" or "không phát hiện vi phạm"), never sees punishment details of reported user
 - Reported/offending user: detailed — resolution_reason, punishment level (warning level or ban), link to Appeal (M09)
 
+**[Amended 2026-10-15 — DEC-192: không thông báo người bị báo cáo khi Bác bỏ; kết quả chung dùng cho mọi loại đối tượng]**
+
 ### DEC-075: Report queue mechanics
 - Priority score = MAX(severity_weight across reasons in case) + report_count × 2
 - Claim-based assignment: mod clicks "Nhận xử lý" to lock a case; auto-unlock after 30 min inactivity
 - No SLA deadline, processed by priority order
+
+**[Amended 2026-10-15 — DEC-190: mức nặng 10/5/2, bằng điểm thì vụ mở trước, 30 phút tính từ thao tác cuối]**
 
 ### DEC-076: Report grouping (case model)
 - Group by (target_type, target_id) while status=OPEN into one "case"; each individual report row keeps its own data (reporter_id, reason, evidence, description)
@@ -509,6 +517,8 @@ No auto-deletion / no retention policy — notifications kept indefinitely, cons
 - Report system works independently of velocity/scan status at all times
 
 **[Amended 2026-10-14 — DEC-180: chủ bình luận cũng không thấy bình luận bị ẩn trong luồng]**
+
+**[Amended 2026-10-15 — DEC-186, DEC-190: kích hoạt khi đạt ngưỡng; bình luận chờ xét là một vụ trong hàng chờ báo cáo]**
 
 ### DEC-078: Warning issuance mechanism
 - AI high confidence → auto-issues warning directly, no mod involved (user can appeal via M09 if wrong)
@@ -528,6 +538,8 @@ Warning status is fully PRIVATE — visible only to the user themselves and to m
 
 **[Amended 2026-10-11 — DEC-163: phạm vi "tạo bài mới" ở M03]**
 
+**[Amended 2026-10-15 — DEC-188: giảm mức và thời gian thử thách nối tiếp, N × 24 giờ]**
+
 ### DEC-080: Ban types + escalation
 - Temporary ban (auto-escalating): 1st ban = 30 days, 2nd ban = 90 days, 3rd+ ban = permanent
 - Permanent ban (manual): mod/admin can directly issue for severe first-offense violations, bypassing escalation
@@ -537,6 +549,8 @@ Warning status is fully PRIVATE — visible only to the user themselves and to m
 
 **[Amended 2026-10-11 — DEC-152: ban tạm thời hết hạn thì tự về ACTIVE]**
 
+**[Amended 2026-10-15 — DEC-187: không có suspend; lần thứ 7 thành yêu cầu ban; cách đếm số lần ban; không ban chồng]**
+
 ### DEC-081: Moderation audit log
 - Log fields: actor_id (mod/AI), action_type (warn/ban/hide/resolve), target_id, reason, timestamp
 - Admin: full audit log access, all mods, all actions
@@ -545,11 +559,15 @@ Warning status is fully PRIVATE — visible only to the user themselves and to m
 
 **[Amended 2026-10-07 — DEC-146: thêm loại thao tác vô hiệu hóa/kích hoạt lại Tag, đổi Topic/Tag bài người khác]**
 
+**[Amended 2026-10-15 — DEC-193: ghi thêm gỡ ban, bỏ cảnh cáo AI, ẩn/khóa/mở khóa nhóm; không sửa, không xóa]**
+
 ### DEC-082: False/malicious report handling
 - No automated punishment — false positives risk discouraging legitimate reporting
 - Metric shown to mod as reference: target_concentration = (dismissed reports targeting the same single target) / (total resolved reports by that reporter), calculated over reports resolved in the last 90 days
 - High concentration = signal of targeted harassment via report system (not honest mistake, which shows spread-out low-concentration pattern)
 - Mod uses judgment to manually issue warning to abusive reporter via existing warning mechanism — no separate automated system
+
+**[Amended 2026-10-15 — DEC-192: tính cho đối tượng của vụ đang xem, 90 × 24 giờ]**
 
 ### DEC-083: Comment schema update (M04 cross-reference, added during M08 deep dive)
 Comment needs a `mod_state` field similar to Post's (NORMAL | HIDDEN) to support AI auto-scan flagging (DEC-077) and mod report resolution. Not present in original M04 decisions (DEC-039-046) — added here as a retroactive schema requirement for M04.
@@ -636,6 +654,8 @@ One Moderation API call drives two independent decision branches from the same c
 Same 0.9/0.5 thresholds shared across Post and Comment. Values are placeholder/tunable pending real usage data.
 
 **[Amended 2026-10-11 — DEC-166: bài bị AI từ chối — lý do, gửi lại]**
+
+**[Amended 2026-10-15 — DEC-186: điểm quét = điểm cao nhất trong 4 nhóm; không đổi theo mức cảnh cáo]**
 
 ### DEC-099: AI failure handling (distinct from admin AI-off toggle)
 Two distinct scenarios:
@@ -1175,3 +1195,76 @@ ISS-274 → ISS-281
 
 ### Issues Closed
 ISS-282 → ISS-289
+
+---
+
+## Functional Requirement — M08: Moderation
+
+### DEC-186: M08 — AI scan score, thresholds, velocity trigger and auto-warnings (amends QA-020, clarifies DEC-077, DEC-078, DEC-098)
+- One pair of thresholds 0.9 / 0.5 (DEC-098) applies to everyone. The warning level of the author does not change the thresholds; the per-level thresholds sketched in QA-020 are dropped.
+- The scan score of a post or comment is the highest of the four category scores (DEC-097); that category is the reason recorded on the case the AI creates. Example: harassment 0.92, violence 0.10 → score 0.92, reason "Quấy rối/Bắt nạt".
+- The comment-thread scan is triggered when the number of replies in the thread within the sliding window reaches the threshold or more (placeholder "10 replies in 5 min": the 10th reply within 5 minutes triggers). Only replies are counted.
+- Each post or comment scoring ≥ 0.9 gives its author one AI warning; one scan that catches several items of the same author gives one warning per item.
+- AI never auto-warns a MOD or ADMIN: a MOD's content scoring ≥ 0.9 is hidden or rejected as usual, and the warning decision goes to ADMIN; ADMIN content gets no warning.
+- Source: QA-352, QA-355, QA-366
+
+### DEC-187: M08 — Account sanctions: ban only, 7th violation, ban count, no stacked bans (clarifies DEC-080, QA-019)
+- MOD/ADMIN sanctions on an account are warning and ban only. "Suspend" in drafts DM-10.2, DM-10.3 means a temporary ban; there is no "Disable account" action (consistent with FR-M01).
+- A user at HEAVY who violates again (7th violation) gets no 7th warning. The violating content is handled as usual, and the system creates a ban request as a case in the report queue; MOD/ADMIN decide and press "Ban" (escalating duration). A MOD who finds the violation while resolving a case chooses Ban instead of a warning. AI never bans (DEC-078).
+- "Number of previous bans" counts every ban that took effect, including bans lifted early by MOD/ADMIN and manual permanent bans; a ban overturned on appeal (DEC-089) is not counted.
+- A new ban cannot be issued while the account has a ban in effect; to make it permanent, lift the ban then use "Ban vĩnh viễn".
+- Source: QA-353, QA-354, QA-359, QA-367
+
+### DEC-188: M08 — Warning step-down, probation timing, removed or overturned warnings (clarifies QA-020, DEC-079, DEC-089)
+- When the probation of the current level ends, the level goes down one step and the warning count becomes the highest count of the lower level: HEAVY → MEDIUM with 4, MEDIUM → LIGHT with 2, LIGHT → clean with 0. The new level starts its own probation at that moment (HEAVY 15 days, then MEDIUM 10, then LIGHT 7).
+- "N days" means N × 24 hours from the warning or from the step-down. Example: 6th warning 01/10 09:00 → MEDIUM 16/10 09:00 (4 warnings) → LIGHT 26/10 09:00 (2) → clean 02/11 09:00; a warning on 20/10 makes 5 → HEAVY again.
+- A warning removed by MOD/ADMIN ("Override AI warn", QA-019) or overturned on appeal: the warning count goes down by 1 and the level is recomputed from the remaining count; the warning record is kept, marked removed or overturned; the end of the current probation does not change.
+- Source: QA-358, QA-366
+
+### DEC-189: M08 — Moderating MOD and ADMIN accounts; cases about oneself
+- Only ADMIN can warn or ban a MOD account. A MOD handling a case about another MOD's content can hide the content and conclude the case, but cannot warn or ban that MOD.
+- ADMIN accounts cannot be warned or banned by anyone.
+- A MOD or ADMIN does not see, and cannot claim, a case about their own posts, comments or account; another MOD or ADMIN handles it.
+- Banning a MOD revokes the MOD role (QA-013, unchanged).
+- Source: QA-355, QA-365
+
+### DEC-190: M08 — Report queue: everything goes through cases; AI-created cases; priority; reports do not hide posts (clarifies DEC-032, DEC-075, DEC-077)
+- Hiding content, warning and banning are done only inside a case. A MOD who finds a violation without a report reports it first, then claims the case. (Exceptions: lifting a ban, unlocking a group — DEC-194.)
+- Content flagged by AI that needs MOD review — a comment hidden with score 0.5–<0.9, a post FLAGGED after re-scan — and the ban request of DEC-187 each become a case in the report queue, with reporter "System (AI)". If the target already has an open case, they join it. The case's reason is the AI category (DEC-186); the AI entry counts as one report. A ban-request case is marked as such.
+- Severity weights: 10 — Bạo lực/Đe dọa; Nội dung người lớn/Không phù hợp; Ngôn từ thù ghét/Phân biệt; Quấy rối/Bắt nạt (incl. "có hệ thống"); Group giả mạo. 5 — Nội dung sai/hiểu nhầm; Đạo văn/Vi phạm bản quyền. 2 — Spam/Quảng cáo; Khác. Each report has exactly one reason. Equal priority → the case opened earlier comes first. These are policy constants (DEC-090).
+- Example: 1 "Bạo lực" report → 10 + 2 = 12; 5 "Spam" → 2 + 10 = 12 (the earlier one first); 3 "Spam" → 8.
+- "30 min inactivity" counts from the holder's last action on the case: opening it, hiding, warning, banning, concluding.
+- A user report never changes the moderation state of a post; only the AI re-scan (M03) sets FLAGGED. "AI/report flagged" in DEC-032 is read as AI only.
+- Source: QA-356, QA-357, QA-360, QA-361, QA-365
+
+### DEC-191: M08 — Submitting reports
+- A user cannot report their own post, comment or account.
+- While the target has an open case, the same reporter cannot report the same target again.
+- Users at HEAVY can still report (DEC-178: HEAVY only blocks creating posts and comments).
+- A report on a target that is no longer visible to the reporter (deleted or hidden while the report was being written) is refused.
+- Reports cannot be withdrawn or edited after sending.
+- Source: QA-363, QA-364, QA-368
+
+### DEC-192: M08 — Concluding a case: reason and notifications; target concentration (clarifies DEC-074, DEC-082)
+- The resolution reason is required for both outcomes (action taken, dismissed).
+- The reported user is notified only when action is taken; nothing is sent when the case is dismissed.
+- Reporters receive one of two meanings, the same for every target type: "action has been taken" or "no violation found"; wording is decided at design. A case created by AI has no reporter notification.
+- The appeal link is included only when the action can be appealed: warning, ban, hidden post (DEC-115); not for a hidden comment or a hidden or locked group.
+- Target concentration of a reporter is computed for the target of the case being viewed: (that reporter's dismissed reports on this target) ÷ (that reporter's resolved reports), over reports resolved in the last 90 × 24 hours. Example: 10 resolved, 6 dismissed on user X → 0.6 when viewing a case about X.
+- Source: QA-362, QA-365
+
+### DEC-193: M08 — Moderation log additions (amends DEC-081)
+- The moderation log also records lifting a ban, removing an AI warning, hiding, locking and unlocking a group. Claiming and auto-release of a case are not logged.
+- Log entries cannot be edited or deleted (same as the admin action log, DEC-094).
+- Source: QA-367, QA-369
+
+### DEC-194: M08 — Hiding and locking a reported group (scope extension)
+- When a group is reported, the reported user is its Owner. In the case, MOD/ADMIN can hide or lock the group, and can also warn or ban the Owner (DEC-189 rules apply).
+- Hide: the group and all its content are shown to no one, members and Owner included; data is kept (as for a group deleted by its Owner, DEC-105). There is no unhide. A locked group can be hidden in a later case.
+- Lock: the group stays visible as before (Public/Private) and existing content stays readable. Posting, commenting, upvoting, poll voting, joining and inviting are blocked for everyone, Owner and Group Mods included; bookmark and report stay available (as FULLY_LOCKED, DEC-167). MOD/ADMIN can unlock directly on the group, without a case; unlocking is logged.
+- The Owner gets the outcome notification (DEC-192) without an appeal link: content-removal appeal covers posts only (DEC-115).
+- How a hidden or locked group is displayed and which group actions are blocked is applied by M11; to be cross-checked when FR-M11 is written.
+- Source: QA-369
+
+### Issues Closed
+ISS-292 → ISS-309

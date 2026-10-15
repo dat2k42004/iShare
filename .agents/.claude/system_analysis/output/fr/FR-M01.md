@@ -2,7 +2,7 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
 ngay: 2026-10-11
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Ngày | 2026-10-11 |
 | Tác giả | Phạm Văn Đức |
 
@@ -738,6 +738,7 @@ SETUP_COMPLETED là mức cuối; nguồn không có đường đi ngược lạ
 | Cung cấp | M05 | Trang Privacy Policy/ToS nêu việc tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, được xử lý bởi nhà cung cấp dịch vụ AI khi bấm "Gợi ý topic" | FR-M01-15.04 |
 | Cung cấp | M05 | Trạng thái tài khoản tác giả (bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn); dữ liệu của tài khoản đã xóa: upvote giữ, bookmark và lượt theo dõi Topic bị xóa, phản hồi gợi ý Topic giữ | FR-M01-13.01, FR-M01-12.08, FR-M01-12.09, FR-M01-12.11 |
 | Cung cấp | M16 | Tên thay thế "[Người dùng đã xóa]" cho người gửi tin nhắn của tài khoản đã xóa | FR-M01-13.06 |
+| Cung cấp | M08 | Trạng thái tài khoản: ban chuyển ACTIVE sang BANNED, gỡ ban và khiếu nại ban được chấp nhận đưa về ACTIVE, ban tạm thời hết hạn thì tự về ACTIVE; màn hình tài khoản bị khóa hiển thị lý do ban | FR-M01-05.05, FR-M01-05.07, FR-M01-05.14, FR-M01-05.15, FR-M01-05.17 |
 | Cung cấp | M08, M13 | Liên kết nhật ký kiểm duyệt và nhật ký AI với tài khoản đã xóa qua username | FR-M01-12.10 |
 | Cung cấp | M12 | Upvote đã cho của tài khoản đã xóa vẫn tính cho người nhận, không còn biết ai cho | FR-M01-12.09 |
 | Cung cấp | Mọi module | Phiên đăng nhập xác định người đang dùng là ai và đã đăng nhập hay chưa | FR-M01-05.12, FR-M01-06.01 |
@@ -763,6 +764,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.3 | 2026-10-11 | Bổ sung quyền riêng tư theo DEC-154–157 (OPEN-008 thu hẹp): trang Privacy Policy/ToS, đồng ý lại khi chính sách đổi (DEC-158), dữ liệu xóa khi DELETED | Phạm Văn Đức |
 | 1.0 | 2026-10-11 | Chốt sau 7 bước; ghi register DEC-147–158, QA-292–318, ISS-232–258; OPEN-008 thu hẹp | Phạm Văn Đức |
 | 1.1 | 2026-10-11 | Đối chiếu với FR-M05: xóa cả lượt theo dõi Topic, bài viết khi DELETED; giữ phản hồi gợi ý Topic (DEC-159); bổ sung giao tiếp với M05. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-15 | Đối chiếu với FR-M08: thêm dòng "Cung cấp M08" (trạng thái tài khoản khi ban, gỡ ban, ban hết hạn) ở mục Giao tiếp với module khác; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1321,3 +1323,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-020 → DEC-045 → DEC-153 | Danh sách gợi ý nhắc tên: gõ "@" kèm 1 ký tự, chờ 300 ms, tối đa 5 người, theo ba tầng ngữ cảnh, trong tầng xếp theo mức khớp; bình luận dùng ngữ cảnh bài chứa nó; không gồm DEACTIVATED, DELETED, BANNED, chưa xong bước 3. Lượt nhắc là khối liền, hiện display_name hiện tại; tới tài khoản DEACTIVATED, DELETED thì hiện tên thay thế, không mở trang hồ sơ. Thông báo gửi khi nội dung công khai; sửa nội dung chỉ báo người mới được nhắc. |
 | DM-10.2, DM-10.3 → QA-018, DEC-080 | Admin, Mod không vô hiệu hóa hay xóa tài khoản người khác, chỉ cảnh báo hoặc ban. Register không có hình thức "Suspend account" riêng; khóa có thời hạn chỉ có dạng ban tạm thời 30 hoặc 90 ngày (DEC-080). |
 | DEC-019 → DEC-129 → DEC-156 → DEC-159 | Khi DELETED, xóa dữ liệu cá nhân theo danh mục của BR-M01-47 (email được giải phóng); giữ username, trạng thái, vai trò, bài viết ẩn, bình luận và tin nhắn với người viết "[Người dùng đã xóa]", upvote đã cho không còn biết người cho. Tin nhắn, nhật ký kiểm duyệt, nhật ký AI giữ vĩnh viễn (DEC-129) và gắn với tài khoản đã xóa qua username. DEC-159: xóa cả lượt theo dõi Topic và bài viết của tài khoản; giữ phản hồi gợi ý Topic (M05) không gắn danh tính. |
+| QA-019 → DEC-187, DEC-189; DEC-023 → DEC-170; DEC-065 → DEC-180; QA-011 → DEC-171 | Chỉ sửa phần thuộc module khác. QA-019: lần vi phạm thứ 7 thành yêu cầu ban, chỉ Admin ban Mod (DEC-187, DEC-189, M08); M01 vẫn chỉ giữ trạng thái tài khoản khi ban, gỡ ban. DEC-170, DEC-171 (M02), DEC-180 (M04) không đổi nội dung M01. |

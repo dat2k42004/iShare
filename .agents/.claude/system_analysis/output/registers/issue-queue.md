@@ -438,3 +438,28 @@
 | ISS-287 | Số bình luận của bài đếm gì; thứ tự Top khi cùng số upvote | Closed | Xem DEC-182 |
 | ISS-288 | Giới hạn độ dài bình luận; trích dẫn khi trả lời có tính vào độ dài không | Closed | Xem DEC-183 |
 | ISS-289 | Xem lại nội dung đã xóa khi bị xử lý hoặc khiếu nại (mở rộng phạm vi) | Closed | Xem DEC-179 |
+
+---
+
+## Functional Requirement — M08: Moderation | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-292 | Ngưỡng AI có phụ thuộc mức cảnh cáo của tác giả không (QA-020 nói có, DEC-098 một cặp 0,9/0,5) | Closed | Xem DEC-186 |
+| ISS-293 | "Suspend", "Disable account" trong draft có là thao tác riêng không (DEC-080 chỉ có ban) | Closed | Xem DEC-187 |
+| ISS-294 | Vi phạm lần thứ 7 (đang HEAVY) chuyển sang ban thế nào ("auto-ban" của DEC-080 so với "AI never auto-bans" của DEC-078) | Closed | Xem DEC-187 |
+| ISS-295 | Ai được cảnh cáo, ban tài khoản Mod, Admin; Mod có xử lý vụ nhắm vào chính mình không | Closed | Xem DEC-189 |
+| ISS-296 | Mod, Admin có ẩn, cảnh cáo, ban ngoài một vụ báo cáo không | Closed | Xem DEC-190 |
+| ISS-297 | Mức nặng của từng lý do báo cáo; một hay nhiều lý do mỗi báo cáo; thứ tự khi bằng điểm ưu tiên | Closed | Xem DEC-190 |
+| ISS-298 | Hết thời gian thử thách thì số lần, mức, thời gian thử thách mới ra sao; "N ngày" tính thế nào | Closed | Xem DEC-188 |
+| ISS-299 | Ban nào được tính vào "số lần đã bị ban" | Closed | Xem DEC-187 |
+| ISS-300 | Báo cáo có làm bài chuyển Bị gắn cờ (tạm ẩn) không (DEC-032 "AI/report flagged") | Closed | Xem DEC-190 |
+| ISS-301 | Nội dung do AI gắn cờ và yêu cầu ban nằm ở hàng chờ nào | Closed | Xem DEC-190 |
+| ISS-302 | Kết luận vụ: lý do bắt buộc khi Bác bỏ; thông báo cho người bị báo cáo khi Bác bỏ; kết quả chung khi đối tượng là người dùng, nhóm | Closed | Xem DEC-192 |
+| ISS-303 | Báo cáo một đối tượng không còn hiển thị với người báo cáo | Closed | Xem DEC-191 |
+| ISS-304 | Gửi báo cáo: báo cáo chính mình, báo cáo trùng khi vụ còn mở, người ở mức HEAVY | Closed | Xem DEC-191 |
+| ISS-305 | Hàng chờ: "30 phút không thao tác", chỉ số tập trung, Admin xử lý vụ nhắm vào chính mình | Closed | Xem DEC-189, DEC-190, DEC-192 |
+| ISS-306 | Quét AI và cảnh cáo: ngưỡng tốc độ, điểm quét, nhiều nội dung trong một lần quét, bỏ hoặc lật cảnh cáo | Closed | Xem DEC-186, DEC-188 |
+| ISS-307 | Ban chồng lên ban đang hiệu lực; nhật ký ghi thêm thao tác nào, có sửa được không | Closed | Xem DEC-187, DEC-193 |
+| ISS-308 | Người báo cáo có rút, sửa báo cáo không (mở rộng phạm vi) | Closed | Xem DEC-191 |
+| ISS-309 | Báo cáo nhóm: người bị báo cáo, Mod xử lý nhóm vi phạm bằng thao tác gì (mở rộng phạm vi) | Closed | Xem DEC-194 |

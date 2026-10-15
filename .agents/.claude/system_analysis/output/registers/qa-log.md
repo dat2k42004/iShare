@@ -271,6 +271,8 @@
 - **Implication:** ADMN module cần: appeal page (2 forms: warn/ban); ticket system cho AI escalation; ban notification email; banned user redirect flow; logic "MOD không review appeal của chính mình".
 - **Traceability note:** Không cho appeal post/comment xóa giúp giữ moderation đơn giản và có thẩm quyền. Pattern "AI warns, human bans" là best practice trong content moderation — giữ human-in-the-loop cho quyết định nghiêm trọng, đồng thời tận dụng AI cho scale. Tham khảo: Discord auto-mod warns, human mod bans.
 
+**[Amended 2026-10-15 — DEC-187, DEC-189: lần vi phạm thứ 7 thành yêu cầu ban trong hàng chờ; chỉ Admin cảnh cáo, ban Mod]**
+
 ---
 
 ### QA-020
@@ -291,6 +293,8 @@
   - ISS-AI-01 (Phase 6): AI confidence threshold calibration theo OpenAI Moderation API score range
   - ISS-REWD-02 (Phase 4): Warn level ảnh hưởng đến trust/reputation display — penalty % và recovery
 - **Traceability note:** Dynamic confidence threshold theo user history là pattern phổ biến trong content moderation (trust & safety systems). "Repeat offender penalty" — người đã vi phạm nhiều lần được AI giám sát chặt hơn — cân bằng giữa fairness (first-time có lợi ích nghi ngờ) và safety (repeat offender ít khoan nhượng hơn). Số cụ thể phụ thuộc vào OpenAI Moderation API score distribution — cần empirical calibration ở Phase 6.
+
+**[Amended 2026-10-15 — DEC-186, DEC-188: một cặp ngưỡng 0,9/0,5 cho mọi người; giảm mức về số lần cao nhất của mức dưới, thử thách nối tiếp]**
 
 ---
 
@@ -1118,3 +1122,28 @@
 | QA-347 | ISS-287: Số bình luận; thứ tự Top khi cùng upvote? | Số bình luận: "chọn A" — đếm gốc và trả lời đang hiển thị bình thường; Top: "ok" — đăng trước đứng trước |
 | QA-348 | ISS-288: Giới hạn độ dài; trích dẫn có tính không? | "cho 1000 từ"; "không tính trích dẫn nhé, trích dẫn chỉ là phần hiển thị, và cũng chỉ hiển thị 1 phần nếu quá dài"; "cho trích dẫn chỉ hiển thị 1 dòng" |
 | QA-349 | ISS-289: Người bị xử lý có xem lại nội dung đã xóa khi khiếu nại hoặc xem mình bị báo cáo vì gì? | "chọn A" — chỉ chủ nội dung, chỉ đọc, mở từ thông báo xử lý hoặc khiếu nại; không thấy thông tin người báo cáo |
+
+---
+
+## Functional Requirement — M08: Moderation (QA-352 → QA-369)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-352 | ISS-292: Ngưỡng AI có thay đổi theo mức cảnh cáo của tác giả không? | "ok chọn A đi" — một cặp 0,9/0,5 cho mọi người |
+| QA-353 | ISS-293: "Suspend", "Disable account" có là thao tác riêng không? | "A nhé" — suspend chính là ban tạm thời; không có suspend, disable riêng |
+| QA-354 | ISS-294: Vi phạm lần thứ 7 chuyển sang ban thế nào? | "okey, chọn A" — không ghi cảnh cáo thứ 7; hệ thống tạo yêu cầu ban trong hàng chờ, Mod/Admin bấm "Ban"; Mod phát hiện khi xử lý vụ thì chọn Ban thay vì cảnh cáo |
+| QA-355 | ISS-295: Ai cảnh cáo, ban được tài khoản Mod, Admin; Mod xử lý vụ nhắm vào chính mình? | "ok 4 điểm" — (1) chỉ Admin cảnh cáo, ban Mod; Mod xử lý vụ nhắm vào Mod khác chỉ được ẩn nội dung; (2) Admin không bị cảnh cáo, ban; (3) AI không tự cảnh cáo Mod (≥ 0,9 để Admin quyết) và Admin; (4) Mod không thấy, không nhận vụ nhắm vào chính mình |
+| QA-356 | ISS-296: Mod, Admin có ẩn, cảnh cáo, ban ngoài một vụ không? | Hỏi lại "chọn B có phức tạp hơn không", sau khi được giải thích: "chọn A đi" — mọi xử lý qua vụ; Mod tự phát hiện vi phạm thì tự báo cáo rồi nhận xử lý |
+| QA-357 | ISS-297: Mức nặng của lý do, số lý do mỗi báo cáo, thứ tự khi bằng điểm? | "ừ, đồng ý đề xuất" — Nặng 10 (Bạo lực/Đe dọa, Người lớn/Không phù hợp, Thù ghét/Phân biệt, Quấy rối/Bắt nạt kể cả "có hệ thống", Group giả mạo), Trung bình 5 (Nội dung sai/hiểu nhầm, Đạo văn/Vi phạm bản quyền), Nhẹ 2 (Spam/Quảng cáo, Khác); mỗi báo cáo một lý do; bằng điểm thì vụ mở trước đứng trước |
+| QA-358 | ISS-298: Hết thời gian thử thách thì giảm mức thế nào; "N ngày" tính sao? | "ừm chọn A và i" — về số lần cao nhất của mức dưới (HEAVY → 4, MEDIUM → 2, LIGHT → 0), mức mới có thời gian thử thách riêng nối tiếp; N ngày = đủ N × 24 giờ |
+| QA-359 | ISS-299: Ban nào tính vào số lần đã bị ban? | "ok chọn A" — mọi ban từng có hiệu lực, kể cả ban được gỡ sớm và ban vĩnh viễn thủ công; không tính ban bị lật do khiếu nại |
+| QA-360 | ISS-300: Báo cáo có làm bài bị tạm ẩn không? | "A nhé, báo cáo không ẩn" — chỉ AI quét lại mới làm bài Bị gắn cờ |
+| QA-361 | ISS-301: Nội dung AI gắn cờ, yêu cầu ban nằm ở hàng chờ nào? | "okey nếu A hợp lí" — chung hàng chờ báo cáo, mỗi việc là một vụ, người báo cáo "Hệ thống (AI)"; gộp vào vụ đang mở của cùng đối tượng; mức nặng theo nhóm vi phạm AI phát hiện, số báo cáo tính 1; vụ yêu cầu ban có đánh dấu |
+| QA-362 | ISS-302: Kết luận vụ — lý do, thông báo khi Bác bỏ, kết quả chung cho người báo cáo? | "A nhé" — lý do kết luận bắt buộc ở cả hai kết quả; người bị báo cáo không nhận thông báo khi Bác bỏ; người báo cáo nhận "đã có biện pháp xử lý" hoặc "không phát hiện vi phạm", câu chữ chốt khi thiết kế; vụ do AI tạo không có thông báo cho người báo cáo; đường dẫn khiếu nại chỉ kèm khi xử lý khiếu nại được |
+| QA-363 | ISS-303: Báo cáo đối tượng không còn hiển thị với người báo cáo? | "01.12: okey, chọn A" — từ chối báo cáo |
+| QA-364 | ISS-304: Báo cáo chính mình, báo cáo trùng, người ở HEAVY? | "nhóm 1-4: ok" — không báo cáo được nội dung, tài khoản của chính mình; cùng người báo cáo lại cùng đối tượng khi vụ còn mở thì từ chối; người ở HEAVY vẫn báo cáo được |
+| QA-365 | ISS-305: "30 phút không thao tác", chỉ số tập trung, Admin xử lý vụ nhắm vào chính mình? | "nhóm 1-4: ok" — 30 phút tính từ thao tác cuối của người giữ (mở xem vụ, ẩn, cảnh cáo, ban, kết luận); chỉ số tập trung tính cho đối tượng của vụ đang xem, trong 90 × 24 giờ gần nhất; Admin cũng không thấy, không nhận vụ nhắm vào chính mình |
+| QA-366 | ISS-306: Ngưỡng tốc độ, điểm quét, nhiều nội dung một lần quét, bỏ hoặc lật cảnh cáo? | "nhóm 1-4: ok" — kích hoạt khi số trả lời trong luồng đạt ngưỡng trở lên; điểm quét = điểm cao nhất trong 4 nhóm, nhóm đó là lý do của vụ; mỗi nội dung ≥ 0,9 một cảnh cáo; bỏ hoặc lật cảnh cáo: số lần giảm 1, mức tính lại, bản ghi giữ có đánh dấu, thời điểm kết thúc thử thách không đổi |
+| QA-367 | ISS-307: Ban chồng; nhật ký? | "nhóm 1-4: ok" — không ban chồng (gỡ rồi Ban vĩnh viễn); nhật ký ghi thêm gỡ ban, bỏ cảnh cáo AI; không ghi nhận, nhả vụ; dòng nhật ký không sửa, không xóa |
+| QA-368 | ISS-308: Người báo cáo có rút, sửa báo cáo không? | "q15b: không rút/sửa" |
+| QA-369 | ISS-309: Báo cáo nhóm xử lý thế nào? | "có thể ẩn/khoá nhóm nhé", rồi "hỗ trợ cả ẩn và khoá đi", sau đó "ok" với hành vi chi tiết — Ẩn nhóm (không bỏ ẩn) và Khóa nhóm (Mod/Admin mở khóa trực tiếp); người bị báo cáo là Owner |
