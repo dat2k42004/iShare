@@ -304,6 +304,8 @@
 - **Correction:** Appeal review permissions — MOD không review được appeal từ action của chính mình (conflict of interest → escalate lên ADMIN). ADMIN review được TẤT CẢ appeal kể cả action ADMIN tự thực hiện — vì ADMIN là cấp cao nhất, không có cấp trên để escalate.
 - **Implication:** Appeal routing logic: if appeal.issued_by == current_mod → redirect to ADMIN queue. ADMIN queue nhận tất cả không lọc.
 
+**[Clarified 2026-10-18 — DEC-196: "redirect to ADMIN queue" là quy tắc lọc, không có bước chuyển riêng]**
+
 ---
 
 ## Phase 3 — Scope Decomposition
@@ -1084,7 +1086,7 @@
 | QA-325 | ISS-265: MEDIUM, HEAVY chặn những thao tác nào? | A — chặn mọi thao tác đưa bài chưa từng công khai ra công khai; vẫn cho sửa, khôi phục bài cũ và bình chọn |
 | QA-326 | ISS-266: Phần bắt buộc, giới hạn độ dài? | Gửi: bắt buộc tiêu đề và nội dung, "pool có thể tính như content và thay thế content"; tệp đính kèm không thay nội dung. Nháp: chỉ cần "không trắng tinh". Tiêu đề 150 ký tự; nội dung "tầm 5000 từ (hoặc lớn hơn chút)" → chốt 6.000 từ, chỉ xét chữ người đọc thấy. Nháp áp dụng như bình thường và "có cảnh báo ngay khi soạn thảo" |
 | QA-327 | ISS-267: Chi tiết poll? | Đổi phiếu luôn được khi còn hạn (bỏ tùy chọn); có tùy chọn chọn một/chọn nhiều, "chọn nhiều luôn là mặc định"; khóa cấu hình sau khi gửi; chỉ chủ bài thêm lựa chọn, sau khi gửi chỉ thêm lựa chọn và sửa hạn, tối đa 10; hạn ≥ hiện tại, đổi được khi còn mở, kết thúc ngay = hạn bằng hiện tại; "cho phép bỏ chọn bình thường"; thêm/bỏ poll chỉ khi chưa gửi; % "tính trên tổng lượt chọn", làm tròn số nguyên (A); tác giả được bình chọn poll của mình |
-| QA-328 | ISS-268: Bài bị AI tự từ chối? | "đúng vậy" — thấy nhóm vi phạm, gửi lại không giới hạn, khiếu nại qua M09 |
+| QA-328 | ISS-268: Bài bị AI tự từ chối? | "đúng vậy" — thấy nhóm vi phạm, gửi lại không giới hạn, khiếu nại qua M09 **[Clarified 2026-10-18 — DEC-198: khiếu nại gộp với cảnh cáo AI; hạn theo cảnh cáo hoặc 3 ngày]** |
 | QA-329 | ISS-269: Khóa toàn bộ chặn gì? | Chặn bình luận mới, upvote và "khoá cả pool"; bookmark, báo cáo vẫn được |
 | QA-330 | ISS-270: Đếm 7 ngày khôi phục thế nào? | "7 ngày tính từ lúc bắt đầu chọn xoá" (7 × 24 giờ) |
 | QA-331 | ISS-271: Mod xem bài chưa công khai của người khác? | "không mở nháp nhé, vì tinh thần nháp chưa public thì ai duyệt? ta hiểu duyệt là bài mà để cho người khác đọc được!" — áp dụng cả bài tự ẩn, bài bị từ chối |
@@ -1147,3 +1149,24 @@
 | QA-367 | ISS-307: Ban chồng; nhật ký? | "nhóm 1-4: ok" — không ban chồng (gỡ rồi Ban vĩnh viễn); nhật ký ghi thêm gỡ ban, bỏ cảnh cáo AI; không ghi nhận, nhả vụ; dòng nhật ký không sửa, không xóa |
 | QA-368 | ISS-308: Người báo cáo có rút, sửa báo cáo không? | "q15b: không rút/sửa" |
 | QA-369 | ISS-309: Báo cáo nhóm xử lý thế nào? | "có thể ẩn/khoá nhóm nhé", rồi "hỗ trợ cả ẩn và khoá đi", sau đó "ok" với hành vi chi tiết — Ẩn nhóm (không bỏ ẩn) và Khóa nhóm (Mod/Admin mở khóa trực tiếp); người bị báo cáo là Owner |
+
+---
+
+## Functional Requirement — M09: Appeal (QA-370 → QA-383)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-370 | ISS-310: Ai xét khiếu nại khi người khiếu nại hoặc người ra xử lý là Mod, Admin? | Hỏi lại "có thật sự cần trường hợp mod, admin khiếu nại nhau không?"; sau khi làm rõ: "report/khiếu nại của mod sẽ do admin xử lý, và không thể report admin nhé, vì vậy không cần khiếu nại!" — Admin không bị báo cáo, không có khiếu nại; vụ và khiếu nại liên quan Mod chỉ Admin xử lý; phần còn lại giữ nguồn (Mod xét khiếu nại của người dùng thường, kể cả về xử lý do Admin ra, trừ thao tác của mình). Mod bị ban rồi khiếu nại: tính theo vai trò lúc bị xử lý — "được." |
+| QA-371 | ISS-311: Bài, bình luận của Admin có qua duyệt, quét AI không? | "bài của admin không cần duyệt!"; "comment của admin tương tự". Ba điểm biên đề xuất — E1 nhóm do Admin làm Owner không báo cáo được; E2 bài của Admin trong nhóm vẫn qua cổng duyệt của nhóm (M11), chỉ bỏ quét AI và duyệt của hệ thống; E3 nội dung Admin không có kiểm duyệt nào — "ok" |
+| QA-372 | ISS-312: "Mod duy nhất có thể xét" và chuyển lên Admin nghĩa là gì? | "A nhé!" — không có cơ chế chuyển riêng; chỉ là quy tắc lọc người thấy khiếu nại |
+| QA-373 | ISS-313: Tài khoản đang bị ban có khiếu nại cảnh cáo, bài bị gỡ được không? | "chỉ khiếu nại được ban chứ?" → "ok" — trong lúc bị ban chỉ khiếu nại chính lệnh ban; xử lý khác khiếu nại khi tài khoản ACTIVE và còn hạn |
+| QA-374 | ISS-314: Người bị AI tự cảnh cáo vào trang khiếu nại từ đâu? | "tại sao không khiếu nại như bị mod khiếu nại nhỉ?"; "vậy tại sao phải phân biệt do ai khiếu nại, chỉ cần thông báo bạn bị cảnh cáo ... + kèm option khiếu nại là được mà?" → "ok" — mọi thông báo về một xử lý khiếu nại được đều kèm nút Khiếu nại, bất kể ai ra |
+| QA-375 | ISS-315: Khiếu nại bài bị AI tự từ chối: có cho khiếu nại không, hạn, kết quả? Cảnh cáo AI đi kèm? | Lúc đầu: "thôi, không cho khiếu nại nhé, như fb tôi thấy từ chối là từ chối thì phải?"; cảnh cáo AI đi kèm: "Cảnh cáo đó khiếu nại được mà?". Sau khi xem ví dụ Mod lật cảnh cáo mà bài vẫn bị từ chối, stakeholder hỏi lại "ta nên cho phép khiếu nại không ta?" → "đúng, phải theo hướng B, hạn 3 ngày được không (nhưng còn vướng cái cảnh cáo nếu để hạn này)" → "nếu có cảnh cáo -> hạn = hạn khiếu nại của cảnh cáo. nếu không -> hạn 3 ngày. OK không? và cảnh cáo cũng phải nêu là bài sẽ bị ẩn vì ta gộp" → "ok" (thông báo ghi "bị từ chối", không phải "bị ẩn") |
+| QA-376 | ISS-316: Có lưu bản chụp nội dung lúc xử lý để xét khiếu nại không (stakeholder nêu)? | "ta đang có khá nhiều loại khiếu nại đó, nên việc lưu snapshot khá phức tạp" → "chọn C đi" — không chụp ở MS1; người xét dựa vào lý do kết luận, bằng chứng, lịch sử sửa bài, nhật ký AI; chỗ hở còn lại ghi "Cần cân nhắc" để xem sau MS1 |
+| QA-377 | ISS-317: Hạn khiếu nại cảnh cáo khi thời gian thử thách bị đặt lại hoặc nối tiếp? | "ừ chọn A đi" — hạn cố định cho từng cảnh cáo: 7/10/15 ngày từ lúc ra, theo mức mà cảnh cáo đó đưa người dùng tới |
+| QA-378 | ISS-318: Khiếu nại xét sau khi xử lý đã kết thúc? | "A" — vẫn xét, vẫn lật; số lần cảnh cáo hiện tại giảm 1, không dưới 0 |
+| QA-379 | ISS-319: Ưu tiên giữa hàng chờ bài viết và cảnh cáo, ban? | "ừ chọn B đi" — một danh sách chung: ban > cảnh cáo > bài bị gỡ, cùng loại đến trước xét trước; lọc theo loại |
+| QA-380 | ISS-320: Lật ban của Mod có trả lại vai trò Mod không? | "B đi nhé!" — không; Admin muốn thì gửi đề xuất làm Mod (DEC-091) |
+| QA-381 | ISS-321: Bình luận bị ẩn có hiện lại khi cảnh cáo, ban liên quan bị lật không (OPEN-012)? | Hỏi lại "bài viết ta đang không cho hiện lại, vậy bình luận có cho hiện lại không?"; sau khi đính chính (bài bị Mod gỡ vẫn hiện lại, bài bị AI từ chối thì không): "ừ chọn B" — bình luận vẫn ẩn |
+| QA-382 | ISS-322: Danh sách xác nhận — L1 lý do kết luận khiếu nại; L2 rút, sửa khiếu nại | "ok" — L1: lý do bắt buộc ở cả Chấp nhận và Từ chối, người khiếu nại thấy kết luận kèm lý do; L2: không rút, không sửa |
+| QA-383 | ISS-323: Khiếu nại bài bị gỡ và khiếu nại riêng cảnh cáo, ban đi kèm cho kết luận ngược nhau thì sao? | "chọn B đi" — giữ hai đường riêng; xử lý đi kèm chỉ bị lật một lần, theo khiếu nại được chấp nhận trước; đã có khiếu nại riêng bị từ chối thì khiếu nại bài không lật nó; xử lý đã bị lật thì khiếu nại riêng mới bị từ chối, khiếu nại đang chờ vẫn xét, chấp nhận không đổi gì thêm |

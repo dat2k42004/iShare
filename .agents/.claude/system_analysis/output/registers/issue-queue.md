@@ -463,3 +463,24 @@
 | ISS-307 | Ban chồng lên ban đang hiệu lực; nhật ký ghi thêm thao tác nào, có sửa được không | Closed | Xem DEC-187, DEC-193 |
 | ISS-308 | Người báo cáo có rút, sửa báo cáo không (mở rộng phạm vi) | Closed | Xem DEC-191 |
 | ISS-309 | Báo cáo nhóm: người bị báo cáo, Mod xử lý nhóm vi phạm bằng thao tác gì (mở rộng phạm vi) | Closed | Xem DEC-194 |
+
+---
+
+## Functional Requirement — M09: Appeal | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-310 | Ai xét khiếu nại khi người khiếu nại hoặc người ra xử lý là Mod, Admin; Mod tự duyệt khiếu nại của mình | Closed | Xem DEC-195, DEC-196 |
+| ISS-311 | Bài, bình luận của Admin có qua duyệt, quét AI không (phát sinh từ ISS-310) | Closed | Xem DEC-195 |
+| ISS-312 | "Mod duy nhất có thể xét" và việc chuyển khiếu nại lên Admin khi Admin vốn thấy mọi khiếu nại | Closed | Xem DEC-196 |
+| ISS-313 | Tài khoản đang bị ban có khiếu nại cảnh cáo, bài bị gỡ được không | Closed | Xem DEC-197 |
+| ISS-314 | Người bị AI tự cảnh cáo vào trang khiếu nại từ đâu (thông báo cảnh cáo AI không kèm đường dẫn) | Closed | Xem DEC-197 |
+| ISS-315 | Khiếu nại bài bị AI tự từ chối: có cho khiếu nại không, hạn, kết quả; cảnh cáo AI đi kèm | Closed | Xem DEC-198 |
+| ISS-316 | Bản chụp nội dung lúc xử lý để xét khiếu nại (mở rộng phạm vi, stakeholder nêu) | Closed | Xem DEC-198 |
+| ISS-317 | Hạn khiếu nại cảnh cáo khi thời gian thử thách bị đặt lại hoặc nối tiếp khi giảm mức | Closed | Xem DEC-199 |
+| ISS-318 | Khiếu nại được xét sau khi xử lý đã kết thúc (ban hết hạn, được gỡ; cảnh cáo đã giảm mức) | Closed | Xem DEC-199 |
+| ISS-319 | Ưu tiên giữa hàng chờ khiếu nại bài viết (riêng) và khiếu nại cảnh cáo, ban | Closed | Xem DEC-200 |
+| ISS-320 | Khiếu nại ban của một Mod được chấp nhận thì vai trò Mod có được trả lại không | Closed | Xem DEC-201 |
+| ISS-321 | OPEN-012: bình luận bị ẩn có hiện lại khi cảnh cáo, ban liên quan bị lật không | Closed | Xem DEC-201 |
+| ISS-322 | Lý do kết luận khiếu nại; rút, sửa khiếu nại đã gửi | Closed | Xem DEC-201 |
+| ISS-323 | Khiếu nại bài bị Mod gỡ chồng với khiếu nại riêng cảnh cáo, ban đi kèm | Closed | Xem DEC-202 |

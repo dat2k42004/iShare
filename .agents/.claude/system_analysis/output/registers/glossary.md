@@ -45,3 +45,5 @@
 ---
 
 **Appeal (Khiếu nại):** Quy trình cho phép user phản đối một quyết định kiểm duyệt (warn hoặc ban). Trong code/spec dùng thuật ngữ `appeal`; trong UI hiển thị là "Khiếu nại". Chỉ áp dụng cho warn và ban — không áp dụng cho post/comment bị xóa.
+
+**[Amended 2026-10-18 — DEC-115, DEC-198: có khiếu nại bài bị Mod/Admin gỡ và bài bị AI từ chối; không khiếu nại bình luận]**

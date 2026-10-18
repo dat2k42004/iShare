@@ -84,6 +84,8 @@
 
 **[Amended 2026-10-11 — DEC-161: quét lại khi sửa — điểm ≥ 0.5 thì FLAGGED, lỗi thì giữ nguyên]**
 
+**[Amended 2026-10-18 — DEC-195: bài của Admin không quét trước khi đăng]**
+
 ---
 
 ### DEC-014
@@ -520,6 +522,8 @@ No auto-deletion / no retention policy — notifications kept indefinitely, cons
 
 **[Amended 2026-10-15 — DEC-186, DEC-190: kích hoạt khi đạt ngưỡng; bình luận chờ xét là một vụ trong hàng chờ báo cáo]**
 
+**[Amended 2026-10-18 — DEC-195: bình luận của Admin không bị AI quét]**
+
 ### DEC-078: Warning issuance mechanism
 - AI high confidence → auto-issues warning directly, no mod involved (user can appeal via M09 if wrong)
 - AI low confidence/borderline → escalates to mod queue, mod manually decides
@@ -581,13 +585,19 @@ Message (required, explanation text) + evidence (optional, max 3 images, 5MB/fil
 ### DEC-085: Banned user access
 Banned users can still log in normally. Post-login they see only a "account banned" screen with reason + "Gửi khiếu nại" button (if within appeal window). All other API endpoints blocked (403) except appeal submission endpoint. Ban notification email includes direct "Appeal" link to protected /appeal route (redirects through login if needed).
 
+**[Amended 2026-10-18 — DEC-197: trong lúc bị ban chỉ khiếu nại được chính lệnh ban]**
+
 ### DEC-086: Appeal deadline
 - Warning: appeal window = entire probation duration (7/10/15 days matching DEC-079)
 - Temporary ban: appeal window = entire ban duration (30/90 days matching DEC-080)
 - Permanent ban: appeal window = 90 days from ban date, then appeal right permanently expires
 
+**[Amended 2026-10-18 — DEC-199: hạn khiếu nại cảnh cáo cố định 7/10/15 ngày từ lúc ra, theo mức của chính cảnh cáo đó]**
+
 ### DEC-087: One appeal per action
 Each resolved report action, warning, or ban may be appealed exactly once. A rejected appeal cannot be resubmitted for the same underlying action.
+
+**[Clarified 2026-10-18 — DEC-202: áp cho xử lý đi kèm bài bị gỡ]**
 
 ### DEC-088: Appeal queue (separate from report queue)
 - Separate queue from M08's report queue — different assignment rule needed (mod cannot review appeals of their own actions, per QA-021)
@@ -596,9 +606,13 @@ Each resolved report action, warning, or ban may be appealed exactly once. A rej
 - Mod's own actions are automatically excluded from their queue view (not just skipped — hidden entirely)
 - Sole-mod edge case: if the only available mod is the action's author, auto-escalate to ADMIN
 
+**[Amended 2026-10-18 — DEC-196, DEC-200: chuyển lên Admin là quy tắc lọc; một danh sách chung ban > cảnh cáo > bài]**
+
 ### DEC-089: Appeal outcome (reversal)
 - Ban approved: account_state reverts to ACTIVE immediately; ban record kept in log marked overturned=true for audit, no longer in effect
 - Warning approved: restriction lifted immediately; warn count decremented (treated as if warning never happened) to keep LIGHT/MEDIUM/HEAVY escalation math accurate
+
+**[Amended 2026-10-18 — DEC-199, DEC-201: vẫn lật khi xử lý đã kết thúc; lật ban của Mod không trả lại vai trò]**
 
 ---
 ## Phase 5 — M10: Admin Panel
@@ -746,6 +760,10 @@ Precedent reviewed: Reddit distinguishes admin-level content removal (formal app
 Mechanism: a separate "Content Deletion Appeal" queue (distinct from Report and from Warning/Ban Appeal), reusing the existing claim-based 30-minute-timeout mechanism. Priority ranks lowest among the three appeal types: Ban > Warning > Content Deletion Appeal.
 Outcome on success: (1) the content is restored, (2) any points deducted under DEC-113 are refunded, (3) any warning or ban issued together with that specific removal is also reversed, reusing the existing appeal-outcome mechanism from ISS-117 (warning: restriction lifted + warn count decremented; ban: immediate unban, log kept with an overturned flag).
 Comments have no equivalent appeal path — points deducted for a Mod/Admin-removed comment remain permanently deducted.
+
+**[Amended 2026-10-18 — DEC-198, DEC-200: thêm khiếu nại bài bị AI từ chối (gộp với cảnh cáo AI); một danh sách khiếu nại chung]**
+
+**[Clarified 2026-10-18 — DEC-202: xử lý đi kèm chỉ bị lật một lần; đã bị từ chối riêng thì khiếu nại bài không lật]**
 
 
 ## Phase 5 — M12: Gamification Deep Dive
@@ -1071,6 +1089,8 @@ ISS-232 → ISS-260
 - The author can edit and resubmit without limit; each resubmission is scanned again. Disputes go through M09 (DEC-133).
 - Source: QA-328
 
+**[Clarified 2026-10-18 — DEC-198: khiếu nại gộp bài và cảnh cáo AI; hạn theo cảnh cáo, không có cảnh cáo thì 3 ngày]**
+
 ### DEC-167: M03 — Scope of FULLY_LOCKED (clarifies DEC-033)
 - FULLY_LOCKED blocks new comments, upvotes and poll voting (including changing or withdrawing a vote). Bookmark and report remain available.
 - Source: QA-329
@@ -1176,6 +1196,8 @@ ISS-274 → ISS-281
 - Comments have no appeal (DEC-115 unchanged). Whether a comment is shown again when a related warning or ban is overturned on appeal: see OPEN-012.
 - Source: QA-345
 
+**[Amended 2026-10-18 — DEC-201: bình luận bị ẩn không hiện lại khi cảnh cáo, ban liên quan bị lật (đóng OPEN-012)]**
+
 ### DEC-181: M04 — Thread display with deleted or hidden comments
 - A HIDDEN root comment with at least one visible reply shows "[Bình luận đã bị xóa]" in its place, like an author-deleted root; replies stay. A HIDDEN reply is not shown; replies pointing to it show "trả lời [bình luận đã bị xóa]".
 - When a root showing the placeholder no longer has any visible reply, the placeholder disappears from the thread (data kept, DEC-179).
@@ -1208,6 +1230,8 @@ ISS-282 → ISS-289
 - AI never auto-warns a MOD or ADMIN: a MOD's content scoring ≥ 0.9 is hidden or rejected as usual, and the warning decision goes to ADMIN; ADMIN content gets no warning.
 - Source: QA-352, QA-355, QA-366
 
+**[Amended 2026-10-18 — DEC-195: nội dung của Admin không bị AI quét]**
+
 ### DEC-187: M08 — Account sanctions: ban only, 7th violation, ban count, no stacked bans (clarifies DEC-080, QA-019)
 - MOD/ADMIN sanctions on an account are warning and ban only. "Suspend" in drafts DM-10.2, DM-10.3 means a temporary ban; there is no "Disable account" action (consistent with FR-M01).
 - A user at HEAVY who violates again (7th violation) gets no 7th warning. The violating content is handled as usual, and the system creates a ban request as a case in the report queue; MOD/ADMIN decide and press "Ban" (escalating duration). A MOD who finds the violation while resolving a case chooses Ban instead of a warning. AI never bans (DEC-078).
@@ -1228,6 +1252,8 @@ ISS-282 → ISS-289
 - Banning a MOD revokes the MOD role (QA-013, unchanged).
 - Source: QA-355, QA-365
 
+**[Amended 2026-10-18 — DEC-195: Admin không bị báo cáo; vụ về Mod chỉ Admin xử lý]**
+
 ### DEC-190: M08 — Report queue: everything goes through cases; AI-created cases; priority; reports do not hide posts (clarifies DEC-032, DEC-075, DEC-077)
 - Hiding content, warning and banning are done only inside a case. A MOD who finds a violation without a report reports it first, then claims the case. (Exceptions: lifting a ban, unlocking a group — DEC-194.)
 - Content flagged by AI that needs MOD review — a comment hidden with score 0.5–<0.9, a post FLAGGED after re-scan — and the ban request of DEC-187 each become a case in the report queue, with reporter "System (AI)". If the target already has an open case, they join it. The case's reason is the AI category (DEC-186); the AI entry counts as one report. A ban-request case is marked as such.
@@ -1245,6 +1271,8 @@ ISS-282 → ISS-289
 - Reports cannot be withdrawn or edited after sending.
 - Source: QA-363, QA-364, QA-368
 
+**[Amended 2026-10-18 — DEC-195: không báo cáo được Admin]**
+
 ### DEC-192: M08 — Concluding a case: reason and notifications; target concentration (clarifies DEC-074, DEC-082)
 - The resolution reason is required for both outcomes (action taken, dismissed).
 - The reported user is notified only when action is taken; nothing is sent when the case is dismissed.
@@ -1252,6 +1280,8 @@ ISS-282 → ISS-289
 - The appeal link is included only when the action can be appealed: warning, ban, hidden post (DEC-115); not for a hidden comment or a hidden or locked group.
 - Target concentration of a reporter is computed for the target of the case being viewed: (that reporter's dismissed reports on this target) ÷ (that reporter's resolved reports), over reports resolved in the last 90 × 24 hours. Example: 10 resolved, 6 dismissed on user X → 0.6 when viewing a case about X.
 - Source: QA-362, QA-365
+
+**[Amended 2026-10-18 — DEC-197: mọi thông báo về xử lý khiếu nại được đều kèm đường dẫn khiếu nại]**
 
 ### DEC-193: M08 — Moderation log additions (amends DEC-081)
 - The moderation log also records lifting a ban, removing an AI warning, hiding, locking and unlocking a group. Claiming and auto-release of a case are not logged.
@@ -1268,3 +1298,63 @@ ISS-282 → ISS-289
 
 ### Issues Closed
 ISS-292 → ISS-309
+
+---
+
+## Functional Requirement — M09: Appeal
+
+### DEC-195: M09 — ADMIN cannot be reported; cases and appeals about a MOD are handled by ADMIN only; ADMIN content is not reviewed or scanned (amends DEC-189, DEC-191, DEC-186, DEC-013, DEC-077)
+- No one can report an ADMIN's post, comment or account. Since ADMIN accounts are never warned or banned (DEC-189), an ADMIN has no appeals.
+- A case about a MOD's post, comment or account is seen, claimed and handled by ADMIN only; other MODs do not see it (replaces "A MOD handling a case about another MOD's content can hide the content" in DEC-189).
+- An appeal sent by a MOD (warned by ADMIN, post removed, or AI warning) is seen and reviewed by ADMIN only. The role counted is the role at the time of the action: a MOD banned by ADMIN loses the MOD role (DEC-189) but the ban appeal still goes to ADMIN only.
+- Other appeals keep the source rule: MODs review them, including appeals about actions taken by ADMIN, except appeals about their own actions (QA-020, DEC-088).
+- ADMIN posts are published without pre-scan or review, and ADMIN comments are not AI-scanned. Applied by M03, M04, M08; to be revised in FR-M03, FR-M04, FR-M08.
+- A group whose Owner is an ADMIN cannot be reported (a group report targets its Owner, DEC-194).
+- An ADMIN post inside a group still goes through that group's own approval gate (M11); only the system AI scan and system review are skipped.
+- Consequence accepted: ADMIN content has no system moderation at all (no scan, no review, no report).
+- Source: QA-370, QA-371
+
+### DEC-196: M09 — Who sees an appeal; "escalate to ADMIN" is the visibility rule (clarifies DEC-088, QA-021)
+- An appeal about MOD X's action is shown to every MOD other than X and to ADMIN; an appeal sent by a MOD is shown to ADMIN only (DEC-195); ADMIN sees every appeal.
+- There is no separate escalation step, flag or notification: when no MOD other than the action's author exists, only ADMIN sees the appeal, which is what DEC-088's "auto-escalate to ADMIN" means.
+- Source: QA-372
+
+### DEC-197: M09 — Appeals while banned; appeal link on every appealable notice (amends DEC-085, DEC-192)
+- While an account is BANNED it can appeal only that ban (locked-screen button or ban email link). Warnings and removed posts can be appealed only while the account is ACTIVE and within their appeal window.
+- Every notification about an appealable action carries the appeal link, whoever issued it (AI, MOD or ADMIN): warning (including AI auto-warnings), ban, post removed by MOD/ADMIN. Also for a post auto-rejected by AI (DEC-198). Not for a hidden comment or a hidden or locked group. Applied to M08 notifications (FR-M08-09.05, FR-M08-10.03 to be revised).
+- Source: QA-373, QA-374
+
+### DEC-198: M09 — Appeal of a post auto-rejected by AI, combined with its AI warning; no content snapshot (clarifies DEC-115, DEC-133, DEC-166)
+- A post auto-rejected by AI (score ≥ 0.9) can be appealed. The author may also edit and resubmit without limit (DEC-166).
+- When the rejection comes with an AI warning (DEC-186), the post and that warning are appealed together in one appeal, and one notification tells the author both facts — the post was rejected (not published) and a warning was issued — with one appeal link. The appeal window is that warning's window (DEC-199: 7, 10 or 15 × 24 hours by level).
+- When the rejection comes without a warning (author at HEAVY, where a ban request is created instead; author is a MOD, where ADMIN decides on a warning), the appeal window is 3 × 24 hours from the rejection.
+- The appeal is of type "post" in the appeal list (DEC-200). The reviewer sees the AI decision log of the post (DEC-133).
+- Accepted: the post is published at once without a new scan, and the AI warning issued with that rejection is overturned. If the author has already edited and resubmitted the post before the conclusion, accepting overturns only the warning. Rejected: both stay as they are.
+- No snapshot of content is kept at the time of an action for MS1. Reviewers rely on the resolution reason (required, DEC-192), report evidence, post edit history and the AI decision log. Remaining gap (a comment or profile warned without being hidden, then edited before the appeal) is recorded as a point to reconsider after MS1.
+- Source: QA-375, QA-376
+
+### DEC-199: M09 — Warning appeal window; appeals reviewed after the action ended (clarifies DEC-086, DEC-089)
+- Each warning has a fixed appeal window counted from the moment it is issued: 7, 10 or 15 × 24 hours according to the level that warning brings the user to (LIGHT, MEDIUM, HEAVY). Later warnings and step-downs do not change it. Example: warning 1 at 01/10 09:00 (LIGHT) → until before 08/10 09:00; warning 2 at 05/10 09:00 → until before 12/10 09:00.
+- A warning issued together with an AI rejection of a post is appealed only through the combined post appeal (DEC-198), within this same window.
+- An appeal sent within the window is reviewed and overturned as usual even if the action has ended meanwhile (temporary ban expired or lifted, warning level stepped down): the ban becomes overturned and is not counted in the number of previous bans; the warning becomes overturned and the current warning count goes down by 1, never below 0, and the level is recomputed.
+- Source: QA-377, QA-378
+
+### DEC-200: M09 — One appeal queue view (clarifies DEC-088, DEC-115)
+- Appeals are shown in one list, separate from the report queue: ban appeals, then warning appeals, then post appeals (removed by MOD/ADMIN or auto-rejected by AI); within a type, earlier submitted first. Moderators can filter by type, which is how the "separate queue" of DEC-115 is kept.
+- Source: QA-379
+
+### DEC-201: M09 — Overturned ban of a MOD, hidden comments, conclusion reason, no withdrawal (amends DEC-089, DEC-180; closes OPEN-012)
+- When the ban of a former MOD is overturned, the account returns to ACTIVE with role USER; the MOD role is not restored. ADMIN may send a new "Đề xuất làm Mod" (DEC-091).
+- When a warning or ban issued together with hiding a comment is overturned, the comment stays HIDDEN (comments have no appeal, DEC-115, QA-345).
+- The reviewer must give a conclusion reason for both Accepted and Rejected; the appellant sees the conclusion with its reason.
+- An appellant cannot withdraw or edit an appeal once sent.
+- Source: QA-380, QA-381, QA-382
+
+### DEC-202: M09 — Removed-post appeal vs separate appeals of the warning or ban issued with it (clarifies DEC-115, DEC-087)
+- A warning or ban issued together with a post removal is overturned at most once, by whichever appeal is accepted first: its own appeal or the appeal of the removed post.
+- If that warning or ban already had its own appeal rejected, accepting the post appeal does not overturn it (the rejection is final, DEC-087).
+- Once it is overturned, a new appeal of it is refused; an appeal of it already pending is reviewed as usual, and accepting it changes nothing more.
+- Source: QA-383
+
+### Issues Closed
+ISS-310 → ISS-323
