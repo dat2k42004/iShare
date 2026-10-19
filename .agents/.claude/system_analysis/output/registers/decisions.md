@@ -643,6 +643,8 @@ Two-tier hierarchy:
 - Master "AI Layer" toggle: overrides everything OFF when disabled
 - Per-module toggles (only apply when master is ON): Search (semantic embedding, M06), Moderation (pre-scan+comment auto-scan+auto-warn, M08), Topic suggestion (M05)
 
+**[Clarified 2026-10-19 — DEC-205: công tắc Search điều khiển cả embedding bài và embedding truy vấn; tóm tắt không có công tắc riêng]**
+
 ### DEC-094: Admin action audit log
 All admin actions (promote/demote, config toggles, ban/warn actions) logged. Append-only — admin can view but cannot edit or delete entries. Ensures transparency even over admin's own actions.
 
@@ -653,6 +655,8 @@ All admin actions (promote/demote, config toggles, ban/warn actions) logged. App
 - Model: OpenAI `text-embedding-3-small` (same vendor as Moderation API, cheap ~$0.02/1M tokens, multilingual incl. Vietnamese)
 - Storage: pgvector extension, `posts.embedding vector(1536)` column, HNSW index
 - Computed once at publish time (or alongside pre-scan); recomputed if content edited significantly (mirrors is_stale pattern from M05)
+
+**[Clarified 2026-10-19 — DEC-205: tạo khi bài Đã đăng; tạo lại mỗi lần tiêu đề, nội dung chữ thay đổi; hàng chờ tạo bù]**
 
 ### DEC-096: Topic suggestion model
 GPT-4o-mini — sufficient for simple 11-topic classification task, low cost.
@@ -678,6 +682,8 @@ Two distinct scenarios:
    - Timeout thresholds: Fast APIs (Moderation, Embedding) = 5s; LLM generation (Topic suggestion) = 10s
    - Retry: exactly 1 retry, sequential (wait for first attempt to fail/timeout, then 2s delay, then retry once)
    - If retry also fails: Search→fallback full-text for that query only; Topic suggest→show non-blocking error, no action taken; Moderation (Post pre-scan)→route to mod review queue (treat as safety-net, do NOT auto-publish); Moderation (Comment)→leave as-is, log error for admin
+
+**[Clarified 2026-10-19 — DEC-205, DEC-206, DEC-207: embedding bài lỗi → hàng chờ tạo bù; tóm tắt 10 giây, lỗi báo bận; "log error for admin" = bản ghi thất bại trong nhật ký AI]**
 
 ### DEC-100: AI rate limiting
 No dedicated AI-specific rate limit system. Relies on existing limits: Search (M06 DEC-063). New limit added: Topic Suggest button — 10 requests/min/user (only AI-triggered action lacking a natural rate limiter). Pre-scan/auto-scan are system-triggered, not user-invoked repeatedly, so no separate limit needed.
@@ -845,6 +851,8 @@ Topic Suggestion (GPT-4o-mini) output is validated against the system's fixed 11
 
 ### DEC-133: AI — raw output logging
 Every AI call (Moderation API, Embedding, Topic Suggestion) has its raw response logged to a dedicated `ai_decision_log` table, linked to the relevant post/comment. Distinct from the existing admin/mod action audit log (DEC-081/094), which logs human actions — this logs AI-made decisions specifically. Serves two purposes: (1) provides real usage data to tune the currently-placeholder 0.9/0.5 confidence thresholds (DEC-098), (2) gives Moderators/Admins an evidence trail when handling a Content Deletion Appeal (M09/DEC-115) where a user disputes an AI-driven rejection.
+
+**[Clarified 2026-10-19 — DEC-207: mỗi lời gọi một bản ghi, kể cả thất bại; không ghi tóm tắt, embedding truy vấn; không sửa, không xóa; chỉ xem khi xét khiếu nại]**
 
 ### Issues Closed
 ISS-189 through ISS-196 (see issue-queue.md / qa-log.md Phase 6 section for full detail). One item deferred: **OPEN-005** — no general event-tracking infrastructure for MS1 (formalizes the implicit decision already made at M15/QA-242).
@@ -1232,6 +1240,8 @@ ISS-282 → ISS-289
 
 **[Amended 2026-10-18 — DEC-195: nội dung của Admin không bị AI quét]**
 
+**[Clarified 2026-10-19 — DEC-204: hai nhóm cùng điểm cao nhất → lấy theo thứ tự DEC-097]**
+
 ### DEC-187: M08 — Account sanctions: ban only, 7th violation, ban count, no stacked bans (clarifies DEC-080, QA-019)
 - MOD/ADMIN sanctions on an account are warning and ban only. "Suspend" in drafts DM-10.2, DM-10.3 means a temporary ban; there is no "Disable account" action (consistent with FR-M01).
 - A user at HEAVY who violates again (7th violation) gets no 7th warning. The violating content is handled as usual, and the system creates a ban request as a case in the report queue; MOD/ADMIN decide and press "Ban" (escalating duration). A MOD who finds the violation while resolving a case chooses Ban instead of a warning. AI never bans (DEC-078).
@@ -1358,3 +1368,47 @@ ISS-292 → ISS-309
 
 ### Issues Closed
 ISS-310 → ISS-323
+
+---
+
+## Functional Requirement — M13: AI Layer
+
+### DEC-203: M13 — AI quality evaluation covers Topic Suggestion only; one metric shown to ADMIN in M15 (clarifies DM-11.5, QA-017, DEC-133)
+- The Feedback / Evaluation Loop (5th mandatory AI capability, DEC-006 unchanged) evaluates Topic Suggestion only. It sends nothing back to the AI provider and retrains nothing (DM-11.5 unchanged).
+- AI Moderation is not evaluated automatically: no MOD / "Trusted User" correct–incorrect marking (the DM-11.5 draft flow is dropped), no moderation metrics. Threshold tuning (DEC-098) is done by the development team reading the AI decision log, and changed by deployment (DEC-090).
+- Data: the Topic-suggestion feedback records of M05 (suggested Topics vs. Topics the author finally chose; recorded only when the suggestion is not stale), including those of deleted accounts (DEC-159).
+- Metric (single): share of suggested Topics kept = suggested Topics the author kept ÷ all suggested Topics, over the feedback records in the selected period. Example: {Toán, Vật lý, Hóa}→{Toán, Hóa}; {Ngữ văn}→{Ngữ văn, Lịch sử}; {Tin học, Toán}→{Tin học, Toán} → 5 kept of 6 suggested ≈ 83%. Precision/Recall/F1/Accuracy listed in DM-11.5 are not computed.
+- Shown to ADMIN in the M15 Content Stats dashboard with the existing M15 presets (Today / 7 days / 30 days / All-time); a record belongs to a period by the time it was recorded, Asia/Ho_Chi_Minh (DEC-127). Adds one item to M15 (QA-243).
+- Source: QA-384, QA-385, QA-392
+
+### DEC-204: M13 — Moderation scan input; tie between violation categories (clarifies DEC-097, DEC-186)
+- A post is sent to AI Moderation with its title, text content, poll (question and options) and image attachments. Document attachments (PDF/DOCX/XLSX/PPTX) are not sent (consistent with DEC-160). A comment is sent with its text.
+- When two or more categories share the highest score, the reason is the first of them in the order Harassment (Quấy rối), Hate (Ngôn từ thù ghét), Sexual (Nội dung người lớn), Violence (Bạo lực) — the order of DEC-097. All four have the same severity (BR-M08-06), so case priority is unaffected. Example: Harassment 0.92, Violence 0.92 → reason Harassment.
+- Source: QA-386, QA-392
+
+### DEC-205: M13 — Post embedding: when it is created, when recomputed, switches and backfill (clarifies DEC-095, DEC-093, DEC-099)
+- A post's embedding is created when the post becomes PUBLISHED, whatever the path: clean scan, MOD approval, published directly while AI Moderation is off, ADMIN post (no pre-scan, DEC-195). Rejected and pending posts have none.
+- It is recomputed every time the title or text content changes ("edited significantly" in DEC-095 means this, the same as the M05 stale rule). Changing only Tags, Topics, images or documents does not recompute it.
+- Post embedding and query embedding both follow the master AI switch and the Search switch (DEC-093).
+- A published post left without a current embedding — because the master or Search switch was off, or both attempts failed (DEC-099) — is put in a backfill queue and its embedding is created once the switches are on and the AI responds. This differs on purpose from DEC-013 (no retroactive moderation scan): creating an embedding changes nothing users see.
+- Source: QA-387, QA-388
+
+### DEC-206: M13 — Post summary on request, kept temporarily and shared; logged-in users only (amends DM-11.4, QA-011, QA-007, QA-388)
+- No summary is created automatically and none is stored permanently. A logged-in user (USER, MOD, ADMIN) who can see a post presses "Tóm tắt" to get one. A Guest sees the button; pressing it shows a message asking to log in to use the feature (amends QA-011 "Guest: Xem AI Summary").
+- The button exists only on posts whose title + text content has at least 300 words, counted as in DEC-144 (whitespace-separated tokens; each Vietnamese syllable is one word). Example: 250 words → no button; 300 → button.
+- Sent to the AI: title and text content only; no attachments, no poll. Below the summary the note "Tóm tắt chưa bao gồm nội dung tệp đính kèm" is shown.
+- The first request calls the AI; the result is kept and shared system-wide for 24 hours from its creation (24 × 60 minutes). Within that time every request for the post gets that result without calling the AI. The kept result is dropped when the title or text content changes, or when the post falls below 300 words. There is no separate rate limit (no change to DEC-100).
+- Timeout 10 s per attempt, one retry after 2 s (as DEC-099 for LLM generation); this is a constant changed by deployment. After both attempts fail, a non-blocking message ("Hệ thống đang bận, vui lòng thử lại sau", wording at design) is shown and the post stays readable; a failure is not kept. While the master AI switch is off, the button stays visible and pressing it shows the same message at once, without calling the AI. Summary has no own switch (DEC-093 unchanged).
+- Summary calls are not written to the AI decision log (DEC-207). Since nothing is stored, the backfill of QA-388 does not apply to summaries.
+- Source: QA-389, QA-390
+
+### DEC-207: M13 — AI decision log: what is logged, unit, immutability, who views it (clarifies DEC-133, DEC-099, DEC-156)
+- Logged: AI Moderation scoring, post embedding, Topic Suggestion (as DEC-133). Not logged: summary (DEC-206) and query embedding (not linked to any post or comment).
+- One record per AI call (not per attempt), including failed calls, with whether the call succeeded. A failed comment scan recorded here is the "log error for admin" of DEC-099.
+- A comment-thread scan writes one record per comment, so every record is linked to a post or comment.
+- Records are never edited or deleted (kept indefinitely, DEC-129; kept for deleted accounts, DEC-156).
+- Only MOD/ADMIN reviewing an appeal of a post auto-rejected by AI see the log (DEC-198). No other lookup screen in MS1; the development team reads the data when tuning thresholds.
+- Source: QA-391, QA-392
+
+### Issues Closed
+ISS-324 → ISS-332

@@ -88,6 +88,8 @@
 - **Status:** OPEN — budget chưa chốt chính thức, $5 credit là estimate an toàn.
 - **Traceability note:** AI cost ở đây là cho MS1 demo only. Production scale sẽ cần recalculate khi có số liệu thực. OpenAI Moderation API miễn phí là lợi thế lớn — loại bỏ cost cho feature quan trọng nhất (content safety).
 
+**[Amended 2026-10-19 — DEC-206: tóm tắt theo yêu cầu, giữ tạm 24 giờ, không tóm tắt mọi bài]**
+
 ---
 
 ### QA-008
@@ -143,6 +145,8 @@
 - **Traceability note:** Cho Guest xem post + comment là quyết định quan trọng về SEO và discoverability — content iShare sẽ được index bởi search engine, tạo organic traffic. Không cho Guest dùng Semantic Search bảo vệ AI cost budget (ISS-026). Report yêu cầu auth để đảm bảo accountability và chống spam.
 
 **[Amended 2026-10-13 — DEC-171: Guest xem được trang hồ sơ, chỉ đọc]**
+
+**[Amended 2026-10-19 — DEC-206: tóm tắt AI chỉ cho người đã đăng nhập; Guest bấm thì được nhắc đăng nhập]**
 
 ---
 
@@ -217,6 +221,8 @@
 - **Key insight:** Feedback/Evaluation Loop (AI feature thứ 5) được hiện thực hóa tự nhiên trong classification flow — không cần UI riêng. User chọn/sửa topic sau AI suggestion → system log delta → training signal.
 - **Implication:** 4 system actors trên cần được document trong architecture. Notification Worker và Badge Engine là background jobs (queue-based hoặc event-driven). AI workers gọi OpenAI API sync hoặc async tùy latency requirement (cần clarify Phase 6).
 - **Traceability note:** Feedback loop từ user behavior (implicit feedback) là pattern phổ biến trong recommender systems — không cần user "rate AI" explicitly. Delta giữa AI suggestion và user final choice là signal chất lượng tự nhiên nhất.
+
+**[Clarified 2026-10-19 — DEC-203: vòng phản hồi chỉ đánh giá gợi ý Topic]**
 
 ---
 
@@ -961,7 +967,7 @@
 |----|----------|--------|
 | QA-241 | ISS-178: M15 Analytics & Stats — ai truy cập được, ADMIN-only hay có mở cho MOD? | Chỉ ADMIN truy cập được cả 3 dashboard. Đã cân nhắc phương án mở thêm cho MOD xem Moderation Stats (lọc riêng theo hoạt động của MOD đó) kèm ý tưởng bổ sung bảng xếp hạng Top-N MOD xử lý nhiều report nhất — nhưng việc lọc số liệu cá nhân hóa theo từng MOD làm tăng độ phức tạp đáng kể so với query tổng toàn hệ thống, trong khi đây là module Could-priority. Quyết định cuối: giữ đơn giản, chỉ ADMIN xem, bỏ hẳn ý tưởng Top-N MOD |
 | QA-242 | ISS-179: User Stats dashboard gồm những chỉ số nào? | Tổng user theo trạng thái tài khoản (ACTIVE/DEACTIVATED/BANNED) · trend đăng ký mới theo thời gian (biểu đồ) · phân bố theo vai trò (USER/MOD/ADMIN) · phân bố theo Lớp/Khối (grade_level, F-POST-09) · phân bố theo mức warn (Clean/LIGHT/MEDIUM/HEAVY/BANNED). Tất cả derive từ dữ liệu sẵn có (bảng user + warn level), không cần tracking infra mới như DAU/WAU/MAU (yêu cầu activity-log riêng — bị loại vì tốn thêm effort không cần thiết cho MS1, trong khi tổng user theo mốc thời gian đã đủ thông tin cho mục đích demo/báo cáo) |
-| QA-243 | ISS-180: Content Stats dashboard gồm những chỉ số nào? | Tổng Post theo publish_state · breakdown theo mod_state (pending/active/under_review/removed) · trend bài đăng mới theo thời gian · phân bố Post theo Topic · trend Comment mới theo thời gian. Đã cân nhắc thêm tỉ lệ Group-post/độc lập và tỉ lệ bài ẩn danh nhưng loại bỏ — không cần thiết, thêm nhiễu cho dashboard mà không phục vụ mục đích vận hành rõ ràng |
+| QA-243 | ISS-180: Content Stats dashboard gồm những chỉ số nào? | Tổng Post theo publish_state · breakdown theo mod_state (pending/active/under_review/removed) · trend bài đăng mới theo thời gian · phân bố Post theo Topic · trend Comment mới theo thời gian. Đã cân nhắc thêm tỉ lệ Group-post/độc lập và tỉ lệ bài ẩn danh nhưng loại bỏ — không cần thiết, thêm nhiễu cho dashboard mà không phục vụ mục đích vận hành rõ ràng **[Amended 2026-10-19 — DEC-203: thêm "tỷ lệ Topic gợi ý được giữ lại"]** |
 | QA-244 | ISS-181: Moderation Stats dashboard gồm những chỉ số nào? | Tổng Report theo trạng thái (pending/resolved/dismissed...) + theo category (5 category + Khác, ISS-050) · Warn issued theo level theo thời gian · Ban/Unban theo thời gian · Appeal theo loại + outcome. Chọn phương án "thêm được nhiều thì càng tốt" (mọi chỉ số đều derive free từ dữ liệu Report/Warn/Ban/Appeal đã có ở M08/M09) thay vì phương án tối giản chỉ đếm tổng Report |
 | QA-245 | ISS-182: Filter thời gian cho cả 3 dashboard — custom range hay preset? | Preset cố định: Hôm nay / 7 ngày / 30 ngày / Toàn thời gian (all-time). Không có custom date range picker cho MS1 — đơn giản hóa UI và truy vấn |
 | QA-246 | ISS-183: Cách tính toán — real-time query hay batch/cache? | Real-time — query trực tiếp mỗi lần admin load dashboard (COUNT/GROUP BY đơn giản theo preset thời gian), không cache/batch. Khác Leaderboard (M12, cần batch vì ranking + tie-break phức tạp, DEC-123), lượng truy cập admin vào Analytics thấp hơn nhiều so với traffic user thông thường nên real-time query không tạo áp lực đáng kể lên hệ thống |
@@ -1170,3 +1176,19 @@
 | QA-381 | ISS-321: Bình luận bị ẩn có hiện lại khi cảnh cáo, ban liên quan bị lật không (OPEN-012)? | Hỏi lại "bài viết ta đang không cho hiện lại, vậy bình luận có cho hiện lại không?"; sau khi đính chính (bài bị Mod gỡ vẫn hiện lại, bài bị AI từ chối thì không): "ừ chọn B" — bình luận vẫn ẩn |
 | QA-382 | ISS-322: Danh sách xác nhận — L1 lý do kết luận khiếu nại; L2 rút, sửa khiếu nại | "ok" — L1: lý do bắt buộc ở cả Chấp nhận và Từ chối, người khiếu nại thấy kết luận kèm lý do; L2: không rút, không sửa |
 | QA-383 | ISS-323: Khiếu nại bài bị gỡ và khiếu nại riêng cảnh cáo, ban đi kèm cho kết luận ngược nhau thì sao? | "chọn B đi" — giữ hai đường riêng; xử lý đi kèm chỉ bị lật một lần, theo khiếu nại được chấp nhận trước; đã có khiếu nại riêng bị từ chối thì khiếu nại bài không lật nó; xử lý đã bị lật thì khiếu nại riêng mới bị từ chối, khiếu nại đang chờ vẫn xét, chấp nhận không đổi gì thêm |
+
+---
+
+## Functional Requirement — M13: AI Layer (QA-384 → QA-392)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-384 | ISS-324: Vòng phản hồi đánh giá AI đo những gì: chỉ gợi ý Topic, hay cả AI kiểm duyệt? | Lúc đầu: "tôi nghĩ sẽ bỏ qua phản hồi AI này"; sau khi làm rõ chức năng không gửi phản hồi ngược cho AI mà chỉ đo nội bộ, và nêu hệ quả bỏ hẳn (sửa DEC-006, dữ liệu M05 mất mục đích): "ừ vậy giữ cho phần phản hồi topic nhé!" — chỉ đánh giá gợi ý Topic từ phản hồi gợi ý của M05; không đánh giá AI kiểm duyệt, không có thao tác đánh dấu đúng/sai |
+| QA-385 | ISS-325: Ai xem chỉ số, ở đâu; tính thế nào? | Hỏi "tại sao ta phải làm cái này", "nhưng ở đâu dùng tới cái này"; sau khi giải thích: "vậy bổ sung nó vào trang thống kê nhé" — Admin xem ở trang thống kê M15. Cách tính chốt ở danh sách xác nhận (QA-392 mục 6) |
+| QA-386 | ISS-326: Phần nào của bài được gửi cho AI kiểm duyệt? | "ừ thế chọn B đi!" — tiêu đề, nội dung chữ, bình chọn (câu hỏi, lựa chọn) và ảnh đính kèm; không gửi tài liệu đính kèm |
+| QA-387 | ISS-327: Embedding tạo ở mốc nào; "sửa nhiều" là thế nào? | "chọn A nhé, tạo embedding sau khi bài chuyển qua đã đăng." — tạo khi bài chuyển sang Đã đăng (mọi đường); tạo lại mỗi lần tiêu đề hoặc nội dung chữ thay đổi |
+| QA-388 | ISS-328: Embedding khi AI tắt hoặc lỗi; công tắc nào? | "chọn B đi, thêm bài đó vào queue để embedd lại." — embedding bài theo công tắc tổng và công tắc Search; bài thiếu embedding (do tắt hoặc lỗi) vào hàng chờ tạo bù khi công tắc bật lại hoặc AI hết lỗi. (Phần tóm tắt trong câu này không còn áp dụng sau QA-389: tóm tắt không lưu) |
+| QA-389 | ISS-329: Tóm tắt tự động hay theo yêu cầu, có lưu không, ai dùng, ngưỡng, giới hạn? | "không cần lưu tóm tắt đâu ý, mỗi lần có yêu cầu thì nhận kết quả từ AI và hiện tóm tắt cho người dùng"; ngưỡng "mình chưa biết nên là bao nhiêu"; "logged in rồi mới có thể sử dụng chức năng tóm tắt, guest ấn nút xem tóm tắt -> thông báo đăng nhập để sử dụng tính năng"; giới hạn: "ta không cần giới hạn, ta lưu cache tóm tắt khi có yêu cầu, cache này tồn tại trong 1 khoảng thời gian … vừa giảm tải khi nhiều user yêu cầu, vừa hạn chế 1 người spam tóm tắt" → "chốt cách (ii)", "bạn đề xuất ngưỡng T sao cho hợp lí đi"; xác nhận cache dùng chung cả hệ thống; "bài dài chút mới nên tóm tắt chứ" → đề xuất 300 từ, giữ tạm 24 giờ → "ok" |
+| QA-390 | ISS-330: Tóm tắt — thời gian chờ, khi lỗi, khi AI tắt, nội dung gửi AI? | "10s có đủ cho 1 lần tóm tắt không" → giữ 10 giây, là hằng số chỉnh qua triển khai; lỗi: "thông báo hệ thống bận/lỗi"; AI tắt: "xử lý như 2, nhưng thông báo ngay"; "phải thêm note là tóm tắt chưa bao gồm nội dung đính kèm"; không gửi bình chọn → "ok" |
+| QA-391 | ISS-331: Mod, Admin có tra cứu nhật ký AI ngoài lúc xét khiếu nại không (mở rộng phạm vi)? | "chọn A đi" — không; chỉ xem khi xét khiếu nại bài bị AI tự từ chối; chỉnh ngưỡng do đội phát triển đọc dữ liệu, đổi qua triển khai |
+| QA-392 | ISS-332: Danh sách xác nhận 1–6 | "ok" — (1) hai nhóm cùng điểm cao nhất: lấy nhóm đứng trước theo thứ tự Quấy rối → Thù ghét → Người lớn → Bạo lực; (2) nhật ký ghi chấm điểm kiểm duyệt, embedding bài, gợi ý Topic; không ghi tóm tắt, embedding truy vấn; (3) mỗi lời gọi một bản ghi, kể cả thất bại — là chỗ "ghi lỗi cho Admin"; (4) quét luồng bình luận: mỗi bình luận một bản ghi; (5) bản ghi không sửa, không xóa; (6) chỉ số ở M15 bản tối thiểu "tỷ lệ Topic gợi ý được giữ lại" |

@@ -484,3 +484,19 @@
 | ISS-321 | OPEN-012: bình luận bị ẩn có hiện lại khi cảnh cáo, ban liên quan bị lật không | Closed | Xem DEC-201 |
 | ISS-322 | Lý do kết luận khiếu nại; rút, sửa khiếu nại đã gửi | Closed | Xem DEC-201 |
 | ISS-323 | Khiếu nại bài bị Mod gỡ chồng với khiếu nại riêng cảnh cáo, ban đi kèm | Closed | Xem DEC-202 |
+
+---
+
+## Functional Requirement — M13: AI Layer | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-324 | Vòng phản hồi đánh giá AI: chỉ gợi ý Topic (QA-017) hay cả AI kiểm duyệt với Mod / Trusted User đánh dấu đúng, sai (DM-11.5) | Closed | Xem DEC-203 |
+| ISS-325 | Ai xem chỉ số chất lượng AI, xem ở đâu; công thức các chỉ số và khoảng thời gian | Closed | Xem DEC-203 |
+| ISS-326 | Phần nào của bài viết được gửi cho AI kiểm duyệt (tiêu đề, nội dung chữ, bình chọn, ảnh, tài liệu) | Closed | Xem DEC-204 |
+| ISS-327 | Embedding của bài tạo ở mốc nào (gửi bài cùng quét trước hay Đã đăng); "sửa nhiều" là thế nào | Closed | Xem DEC-205 |
+| ISS-328 | Embedding khi AI tắt hoặc lỗi: công tắc nào điều khiển, có tạo bù không | Closed | Xem DEC-205 |
+| ISS-329 | Tóm tắt bài: tự động hay theo yêu cầu, có lưu không, ai được dùng, ngưỡng "đủ dài", giới hạn số lần | Closed | Xem DEC-206 |
+| ISS-330 | Tóm tắt bài: thời gian chờ, khi lỗi, khi AI tắt, nội dung gửi AI | Closed | Xem DEC-206 |
+| ISS-331 | Mod, Admin có tra cứu nhật ký quyết định AI ngoài lúc xét khiếu nại không (mở rộng phạm vi) | Closed | Xem DEC-207 |
+| ISS-332 | Danh sách xác nhận: hai nhóm vi phạm cùng điểm; phạm vi, đơn vị ghi và tính bất biến của nhật ký AI; chỉ số ở M15 | Closed | Xem DEC-203, DEC-204, DEC-207 |
