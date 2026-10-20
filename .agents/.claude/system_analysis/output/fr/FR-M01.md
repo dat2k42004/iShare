@@ -2,9 +2,9 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
-ngay: 2026-10-20
+ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-159, QA-320, ISS-260, OPEN-009
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
-| Ngày | 2026-10-20 |
+| Phiên bản | 1.4 |
+| Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -515,7 +515,7 @@ Summary: Must gồm M01–M10, M13). Không có yêu cầu ngoại lệ về ưu
 | FR-M01-12.05 | Khi còn 24 giờ trước thời điểm tài khoản DEACTIVATED tự chuyển sang DELETED, hệ thống phải gửi một email cảnh báo cho chủ tài khoản. |
 | FR-M01-12.06 | Khi tài khoản chuyển sang DELETED, hệ thống phải giải phóng email của tài khoản để email đó đăng ký được tài khoản mới. |
 | FR-M01-12.07 | Khi tài khoản chuyển sang DELETED, hệ thống phải giữ username của tài khoản vĩnh viễn và không cho tài khoản khác dùng username đó. |
-| FR-M01-12.08 | Khi tài khoản chuyển sang DELETED, hệ thống phải xóa email, mật khẩu, liên kết Google, display_name, avatar, bio, Lớp/Khối, mọi phiên đăng nhập, bookmark, mọi lượt theo dõi người dùng, Topic và bài viết của tài khoản, mọi lượt người khác theo dõi tài khoản, và bản ghi đồng ý của tài khoản. |
+| FR-M01-12.08 | Khi tài khoản chuyển sang DELETED, hệ thống phải xóa email, mật khẩu, liên kết Google, display_name, avatar, bio, Lớp/Khối, mọi phiên đăng nhập, bookmark, mọi lượt theo dõi người dùng và Topic của tài khoản, mọi lượt người khác theo dõi tài khoản, và bản ghi đồng ý của tài khoản. |
 | FR-M01-12.09 | Khi tài khoản chuyển sang DELETED, hệ thống phải giữ các upvote tài khoản đã cho trong điểm của người nhận mà không còn ghi nhận người cho. |
 | FR-M01-12.10 | Khi tài khoản chuyển sang DELETED, hệ thống phải giữ liên kết giữa tài khoản đó với nhật ký kiểm duyệt và nhật ký AI qua username, để Mod và Admin tra cứu. |
 | FR-M01-12.11 | Khi tài khoản chuyển sang DELETED, hệ thống phải giữ các phản hồi gợi ý Topic (M05) của tài khoản để đánh giá AI, không gắn với danh tính. |
@@ -654,7 +654,7 @@ Summary: Must gồm M01–M10, M13). Không có yêu cầu ngoại lệ về ưu
 | BR-M01-44 | Kích hoạt | Hệ thống lưu thời điểm và phiên bản chính sách mỗi lần người dùng đồng ý. Người dùng chỉ phải đồng ý lại khi chính sách đổi sang phiên bản mới, ở lần mở ứng dụng kế tiếp, kể cả khi đang giữ phiên đăng nhập. Phiên bản mới chỉ được phát hành khi đội phát triển triển khai bản mới. | A đồng ý bản 1.0 ngày 01/10 và giữ phiên đăng nhập. Bản 1.1 được triển khai ngày 05/10. A mở ứng dụng ngày 05/10 lúc 20:00: phải đồng ý 1.1 trước khi dùng tiếp. Ngày 10/10 A mở lại, chính sách vẫn 1.1: không hỏi. |
 | BR-M01-45 | Suy diễn | Rút lại sự đồng ý được thực hiện bằng vô hiệu hóa tài khoản. Người không đồng ý phiên bản chính sách mới không vào được hệ thống, chỉ chọn được đăng xuất hoặc vô hiệu hóa tài khoản, và được hỏi lại ở lần mở ứng dụng sau. | A bấm "Không đồng ý" bản 1.1: chỉ còn hai nút Đăng xuất và Vô hiệu hóa tài khoản. A đăng xuất; lần sau đăng nhập lại được hỏi bản 1.1. |
 | BR-M01-46 | Ràng buộc | Hệ thống không hỏi tuổi. Người dưới 16 tuổi cam kết đã được cha mẹ hoặc người giám hộ đồng ý qua chính ô đồng ý ở bước 1; trang có mục riêng cho người dưới 16 tuổi. MS1 không có chức năng tải bản sao dữ liệu; trang nêu quyền này. | H 15 tuổi đăng ký: đánh dấu ô đồng ý (gồm câu cam kết) là đủ, không có bước hỏi tuổi hay xác nhận phụ huynh. |
-| BR-M01-47 | Suy diễn | Khi tài khoản DELETED: xóa email (được giải phóng), mật khẩu, liên kết Google, display_name, avatar, bio, Lớp/Khối, mọi phiên đăng nhập, bookmark, mọi lượt theo dõi (người dùng, Topic, bài viết) của tài khoản và mọi lượt người khác theo dõi tài khoản, bản ghi đồng ý. Giữ: username (khóa vĩnh viễn), trạng thái, vai trò, bài viết (vẫn ẩn), bình luận và tin nhắn (người viết hiện "[Người dùng đã xóa]"), upvote đã cho (không còn biết ai cho), nhật ký kiểm duyệt và nhật ký AI (vẫn gắn qua username), phản hồi gợi ý Topic (không gắn danh tính). | "Minh Anh" có 12 bookmark, theo dõi 30 người, có 50 người theo dõi; sau DELETED: 0 bookmark, 30 người kia bớt một người theo dõi, 50 người kia bớt một người đang theo dõi; tin nhắn cũ với C hiện người gửi "[Người dùng đã xóa]". Minh Anh theo dõi Topic "Toán học": số người theo dõi "Toán học" giảm một. |
+| BR-M01-47 | Suy diễn | Khi tài khoản DELETED: xóa email (được giải phóng), mật khẩu, liên kết Google, display_name, avatar, bio, Lớp/Khối, mọi phiên đăng nhập, bookmark, mọi lượt theo dõi (người dùng, Topic) của tài khoản và mọi lượt người khác theo dõi tài khoản, bản ghi đồng ý. Giữ: username (khóa vĩnh viễn), trạng thái, vai trò, bài viết (vẫn ẩn), bình luận và tin nhắn (người viết hiện "[Người dùng đã xóa]"), upvote đã cho (không còn biết ai cho), nhật ký kiểm duyệt và nhật ký AI (vẫn gắn qua username), phản hồi gợi ý Topic (không gắn danh tính). | "Minh Anh" có 12 bookmark, theo dõi 30 người, có 50 người theo dõi; sau DELETED: 0 bookmark, 30 người kia bớt một người theo dõi, 50 người kia bớt một người đang theo dõi; tin nhắn cũ với C hiện người gửi "[Người dùng đã xóa]". Minh Anh theo dõi Topic "Toán học": số người theo dõi "Toán học" giảm một. |
 
 
 ### 5.18 Dữ liệu nghiệp vụ
@@ -766,6 +766,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-11 | Đối chiếu với FR-M05: xóa cả lượt theo dõi Topic, bài viết khi DELETED; giữ phản hồi gợi ý Topic (DEC-159); bổ sung giao tiếp với M05. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-15 | Đối chiếu với FR-M08: thêm dòng "Cung cấp M08" (trạng thái tài khoản khi ban, gỡ ban, ban hết hạn) ở mục Giao tiếp với module khác; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-20 | Đối chiếu với FR-M06: @mention khớp tên như tìm người dùng M06 (DEC-214); giao tiếp với M06 thêm trạng thái tài khoản, sự kiện đăng xuất. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): khi DELETED chỉ xóa lượt theo dõi người dùng, Topic; bỏ "bài viết" (FR-M01-12.08, BR-M01-47, C.2). Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -913,7 +914,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M01-12.05 | DEC-065, DEC-149 | Nói thẳng | Không có thông báo trong ứng dụng vì tài khoản không đăng nhập được |
 | FR-M01-12.06 | DEC-148 | Nói thẳng | — |
 | FR-M01-12.07 | DEC-148 | Nói thẳng | — |
-| FR-M01-12.08 | DEC-156, DEC-159 | Nói thẳng | — |
+| FR-M01-12.08 | DEC-156, DEC-159, DEC-215 | Nói thẳng | — |
 | FR-M01-12.09 | DEC-156 | Nói thẳng | — |
 | FR-M01-12.10 | DEC-156, DEC-129 | Nói thẳng | — |
 | FR-M01-12.11 | DEC-159 | Nói thẳng | — |
@@ -1004,7 +1005,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M01-44 |  DEC-155, DEC-158  | Nói thẳng | — |
 | BR-M01-45 |  DEC-155, DEC-158  | Nói thẳng | — |
 | BR-M01-46 | DEC-157 | Nói thẳng | — |
-| BR-M01-47 | DEC-156, DEC-159, DEC-148, DEC-149, DEC-129 | Nói thẳng | — |
+| BR-M01-47 | DEC-156, DEC-159, DEC-148, DEC-149, DEC-129, DEC-215 | Nói thẳng | — |
 
 ## Phụ lục B. Câu hỏi, giả định và TBD
 
@@ -1106,7 +1107,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-156 | Sở hữu | Sửa một phần bởi DEC-159 | FR-M01-12.02, FR-M01-12.08, FR-M01-12.09, FR-M01-12.10, FR-M01-13.06, FR-M01-15.06, BR-M01-47 | Nhóm A. Dữ liệu khi DELETED |
 | DEC-157 | Sở hữu | Hiện hành | FR-M01-01.13, FR-M01-01.15, FR-M01-04.12, FR-M01-15.07, BR-M01-46 | Nhóm A. Bản sao dữ liệu, dưới 16 tuổi |
 | DEC-158 | Sở hữu | Hiện hành | FR-M01-15.09, FR-M01-16, FR-M01-16.01, FR-M01-16.04, BR-M01-44, BR-M01-45 | Nhóm A. Thời điểm hỏi đồng ý lại, phát hành phiên bản chính sách |
-| DEC-159 | Sở hữu | Hiện hành | FR-M01-12.08, FR-M01-12.11, BR-M01-47 | Nhóm A. Theo dõi Topic, bài viết và phản hồi gợi ý khi DELETED |
+| DEC-159 | Sở hữu | Sửa một phần bởi DEC-215 | FR-M01-12.08, FR-M01-12.11, BR-M01-47 | Nhóm A. Theo dõi Topic, bài viết và phản hồi gợi ý khi DELETED |
 | ISS-259 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-159 | Nhóm A. Đã có DEC-159 |
 | ISS-260 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-159 | Nhóm A. Đã có DEC-159 |
 | QA-319 | Sở hữu | Trùng với DEC-159 | — | Nhóm A. Lời trả lời của stakeholder (đối chiếu M05) |
@@ -1311,6 +1312,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-344 | Nhắc tới | Trùng với DEC-214 | — | Nhóm B. Thêm ở bản 1.3. Câu hỏi đã có DEC-214 trả lời |
 | DEC-209 | Phụ thuộc | Hiện hành | Chuyển M06 | Nhóm B. Thêm ở bản 1.3. M06: cách khớp tên dùng chung; tìm người dùng chỉ gồm tài khoản ACTIVE đã xong bước 3 |
 | DEC-213 | Phụ thuộc | Hiện hành | Chuyển M06 | Nhóm B. Thêm ở bản 1.3. M06: đăng xuất thì xóa lịch sử tìm kiếm trên trình duyệt; ghi ở Giao tiếp |
+| DEC-215 | Phụ thuộc | Hiện hành | FR-M01-12.08, BR-M01-47 | Nhóm B (đối chiếu FR-M07). M07: bỏ theo dõi bài viết, nên khi DELETED chỉ còn lượt theo dõi người dùng, Topic để xóa |
 
 ### C.2 Chuỗi quyết định
 
@@ -1328,5 +1330,6 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-017 → DEC-151 | Phiên truy cập 1 giờ; mỗi lần làm mới cấp phiên làm mới mới hạn 30 ngày tính từ lúc cấp, phiên cũ mất hiệu lực; nhiều thiết bị độc lập. |
 | DEC-020 → DEC-045 → DEC-153 → DEC-214 | Danh sách gợi ý nhắc tên: gõ "@" kèm 1 ký tự, chờ 300 ms, tối đa 5 người, khớp ở bất kỳ vị trí trong display_name hoặc username, bỏ dấu, không phân biệt hoa thường, gần đúng (DEC-214, dùng chung với tìm người dùng M06, DEC-209), theo ba tầng ngữ cảnh, trong tầng xếp theo mức khớp; bình luận dùng ngữ cảnh bài chứa nó; không gồm DEACTIVATED, DELETED, BANNED, chưa xong bước 3. Lượt nhắc là khối liền, hiện display_name hiện tại; tới tài khoản DEACTIVATED, DELETED thì hiện tên thay thế, không mở trang hồ sơ. Thông báo gửi khi nội dung công khai; sửa nội dung chỉ báo người mới được nhắc. |
 | DM-10.2, DM-10.3 → QA-018, DEC-080 | Admin, Mod không vô hiệu hóa hay xóa tài khoản người khác, chỉ cảnh báo hoặc ban. Register không có hình thức "Suspend account" riêng; khóa có thời hạn chỉ có dạng ban tạm thời 30 hoặc 90 ngày (DEC-080). |
-| DEC-019 → DEC-129 → DEC-156 → DEC-159 | Khi DELETED, xóa dữ liệu cá nhân theo danh mục của BR-M01-47 (email được giải phóng); giữ username, trạng thái, vai trò, bài viết ẩn, bình luận và tin nhắn với người viết "[Người dùng đã xóa]", upvote đã cho không còn biết người cho. Tin nhắn, nhật ký kiểm duyệt, nhật ký AI giữ vĩnh viễn (DEC-129) và gắn với tài khoản đã xóa qua username. DEC-159: xóa cả lượt theo dõi Topic và bài viết của tài khoản; giữ phản hồi gợi ý Topic (M05) không gắn danh tính. |
+| DEC-019 → DEC-129 → DEC-156 → DEC-159 → DEC-215 | Khi DELETED, xóa dữ liệu cá nhân theo danh mục của BR-M01-47 (email được giải phóng); giữ username, trạng thái, vai trò, bài viết ẩn, bình luận và tin nhắn với người viết "[Người dùng đã xóa]", upvote đã cho không còn biết người cho. Tin nhắn, nhật ký kiểm duyệt, nhật ký AI giữ vĩnh viễn (DEC-129) và gắn với tài khoản đã xóa qua username. DEC-159: xóa cả lượt theo dõi Topic của tài khoản (DEC-215 bỏ theo dõi bài viết); giữ phản hồi gợi ý Topic (M05) không gắn danh tính. |
 | QA-019 → DEC-187, DEC-189; DEC-023 → DEC-170; DEC-065 → DEC-180; QA-011 → DEC-171, DEC-206, DEC-208; QA-110 → DEC-209; DEC-085 → DEC-197; DEC-086, DEC-089 → DEC-199, DEC-201 | Chỉ sửa phần thuộc module khác. QA-019: lần vi phạm thứ 7 thành yêu cầu ban, chỉ Admin ban Mod (DEC-187, DEC-189, M08); M01 vẫn chỉ giữ trạng thái tài khoản khi ban, gỡ ban. DEC-170, DEC-171 (M02), DEC-180 (M04) không đổi nội dung M01. DEC-208 (M06) chỉ làm rõ Guest tìm bài bằng full-text; DEC-209 (M06) chốt cách khớp tên và phạm vi tài khoản của tìm người dùng — M01 cung cấp trạng thái tài khoản cho việc này. DEC-206 (M13): tóm tắt AI chỉ cho người đã đăng nhập. DEC-197, DEC-199, DEC-201 (M09): khi BANNED chỉ khiếu nại được chính lệnh ban (khớp FR-M01-05.06, việc chọn đối tượng khiếu nại thuộc M09); thời hạn khiếu nại cảnh cáo; Mod bị ban được gỡ ban thì về ACTIVE với vai trò USER (vai trò thuộc M09, M10) — FR-M01-05.16 vẫn đúng. |
+| DEC-065 → DEC-215, DEC-218; DEC-070 → DEC-219, DEC-220 (đối chiếu FR-M07) | Phần thuộc M07: thêm sự kiện "người bạn theo dõi có bài mới", quy tắc người nhận; tắt thông báo Chat chỉ ẩn popup, công tắc tắt thông báo bài có trên mọi bài. Không đổi yêu cầu của module này. |

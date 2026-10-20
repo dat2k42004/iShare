@@ -2,9 +2,9 @@
 module: M06
 ten_module: Search
 ma_tai_lieu: FR-M06
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
-ngay: 2026-10-20
+ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-213, QA-403, ISS-343, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M06 — Search |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
-| Ngày | 2026-10-20 |
+| Phiên bản | 1.2 |
+| Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -96,7 +96,7 @@ người dùng, Tag, Topic, Group theo tên, trên một trang kết quả chung
 | Trạng thái tài khoản | ACTIVE, DEACTIVATED (tự tạm vô hiệu hóa), DELETED, BANNED (M01). Bước 3 là bước cuối của đăng ký (M01). |
 | Topic, Tag | Topic là lĩnh vực nội dung lấy từ danh mục Topic; Tag là từ khóa tự do của bài, có thể bị Mod, Admin vô hiệu hóa (M05). |
 | Nhóm Public, nhóm Private | Hai loại Group (M11). Nhóm Private chỉ vào được qua lời mời hoặc link; bài của nhóm Private chỉ thành viên xem được. |
-| Đối tượng đang theo dõi | Người dùng, Topic và bài viết mà người tìm đang theo dõi (M07). |
+| Đối tượng đang theo dõi | Người dùng và Topic mà người tìm đang theo dõi (M07). Bài viết không phải đối tượng theo dõi. |
 | Kết quả chính, kết quả phụ | Trên trang kết quả, kết quả bài viết là kết quả chính; người dùng, Tag, Topic, Group là kết quả phụ. |
 | Đoạn trích | Phần đầu của nội dung chữ, hiện dưới mỗi kết quả bài. |
 | Lịch sử tìm kiếm | Các truy vấn gần đây lưu trên trình duyệt của thiết bị đang dùng, không lưu trên hệ thống. |
@@ -294,7 +294,7 @@ dòng M06 của bảng Module List bị lệch cột, không có giá trị MoSC
 | FR-M06-04.01 | Khi người dùng chọn lọc theo Topic, hệ thống phải chỉ giữ trong kết quả những bài có Topic đó. |
 | FR-M06-04.02 | Khi người dùng chọn lọc theo Tag, hệ thống phải chỉ giữ trong kết quả những bài có Tag đó. |
 | FR-M06-04.03 | Khi người dùng chọn Hôm nay, Tuần này hoặc Tháng này, hệ thống phải chỉ giữ trong kết quả những bài có thời điểm đăng trong khoảng đó, tính theo lịch giờ Việt Nam (BR-M06-15). |
-| FR-M06-04.04 | Khi người dùng đã đăng nhập bật bộ lọc chỉ nội dung đang theo dõi, hệ thống phải chỉ giữ trong kết quả bài của người dùng người đó đang theo dõi, bài thuộc Topic người đó đang theo dõi và bài người đó đang theo dõi. |
+| FR-M06-04.04 | Khi người dùng đã đăng nhập bật bộ lọc chỉ nội dung đang theo dõi, hệ thống phải chỉ giữ trong kết quả bài của người dùng người đó đang theo dõi và bài thuộc Topic người đó đang theo dõi. |
 | FR-M06-04.05 | Hệ thống phải sắp xếp kết quả bài theo Liên quan khi truy vấn có chữ và người dùng chưa chọn cách sắp xếp khác (BR-M06-15). |
 | FR-M06-04.06 | Khi người dùng chọn sắp xếp Mới nhất, hệ thống phải xếp kết quả bài theo thời điểm đăng, bài đăng sau đứng trước (BR-M06-15). |
 | FR-M06-04.07 | Khi người dùng chọn sắp xếp Nhiều upvote nhất, hệ thống phải xếp kết quả bài theo số upvote, bài nhiều upvote hơn đứng trước (BR-M06-15). |
@@ -351,7 +351,7 @@ dòng M06 của bảng Module List bị lệch cột, không có giá trị MoSC
 | BR-M06-12 | Suy diễn | Bài của tài khoản BANNED vẫn có trong kết quả như bài khác, không bị loại, không bị giảm hạng; tên tác giả hiện kèm nhãn "Tài khoản đã bị khóa". | — |
 | BR-M06-13 | Tính toán | Với truy vấn có chữ: tập ứng viên là 120 bài có Điểm liên quan cao nhất. Điểm liên quan khi tìm ngữ nghĩa = (độ tương đồng cosine giữa embedding truy vấn và embedding bài + 1) ÷ 2; khi tìm full-text = số từ của truy vấn có trong bài ÷ số từ của truy vấn. Điểm tương tác thô = log(1 + số upvote) × 2 + log(1 + số bình luận) × 1. Điểm tương tác = (thô − thô nhỏ nhất) ÷ (thô lớn nhất − thô nhỏ nhất) trong tập ứng viên; mọi ứng viên cùng điểm thô thì Điểm tương tác của tất cả bằng 0. Điểm cuối = Điểm liên quan × 0,8 + Điểm tương tác × 0,2. Sắp xếp theo Liên quan: Điểm cuối giảm dần; bằng nhau thì Điểm liên quan cao hơn trước, vẫn bằng thì bài đăng sau trước. | Ngữ nghĩa: độ tương đồng 0,8 → Điểm liên quan 0,9. Full-text: "phương trình bậc hai", bài có cả 4 từ → 1,0; bài có "phương trình" → 0,5. Tập ứng viên có A (thô 3, liên quan 0,9), B (thô 1, 0,9), C (thô 5, 0,7): Điểm tương tác A 0,5, B 0, C 1; Điểm cuối A 0,82, C 0,76, B 0,72 → thứ tự A, C, B. Hai bài cùng Điểm cuối 0,80, liên quan 0,9 và 0,8: bài 0,9 trước. |
 | BR-M06-14 | Tính toán | Khi sắp xếp theo Liên quan, Điểm cuối của bài có tác giả đang ở mức HEAVY được nhân với 0,5, ở cả tìm ngữ nghĩa và full-text, trong suốt thời gian tác giả ở mức đó; mức LIGHT, MEDIUM không bị. Sắp xếp Mới nhất, Nhiều upvote nhất không giảm hạng. Kết quả không hiện dấu hiệu nào cho thấy bài bị giảm hạng. | Ở ví dụ BR-M06-13, tác giả của A đang ở mức HEAVY: A còn 0,82 × 0,5 = 0,41 → thứ tự C, B, A. Cùng truy vấn, sắp xếp Mới nhất: A vẫn ở vị trí theo thời điểm đăng. |
-| BR-M06-15 | Ràng buộc | Bộ lọc kết quả bài: Topic, Tag, khoảng thời gian (Hôm nay, Tuần này, Tháng này, Tất cả), chỉ nội dung đang theo dõi; mỗi loại chọn tối đa một giá trị; nhiều bộ lọc thì bài phải thỏa tất cả; bộ lọc không áp cho kết quả phụ. Hôm nay, Tuần này, Tháng này tính theo lịch giờ Việt Nam trên thời điểm đăng. "Đang theo dõi" gồm bài của người dùng đang theo dõi, bài thuộc Topic đang theo dõi và bài đang theo dõi. Cách sắp xếp: Liên quan (mặc định khi truy vấn có chữ), Mới nhất (thời điểm đăng, mới trước), Nhiều upvote nhất (số upvote, nhiều trước); với truy vấn có chữ, Mới nhất và Nhiều upvote nhất sắp lại chính tập ứng viên; bằng nhau thì bài đăng sau trước. | Thứ Tư 15/10 lúc 10:00: Hôm nay = đăng từ 15/10 00:00; Tuần này = từ thứ Hai 13/10 00:00; Tháng này = từ 01/10 00:00. Lọc Toán học + #đạohàm + Tuần này: bài phải đủ cả ba. User theo dõi Minh và Topic Tin học: bài của Minh ở Ngữ văn và bài của người khác ở Tin học đều qua bộ lọc. A đăng 09:00, B đăng 11:00: Mới nhất xếp B trên A. A có 5 upvote, B có 3: Nhiều upvote nhất xếp A trên B; cùng 5 upvote thì bài đăng sau trước. |
+| BR-M06-15 | Ràng buộc | Bộ lọc kết quả bài: Topic, Tag, khoảng thời gian (Hôm nay, Tuần này, Tháng này, Tất cả), chỉ nội dung đang theo dõi; mỗi loại chọn tối đa một giá trị; nhiều bộ lọc thì bài phải thỏa tất cả; bộ lọc không áp cho kết quả phụ. Hôm nay, Tuần này, Tháng này tính theo lịch giờ Việt Nam trên thời điểm đăng. "Đang theo dõi" gồm bài của người dùng đang theo dõi và bài thuộc Topic đang theo dõi. Cách sắp xếp: Liên quan (mặc định khi truy vấn có chữ), Mới nhất (thời điểm đăng, mới trước), Nhiều upvote nhất (số upvote, nhiều trước); với truy vấn có chữ, Mới nhất và Nhiều upvote nhất sắp lại chính tập ứng viên; bằng nhau thì bài đăng sau trước. | Thứ Tư 15/10 lúc 10:00: Hôm nay = đăng từ 15/10 00:00; Tuần này = từ thứ Hai 13/10 00:00; Tháng này = từ 01/10 00:00. Lọc Toán học + #đạohàm + Tuần này: bài phải đủ cả ba. User theo dõi Minh và Topic Tin học: bài của Minh ở Ngữ văn và bài của người khác ở Tin học đều qua bộ lọc. A đăng 09:00, B đăng 11:00: Mới nhất xếp B trên A. A có 5 upvote, B có 3: Nhiều upvote nhất xếp A trên B; cùng 5 upvote thì bài đăng sau trước. |
 | BR-M06-16 | Suy diễn | Xem các bài của một Topic hoặc một Tag là trang kết quả tìm bài với bộ lọc Topic hoặc Tag đó và truy vấn rỗng. Truy vấn rỗng có ít nhất một bộ lọc: liệt kê mọi bài khớp bộ lọc, mặc định Mới nhất, đổi được sang Nhiều upvote nhất, không có Liên quan, không giới hạn 120 kết quả, không gọi AI. Truy vấn rỗng không có bộ lọc: không tìm. | Bấm Topic "Toán học" có 300 bài: liệt kê cả 300, mới nhất trước, cuộn tới bài cuối. Đang ở trang đó gõ "đạo hàm" rồi Enter: tìm bình thường trong Toán học, có giới hạn 120. Gửi ô trống, chỉ chọn "Tuần này": liệt kê mọi bài đăng tuần này. Gửi ô trống không có bộ lọc: không tìm. |
 | BR-M06-17 | Ràng buộc | Trang kết quả là một trang cuộn, không chia tab. Kết quả bài là kết quả chính, theo cách sắp xếp đang chọn; người dùng, Tag, Topic, Group là kết quả phụ, mỗi loại tối đa 3. | Truy vấn "toán" khớp 40 bài, 7 người dùng, 2 Tag, 1 Topic, 0 Group: trang có kết quả bài, 3 người dùng, 2 Tag, 1 Topic. |
 | BR-M06-18 | Ràng buộc | Mỗi kết quả bài có đoạn trích là 150 ký tự đầu của nội dung chữ, không tô sáng từ khóa, như nhau khi tìm theo ngữ nghĩa và full-text. Nếu ký tự thứ 150 nằm giữa một từ thì cắt trước từ đó và thêm "…". Nội dung chữ không quá 150 ký tự thì hiện nguyên, không thêm "…". Bài không có nội dung chữ thì không có đoạn trích. | Nội dung 400 ký tự, ký tự 150 nằm giữa từ "phương" (ký tự 146–151): đoạn trích là 145 ký tự đầu + "…". Nội dung 120 ký tự: hiện cả 120 ký tự. Bài chỉ có poll: không có đoạn trích. |
@@ -400,7 +400,7 @@ M03, M05, M01, M11 quản lý; M06 chỉ đọc các trạng thái đó.
 | Dùng | M03 | Bài đang hiển thị công khai; tiêu đề, nội dung chữ và thời điểm đăng của bài | FR-M06-02.07, FR-M06-02.03, FR-M06-02.04, FR-M06-04.06 |
 | Dùng | M04 | Số bình luận của bài để tính Điểm tương tác | FR-M06-02.10 |
 | Dùng | M05 | Topic, Tag và trạng thái hoạt động, bị vô hiệu hóa của Tag | FR-M06-01.04, FR-M06-03.04, FR-M06-04.01, FR-M06-04.02 |
-| Dùng | M07 | Quan hệ theo dõi của người tìm | FR-M06-04.04 |
+| Dùng | M07 | Quan hệ theo dõi (người dùng, Topic) của người tìm | FR-M06-04.04 |
 | Dùng | M08 | Mức cảnh cáo HEAVY của tác giả | FR-M06-02.11 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Search | FR-M06-02.03, FR-M06-02.04 |
 | Dùng | M11 | Nhóm, loại nhóm (Public, Private), thành viên nhóm, việc nhóm đổi từ Public sang Private | FR-M06-02.08, FR-M06-02.09, FR-M06-03.01, FR-M06-03.08, FR-M06-01.13 |
@@ -432,6 +432,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-19 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-20 | Chốt sau 7 bước; câu trả lời ghi vào register (DEC-208–213) | Phạm Văn Đức |
 | 1.1 | 2026-10-20 | Đối chiếu sau khi chốt: @mention của M01 dùng cùng cách khớp tên (DEC-214); giao tiếp M01 thêm sự kiện đăng xuất. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): bộ lọc "đang theo dõi" chỉ gồm bài của người dùng và bài thuộc Topic đang theo dõi, bỏ "bài đang theo dõi" (FR-M06-04.04, BR-M06-15, 2.1, C.2). Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -499,7 +500,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M06-04.01 | DEC-056 | Nói thẳng | — |
 | FR-M06-04.02 | DEC-056 | Nói thẳng | — |
 | FR-M06-04.03 | DEC-056, DEC-212, DEC-127 | Nói thẳng | — |
-| FR-M06-04.04 | DEC-056, DEC-212 | Nói thẳng | — |
+| FR-M06-04.04 | DEC-056, DEC-212, DEC-215 | Nói thẳng | — |
 | FR-M06-04.05 | DEC-056 | Nói thẳng | — |
 | FR-M06-04.06 | DEC-056 | Nói thẳng | — |
 | FR-M06-04.07 | DEC-056 | Nói thẳng | — |
@@ -541,7 +542,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M06-12 | DEC-122 | Suy ra | DEC-122: bài của tài khoản BANNED "remain visible to other users as normal", nhãn ở mọi nơi tên hiện ⇒ có trong kết quả, không giảm hạng |
 | BR-M06-13 | DEC-055, DEC-211, QA-112 | Nói thẳng | — |
 | BR-M06-14 | DEC-079, DEC-211 | Nói thẳng | "Không hiện dấu hiệu" suy từ việc trạng thái cảnh cáo hoàn toàn riêng tư (DEC-079) |
-| BR-M06-15 | DEC-056, DEC-211, DEC-212, DEC-127 | Nói thẳng | — |
+| BR-M06-15 | DEC-056, DEC-211, DEC-212, DEC-127, DEC-215 | Nói thẳng | — |
 | BR-M06-16 | DEC-142, DEC-212 | Nói thẳng | — |
 | BR-M06-17 | DEC-060 | Nói thẳng | — |
 | BR-M06-18 | DEC-061, DEC-213, QA-118 | Nói thẳng | — |
@@ -752,7 +753,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-209 | Sở hữu | Hiện hành | FR-M06-01, FR-M06-01.01, FR-M06-01.05, FR-M06-01.09, FR-M06-01.10, FR-M06-01.11, FR-M06-01.12, FR-M06-03, FR-M06-03.03, FR-M06-03.06, FR-M06-03.07, FR-M06-03.10, BR-M06-03, BR-M06-04, BR-M06-09, BR-M06-24 | Nhóm A. Cách khớp người dùng, Tag, Topic, Group; chỉ tài khoản ACTIVE đã xong Bước 3; gợi ý từ ký tự đầu, mỗi loại tối đa 3 |
 | DEC-210 | Sở hữu | Hiện hành | FR-M06-01, FR-M06-01.13, FR-M06-02.08, FR-M06-03, FR-M06-03.08, FR-M06-03.09, BR-M06-11, BR-M06-25 | Nhóm A. Nhóm Private ẩn khỏi tìm kiếm với người ngoài nhóm; thành viên vẫn thấy |
 | DEC-211 | Sở hữu | Hiện hành | FR-M06-02, FR-M06-02.10, FR-M06-02.11, FR-M06-02.19, FR-M06-02.26, FR-M06-02.27, FR-M06-02.28, FR-M06-02.29, FR-M06-04, FR-M06-04.14, FR-M06-04.15, FR-M06-04.16, BR-M06-08, BR-M06-13, BR-M06-14, BR-M06-15, BR-M06-19 | Nhóm A. Chi tiết xếp hạng, full-text khớp ít nhất một từ, sắp xếp trên tập ứng viên, HEAVY |
-| DEC-212 | Sở hữu | Hiện hành | FR-M06-02.31, FR-M06-04, FR-M06-04.03, FR-M06-04.04, FR-M06-04.08, FR-M06-04.10, FR-M06-04.11, FR-M06-04.12, FR-M06-04.17, FR-M06-04.18, FR-M06-04.19, BR-M06-15, BR-M06-16 | Nhóm A. Bộ lọc: một giá trị mỗi loại, kết hợp, "đang theo dõi", lịch; truy vấn rỗng |
+| DEC-212 | Sở hữu | Sửa một phần bởi DEC-215 | FR-M06-02.31, FR-M06-04, FR-M06-04.03, FR-M06-04.04, FR-M06-04.08, FR-M06-04.10, FR-M06-04.11, FR-M06-04.12, FR-M06-04.17, FR-M06-04.18, FR-M06-04.19, BR-M06-15, BR-M06-16 | Nhóm A. Bộ lọc: một giá trị mỗi loại, kết hợp, "đang theo dõi", lịch; truy vấn rỗng |
 | DEC-213 | Sở hữu | Hiện hành | FR-M06-01.07, FR-M06-02, FR-M06-02.15, FR-M06-02.20, FR-M06-02.30, FR-M06-02.32, FR-M06-04, FR-M06-04.20, FR-M06-05, FR-M06-05.01, FR-M06-05.04, FR-M06-05.06, FR-M06-05.07, FR-M06-05.08, FR-M06-05.09, FR-M06-05.10, BR-M06-18, BR-M06-20, BR-M06-21 | Nhóm A. Đoạn trích, lịch sử, xóa khi đăng xuất, cách đếm giới hạn tần suất |
 | F-GRP-06 | Phụ thuộc | Sửa một phần bởi DEC-210 | Chuyển M11 | Nhóm B. M11: nhóm Private visible-but-gated; DEC-210 làm rõ không hiện trong tìm kiếm với người ngoài nhóm |
 | MR-M11 | Phụ thuộc | Sửa một phần bởi DEC-210 | Chuyển M11 | Nhóm B. Dòng module-registry M11; DEC-210 làm rõ phần tìm kiếm |
@@ -779,13 +780,14 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-342 | Nhắc tới | Trùng với DEC-213 | — | Nhóm A. Danh sách xác nhận, đã có DEC-208, DEC-209, DEC-212, DEC-213 trả lời |
 | QA-403 | Sở hữu | Trùng với DEC-213 | — | Nhóm A. Câu trả lời của stakeholder ở bước 6, nội dung nằm trong DEC |
 | ISS-343 | Nhắc tới | Trùng với DEC-213 | — | Nhóm A. Câu hỏi bước 6, đã có DEC trả lời |
+| DEC-215 | Phụ thuộc | Hiện hành | FR-M06-04.04, BR-M06-15 | Nhóm B (đối chiếu FR-M07). M07: đối tượng theo dõi chỉ còn người dùng, Topic; bộ lọc "đang theo dõi" không còn bài đang theo dõi |
 
 ### C.2 Chuỗi quyết định
 
 | Chuỗi | Nội dung hiện hành |
 |---|---|
 | ISS-040 → QA-022 → QA-035, QA-036, QA-037 → QA-109 → DEC-053 → DEC-209, DEC-210 | Tìm được bài viết, người dùng, Tag, Topic, Group; không tìm bình luận (QA-037 bị thay). Người dùng, Tag, Topic, Group khớp chuỗi gõ ở bất kỳ vị trí trong tên, không phân biệt hoa thường, bỏ dấu, gần đúng; chỉ so tên (người dùng: display_name, username; Group: tên, không mô tả); trong mỗi loại mục giống chuỗi gõ hơn đứng trước (DEC-209 thay "exact/prefix" của DEC-053, giữ QA-036). Group không còn tìm full-text trên tên + mô tả (QA-035 bị thay phần này). |
-| DM-7.3, DM-7.4 → DEC-053, DEC-056 → DEC-211, DEC-212 | Bộ lọc: Topic, Tag, Hôm nay/Tuần này/Tháng này/Tất cả (theo lịch, giờ Việt Nam, theo thời điểm đăng), chỉ nội dung đang theo dõi (bài của người dùng, Topic, bài đang theo dõi); mỗi loại một giá trị, nhiều bộ lọc thì bài phải thỏa tất cả; chỉ áp cho kết quả bài. Sắp xếp: Liên quan (mặc định khi có truy vấn), Mới nhất, Nhiều upvote nhất; hai cách sau sắp lại chính tập ứng viên, bằng nhau thì bài đăng sau trước. Các mục của draft không được giữ: Oldest, Most viewed, Most commented; lọc Lớp/Khối, Author; tìm theo Author, Lớp/Khối. |
+| DM-7.3, DM-7.4 → DEC-053, DEC-056 → DEC-211, DEC-212 → DEC-215 | Bộ lọc: Topic, Tag, Hôm nay/Tuần này/Tháng này/Tất cả (theo lịch, giờ Việt Nam, theo thời điểm đăng), chỉ nội dung đang theo dõi (bài của người dùng và bài thuộc Topic đang theo dõi; DEC-215 bỏ theo dõi bài viết); mỗi loại một giá trị, nhiều bộ lọc thì bài phải thỏa tất cả; chỉ áp cho kết quả bài. Sắp xếp: Liên quan (mặc định khi có truy vấn), Mới nhất, Nhiều upvote nhất; hai cách sau sắp lại chính tập ứng viên, bằng nhau thì bài đăng sau trước. Các mục của draft không được giữ: Oldest, Most viewed, Most commented; lọc Lớp/Khối, Author; tìm theo Author, Lớp/Khối. |
 | QA-011 (DEC-171, DEC-206 ngoài bảng nguồn) ↔ DEC-062, QA-119 → DEC-208 | Guest được tìm, nhưng tìm bài luôn bằng full-text. Chỉ Guest thấy lựa chọn "Tìm kiếm thông minh"; bấm thì nhắc đăng nhập, kể cả khi AI tắt; bộ lọc theo dõi cũng nhắc Guest đăng nhập. Người đã đăng nhập luôn tìm ngữ nghĩa khi AI bật. FR-M13-04.04 (Guest không có embedding truy vấn) khớp với chuỗi này. DEC-171, DEC-206 chỉ sửa phần Guest xem hồ sơ, xem tóm tắt của QA-011. |
 | QA-044 → QA-120, DEC-053, DEC-062 ↔ DEC-110, QA-188 → DEC-210; MR-M11, F-GRP-06 | Nhóm Private không hiện trong gợi ý khi gõ và kết quả tìm Group với người không là thành viên, kể cả Guest; thành viên vẫn tìm thấy nhóm. "Visible-but-gated" không còn áp cho tìm kiếm. Bài của nhóm Private chỉ hiện với thành viên. |
 | DEC-108, QA-186 | Nhóm đổi Public sang Private: truy vấn tìm mới của người không phải thành viên không còn trả bài của nhóm. |

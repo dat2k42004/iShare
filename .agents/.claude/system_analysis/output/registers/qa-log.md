@@ -544,6 +544,8 @@
 - **Decision triggered:** —
 - **Implication:** `follows` table: `follower_id`, `target_type` ENUM('user','topic','post'), `target_id`. M07 Notification cần filter theo follow type.
 
+**[Amended 2026-10-20 — DEC-215: chỉ theo dõi người dùng, Topic; bỏ theo dõi bài; chỉ theo dõi người dùng có thông báo bài mới]**
+
 ---
 
 ### QA-044
@@ -801,7 +803,7 @@
 | QA-124 | Which events get email? | Only: password changed, deactivation warning, ban/unban, ban-related appeal. Rest in-app only |
 | QA-125 | Digest email needed? | No |
 | QA-126 | Upvote notify per-vote or milestone? | Per-vote, but batched within 5-min window to avoid spam |
-| QA-127 | Follow-post (subscribe/watch) feature? | Not added — bookmark stays save-only, no notify subscription |
+| QA-127 | Follow-post (subscribe/watch) feature? | Not added — bookmark stays save-only, no notify subscription **[Clarified 2026-10-20 — DEC-215: bỏ hẳn theo dõi bài viết]** |
 | QA-128 | Bell UI structure? | Dropdown (recent) + dedicated /notifications page |
 | QA-129 | Chat notification UI? | Separate Message icon in navbar, not mixed with bell |
 | QA-130 | Email delivery timing? | Async via queue table + cron every 1 min (not blocking, not real synchronous send) |
@@ -1219,3 +1221,17 @@
 | QA-402 | ISS-342: Danh sách xác nhận X1–X7 | "x1-x7 ok" — (X1) tài khoản chưa xong Bước 3 không hiện trong tìm người dùng; (X2) Guest thấy bộ lọc theo dõi, bấm thì nhắc đăng nhập; (X3) gợi ý từ ký tự đầu tiên, mỗi loại tối đa 3; (X4) Hôm nay/Tuần này/Tháng này theo lịch, giờ Việt Nam, theo thời điểm đăng; (X5) đoạn trích 150 ký tự đầu, cắt trước từ bị chia đôi và thêm "…", không quá 150 ký tự thì hiện nguyên, không có nội dung chữ thì không có đoạn trích; (X6) lịch sử chỉ thêm khi gửi truy vấn có chữ, gửi lại thì đưa lên đầu, hiện mới nhất trước, chọn mục thì gửi luôn, không xóa từng mục; (X7) "mỗi phút" = 60 giây gần nhất, tải thêm không tính, đổi bộ lọc/sắp xếp, mở trang Topic/Tag, chọn mục lịch sử tính một lượt gửi |
 | QA-403 | ISS-343: Có xóa lịch sử tìm kiếm khi đăng xuất không (mở rộng phạm vi)? | "B di" — khi đăng xuất, xóa toàn bộ lịch sử tìm kiếm trên trình duyệt đó |
 | QA-404 | ISS-344: Gợi ý @mention có khớp tên theo DEC-209 (bất kỳ vị trí, bỏ dấu, gần đúng) không? | "ok chọn A đi!" — có: @mention khớp tên như DEC-209; thứ tự theo tầng của @mention giữ nguyên |
+
+---
+
+## Functional Requirement — M07: Notification (QA-405 → QA-411)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-405 | ISS-345: Theo dõi có sinh thông báo nội dung mới không, cho đối tượng nào; có giữ theo dõi bài viết không? | "following user: có thể thông báo user có bài đăng mới; following post: có lẽ không nên để following post hay sao nhỉ" → theo dõi Topic có thông báo bài mới không: "KHÔNG"; theo dõi bài viết: "bỏ theo dõi bài viết nhé!". Chi tiết thông báo bài mới theo đề xuất, xác nhận khi duyệt bản nháp: "ok được" — gửi khi bài công khai lần đầu; không gửi với bài ẩn danh, bài nhóm Private với người ngoài nhóm, bài bị từ chối, khi sửa hoặc khôi phục bài |
+| QA-406 | ISS-346: Có cho bỏ theo dõi không (mở rộng phạm vi)? | "A, cho phép bỏ theo dõi nhé!" — cho bỏ theo dõi người dùng, Topic; mỗi cặp người theo dõi – người được theo dõi chỉ sinh một thông báo "đã theo dõi bạn" |
+| QA-407 | ISS-347: Gộp upvote hoạt động thế nào? | "W2" — báo ngay lượt đầu; cửa sổ 5 phút tính từ lượt đầu; lượt sau trong cửa sổ cập nhật cùng thông báo; gộp riêng từng bài, từng bình luận; "A" là người upvote mới nhất, N là số người khác nhau còn lại; bỏ upvote không đổi thông báo |
+| QA-408 | ISS-348: Chuông và trang Thông báo hiện thế nào? | "ok, theo đề xuất đi" — chuông 10 thông báo gần nhất, mới nhất trước (theo lần cập nhật cuối); số chưa đọc riêng; mở chuông không tự đánh dấu đã đọc; trang Thông báo tải 20 mỗi lần, cuộn được tới cuối |
+| QA-409 | ISS-349: Ai nhận thông báo; tên người gây sự kiện hiện thế nào? | "ok, như đề xuất." — không báo cho chính người gây sự kiện; vẫn tạo cho người nhận BANNED, DEACTIVATED; không tạo cho DELETED; tên người gây sự kiện theo DEC-149, DEC-156 |
+| QA-410 | ISS-350: Tắt toàn bộ Chat và tắt từng cuộc tác động lên nhau thế nào? | "Ừm, chọn A" — tắt toàn bộ là tắt hết, không bật riêng được; bỏ tắt toàn bộ thì cuộc đã tắt riêng vẫn tắt. Sửa phần "bị tắt nghĩa là gì": "Với tin nhắn, có thể mỗi tin nhắn mới, ta sẽ có 1 cái popup nhỏ thông báo. tắt thông báo chỉ là không hiện popup, còn số count vẫn phải đúng số thông báo chưa đọc". Popup không hiện khi đang mở đúng cuộc trò chuyện đó: "đúng rồi!"; số trên biểu tượng Tin nhắn là số cuộc trò chuyện có tin chưa đọc: "đúng rồi, là số cuộc trò chuyện ấy!" |
+| QA-411 | ISS-351: Danh sách xác nhận X1–X6 | "OK cả nhóm" — (X1) không theo dõi chính mình, không theo dõi mới tài khoản BANNED, lượt theo dõi đã có được giữ; (X2) đề xuất làm Mod chọn một lần, không hết hạn, đề xuất lại là thông báo mới; (X3) email lỗi gửi lại ở lần quét kế tiếp, tối đa 3 lần; (X4) nội dung không còn: bấm thì thành đã đọc, hiện "Nội dung không tồn tại"; (X5) biểu tượng Tin nhắn đếm số cuộc trò chuyện có tin chưa đọc; (X6) công tắc tắt thông báo hiện trên mọi bài, tắt cả upvote bài và upvote bình luận của mình trong bài |

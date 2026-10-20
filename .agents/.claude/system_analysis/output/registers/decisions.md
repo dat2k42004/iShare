@@ -473,16 +473,24 @@ Email limited to: security (password change), account-deletion warning, ban/unba
 
 **[Amended 2026-10-14 — DEC-180: thêm sự kiện "Bình luận của bạn đã bị ẩn" (in-app)]**
 
+**[Amended 2026-10-20 — DEC-215, DEC-218: thêm sự kiện bài mới của người đang theo dõi; quy tắc người nhận, tên người gây sự kiện]**
+
 ### DEC-066: Upvote notification batching
 Batch upvotes (post + comment) within a 5-minute rolling window into one notification ("A và N người khác đã upvote..."). Single upvote shows the voter's name directly.
+
+**[Clarified 2026-10-20 — DEC-216: báo ngay lượt đầu, cửa sổ từ lượt đầu, gộp theo từng bài/bình luận]**
 
 ### DEC-067: In-app notification UI
 - Bell icon: dropdown (5-10 most recent) + dedicated page /notifications (full list)
 - Separate Message icon (navbar): DM + Group chat, own unread badge, links to Chat inbox — NOT mixed with bell
 - Mark read: click item → auto mark read + navigate; "Mark all as read" button
 
+**[Clarified 2026-10-20 — DEC-217, DEC-220: chuông 10 thông báo, số chưa đọc; trang tải 20; biểu tượng Tin nhắn đếm cuộc trò chuyện]**
+
 ### DEC-068: Email delivery architecture
 Event → write to email_queue table → cron scans every 1 minute → sends. Async, no blocking, no message broker needed for v1 scope.
+
+**[Clarified 2026-10-20 — DEC-220: email lỗi gửi lại tối đa 3 lần]**
 
 ### DEC-069: In-app delivery architecture
 Event → write to notifications table (source of truth) → best-effort WebSocket push to online clients. No cron/retry needed for in-app — client fetches unread from DB on page load/bell click regardless of WebSocket push success. [Amended: thông báo dùng SSE thay WebSocket — DEC-135/QA-257]
@@ -492,6 +500,8 @@ No granular global preference settings page for v1. Instead:
 - Per-post mute: toggle on each post ("Tắt thông báo cho bài này") mutes comment/reply/upvote notifications from that post specifically. @Mention still fires even when post is muted (deliberate address to user).
 - Per-conversation mute (Chat): mute individual DM/Group chat threads.
 - Global chat toggle: "Tắt thông báo cho toàn bộ Chat" setting, mutes all DM+Group chat notifications; coexists with per-conversation mute for finer override.
+
+**[Clarified 2026-10-20 — DEC-219, DEC-220: tắt Chat chỉ ẩn popup tin nhắn, tắt toàn bộ không có ngoại lệ; công tắc bài trên mọi bài]**
 
 ### DEC-071: Notification retention
 No auto-deletion / no retention policy — notifications kept indefinitely, consistent with Facebook/Twitter/Discord/GitHub approach. No cron cleanup.
@@ -651,6 +661,8 @@ Each resolved report action, warning, or ban may be appealed exactly once. A rej
 ### DEC-091: Role management flow
 - Promote: Admin sends a proposal ("Đề xuất làm Mod") to a user (no eligibility conditions — admin free choice) → user receives notification with Accept/Decline → Accept sets role=MOD immediately; Decline does nothing (admin can re-propose later)
 - Demote: Admin executes directly and immediately, no consent needed, no appeal right (role management, not punishment — different from M09 appeal scope)
+
+**[Clarified 2026-10-20 — DEC-220: thông báo đề xuất trả lời một lần, không hết hạn]**
 
 ### DEC-092: System config list (Admin Panel)
 1. AI toggle (master + per-module, see DEC-093)
@@ -836,6 +848,8 @@ DEC-052 (Trending Topic/Tag, M05) stays unchanged — rolling 7-day hard window,
 
 ### DEC-125: M14 Feed structure — 4 tabs, no AI-driven personalization tab
 M14 Feed consists of 4 tabs: **Trending** (3 sub-views: Post/Topic/Tag), **Following** (chronological, from Follow targets established in M07 — User/Topic/Post), **Group** (chronological, aggregated from all groups — Public+Private — the user has joined), **Newest** (chronological, site-wide, excluding Group-sourced posts). There is no separate algorithmic "For You" personalized-ranking tab — this simplifies scope and removes M14's dependency on M13 (AI Layer); M14 now depends only on M03 (Post) and M05 (Topic & Tag). Group Public posts cross-posted to the main feed (per DEC-111) are included in Trending Post and the Group tab, but excluded from Newest (Newest is kept as a pure non-group content stream).
+
+**[Amended 2026-10-20 — DEC-215: tab Following không còn bài đang theo dõi]**
 
 ### DEC-126: Guest access to Feed tabs
 Guest (unauthenticated) can view Newest and the full Trending tab (all 3 sub-views) without restriction — consistent with the existing Guest browse permissions (QA-011) and the SEO/discoverability rationale behind them. The Following and Group tabs remain visible to Guest but are gated behind login. All interactions (upvote, report, bookmark, follow, join) require login regardless of tab, per the existing Guest permission matrix (QA-011).
@@ -1069,6 +1083,8 @@ ISS-207 – ISS-231.
 - On DELETED, all follows held by the account are erased: users, Topics and posts it followed, plus users following it. Follower counts of those Topics and users decrease accordingly.
 - Topic-suggestion feedback records (M05: suggested Topics vs. chosen Topics) are kept, like AI decision logs (DEC-156), for AI quality evaluation (M13); they contain no post content and no longer identify the user.
 - Source: QA-319, QA-320
+
+**[Amended 2026-10-20 — DEC-215: không còn theo dõi bài viết]**
 
 ### Issues Closed
 ISS-232 → ISS-260
@@ -1481,6 +1497,8 @@ ISS-324 → ISS-332
 - Without a query (opening a Topic/Tag from M05, or sending an empty query with at least one filter): list every visible post matching the filters; default sort Newest, Most upvoted available, no Relevance; no 120-result limit; no AI call. An empty query with no filter does nothing.
 - Source: QA-399, QA-400, QA-402
 
+**[Amended 2026-10-20 — DEC-215: "đang theo dõi" gồm người dùng, Topic; không còn bài đang theo dõi]**
+
 ### DEC-213: M06 — Snippet, search history, rate-limit counting (clarifies DEC-059, DEC-061, DEC-063)
 - Snippet: the first 150 characters of the text content; if character 150 falls inside a word, cut before that word and add "…"; text content of 150 characters or fewer is shown whole without "…"; a post without text content (poll only) has no snippet.
 - History: an entry is added only when a query with text is sent (not when picking a typeahead item, not when opening a Topic/Tag page); sending a query already in history moves it to the top (no duplicate); shown newest first; picking an entry sends that query at once; no per-entry delete, only "clear history".
@@ -1495,3 +1513,51 @@ ISS-324 → ISS-332
 
 ### Issues Closed
 ISS-333 → ISS-344
+
+---
+
+## Functional Requirement — M07: Notification
+
+### DEC-215: M07 — Follow targets, new-post notification, unfollow (resolves QA-043 vs DEC-065, QA-127; amends DM-4.5, QA-043, DEC-125, DEC-159, DEC-212; scope extension)
+- Follow targets are users and Topics only. Following a post is removed; Tag and Group stay non-followable. A followed post is no longer part of the M14 Following tab (DEC-125) or the M06 Following-only filter (DEC-212); DEC-159 has no post follows to erase.
+- Following a user adds the in-app event "a user you follow published a new post" (no email). It is sent when the post first becomes publicly visible (after the pre-publish scan), not for anonymous posts, not to followers who cannot view the post (Private group, DM-5.3), not for rejected posts, and not again on edit or restore.
+- Following a Topic sends no notification; it is used only by the M14 Following tab and the M06 Following-only filter.
+- Unfollow (scope extension): a user can unfollow a user or a Topic; the follow relation is removed, the follower count decreases by 1, nobody is notified. The "new follower" notification is sent at most once per (follower, followed user) pair, so re-following does not notify again.
+- Source: QA-405, QA-406
+
+### DEC-216: M07 — Upvote notification batching details (clarifies DEC-066)
+- The first upvote is notified immediately and opens a 5-minute window (5 × 60 s) for that post or comment. Upvotes on the same post or comment inside the window update that same notification: text "A và N người khác đã upvote…", back to unread, moved to the top. The first upvote after the window opens a new notification and window.
+- Batching is per post and per comment. A = the most recent upvoter; N = the number of other distinct users who upvoted inside the window.
+- Withdrawing an upvote does not change a notification already sent; the same user upvoting again inside the window is not counted twice.
+- Example: 10:00 B upvotes X → "B đã upvote…"; 10:02 C → "C và 1 người khác…"; 10:04 D upvotes comment Y → separate notification; 10:05:00 E upvotes X → new notification.
+- Source: QA-407
+
+### DEC-217: M07 — Bell and Notifications page (clarifies DEC-067)
+- The bell shows the 10 most recent notifications, newest first by last update (a batched upvote notification moves up when updated), and its own unread count (chat messages not included).
+- Opening the bell does not mark anything as read; only clicking a notification or "Đánh dấu tất cả đã đọc" does.
+- The Notifications page lists all notifications newest first, loading 20 per scroll, down to the oldest.
+- Source: QA-408
+
+### DEC-218: M07 — Recipients and actor display (clarifies DEC-065)
+- No notification is created for the user who caused the event (comment on own post, reply to own comment, self-mention).
+- Notifications are still created for recipients who are BANNED or DEACTIVATED and are seen when the account is ACTIVE again; email events follow DEC-065 unchanged. No notification is created for a DELETED recipient.
+- The actor's name is shown as "Tài khoản tạm thời vô hiệu hoá" when the actor is DEACTIVATED and "[Người dùng đã xóa]" when DELETED (as DEC-149, DEC-156).
+- Source: QA-409
+
+### DEC-219: M07 — New-message popup and chat mute settings (clarifies DEC-070, DEC-067)
+- Each new chat message (DM or Group chat) shows a small popup to a member who has the app open, except while that member is viewing that same conversation.
+- "Tắt thông báo cho toàn bộ Chat" mutes every conversation with no per-conversation exception. Per-conversation mute applies while the global mute is off; turning the global mute off keeps conversations muted individually.
+- Muting only hides the popup. The Message icon count still counts muted conversations, so it always matches the unread state (counting rule: DEC-220).
+- Source: QA-410
+
+### DEC-220: M07 — Confirmation list (clarifies DEC-067, DEC-068, DEC-070, DEC-091)
+- A user cannot follow themselves and cannot start following a BANNED account; existing follows of BANNED or DEACTIVATED accounts are kept (as DEC-172).
+- The "Đề xuất làm Mod" notification can be answered once; afterwards it shows the choice made. A proposal does not expire; a new proposal from ADMIN is a new notification.
+- An email that fails to send stays in the queue and is retried at the next scan, at most 3 retries, then stops.
+- Clicking a notification whose content was deleted, hidden or is no longer viewable marks it read and shows "Nội dung không tồn tại" (as DEC-174); the notification itself is kept (DEC-071). Owner read-only views (DEC-179, DEC-180, DEC-184) are unchanged.
+- The Message icon count is the number of conversations with unread messages, by the M16 read marker (QA-209).
+- The "Tắt thông báo cho bài này" toggle is shown on every post to logged-in users and mutes upvotes on the post and on the user's own comments in it, besides comments and replies.
+- Source: QA-411
+
+### Issues Closed
+ISS-345 → ISS-351

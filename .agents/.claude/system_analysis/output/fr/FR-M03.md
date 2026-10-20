@@ -2,9 +2,9 @@
 module: M03
 ten_module: Post & Content
 ma_tai_lieu: FR-M03
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
-ngay: 2026-10-20
+ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-194, QA-369, ISS-309, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M03 — Post & Content |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
-| Ngày | 2026-10-20 |
+| Phiên bản | 1.4 |
+| Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -128,7 +128,7 @@ lịch sử sửa, và xóa bài với thời hạn khôi phục.
 | M04 Comment | Bình luận gắn với bài; khóa bình luận chặn bình luận mới. |
 | M05 Topic & Tag | Chọn Topic, gắn Tag, gợi ý Topic khi soạn và sửa bài; trạng thái bài dùng khi đếm và xóa Topic. |
 | M06 Search | Tìm kiếm trên nội dung văn bản của bài. |
-| M07 Notification | Thông báo bài được đăng, bị từ chối, bị ẩn, poll kết thúc; tắt thông báo theo bài. |
+| M07 Notification | Thông báo bài được đăng, bị từ chối, bị ẩn, poll kết thúc; thông báo bài mới cho người theo dõi tác giả; tắt thông báo theo bài. |
 | M08 Moderation | Quét AI trước khi đăng, hàng chờ Mod duyệt, Mod ẩn/khóa bài, hạn chế tạo bài theo mức cảnh cáo. |
 | M09 Appeal | Khiếu nại bài bị Mod ẩn ("gỡ") hoặc bị AI tự từ chối; khiếu nại thành công thì bài trở lại hiển thị. |
 | M10 Admin Panel | Công tắc AI tổng và công tắc Moderation quyết định có quét trước khi đăng hay không. |
@@ -713,7 +713,8 @@ Bài Bị từ chối mà tác giả không gửi lại hay xóa thì ở mãi t
 | Cung cấp | M01 | Lưu, sửa nội dung bài chứa lượt nhắc tên (lượt nhắc đi theo bài, giữ cùng bài khi Đã xóa hẳn); thời điểm bài trở thành công khai (sau bước quét) để gửi thông báo nhắc tên | FR-M03-01.01, FR-M03-11.01, FR-M03-17.02, FR-M03-05.01 |
 | Cung cấp | M05 | Thao tác soạn, gửi, sửa bài và trạng thái nháp, đã gửi, là nơi áp quy tắc Topic, Tag và gợi ý Topic; khi bài chuyển Đã xóa hẳn, liên kết bài–Topic, bài–Tag được giữ cùng bài (bài không còn hiển thị) | FR-M03-01.01, FR-M03-04.01, FR-M03-11.01, FR-M03-17.02 |
 | Cung cấp | M06, M14 | Bài viết đang hiển thị công khai và nội dung chữ của bài | FR-M03-07.01 |
-| Cung cấp | M07 | Sự kiện bài được đăng, bài bị từ chối, poll kết thúc | FR-M03-05.01, FR-M03-05.03, FR-M03-06.02, FR-M03-06.03, FR-M03-10.02 |
+| Cung cấp | M07 | Sự kiện bài được đăng, bài bị từ chối, poll kết thúc. Sự kiện bài được đăng kèm tác giả, bài có đăng ẩn danh không và có phải lần đầu hiển thị công khai không, để M07 báo bài mới cho người theo dõi tác giả (DEC-215) | FR-M03-05.01, FR-M03-05.03, FR-M03-06.02, FR-M03-06.03, FR-M03-10.02 |
+| Dùng | M07 | Công tắc "Tắt thông báo cho bài này" hiện trên mỗi bài (FR-M07-08) | — |
 | Cung cấp | M08 | Bài vào hàng chờ duyệt sau bước quét; bài đã sửa (hoặc tự ẩn đã sửa rồi hiện lại) bị bước quét lại gắn cờ; bài Tự ẩn xem được trong báo cáo | FR-M03-05.02, FR-M03-05.04, FR-M03-05.07 |
 | Cung cấp | M12 | Thời điểm bài do tác giả xóa chuyển sang Đã xóa hẳn (mốc trừ điểm) | FR-M03-17.01 |
 | Cung cấp | M02 | Thời điểm bài chuyển sang Đã xóa hẳn (mốc bỏ bookmark, DEC-174) | FR-M03-17.01 |
@@ -754,6 +755,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-14 | Chốt 1.1. Theo OPEN-010 / DEC-184: bài hết hạn khôi phục chỉ gắn cờ Đã xóa hẳn, giữ dữ liệu (FR-M03-17 viết lại, thêm 17.03, 17.04); tác giả xem lại bài từ thông báo, khiếu nại (thêm FR-M03-07.08–07.10); ghi chú định nghĩa "Đã xóa hẳn". Theo DEC-185: Mod xem bài Tự ẩn trong báo cáo (FR-M03-07.11), quét lại khi hiện lại bài Tự ẩn đã sửa (FR-M03-05.14, 13.06). Rà soát: ngoại lệ nhóm Private ở FR-M03-07.01, BR-M03-18; thống nhất điều kiện công tắc AI; làm rõ FR-M03-05.06 | Phạm Văn Đức |
 | 1.2 | 2026-10-15 | Đối chiếu với FR-M08 (DEC-190): báo cáo của người dùng không làm bài Bị gắn cờ — sửa định nghĩa "Trạng thái kiểm duyệt" ở 2.1, bỏ dòng "AI hoặc báo cáo gắn cờ bài" ở bảng chuyển trạng thái; cập nhật C.1, C.2, mốc nguồn. Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-20 | Đối chiếu với FR-M06: ghi chuỗi DEC-208, DEC-211 ở C.2; không đổi yêu cầu. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): sự kiện bài được đăng cung cấp thêm tác giả, cờ ẩn danh, lần đầu công khai cho thông báo bài mới; thêm dòng "Dùng M07" (công tắc tắt thông báo bài). Không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1306,6 +1308,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-190 | Phụ thuộc | Hiện hành | Chuyển M08 | Nhóm B. M08: báo cáo của người dùng không đổi trạng thái kiểm duyệt của bài; chỉ bước quét lại làm bài Bị gắn cờ; bài Bị gắn cờ thành mục trong vụ ở hàng chờ báo cáo |
 | DEC-194 | Phụ thuộc | Hiện hành | Chuyển M08, M11 | Nhóm B. M08, M11: nhóm Bị khóa chặn đăng bài, bình chọn poll trong nhóm; nhóm Bị ẩn ẩn mọi bài của nhóm |
 | ISS-300 | Phụ thuộc | Trùng với DEC-190 | — | Nhóm C. Báo cáo có làm bài Bị gắn cờ không |
+| DEC-215 | Phụ thuộc | Hiện hành | Chuyển M07 | Nhóm B (đối chiếu FR-M07). M07: thông báo bài mới cho người theo dõi tác giả; không gửi khi bài ẩn danh, bị từ chối, sửa, khôi phục |
 
 ### C.2 Chuỗi quyết định
 
@@ -1336,3 +1339,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-050 → DEC-142, DEC-144 | Định nghĩa "từ" của DEC-144 (cụm chữ ngăn cách bởi khoảng trắng) được M03 dùng lại để đếm giới hạn 6.000 từ của nội dung bài (BR-M03-42). Các phần khác của DEC-050, DEC-142, DEC-144 thuộc M05. |
 | DEC-079 → DEC-188; DEC-098 → DEC-186 | Chỉ sửa phần thuộc M08: cách giảm mức cảnh cáo, thời gian thử thách N × 24 giờ (DEC-188); điểm quét là điểm cao nhất trong bốn nhóm, ngưỡng không đổi theo mức cảnh cáo, AI không tự cảnh cáo Mod, Admin (DEC-186). Ngưỡng 0,9/0,5 và hạn chế tạo bài ở MEDIUM, HEAVY của M03 không đổi. |
 | DEC-079 → DEC-211; QA-011 → DEC-208 (M06) | Chỉ sửa phần thuộc M06: giảm hạng ×0,5 của người ở mức HEAVY nhân vào Điểm cuối, chỉ khi xếp theo Liên quan (DEC-211); Guest tìm bài bằng full-text (DEC-208). Quyền Guest xem bài của M03 không đổi. |
+| DEC-065 → DEC-215, DEC-218; DEC-070 → DEC-219, DEC-220 (đối chiếu FR-M07) | Phần thuộc M07: thêm sự kiện "người bạn theo dõi có bài mới", quy tắc người nhận; tắt thông báo Chat chỉ ẩn popup, công tắc tắt thông báo bài có trên mọi bài. Không đổi yêu cầu của module này. |

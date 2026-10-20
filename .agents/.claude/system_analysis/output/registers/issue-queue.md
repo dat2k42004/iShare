@@ -519,3 +519,17 @@
 | ISS-342 | Danh sách xác nhận: Guest với bộ lọc theo dõi; gợi ý khi gõ; Hôm nay/Tuần này/Tháng này; đoạn trích; lịch sử; cách đếm giới hạn tần suất | Closed | Xem DEC-208, DEC-209, DEC-212, DEC-213 |
 | ISS-343 | Xóa lịch sử tìm kiếm khi đăng xuất (mở rộng phạm vi) | Closed | Xem DEC-213 |
 | ISS-344 | Gợi ý @mention (M01) có khớp tên giống tìm người dùng M06 (DEC-209) không — FR-M01 ghi "dùng chung cách so khớp" (QA-110) | Closed | Xem DEC-214 |
+
+---
+
+## Functional Requirement — M07: Notification | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-345 | Theo dõi có sinh thông báo nội dung mới không; đối tượng theo dõi (QA-043 "nhận noti" vs DEC-065 không có sự kiện, QA-127 không theo dõi bài) | Closed | Xem DEC-215 |
+| ISS-346 | Bỏ theo dõi người dùng, Topic (mở rộng phạm vi) | Closed | Xem DEC-215 |
+| ISS-347 | Gộp thông báo upvote: mốc cửa sổ 5 phút, gộp theo đối tượng, "A" và N, bỏ upvote | Closed | Xem DEC-216 |
+| ISS-348 | Chuông: số thông báo hiện, thứ tự, số chưa đọc; tải trang Thông báo | Closed | Xem DEC-217 |
+| ISS-349 | Người nhận không ACTIVE; người gây sự kiện là người nhận; tên người gây sự kiện đã vô hiệu hóa, đã xóa | Closed | Xem DEC-218 |
+| ISS-350 | Tắt thông báo toàn bộ Chat và tắt từng cuộc trò chuyện; "bị tắt" nghĩa là gì (popup tin nhắn, số trên biểu tượng Tin nhắn) | Closed | Xem DEC-219 |
+| ISS-351 | Danh sách xác nhận: theo dõi chính mình, tài khoản BANNED; đề xuất làm Mod; gửi lại email; nội dung không còn; số chưa đọc Tin nhắn; công tắc tắt thông báo bài | Closed | Xem DEC-220 |
