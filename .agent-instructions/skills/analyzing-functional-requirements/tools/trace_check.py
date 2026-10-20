@@ -126,8 +126,10 @@ def main():
                 continue
             other = frlib.parse_fr(frlib.read(path))
             om = other["module"]
-            mine = [r for r in fr["interfaces"] if len(r) >= 3 and r[1] == om]
-            theirs = [r for r in other["interfaces"] if len(r) >= 3 and r[1] == me]
+            # Ô module có thể ghi nhiều module, ví dụ "M06, M14".
+            mods = lambda cell: {x.strip() for x in cell.split(",")}
+            mine = [r for r in fr["interfaces"] if len(r) >= 3 and om in mods(r[1])]
+            theirs = [r for r in other["interfaces"] if len(r) >= 3 and me in mods(r[1])]
             for r in mine:
                 want = "Cung cấp" if r[0] == "Dùng" else "Dùng"
                 if not any(t[0] == want for t in theirs):

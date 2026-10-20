@@ -2,9 +2,9 @@
 module: M08
 ten_module: Moderation
 ma_tai_lieu: FR-M08
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-10-15
+ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-194, QA-369, ISS-309, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M08 — Moderation |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-15 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -834,6 +834,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-15 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-15 | Chốt sau 7 bước; câu trả lời bước 6 ghi ở DEC-186–DEC-194, QA-352–QA-369, ISS-292–ISS-309; thêm FR-M08-18 Ẩn, khóa nhóm (mở rộng phạm vi) | Phạm Văn Đức |
+| 1.1 | 2026-10-20 | Đối chiếu với FR-M06: ghi cách M06 áp giảm hạng ×0,5 (DEC-211) ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1526,3 +1527,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-074, DEC-082 → DEC-192 | Lý do kết luận bắt buộc với cả Có xử lý và Bác bỏ. Người báo cáo nhận một trong hai ý chung ("đã có biện pháp xử lý", "không phát hiện vi phạm") cho mọi loại đối tượng; mục do AI tạo không có thông báo. Người bị báo cáo chỉ nhận thông báo khi Có xử lý; đường dẫn khiếu nại chỉ kèm với cảnh cáo, ban, bài bị ẩn. Chỉ số tập trung tính cho đối tượng của vụ đang xem, trong 90 × 24 giờ. |
 | MR-M08 → DEC-186, DEC-187, DEC-188, DEC-189, DEC-190, DEC-191, DEC-192, DEC-193, DEC-194 | Dòng module-registry của M08 được bổ sung bởi các quyết định FR M08 (DEC-186 đến DEC-194); nội dung hiện hành như các chuỗi trên. |
 | Mục ngoài bảng nguồn | DEC-141 (DEC-090), DEC-144 (DEC-100), DEC-160 (DEC-130), DEC-141, DEC-144 (DEC-132), DEC-155, DEC-157 (DEC-138), DEC-159 (DEC-156), DEC-171 (DEC-025, QA-011), DEC-050 (QA-017), DEC-147, DEC-148, DEC-149 (MR-M01), DEC-160 (MR-M03): chỉ sửa phần không thuộc M08. |
+| DEC-079 → DEC-211; QA-011 → DEC-208 (M06) | M08 vẫn chỉ cung cấp mức HEAVY cho M06. Cách áp do M06 quyết: Điểm cuối của bài × 0,5, ở cả tìm ngữ nghĩa và full-text, chỉ khi xếp theo Liên quan; không giảm hạng khi xếp Mới nhất, Nhiều upvote nhất; không hiện dấu hiệu (DEC-211, khớp BR-M08-31). DEC-208 chỉ nói cách Guest tìm bài. |

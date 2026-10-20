@@ -2,9 +2,9 @@
 module: M03
 ten_module: Post & Content
 ma_tai_lieu: FR-M03
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
-ngay: 2026-10-14
+ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-194, QA-369, ISS-309, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M03 — Post & Content |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
-| Ngày | 2026-10-14 |
+| Phiên bản | 1.3 |
+| Ngày | 2026-10-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -753,6 +753,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-11 | Chốt sau 7 bước: 17 chức năng, 141 yêu cầu cấp dưới, 50 quy tắc; câu trả lời bước 6 ghi ở DEC-160–169 | Phạm Văn Đức |
 | 1.1 | 2026-10-14 | Chốt 1.1. Theo OPEN-010 / DEC-184: bài hết hạn khôi phục chỉ gắn cờ Đã xóa hẳn, giữ dữ liệu (FR-M03-17 viết lại, thêm 17.03, 17.04); tác giả xem lại bài từ thông báo, khiếu nại (thêm FR-M03-07.08–07.10); ghi chú định nghĩa "Đã xóa hẳn". Theo DEC-185: Mod xem bài Tự ẩn trong báo cáo (FR-M03-07.11), quét lại khi hiện lại bài Tự ẩn đã sửa (FR-M03-05.14, 13.06). Rà soát: ngoại lệ nhóm Private ở FR-M03-07.01, BR-M03-18; thống nhất điều kiện công tắc AI; làm rõ FR-M03-05.06 | Phạm Văn Đức |
 | 1.2 | 2026-10-15 | Đối chiếu với FR-M08 (DEC-190): báo cáo của người dùng không làm bài Bị gắn cờ — sửa định nghĩa "Trạng thái kiểm duyệt" ở 2.1, bỏ dòng "AI hoặc báo cáo gắn cờ bài" ở bảng chuyển trạng thái; cập nhật C.1, C.2, mốc nguồn. Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-20 | Đối chiếu với FR-M06: ghi chuỗi DEC-208, DEC-211 ở C.2; không đổi yêu cầu. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1334,3 +1335,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-013 → DEC-161 → DEC-185 | Sửa bài Đã đăng thì quét lại ngầm, bài vẫn hiển thị trong lúc quét; điểm < 0.5 giữ nguyên, ≥ 0.5 sang Bị gắn cờ, quét lỗi giữ nguyên. DEC-185 thêm: sửa bài Tự ẩn không quét lúc lưu; khi tác giả hiện lại bài Tự ẩn đã sửa trong lúc ẩn thì quét lại y như vậy. Chỉ quét khi công tắc AI tổng và Moderation đều bật. |
 | DEC-050 → DEC-142, DEC-144 | Định nghĩa "từ" của DEC-144 (cụm chữ ngăn cách bởi khoảng trắng) được M03 dùng lại để đếm giới hạn 6.000 từ của nội dung bài (BR-M03-42). Các phần khác của DEC-050, DEC-142, DEC-144 thuộc M05. |
 | DEC-079 → DEC-188; DEC-098 → DEC-186 | Chỉ sửa phần thuộc M08: cách giảm mức cảnh cáo, thời gian thử thách N × 24 giờ (DEC-188); điểm quét là điểm cao nhất trong bốn nhóm, ngưỡng không đổi theo mức cảnh cáo, AI không tự cảnh cáo Mod, Admin (DEC-186). Ngưỡng 0,9/0,5 và hạn chế tạo bài ở MEDIUM, HEAVY của M03 không đổi. |
+| DEC-079 → DEC-211; QA-011 → DEC-208 (M06) | Chỉ sửa phần thuộc M06: giảm hạng ×0,5 của người ở mức HEAVY nhân vào Điểm cuối, chỉ khi xếp theo Liên quan (DEC-211); Guest tìm bài bằng full-text (DEC-208). Quyền Guest xem bài của M03 không đổi. |

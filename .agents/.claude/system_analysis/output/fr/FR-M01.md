@@ -2,9 +2,9 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
-ngay: 2026-10-11
+ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-159, QA-320, ISS-260, OPEN-009
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
-| Ngày | 2026-10-11 |
+| Phiên bản | 1.3 |
+| Ngày | 2026-10-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -550,7 +550,7 @@ Summary: Must gồm M01–M10, M13). Không có yêu cầu ngoại lệ về ưu
 | ID | Yêu cầu |
 |---|---|
 | FR-M01-14.01 | Khi người soạn gõ "@" kèm ít nhất 1 ký tự rồi ngừng gõ 300 mili giây, hệ thống phải hiển thị danh sách gợi ý nhắc tên. |
-| FR-M01-14.02 | Hệ thống phải tìm người cho danh sách gợi ý nhắc tên theo cả display_name và username, không phân biệt chữ hoa, chữ thường của username, chấp nhận chuỗi tìm có khoảng trắng. |
+| FR-M01-14.02 | Hệ thống phải tìm người cho danh sách gợi ý nhắc tên theo cả display_name và username, khớp chuỗi tìm ở bất kỳ vị trí trong tên, không phân biệt chữ hoa, chữ thường, bỏ dấu tiếng Việt khi so, cho khớp gần đúng khi gõ sai nhẹ, và chấp nhận chuỗi tìm có khoảng trắng (BR-M01-26). |
 | FR-M01-14.03 | Hệ thống phải hiển thị tối đa 5 người trong danh sách gợi ý nhắc tên, mỗi người kèm avatar, display_name và username hiện mờ. |
 | FR-M01-14.04 | Khi người soạn đang soạn nội dung trong một Group, hệ thống phải xếp danh sách gợi ý theo thứ tự: người đang theo dõi, người cùng Group đó, những người còn lại. |
 | FR-M01-14.05 | Khi người soạn đang soạn bài viết ngoài Group, hệ thống phải xếp danh sách gợi ý theo thứ tự: người đang theo dõi, người có chung ít nhất một Group với người soạn, những người còn lại. |
@@ -633,7 +633,7 @@ Summary: Must gồm M01–M10, M13). Không có yêu cầu ngoại lệ về ưu
 | BR-M01-23 | Suy diễn | Trong khi tài khoản DEACTIVATED: bài viết của tài khoản bị ẩn, mở địa chỉ bài thấy "Nội dung không tồn tại"; bình luận giữ nguyên nội dung, tên tác giả hiện "Tài khoản tạm thời vô hiệu hoá", avatar hiện ảnh mặc định. | B vô hiệu hóa: bài "Ôn thi THPT" của B không hiện ở đâu; bình luận "Dùng định lý Vi-ét" vẫn hiện, tác giả "Tài khoản tạm thời vô hiệu hoá". |
 | BR-M01-24 | Suy diễn | Khi tài khoản DELETED: bài viết của tài khoản vẫn bị ẩn như khi DEACTIVATED; bình luận giữ nguyên nội dung, tên tác giả hiện "[Người dùng đã xóa]", avatar hiện ảnh mặc định. | Tài khoản B sang DELETED: bài "Ôn thi THPT" vẫn ẩn; bình luận "Dùng định lý Vi-ét" vẫn hiện, tác giả "[Người dùng đã xóa]". |
 | BR-M01-25 | Suy diễn | Khi tài khoản được kích hoạt lại, bài viết và bình luận của tài khoản hiển thị lại với tên và avatar của chủ tài khoản như trước khi vô hiệu hóa. | B kích hoạt lại ngày 05/10: bài "Ôn thi THPT" hiện lại; bình luận hiện tác giả là display_name của B. |
-| BR-M01-26 | Ràng buộc | Danh sách gợi ý nhắc tên mở khi người soạn gõ "@" kèm ít nhất 1 ký tự, và tìm sau khi người soạn ngừng gõ 300 mili giây. Chuỗi tìm được chứa khoảng trắng. Hệ thống tìm theo cả display_name và username, hiện tối đa 5 người; mỗi người hiện avatar, display_name và username. | Gõ "@": chưa mở. Gõ "@N": mở. Gõ "@Nguyễn Văn": tìm theo cả chuỗi có khoảng trắng. Có 8 người khớp: hiện 5. |
+| BR-M01-26 | Ràng buộc | Danh sách gợi ý nhắc tên mở khi người soạn gõ "@" kèm ít nhất 1 ký tự, và tìm sau khi người soạn ngừng gõ 300 mili giây. Chuỗi tìm được chứa khoảng trắng. Hệ thống tìm theo cả display_name và username, hiện tối đa 5 người; mỗi người hiện avatar, display_name và username. Chuỗi tìm khớp ở bất kỳ vị trí trong display_name hoặc username, không phân biệt chữ hoa, chữ thường, bỏ dấu tiếng Việt khi so, cho khớp gần đúng khi gõ sai nhẹ; cách khớp này dùng chung với tìm người dùng của M06. | Gõ "@": chưa mở. Gõ "@N": mở. Gõ "@Nguyễn Văn": tìm theo cả chuỗi có khoảng trắng. Có 8 người khớp: hiện 5. Gõ "@Nam": có "Nguyễn Văn Nam". Gõ "@nguyen" hoặc "@Nguyên": có "Nguyễn …". |
 | BR-M01-27 | Tính toán | Thứ tự trong danh sách gợi ý nhắc tên theo ngữ cảnh. Khi soạn trong Group, hoặc bình luận trên bài viết trong Group: người đang theo dõi, rồi người cùng Group đó, rồi những người còn lại. Khi soạn ngoài Group: người đang theo dõi, rồi người có chung ít nhất một Group với người soạn, rồi những người còn lại. Trong cùng một tầng, người khớp chuỗi tìm nhiều hơn xếp trước. | Bình luận trên bài trong Group "Lớp 12A1", gõ "@Lan": Lan Anh (đang theo dõi), Lan Chi (thành viên 12A1), Lan Hương (không liên quan): thứ tự Lan Anh, Lan Chi, Lan Hương. Tầng cuối có "Lan" và "Hoàng Lan": "Lan" xếp trước. |
 | BR-M01-28 | Suy diễn | Lượt nhắc tên được ghi nhận theo tài khoản người được nhắc và hiển thị bằng display_name hiện tại của người đó, có làm nổi bật, không hiện ký tự "@". Người được nhắc đổi display_name thì mọi lượt nhắc cũ hiện tên mới. | Nhắc "Minh Anh" ngày 01/10; ngày 05/10 người đó đổi tên thành "Anh Minh": bài viết hiện "Anh Minh" được làm nổi bật. |
 | BR-M01-29 | Ràng buộc | Lượt nhắc tên là một khối liền: không sửa được nhãn; xóa lùi vào lượt nhắc thì xóa cả lượt nhắc. | Đã chèn "Minh Anh", bấm xóa lùi ở cuối: cả "Minh Anh" bị xóa, không còn "Minh An". |
@@ -725,7 +725,7 @@ SETUP_COMPLETED là mức cuối; nguồn không có đường đi ngược lạ
 | Cung cấp | M02 | username, display_name và thông tin tùy chọn nhập ở bước 3; quy tắc username, display_name khi đổi ở trang sửa hồ sơ; trạng thái tài khoản để trang hồ sơ của tài khoản DEACTIVATED, DELETED hiện "người dùng không tồn tại" | FR-M01-03.01, FR-M01-03.03, FR-M01-03.15, FR-M01-03.16, FR-M01-10.01 |
 | Cung cấp | M03, M04 | Danh sách gợi ý nhắc tên và lượt nhắc tên trong trình soạn; cách hiển thị bài viết, bình luận theo trạng thái tài khoản của tác giả | FR-M01-14.01, FR-M01-14.06, FR-M01-13.01, FR-M01-13.03, FR-M01-13.04 |
 | Dùng | M03, M04 | Lưu, sửa, xóa nội dung chứa lượt nhắc tên; lượt nhắc đi theo nội dung | — |
-| Cung cấp | M06 | Tìm người dùng theo display_name và username, dùng chung cách so khớp với danh sách gợi ý nhắc tên | FR-M01-14.02 |
+| Cung cấp | M06 | Tìm người dùng theo display_name và username, dùng chung cách so khớp với danh sách gợi ý nhắc tên (BR-M01-26); trạng thái tài khoản và việc đã xong bước 3 để M06 chỉ hiện tài khoản ACTIVE đã xong bước 3; sự kiện đăng xuất để M06 xóa lịch sử tìm kiếm trên trình duyệt | FR-M01-14.02 |
 | Cung cấp | M07 | Các sự kiện cần thông báo: liên kết Google, đổi và đặt lại mật khẩu, cảnh báo 24 giờ trước khi tự xóa, nhắc tên khi nội dung công khai | FR-M01-04.05, FR-M01-08.05, FR-M01-09.12, FR-M01-12.05, FR-M01-14.10 |
 | Dùng | M07 | Gửi thông báo trong ứng dụng và email; danh sách người đang theo dõi để xếp danh sách gợi ý nhắc tên | FR-M01-14.04, FR-M01-14.05 |
 | Dùng | M08 | Ban, gỡ ban, thời hạn ban (hết hạn thì tài khoản tự về ACTIVE) và lý do ban hiển thị trên màn hình tài khoản bị khóa; Mod xử lý báo cáo về nội dung của tác giả đã vô hiệu hóa | FR-M01-05.05, FR-M01-05.07, FR-M01-05.17, FR-M01-13.05 |
@@ -765,6 +765,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-11 | Chốt sau 7 bước; ghi register DEC-147–158, QA-292–318, ISS-232–258; OPEN-008 thu hẹp | Phạm Văn Đức |
 | 1.1 | 2026-10-11 | Đối chiếu với FR-M05: xóa cả lượt theo dõi Topic, bài viết khi DELETED; giữ phản hồi gợi ý Topic (DEC-159); bổ sung giao tiếp với M05. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-15 | Đối chiếu với FR-M08: thêm dòng "Cung cấp M08" (trạng thái tài khoản khi ban, gỡ ban, ban hết hạn) ở mục Giao tiếp với module khác; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-20 | Đối chiếu với FR-M06: @mention khớp tên như tìm người dùng M06 (DEC-214); giao tiếp với M06 thêm trạng thái tài khoản, sự kiện đăng xuất. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -925,7 +926,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M01-13.06 | DEC-156 | Nói thẳng | — |
 | FR-M01-14 | DEC-020, DEC-015, DEC-045, MR-M01 | Nói thẳng | — |
 | FR-M01-14.01 | DEC-020 | Nói thẳng | — |
-| FR-M01-14.02 | DEC-020, DEC-148 | Nói thẳng | — |
+| FR-M01-14.02 | DEC-020, DEC-148, DEC-214 | Nói thẳng | — |
 | FR-M01-14.03 | DEC-020, DEC-015 | Nói thẳng | — |
 | FR-M01-14.04 | DEC-020 | Nói thẳng | — |
 | FR-M01-14.05 | DEC-020 | Nói thẳng | — |
@@ -982,7 +983,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M01-23 | DEC-019 | Nói thẳng | — |
 | BR-M01-24 | DEC-019, QA-066, DEC-149 | Nói thẳng | — |
 | BR-M01-25 | DEC-019, QA-018 | Suy ra | DEC-019 "14 days sufficient for accidental deactivation recovery" ⇒ kích hoạt lại khôi phục hiển thị như trước |
-| BR-M01-26 | DEC-020 | Nói thẳng | — |
+| BR-M01-26 | DEC-020, DEC-214 | Nói thẳng | — |
 | BR-M01-27 | DEC-020, DEC-153 | Nói thẳng | — |
 | BR-M01-28 | DEC-020 | Nói thẳng | — |
 | BR-M01-29 | DEC-020 | Nói thẳng | — |
@@ -1079,7 +1080,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-051 | Sở hữu | Trùng với DEC-015 | — | Nhóm A. username duy nhất, 3–20 ký tự |
 | QA-052 | Sở hữu | Trùng với DEC-015 | — | Nhóm A. Chỉ username duy nhất |
 | QA-053 | Sở hữu | Hiện hành | FR-M01-03, FR-M01-04, FR-M01-04.02, FR-M01-04.03, BR-M01-08 | Nhóm A. Tài khoản Google vẫn phải đặt username. Cùng nội dung DEC-014, thêm ý display_name lấy từ Google đổi được — giữ Hiện hành |
-| QA-054 | Sở hữu | Trùng với DEC-020 | — | Nhóm A. @mention: tìm theo cả hai trường, ưu tiên theo ngữ cảnh |
+| QA-054 | Sở hữu | Trùng với DEC-020 | — | Nhóm A. @mention: tìm theo cả hai trường, ưu tiên theo ngữ cảnh. DEC-214 sửa phần khớp tên |
 | QA-055 | Sở hữu | Trùng với DEC-020 | — | Nhóm A. @mention: hiển thị, lưu theo người dùng |
 | QA-056 | Sở hữu | Trùng với DEC-020 | — | Nhóm A. @mention: nhãn không sửa được |
 | QA-057 | Sở hữu | Trùng với DEC-017 | — | Nhóm A. Thời hạn phiên, token làm mới xoay vòng |
@@ -1173,7 +1174,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-017 | Sở hữu | Sửa một phần bởi DEC-151 | FR-M01-04.08, FR-M01-05.12, FR-M01-06, FR-M01-06.01, FR-M01-06.02, FR-M01-06.03, FR-M01-06.04, FR-M01-06.05, FR-M01-06.06, FR-M01-07.01, FR-M01-07.02, BR-M01-16, BR-M01-17 | Nhóm B. Phiên đăng nhập, nhiều thiết bị |
 | DEC-018 | Sở hữu | Sửa một phần bởi DEC-085 | FR-M01-01.01, FR-M01-02, FR-M01-02.01, FR-M01-03, FR-M01-03.01, FR-M01-03.08, FR-M01-04, FR-M01-04.01, FR-M01-04.06, FR-M01-05, FR-M01-05.01, FR-M01-05.03, BR-M01-02, BR-M01-08, BR-M01-18 | Nhóm B. account_state và verify_level; cổng đăng nhập |
 | DEC-019 | Sở hữu | Sửa một phần bởi DEC-148, DEC-149, DEC-156 | FR-M01-05, FR-M01-05.07, FR-M01-05.08, FR-M01-05.09, FR-M01-10, FR-M01-10.01, FR-M01-10.03, FR-M01-10.04, FR-M01-10.06, FR-M01-11, FR-M01-11.02, FR-M01-11.03, FR-M01-11.05, FR-M01-12, FR-M01-12.01, FR-M01-12.02, FR-M01-13, FR-M01-13.01, FR-M01-13.02, FR-M01-13.03, FR-M01-13.04, BR-M01-19, BR-M01-20, BR-M01-21, BR-M01-22, BR-M01-23, BR-M01-24, BR-M01-25 | Nhóm B. Vô hiệu hóa, tự xóa, hiển thị nội dung, màn hình BANNED. Phần bình luận sau khi tài khoản bị xóa: Q-02 trả lời A, xác nhận cách đọc giữ nội dung (DEC-149) |
-| DEC-020 | Sở hữu | Sửa một phần bởi DEC-153 | FR-M01-14, FR-M01-14.01, FR-M01-14.02, FR-M01-14.03, FR-M01-14.04, FR-M01-14.05, FR-M01-14.06, FR-M01-14.07, FR-M01-14.08, FR-M01-14.09, BR-M01-07, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29 | Nhóm B. Hệ thống @mention |
+| DEC-020 | Sở hữu | Sửa một phần bởi DEC-153, DEC-214 | FR-M01-14, FR-M01-14.01, FR-M01-14.02, FR-M01-14.03, FR-M01-14.04, FR-M01-14.05, FR-M01-14.06, FR-M01-14.07, FR-M01-14.08, FR-M01-14.09, BR-M01-07, BR-M01-26, BR-M01-27, BR-M01-28, BR-M01-29 | Nhóm B. Hệ thống @mention |
 | DEC-023 | Nhắc tới | Hiện hành | BR-M01-07 | Nhóm B. M02 dùng username trong địa chỉ trang hồ sơ |
 | DEC-026 | Phụ thuộc | Hiện hành | Chuyển M02 | Nhóm B. M02: không hiện lịch sử đổi username — ngụ ý username đổi được |
 | DEC-039 | Nhắc tới | Hiện hành | Không áp dụng: M04: trình soạn bình luận có @mention | Nhóm B. M04: trình soạn bình luận có @mention |
@@ -1230,7 +1231,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-204 | Nhắc tới | Hiện hành | Không áp dụng: Đã có DEC-138, OPEN-008 | Nhóm B. Đã có DEC-138, OPEN-008 |
 | OPEN-008 | Sở hữu | Sửa một phần bởi DEC-154, DEC-155, DEC-156, DEC-157 | TBD-M01-01 | Nhóm B. Privacy; đã thu hẹp bởi DEC-154–157, còn email liên hệ và cách nhận bản sao dữ liệu |
 | QA-009 | Phụ thuộc | Trùng với DEC-007 | — | Nhóm B. M10: cùng nội dung DEC-007 |
-| QA-011 | Sở hữu | Hiện hành | FR-M01-01, FR-M01-04, FR-M01-05, FR-M01-14.11 | Nhóm B. Guest được Đăng ký, Đăng nhập |
+| QA-011 | Sở hữu | Sửa một phần bởi DEC-208 | FR-M01-01, FR-M01-04, FR-M01-05, FR-M01-14.11 | Nhóm B. Guest được Đăng ký, Đăng nhập |
 | QA-013 | Phụ thuộc | Hiện hành | Chuyển M10, M08 | Nhóm B. M10/M08: MOD bị ban thì tự mất vai trò |
 | QA-017 | Nhắc tới | Hiện hành | Không áp dụng: Tác nhân hệ thống; Notification Worker gửi mention | Nhóm B. Tác nhân hệ thống; Notification Worker gửi mention |
 | QA-018 | Sở hữu | Sửa một phần bởi DEC-018, DEC-019, QA-019, DEC-149 | FR-M01-05, FR-M01-05.04, FR-M01-05.14, FR-M01-05.15, FR-M01-10, FR-M01-10.01, FR-M01-10.02, FR-M01-10.03, FR-M01-10.04, FR-M01-11, FR-M01-11.01, FR-M01-11.02, FR-M01-11.04, FR-M01-11.05, FR-M01-11.10, FR-M01-12, FR-M01-12.01, FR-M01-12.03, FR-M01-12.04, FR-M01-13, BR-M01-18, BR-M01-20, BR-M01-21, BR-M01-22, BR-M01-25 | Nhóm B. Phase 2: máy trạng thái tài khoản, kích hoạt lại bằng OTP email, hiển thị nội dung |
@@ -1244,7 +1245,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-075 | Nhắc tới | Hiện hành | Không áp dụng: M02: địa chỉ trang hồ sơ | Nhóm B. M02: địa chỉ trang hồ sơ |
 | QA-092 | Nhắc tới | Hiện hành | Không áp dụng: M04: trình soạn bình luận | Nhóm B. M04: trình soạn bình luận |
 | QA-099 | Phụ thuộc | Trùng với DEC-045 | — | Nhóm B. M04/M07: @mention trong bình luận luôn sinh thông báo |
-| QA-110 | Nhắc tới | Hiện hành | Không áp dụng: M06: tìm User dùng chung với @mention | Nhóm B. M06: tìm User dùng chung với @mention |
+| QA-110 | Nhắc tới | Sửa một phần bởi DEC-209 | Không áp dụng: M06: tìm User dùng chung với @mention | Nhóm B. M06: tìm User dùng chung với @mention; DEC-209 chốt cách khớp và phạm vi tài khoản |
 | QA-123 | Phụ thuộc | Trùng với DEC-065 | — | Nhóm B. M07: danh sách sự kiện gồm mật khẩu, vô hiệu hóa, mention |
 | QA-124 | Phụ thuộc | Trùng với DEC-065 | — | Nhóm B. M07: sự kiện có email |
 | QA-135 | Nhắc tới | Hiện hành | Không áp dụng: M08: Guest không báo cáo được | Nhóm B. M08: Guest không báo cáo được |
@@ -1305,6 +1306,11 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-260 | Nhắc tới | Hiện hành | Không áp dụng: Dùng chung; không quy định hành vi M01 | Nhóm D. Dùng chung; không quy định hành vi M01 |
 | QA-261 | Nhắc tới | Hiện hành | Không áp dụng: Dùng chung; không quy định hành vi M01 | Nhóm D. Dùng chung; không quy định hành vi M01 |
 | QA-262 | Nhắc tới | Hiện hành | Không áp dụng: Dùng chung; không quy định hành vi M01 | Nhóm D. Dùng chung; không quy định hành vi M01 |
+| DEC-214 | Sở hữu | Hiện hành | FR-M01-14.02, BR-M01-26 | Nhóm B. Thêm ở bản 1.3. @mention khớp tên như tìm người dùng M06 (DEC-209) |
+| QA-404 | Sở hữu | Trùng với DEC-214 | — | Nhóm B. Thêm ở bản 1.3. Câu trả lời của stakeholder, nội dung nằm trong DEC-214 |
+| ISS-344 | Nhắc tới | Trùng với DEC-214 | — | Nhóm B. Thêm ở bản 1.3. Câu hỏi đã có DEC-214 trả lời |
+| DEC-209 | Phụ thuộc | Hiện hành | Chuyển M06 | Nhóm B. Thêm ở bản 1.3. M06: cách khớp tên dùng chung; tìm người dùng chỉ gồm tài khoản ACTIVE đã xong bước 3 |
+| DEC-213 | Phụ thuộc | Hiện hành | Chuyển M06 | Nhóm B. Thêm ở bản 1.3. M06: đăng xuất thì xóa lịch sử tìm kiếm trên trình duyệt; ghi ở Giao tiếp |
 
 ### C.2 Chuỗi quyết định
 
@@ -1320,7 +1326,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-010 → DEC-147 (→ DEC-065) | Đăng nhập Google với email trùng email của một tài khoản email thì tự liên kết, không hỏi xác nhận, dù email đã xác minh hay chưa; nếu chưa thì mức xác minh lên EMAIL_VERIFIED. Sau khi liên kết, chủ tài khoản nhận thông báo trong ứng dụng và email; DEC-065 có thêm sự kiện này. |
 | DEC-016 → DEC-151 (→ DEC-065) | Magic link xác minh hạn 1 giờ, đặt lại mật khẩu hạn 15 phút, mỗi link dùng một lần, link mới làm link cũ mất hiệu lực. Đặt lại mật khẩu kết thúc mọi phiên khác, tự đăng nhập, và gửi thông báo "mật khẩu đã đổi". "Quên mật khẩu" hiện câu chung "Liên kết đã được gửi, vui lòng kiểm tra email của bạn"; DEACTIVATED được hướng tới trang kích hoạt; BANNED được đặt lại để vào màn hình bị khóa và khiếu nại. Đổi mật khẩu, đổi thông tin chỉ khi ACTIVE. |
 | DEC-017 → DEC-151 | Phiên truy cập 1 giờ; mỗi lần làm mới cấp phiên làm mới mới hạn 30 ngày tính từ lúc cấp, phiên cũ mất hiệu lực; nhiều thiết bị độc lập. |
-| DEC-020 → DEC-045 → DEC-153 | Danh sách gợi ý nhắc tên: gõ "@" kèm 1 ký tự, chờ 300 ms, tối đa 5 người, theo ba tầng ngữ cảnh, trong tầng xếp theo mức khớp; bình luận dùng ngữ cảnh bài chứa nó; không gồm DEACTIVATED, DELETED, BANNED, chưa xong bước 3. Lượt nhắc là khối liền, hiện display_name hiện tại; tới tài khoản DEACTIVATED, DELETED thì hiện tên thay thế, không mở trang hồ sơ. Thông báo gửi khi nội dung công khai; sửa nội dung chỉ báo người mới được nhắc. |
+| DEC-020 → DEC-045 → DEC-153 → DEC-214 | Danh sách gợi ý nhắc tên: gõ "@" kèm 1 ký tự, chờ 300 ms, tối đa 5 người, khớp ở bất kỳ vị trí trong display_name hoặc username, bỏ dấu, không phân biệt hoa thường, gần đúng (DEC-214, dùng chung với tìm người dùng M06, DEC-209), theo ba tầng ngữ cảnh, trong tầng xếp theo mức khớp; bình luận dùng ngữ cảnh bài chứa nó; không gồm DEACTIVATED, DELETED, BANNED, chưa xong bước 3. Lượt nhắc là khối liền, hiện display_name hiện tại; tới tài khoản DEACTIVATED, DELETED thì hiện tên thay thế, không mở trang hồ sơ. Thông báo gửi khi nội dung công khai; sửa nội dung chỉ báo người mới được nhắc. |
 | DM-10.2, DM-10.3 → QA-018, DEC-080 | Admin, Mod không vô hiệu hóa hay xóa tài khoản người khác, chỉ cảnh báo hoặc ban. Register không có hình thức "Suspend account" riêng; khóa có thời hạn chỉ có dạng ban tạm thời 30 hoặc 90 ngày (DEC-080). |
 | DEC-019 → DEC-129 → DEC-156 → DEC-159 | Khi DELETED, xóa dữ liệu cá nhân theo danh mục của BR-M01-47 (email được giải phóng); giữ username, trạng thái, vai trò, bài viết ẩn, bình luận và tin nhắn với người viết "[Người dùng đã xóa]", upvote đã cho không còn biết người cho. Tin nhắn, nhật ký kiểm duyệt, nhật ký AI giữ vĩnh viễn (DEC-129) và gắn với tài khoản đã xóa qua username. DEC-159: xóa cả lượt theo dõi Topic và bài viết của tài khoản; giữ phản hồi gợi ý Topic (M05) không gắn danh tính. |
-| QA-019 → DEC-187, DEC-189; DEC-023 → DEC-170; DEC-065 → DEC-180; QA-011 → DEC-171 | Chỉ sửa phần thuộc module khác. QA-019: lần vi phạm thứ 7 thành yêu cầu ban, chỉ Admin ban Mod (DEC-187, DEC-189, M08); M01 vẫn chỉ giữ trạng thái tài khoản khi ban, gỡ ban. DEC-170, DEC-171 (M02), DEC-180 (M04) không đổi nội dung M01. |
+| QA-019 → DEC-187, DEC-189; DEC-023 → DEC-170; DEC-065 → DEC-180; QA-011 → DEC-171, DEC-206, DEC-208; QA-110 → DEC-209; DEC-085 → DEC-197; DEC-086, DEC-089 → DEC-199, DEC-201 | Chỉ sửa phần thuộc module khác. QA-019: lần vi phạm thứ 7 thành yêu cầu ban, chỉ Admin ban Mod (DEC-187, DEC-189, M08); M01 vẫn chỉ giữ trạng thái tài khoản khi ban, gỡ ban. DEC-170, DEC-171 (M02), DEC-180 (M04) không đổi nội dung M01. DEC-208 (M06) chỉ làm rõ Guest tìm bài bằng full-text; DEC-209 (M06) chốt cách khớp tên và phạm vi tài khoản của tìm người dùng — M01 cung cấp trạng thái tài khoản cho việc này. DEC-206 (M13): tóm tắt AI chỉ cho người đã đăng nhập. DEC-197, DEC-199, DEC-201 (M09): khi BANNED chỉ khiếu nại được chính lệnh ban (khớp FR-M01-05.06, việc chọn đối tượng khiếu nại thuộc M09); thời hạn khiếu nại cảnh cáo; Mod bị ban được gỡ ban thì về ACTIVE với vai trò USER (vai trò thuộc M09, M10) — FR-M01-05.16 vẫn đúng. |

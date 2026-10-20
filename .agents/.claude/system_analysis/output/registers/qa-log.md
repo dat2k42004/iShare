@@ -148,6 +148,8 @@
 
 **[Amended 2026-10-19 — DEC-206: tóm tắt AI chỉ cho người đã đăng nhập; Guest bấm thì được nhắc đăng nhập]**
 
+**[Clarified 2026-10-20 — DEC-208: Guest tìm bài bằng full-text; "Tìm kiếm thông minh" nhắc đăng nhập]**
+
 ---
 
 ### QA-012
@@ -470,6 +472,8 @@
 - **Decision triggered:** —
 - **Implication:** `CREATE EXTENSION pg_trgm;` trong DB schema. Index `gin(display_name gin_trgm_ops)`.
 
+**[Clarified 2026-10-20 — DEC-209: khớp ở bất kỳ vị trí được giữ, áp cho cả Tag, Topic, Group]**
+
 ---
 
 ### QA-037
@@ -550,6 +554,8 @@
 - **Decision triggered:** —
 - **Implication:** Group listing cần `privacy` field. Content query phải check membership. Invite link có token.
 
+**[Amended 2026-10-20 — DEC-210: nhóm Private không hiện khi người ngoài nhóm tìm kiếm]**
+
 ---
 
 ### QA-045
@@ -625,6 +631,8 @@
 - **Question:** Mention search — username hay display_name hay cả 2? Có support khoảng trắng trong query không?
 - **Answer:** Cả 2 (pg_trgm). Spaces cho phép trong query. Trigger sau 1 char, debounce 300ms. Priority tiers theo context (Group vs Post).
 - **Decision triggered:** DEC-020
+
+**[Amended 2026-10-20 — DEC-214: khớp tên theo DEC-209 (bất kỳ vị trí, bỏ dấu, gần đúng)]**
 
 ### QA-055
 - **Issue:** ISS-054 | **Phase:** 5
@@ -770,7 +778,7 @@
 | ID | Question | Answer |
 |----|----------|--------|
 | QA-109 | Search scope reconfirm — does it include Topic/Group? | Yes, expanded: Post+User+Tag+Topic+Group. Original Phase 3 (QA-022) only covered Post+User+Tag |
-| QA-110 | User search — pgvector or pg_trgm? | pg_trgm on display_name+username, shared with M01 @mention. pgvector reserved for Post semantic search only |
+| QA-110 | User search — pgvector or pg_trgm? | pg_trgm on display_name+username, shared with M01 @mention. pgvector reserved for Post semantic search only **[Clarified 2026-10-20 — DEC-209: kết quả tìm người dùng chỉ gồm tài khoản ACTIVE đã xong Bước 3]** |
 | QA-111 | Post search trigger timing? | Submit-only (no debounce, too expensive) |
 | QA-112 | Engagement weighting in ranking? | Upvotes weighted 2x vs comments 1x, consistent with trending formula |
 | QA-113 | Search result filters? | Topic, Tag, date range, Following-only, Sort |
@@ -779,8 +787,8 @@
 | QA-116 | Search history storage? | localStorage, not DB — max 10 entries |
 | QA-117 | Results page layout? | Mixed single page, Post primary, others supplementary |
 | QA-118 | Snippet highlighting complexity? | Semantic search has no literal keyword match to highlight reliably — skip highlighting entirely for simplicity |
-| QA-119 | Guest search access? | Same as public browse |
-| QA-120 | Private group in search? | Group entity (name) visible-but-gated always; group content (posts) only visible to members |
+| QA-119 | Guest search access? | Same as public browse **[Amended 2026-10-20 — DEC-208: Guest tìm bài bằng full-text]** |
+| QA-120 | Private group in search? | Group entity (name) visible-but-gated always; group content (posts) only visible to members **[Amended 2026-10-20 — DEC-210: nhóm Private ẩn khỏi tìm kiếm với người ngoài nhóm]** |
 | QA-121 | Rate limit guest vs user? | Guest stricter (30/10) than logged-in user (45/20) — accountability difference |
 | QA-122 | Pagination style? | Infinite scroll preferred over page numbers; capped at 120 total results |
 
@@ -1192,3 +1200,22 @@
 | QA-390 | ISS-330: Tóm tắt — thời gian chờ, khi lỗi, khi AI tắt, nội dung gửi AI? | "10s có đủ cho 1 lần tóm tắt không" → giữ 10 giây, là hằng số chỉnh qua triển khai; lỗi: "thông báo hệ thống bận/lỗi"; AI tắt: "xử lý như 2, nhưng thông báo ngay"; "phải thêm note là tóm tắt chưa bao gồm nội dung đính kèm"; không gửi bình chọn → "ok" |
 | QA-391 | ISS-331: Mod, Admin có tra cứu nhật ký AI ngoài lúc xét khiếu nại không (mở rộng phạm vi)? | "chọn A đi" — không; chỉ xem khi xét khiếu nại bài bị AI tự từ chối; chỉnh ngưỡng do đội phát triển đọc dữ liệu, đổi qua triển khai |
 | QA-392 | ISS-332: Danh sách xác nhận 1–6 | "ok" — (1) hai nhóm cùng điểm cao nhất: lấy nhóm đứng trước theo thứ tự Quấy rối → Thù ghét → Người lớn → Bạo lực; (2) nhật ký ghi chấm điểm kiểm duyệt, embedding bài, gợi ý Topic; không ghi tóm tắt, embedding truy vấn; (3) mỗi lời gọi một bản ghi, kể cả thất bại — là chỗ "ghi lỗi cho Admin"; (4) quét luồng bình luận: mỗi bình luận một bản ghi; (5) bản ghi không sửa, không xóa; (6) chỉ số ở M15 bản tối thiểu "tỷ lệ Topic gợi ý được giữ lại" |
+
+---
+
+## Functional Requirement — M06: Search (QA-393 → QA-404)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-393 | ISS-333: Guest tìm bài theo ngữ nghĩa như User, hay chỉ full-text? | "ừm chọn B, nếu guest chọn tìm kiếm thông minh -> hiện notify yêu cầu đăng nhập"; "là tìm theo ngữ nghĩa ấy, chứ ai đặt tên thô là 'tìm theo ngữ nghĩa'"; xác nhận phương án A của câu bổ sung: "đúng nhé" — Guest tìm bài bằng full-text; chỉ Guest thấy lựa chọn "Tìm kiếm thông minh" (tên hiển thị của tìm kiếm ngữ nghĩa), bấm thì nhắc đăng nhập, kể cả khi AI tắt; người đã đăng nhập luôn tìm ngữ nghĩa khi AI bật, không có công tắc |
+| QA-394 | ISS-334: Người dùng, Tag, Topic, Group khớp thế nào; thứ tự trong mỗi loại? | "A nhé" — khớp ở bất kỳ vị trí trong tên, không phân biệt hoa thường, bỏ dấu, cho khớp gần đúng; chỉ khớp tên (người dùng: display_name, username; Group không khớp mô tả); trong mỗi loại kết quả giống chuỗi gõ hơn đứng trước |
+| QA-395 | ISS-335: Nhóm Private có hiện khi tìm Group không? | "B nhé" — ẩn hoàn toàn khỏi tìm kiếm và gợi ý khi gõ với người không là thành viên (kể cả Guest); thành viên vẫn tìm thấy nhóm của mình |
+| QA-396 | ISS-336: Full-text khớp truy vấn nhiều từ thế nào, xếp hạng ra sao? | "ok chọn B" — bài chứa ít nhất một từ của truy vấn là khớp; Điểm liên quan = số từ của truy vấn có trong bài ÷ số từ của truy vấn; vẫn dùng công thức 0,8/0,2 |
+| QA-397 | ISS-337: Chi tiết công thức xếp hạng? | "ừm" (hiểu là đồng ý phương án A) — tập ứng viên 120 bài; điểm liên quan ngữ nghĩa đổi về 0–1 theo thang cố định; điểm tương tác chuẩn hóa trong tập ứng viên, cùng điểm thô thì bằng 0; bằng điểm cuối → điểm liên quan cao hơn, rồi bài mới hơn; HEAVY: điểm cuối × 0,5 ở cả hai chế độ; thông báo khi đã tải đủ 120 mà cuộn tiếp |
+| QA-398 | ISS-338: Sắp xếp Mới nhất, Nhiều upvote nhất áp trên tập nào? | "A nhé" — sắp lại chính tập ứng viên; bằng nhau thì bài mới hơn trước; không giảm hạng HEAVY ở hai cách này |
+| QA-399 | ISS-339: Xem bài theo Topic/Tag khi không có truy vấn? | "A" — liệt kê mọi bài khớp bộ lọc; mặc định Mới nhất, đổi được sang Nhiều upvote nhất, không có Liên quan; không giới hạn 120; không gọi AI; ô trống không có bộ lọc thì không tìm |
+| QA-400 | ISS-340: Bộ lọc kết hợp thế nào, "Following-only" gồm gì? | "ok chọn A" — mỗi loại bộ lọc một giá trị; nhiều bộ lọc thì bài phải thỏa tất cả; "đang theo dõi" gồm bài của người đang theo dõi, bài thuộc Topic đang theo dõi, bài đang theo dõi (như tab Following M14); bộ lọc chỉ áp cho kết quả bài |
+| QA-401 | ISS-341: Kết quả tìm người dùng có hiện tài khoản không ACTIVE không? | "chỉ active thôi" — chỉ hiện tài khoản ACTIVE; ẩn BANNED, DEACTIVATED, DELETED |
+| QA-402 | ISS-342: Danh sách xác nhận X1–X7 | "x1-x7 ok" — (X1) tài khoản chưa xong Bước 3 không hiện trong tìm người dùng; (X2) Guest thấy bộ lọc theo dõi, bấm thì nhắc đăng nhập; (X3) gợi ý từ ký tự đầu tiên, mỗi loại tối đa 3; (X4) Hôm nay/Tuần này/Tháng này theo lịch, giờ Việt Nam, theo thời điểm đăng; (X5) đoạn trích 150 ký tự đầu, cắt trước từ bị chia đôi và thêm "…", không quá 150 ký tự thì hiện nguyên, không có nội dung chữ thì không có đoạn trích; (X6) lịch sử chỉ thêm khi gửi truy vấn có chữ, gửi lại thì đưa lên đầu, hiện mới nhất trước, chọn mục thì gửi luôn, không xóa từng mục; (X7) "mỗi phút" = 60 giây gần nhất, tải thêm không tính, đổi bộ lọc/sắp xếp, mở trang Topic/Tag, chọn mục lịch sử tính một lượt gửi |
+| QA-403 | ISS-343: Có xóa lịch sử tìm kiếm khi đăng xuất không (mở rộng phạm vi)? | "B di" — khi đăng xuất, xóa toàn bộ lịch sử tìm kiếm trên trình duyệt đó |
+| QA-404 | ISS-344: Gợi ý @mention có khớp tên theo DEC-209 (bất kỳ vị trí, bỏ dấu, gần đúng) không? | "ok chọn A đi!" — có: @mention khớp tên như DEC-209; thứ tự theo tầng của @mention giữ nguyên |

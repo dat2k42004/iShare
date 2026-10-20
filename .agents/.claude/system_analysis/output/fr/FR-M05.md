@@ -2,9 +2,9 @@
 module: M05
 ten_module: Topic & Tag
 ma_tai_lieu: FR-M05
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
-ngay: 2026-10-11
+ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-159, QA-320, ISS-260, OPEN-009
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M05 — Topic & Tag |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
-| Ngày | 2026-10-11 |
+| Phiên bản | 1.3 |
+| Ngày | 2026-10-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -122,7 +122,7 @@ phần khám phá nội dung sử dụng.
 | M02 User Profile | Bookmark của người dùng, một tương tác được tính vào Trending. |
 | M03 Post & Content | Bài viết là đối tượng được gán Topic và Tag; trình soạn bài là nơi chọn Topic, gắn Tag và bấm gợi ý; trạng thái bài (nháp, đã đăng…); upvote bài viết; sở hữu Lớp/Khối trên bài. |
 | M04 Comment | Comment và reply, tương tác được tính vào Trending. |
-| M06 Search | Tìm Topic và Tag, autocomplete, lọc bài theo Topic và Tag; Tag bị vô hiệu hóa không hiện trong autocomplete. |
+| M06 Search | Tìm Topic và Tag, autocomplete, lọc bài theo Topic và Tag; Tag bị vô hiệu hóa không hiện trong autocomplete và kết quả tìm Tag. Xem các bài của một Topic hay Tag là trang tìm bài của M06 với bộ lọc đó và truy vấn rỗng. |
 | M07 Notification | Theo dõi Topic và thông báo bài mới trong Topic đang theo dõi; lượt theo dõi đổi theo khi gộp hoặc xóa Topic. |
 | M08 Moderation | Nhật ký kiểm duyệt ghi thao tác Tag và việc đổi Topic, Tag trên bài người khác. |
 | M10 Admin Panel | Công tắc AI tổng và công tắc riêng cho gợi ý Topic; nhật ký thao tác của Admin. |
@@ -510,7 +510,8 @@ Tag không có trạng thái kết thúc: Tag không bị xóa (BR-M05-25).
 |---|---|---|---|
 | Cung cấp | M03 | Quy tắc chọn Topic (1–3, thuộc danh mục) và gắn Tag (tối đa 5, ký tự hợp lệ) khi tác giả soạn, gửi và sửa bài viết; nút "Gợi ý topic" trong trình soạn bài | FR-M05-01.02, FR-M05-03.01, FR-M05-02.01 |
 | Dùng | M03 | Thao tác gửi bài, sửa bài, trạng thái nháp, hiển thị bài viết; khi bài viết bị xóa thì liên kết bài viết–Topic, bài viết–Tag đi theo bài | — |
-| Cung cấp | M06 | Danh sách Topic và Tag đang hoạt động để tìm kiếm, gợi ý tự động khi nhập và lọc bài viết; Tag bị vô hiệu hóa không có trong gợi ý tự động | FR-M05-04.02, FR-M05-09.02 |
+| Cung cấp | M06 | Danh sách Topic và Tag đang hoạt động để tìm kiếm, gợi ý tự động khi nhập và lọc bài viết; Tag bị vô hiệu hóa không có trong gợi ý tự động và kết quả tìm Tag | FR-M05-04.02, FR-M05-09.02 |
+| Dùng | M06 | Trang tìm bài với bộ lọc Topic hay Tag và truy vấn rỗng, để xem các bài của một Topic hay Tag (mọi bài khớp, mặc định Mới nhất, không giới hạn số kết quả); M05 không có trang liệt kê bài riêng | FR-M05-04 |
 | Cung cấp | M07 | Danh mục Topic để người dùng theo dõi Topic; khi gộp Topic, người theo dõi Topic nguồn chuyển sang Topic đích; khi xóa Topic, lượt theo dõi bị bỏ | FR-M05-04.01, FR-M05-07.06, FR-M05-08.06 |
 | Dùng | M10 | Công tắc AI tổng và công tắc gợi ý Topic; nhật ký thao tác của Admin ghi việc thêm, gộp, xóa Topic | FR-M05-02.16 |
 | Dùng | M13 | Thực hiện gợi ý Topic (thời gian chờ, thử lại một lần), ghi kết quả thô của AI; dùng phản hồi gợi ý để đánh giá chất lượng AI | FR-M05-02.01, FR-M05-02.12 |
@@ -545,6 +546,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-07 | Chốt sau 7 bước; ghi register DEC-140–146, QA-267–291, ISS-207–231, OPEN-009 | Phạm Văn Đức |
 | 1.1 | 2026-10-07 | Cập nhật Phụ lục C.2 và ghi chú, trạng thái ở C.1 theo DEC-140–146 (C.2 còn ghi trước bước 6 và công thức Trending cũ); thân tài liệu không đổi; thêm DEC-092 vào chuỗi DEC-008. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-11 | Đối chiếu lại với FR-M01 1.0: cách ghi "nhà cung cấp dịch vụ AI" (DEC-154); không tính Trending cho bài bị ẩn vì tác giả vô hiệu hóa hoặc xóa tài khoản; tương tác của tài khoản đã xóa (DEC-156); giữ phản hồi gợi ý của tài khoản đã xóa (DEC-159). Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-20 | Đối chiếu với FR-M06: thêm giao tiếp "Dùng M06" (xem bài của Topic/Tag qua trang tìm bài); Tag bị vô hiệu hóa không có trong kết quả tìm Tag; ghi C.2. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -852,7 +854,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | OPEN-006 | Nhắc tới | Hiện hành | TBD-M05-01 | Nhóm B. SSR/SEO hoãn; không phải hành vi chức năng |
 | OPEN-008 | Nhắc tới | Hiện hành | Không áp dụng: Ghi rõ không chặn M05 | Nhóm B. Ghi rõ không chặn M05 |
 | QA-007 | Nhắc tới | Hiện hành | Không áp dụng: Ngân sách AI (M13) | Nhóm B. Ngân sách AI (M13) |
-| QA-011 | Sở hữu | Hiện hành | FR-M05-01.08, FR-M05-02.18, FR-M05-03.12, FR-M05-04, FR-M05-04.01, FR-M05-04.02, FR-M05-04.04 | Nhóm B. Guest xem danh sách Topic/Tag và AI Classification trên bài |
+| QA-011 | Sở hữu | Sửa một phần bởi DEC-208 | FR-M05-01.08, FR-M05-02.18, FR-M05-03.12, FR-M05-04, FR-M05-04.01, FR-M05-04.02, FR-M05-04.04 | Nhóm B. Guest xem danh sách Topic/Tag và AI Classification trên bài |
 | QA-017 | Sở hữu | Sửa một phần bởi DEC-050 | FR-M05-02, FR-M05-02.12, FR-M05-03, FR-M05-03.11, BR-M05-10, BR-M05-16 | Nhóm B. AI chỉ gợi ý Topic, Tag do user quyết; phản hồi = lựa chọn cuối |
 | QA-022 | Nhắc tới | Bị thay bởi DEC-053 | — | Nhóm B. Đã được DEC-053 thay |
 | QA-024 | Nhắc tới | Hiện hành | Không áp dụng: MoSCoW M13; sinh DEC-008 | Nhóm B. MoSCoW M13; sinh DEC-008 |
@@ -1022,3 +1024,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-081, DEC-131 → DEC-146 → DEC-154 | Nhật ký kiểm duyệt ghi thêm việc vô hiệu hóa, kích hoạt lại Tag và việc đổi Topic, Tag trên bài người khác, cho cả Mod và Admin. Trang Chính sách quyền riêng tư nêu thêm việc gửi tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, cho AI khi gợi ý Topic. DEC-154 (M01) chốt cách ghi trên trang là "nhà cung cấp dịch vụ AI", không nêu tên nhà cung cấp; trang thuộc M01. |
 | DEC-156 → DEC-159 (M01) | Khi tài khoản bị xóa: upvote đã cho vẫn được tính, bookmark và lượt theo dõi Topic bị xóa (Trending và lượt theo dõi Topic thay đổi theo); phản hồi gợi ý Topic được giữ để đánh giá AI, không gắn danh tính. Bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn nên không tính Trending. |
 | QA-232 → QA-233; QA-234 → QA-256; DEC-139 → QA-266 | Không ảnh hưởng hành vi M05 (Trending Post, SSR, quy ước tài liệu). |
+| QA-011 → DEC-208; DEC-142 → DEC-212 (M06) | Chỉ sửa phần thuộc M06. DEC-208: Guest tìm bài bằng full-text (quyền Guest xem danh sách Topic, Tag và Topic, Tag trên bài của M05 không đổi). DEC-212: trang xem các bài của một Topic hay Tag là trang tìm bài của M06 với bộ lọc đó và truy vấn rỗng — mọi bài khớp, mặc định Mới nhất, không giới hạn số kết quả; M05 vẫn chỉ có danh sách Topic, Tag. |
+| DEC-081 → DEC-193 (M08); DEC-093, DEC-099 → DEC-205, DEC-206, DEC-207; QA-017 → DEC-203; QA-011 → DEC-171, DEC-206 (M13, M02) | Không đổi hành vi M05. DEC-193 thêm mục khác vào nhật ký kiểm duyệt và xác nhận mục nhật ký không sửa, không xóa (mục thao tác Tag, Topic của M05 cũng vậy). DEC-205 chỉ nói công tắc Search (embedding); công tắc Topic suggestion của M05 không đổi. DEC-206, DEC-207 nói tóm tắt và nhật ký AI (M13). DEC-203: phản hồi gợi ý của M05 là dữ liệu duy nhất để M13 đánh giá AI (khớp FR-M05-02.12). DEC-171 nói Guest xem hồ sơ (M02). |

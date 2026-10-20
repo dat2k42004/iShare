@@ -122,7 +122,7 @@
 | ISS-092 | Search history | Closed | localStorage, max 10, clear button |
 | ISS-093 | Kết quả hiển thị tabs vs mixed | Closed | Mixed 1 page; Post primary, User/Tag/Topic/Group supplementary |
 | ISS-094 | Highlight/snippet | Closed | No highlight; plain ~150 char snippet |
-| ISS-095 | Search permission | Closed | Guest normal search; private group content gated to members; private group entity visible-but-gated |
+| ISS-095 | Search permission | Closed | Guest normal search; private group content gated to members; private group entity visible-but-gated **[Amended 2026-10-20 — DEC-208, DEC-210]** |
 | ISS-096 | Rate limiting | Closed | Guest 30/10, User 45/20 (debounce/submit per min) |
 | ISS-097 | Pagination | Closed | Infinite scroll, 15/load, max 120 total, cursor-based |
 
@@ -500,3 +500,22 @@
 | ISS-330 | Tóm tắt bài: thời gian chờ, khi lỗi, khi AI tắt, nội dung gửi AI | Closed | Xem DEC-206 |
 | ISS-331 | Mod, Admin có tra cứu nhật ký quyết định AI ngoài lúc xét khiếu nại không (mở rộng phạm vi) | Closed | Xem DEC-207 |
 | ISS-332 | Danh sách xác nhận: hai nhóm vi phạm cùng điểm; phạm vi, đơn vị ghi và tính bất biến của nhật ký AI; chỉ số ở M15 | Closed | Xem DEC-203, DEC-204, DEC-207 |
+
+---
+
+## Functional Requirement — M06: Search | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-333 | Guest tìm bài theo ngữ nghĩa hay chỉ full-text (DEC-062 "search normally" vs QA-011 "Semantic Search: Không") | Closed | Xem DEC-208 |
+| ISS-334 | Người dùng, Tag, Topic, Group khớp chuỗi gõ thế nào (QA-036 chuỗi con vs DEC-053 "exact/prefix", DEC-057 "fuzzy"); thứ tự trong mỗi loại | Closed | Xem DEC-209 |
+| ISS-335 | Nhóm Private có hiện khi tìm Group không (DEC-062, QA-044 "visible-but-gated" vs DEC-110 "fully hidden") | Closed | Xem DEC-210 |
+| ISS-336 | Tìm full-text: truy vấn nhiều từ khớp thế nào, xếp hạng ra sao khi không có điểm liên quan từ embedding | Closed | Xem DEC-211 |
+| ISS-337 | Công thức xếp hạng: số bài tập ứng viên, cách chuẩn hóa 0–1, bằng điểm, ×0,5 của HEAVY nhân vào đâu, thông báo ở 120 kết quả | Closed | Xem DEC-211 |
+| ISS-338 | Sắp xếp Mới nhất, Nhiều upvote nhất áp trên tập nào; bằng nhau; có giảm hạng HEAVY không | Closed | Xem DEC-211 |
+| ISS-339 | Xem bài theo Topic/Tag qua bộ lọc khi không có truy vấn: sắp xếp mặc định, giới hạn 120 | Closed | Xem DEC-212 |
+| ISS-340 | Bộ lọc: chọn nhiều giá trị, cách kết hợp, "Following-only" gồm gì, có áp cho kết quả phụ không | Closed | Xem DEC-212 |
+| ISS-341 | Kết quả tìm người dùng có hiện tài khoản không ACTIVE không | Closed | Xem DEC-209 |
+| ISS-342 | Danh sách xác nhận: Guest với bộ lọc theo dõi; gợi ý khi gõ; Hôm nay/Tuần này/Tháng này; đoạn trích; lịch sử; cách đếm giới hạn tần suất | Closed | Xem DEC-208, DEC-209, DEC-212, DEC-213 |
+| ISS-343 | Xóa lịch sử tìm kiếm khi đăng xuất (mở rộng phạm vi) | Closed | Xem DEC-213 |
+| ISS-344 | Gợi ý @mention (M01) có khớp tên giống tìm người dùng M06 (DEC-209) không — FR-M01 ghi "dùng chung cách so khớp" (QA-110) | Closed | Xem DEC-214 |

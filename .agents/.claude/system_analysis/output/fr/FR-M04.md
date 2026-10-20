@@ -2,9 +2,9 @@
 module: M04
 ten_module: Comment
 ma_tai_lieu: FR-M04
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-10-14
+ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-183, QA-349, ISS-289, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M04 — Comment |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-14 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -442,6 +442,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-14 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-14 | Chốt sau 7 bước; bổ sung DEC-178–183 (xóa mềm, bình luận bị ẩn, giới hạn 1.000 từ, trích dẫn khi trả lời) | Phạm Văn Đức |
+| 1.1 | 2026-10-20 | Đối chiếu với FR-M06: ghi chuỗi DEC-208, DEC-211 ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -859,3 +860,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-163 → DEC-178 | Mức cảnh cáo HEAVY chỉ chặn tạo bình luận mới; tác giả vẫn sửa, xóa bình luận đã có (cùng nguyên tắc DEC-163 cho bài). Bài bị khóa: không sửa, được xóa. Bình luận bị ẩn: không sửa, không xóa. |
 | DM-10.2, GL:Moderator (MOD) → DEC-180 | Với bình luận của người khác, Mod, Admin chỉ có thao tác Ẩn; "Delete comment" của draft là Ẩn. Mod, Admin xem nội dung bình luận đã xóa qua báo cáo, lịch sử báo cáo, khiếu nại (DEC-179). |
 | DEC-077, DEC-115 → DEC-179 | Chủ bình luận xem lại, chỉ đọc, bình luận của mình bị ẩn hoặc bị xử lý khi mở từ thông báo xử lý (DEC-074) hoặc khiếu nại; không thấy thông tin người báo cáo. |
+| DEC-079 → DEC-211; QA-011 → DEC-208 (M06) | Chỉ sửa phần thuộc M06: cách áp giảm hạng ×0,5 khi tìm bài (DEC-211); Guest tìm bài bằng full-text (DEC-208). Bình luận vẫn không được tìm; quyền Guest xem bình luận không đổi. |

@@ -2,9 +2,9 @@
 module: M13
 ten_module: AI Layer
 ma_tai_lieu: FR-M13
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-10-19
+ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-207, QA-392, ISS-332, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M13 — AI Layer |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-19 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-20 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -498,6 +498,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-18 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-19 | Chốt sau 7 bước; câu trả lời ghi vào register (DEC-203–207) | Phạm Văn Đức |
+| 1.1 | 2026-10-20 | Đối chiếu với FR-M06: FR-M13-04.04 khớp DEC-208; ghi chuỗi DEC-208–213 ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -547,7 +548,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M13-04.01 | DM-11.3, DEC-053, DEC-093, DEC-205 | Suy ra | DM-11.3 nêu luồng "Query → Embedding API → Vector Search"; DEC-099 nêu thời gian chờ embedding và tìm full-text cho riêng truy vấn bị lỗi ⇒ M13 tạo embedding cho truy vấn, M06 tìm và xếp hạng |
 | FR-M13-04.02 | DEC-093, DEC-099, DEC-053, MR-FB-M06 | Nói thẳng | — |
 | FR-M13-04.03 | DEC-099 | Nói thẳng | — |
-| FR-M13-04.04 | QA-011 | Nói thẳng | QA-011: Guest "Semantic Search: Không". Đối chiếu lại khi viết FR-M06 |
+| FR-M13-04.04 | QA-011 | Nói thẳng | QA-011: Guest "Semantic Search: Không". Đã đối chiếu với FR-M06: khớp DEC-208 (Guest tìm bài bằng full-text, FR-M06-02.23) |
 | FR-M13-05 | DEC-096, DEC-099, DEC-050, DEC-132, DEC-144, DM-11.2 | Nói thẳng | Phía người dùng của gợi ý Topic thuộc M05 |
 | FR-M13-05.01 | DEC-050, DEC-093, DM-11.2 | Nói thẳng | — |
 | FR-M13-05.02 | DEC-132, DEC-144, DEC-050 | Nói thẳng | — |
@@ -907,3 +908,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-077, QA-019 → DEC-078 → DEC-180, DEC-186, DEC-190, DEC-195 | Thuộc M08: bình luận quét cả luồng khi số trả lời đạt ngưỡng tốc độ; bình luận của Admin không quét. DEC-180, DEC-190 (ngoài bảng nguồn) chỉ sửa phần hiển thị bình luận ẩn và vụ chờ xét, không chạm M13. |
 | QA-016 → DEC-104 | Thuộc M11: bài trong nhóm qua AI trước cổng duyệt của nhóm; Mod hệ thống vẫn can thiệp được. |
 | QA-217, ISS-159 | Thuộc M16: không có AI kiểm duyệt tin nhắn chat. |
+| DEC-053 → DEC-209, DEC-210; DEC-055 → DEC-211; DEC-063 → DEC-213; QA-011 → DEC-208 (M06) | Chỉ sửa hành vi tìm kiếm của M06: cách khớp tên, nhóm Private, chi tiết xếp hạng, cách đếm giới hạn tần suất. M13 không đổi: Guest không có embedding truy vấn (FR-M13-04.04) khớp DEC-208 — Guest tìm bài bằng full-text, bấm "Tìm kiếm thông minh" thì được nhắc đăng nhập, không gọi AI; giới hạn tần suất tìm kiếm vẫn là của M06. |

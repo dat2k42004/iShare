@@ -161,6 +161,8 @@
 
 **[Amended 2026-10-11 — DEC-153: thứ tự trong tầng, loại tài khoản không ACTIVE khỏi danh sách gợi ý]**
 
+**[Amended 2026-10-20 — DEC-214: khớp tên như tìm người dùng M06 (DEC-209): bất kỳ vị trí, bỏ dấu, gần đúng]**
+
 ---
 ## Phase 5 — M02: User Profile
 
@@ -377,6 +379,8 @@ Toán học, Ngữ văn, Ngoại ngữ, Khoa học tự nhiên (Lý/Hóa/Sinh), 
 - Comment: NOT searchable (too many, low value)
 - Fallback: full-text (Postgres FTS) when AI off
 
+**[Amended 2026-10-20 — DEC-209, DEC-210: khớp ở bất kỳ vị trí, bỏ dấu, gần đúng; nhóm Private ẩn khỏi tìm kiếm với người ngoài nhóm]**
+
 ### DEC-054: Search trigger
 - Post (semantic): submit-only (Enter/click), no debounce — expensive compute
 - User/Tag/Topic/Group: debounce (300ms live suggestion) + also works on submit
@@ -390,8 +394,12 @@ final_score = relevance_score × 0.8 + engagement_score × 0.2
 ```
 Top N candidates by relevance first (vector search), then re-rank by final_score.
 
+**[Clarified 2026-10-20 — DEC-211: tập ứng viên 120 bài; cách chuẩn hóa; bằng điểm; full-text dùng tỷ lệ từ khớp]**
+
 ### DEC-056: Filters (Post search)
 Topic, Tag, date range (Today/This week/This month/All), Following-only toggle, Sort (Relevance default / Newest / Most upvoted)
+
+**[Clarified 2026-10-20 — DEC-211, DEC-212: sắp xếp trên tập ứng viên; mỗi loại bộ lọc một giá trị; tuần, tháng theo lịch; "đang theo dõi" gồm User/Topic/Post]**
 
 ### DEC-057: Full-text fallback + Vietnamese diacritics
 - Postgres FTS: tsvector/tsquery
@@ -399,11 +407,17 @@ Topic, Tag, date range (Today/This week/This month/All), Following-only toggle, 
 - pg_trgm for prefix/fuzzy match on Tag/User/Topic/Group
 - Generated column: content_search = to_tsvector('simple', unaccent(title || ' ' || content_text))
 
+**[Clarified 2026-10-20 — DEC-209, DEC-211: khớp tên ở bất kỳ vị trí, gần đúng; full-text khớp ít nhất một từ]**
+
 ### DEC-058: Autocomplete (debounce dropdown)
 Shows User/Tag/Topic/Group prefix matches only (pg_trgm). No Post title suggestions (Post is submit-only).
 
+**[Clarified 2026-10-20 — DEC-209: gợi ý từ ký tự đầu, mỗi loại tối đa 3, chỉ tài khoản ACTIVE]**
+
 ### DEC-059: Search history
 localStorage only (no DB). Max 10 recent searches. Shown on search box focus. "Clear history" button.
+
+**[Amended 2026-10-20 — DEC-213: khi nào thêm mục, không trùng, chọn mục thì gửi luôn; xóa khi đăng xuất]**
 
 ### DEC-060: Results display
 Mixed, single scrollable page (no tabs). Post results are primary (by final_score). User/Tag/Topic/Group shown as supplementary (max 3 each, sidebar/bottom).
@@ -411,10 +425,14 @@ Mixed, single scrollable page (no tabs). Post results are primary (by final_scor
 ### DEC-061: Snippet
 No keyword highlighting. Plain snippet, first ~150 chars of content_text. Same approach for both semantic and full-text modes.
 
+**[Clarified 2026-10-20 — DEC-213: cắt 150 ký tự trước từ bị chia đôi, thêm "…"]**
+
 ### DEC-062: Search permission
 - Guest: search normally (same as public browse)
 - Private group content (posts): only shown if searcher is a member of that group
 - Private group entity (name/description): visible-but-gated — shows in Group search results regardless of membership (per M11), but content inside stays gated
+
+**[Amended 2026-10-20 — DEC-208, DEC-210: Guest chỉ tìm bài bằng full-text; nhóm Private ẩn khỏi tìm kiếm với người ngoài nhóm]**
 
 ### DEC-063: Rate limiting
 | | Debounce | Submit search |
@@ -423,8 +441,12 @@ No keyword highlighting. Plain snippet, first ~150 chars of content_text. Same a
 | User (by user_id) | 45/min | 20/min |
 429 Too Many Requests when exceeded, no captcha/long-term block.
 
+**[Clarified 2026-10-20 — DEC-213: 60 giây gần nhất; tải thêm không tính lượt]**
+
 ### DEC-064: Pagination
 Infinite scroll, 15 results/load, max 120 total results (8 loads), cursor-based (not offset). Beyond max: "Thu hẹp tìm kiếm để có kết quả chính xác hơn"
+
+**[Clarified 2026-10-20 — DEC-211, DEC-212: thông báo khi đã tải 120; không giới hạn 120 khi không có truy vấn]**
 
 ---
 ## Phase 5 — M07: Notification
@@ -543,6 +565,8 @@ Warning status is fully PRIVATE — visible only to the user themselves and to m
 **[Amended 2026-10-11 — DEC-163: phạm vi "tạo bài mới" ở M03]**
 
 **[Amended 2026-10-15 — DEC-188: giảm mức và thời gian thử thách nối tiếp, N × 24 giờ]**
+
+**[Clarified 2026-10-20 — DEC-211: giảm hạng ×0,5 trên điểm cuối, chỉ khi xếp theo Liên quan]**
 
 ### DEC-080: Ban types + escalation
 - Temporary ban (auto-escalating): 1st ban = 30 days, 2nd ban = 90 days, 3rd+ ban = permanent
@@ -738,6 +762,8 @@ Actions taken by Group Mod/Owner within a group (e.g. pre-mod rejection, content
 
 ### DEC-110: Private group discovery & invite permissions
 Private groups are fully hidden from search/discovery; reachable only via invite/link. Any group member (Member, Group Mod, or Owner alike) can invite others — not restricted to Mod/Owner. Join flow reuses the mechanism established in DEC-103 (no separate targeted Invitation entity with accept/decline).
+
+**[Clarified 2026-10-20 — DEC-210: thành viên vẫn tìm thấy nhóm Private của mình]**
 
 ### DEC-111: Group post cross-posting to main feed
 A group post always appears in the feed of that group's own members, whether the group is Public or Private. For Public groups specifically, the post additionally appears on the main feed like an ordinary post (visible to non-members). Private group posts never surface on the main feed.
@@ -1412,3 +1438,60 @@ ISS-310 → ISS-323
 
 ### Issues Closed
 ISS-324 → ISS-332
+
+---
+
+## Functional Requirement — M06: Search
+
+### DEC-208: M06 — Guest searches posts by full-text only; "Tìm kiếm thông minh" prompts login (resolves DEC-062 vs QA-011)
+- A Guest can search (DEC-062) but posts are always searched by full-text (QA-011 "Semantic Search: Không" holds; FR-M13-04.04 unchanged). Typeahead suggestions, user/Tag/Topic/Group search, filters and history work for Guest as for USER.
+- Semantic search is shown to users as "Tìm kiếm thông minh". Only a Guest sees this option; pressing it shows a message asking to log in, and the results stay full-text. The same happens while the master or Search switch is off (as the summary button, DEC-206).
+- A logged-in user (USER, MOD, ADMIN) always gets semantic search while both switches are on; there is no switch to turn it off.
+- A Guest also sees the Following-only filter; pressing it shows the same login message.
+- Source: QA-393, QA-402
+
+### DEC-209: M06 — Matching users, Tags, Topics, Groups; which accounts appear; typeahead (amends DEC-053, clarifies DEC-057, DEC-058, QA-110)
+- Users, Tags, Topics and Groups match the typed text anywhere in the name (not only at the start), case-insensitive, ignoring Vietnamese diacritics, with approximate (typo-tolerant) matching. Only names are matched: users by display_name and username, Groups by name only (not description). Examples: "Nam" → "Nguyễn Văn Nam"; "toan" → Topic "Toán học"; "tóan" → "Toán học"; "hàm" → #đạo_hàm; "HSG" does not match a Group whose name lacks it.
+- Within each type, the closer match to the typed text comes first (as @mention, DEC-153).
+- User search (typeahead and results) shows ACTIVE accounts that have completed Step 3 only; BANNED, DEACTIVATED, DELETED and unfinished-Step-3 accounts are not shown (as @mention, DEC-153).
+- Typeahead starts from the first character typed and shows at most 3 items per type (users, Tags, Topics, Groups).
+- Source: QA-394, QA-401, QA-402
+
+### DEC-210: M06 — Private groups hidden from search for non-members (resolves DEC-053, DEC-062, QA-044, QA-120 vs DEC-110)
+- A Private group does not appear in Group search results or typeahead for anyone who is not its member, Guest included (DEC-110 holds; "visible-but-gated in search" of DEC-053, DEC-062, QA-044, QA-120 no longer applies).
+- A member of the Private group still finds it in search.
+- Posts of a Private group remain visible in search only to its members (DEC-062, DEC-108 unchanged).
+- Source: QA-395
+
+### DEC-211: M06 — Post ranking details, full-text matching, sort modes (clarifies DEC-055, DEC-057, DEC-064, DEC-079)
+- Full-text: a post matches when it contains at least one word of the query (title or text content, diacritics ignored). Relevance in full-text mode = query words found in the post ÷ query words. Example: "phương trình bậc hai" (4 words): post with all 4 → 1.0; post with "phương trình" only → 0.5.
+- Candidate set = the 120 posts with the highest relevance (the DEC-064 maximum). In semantic mode, relevance = cosine similarity mapped to 0–1 on a fixed scale (−1 → 0, 0 → 0.5, 1 → 1), independent of other posts.
+- Engagement = (raw − min raw) ÷ (max raw − min raw) within the candidate set; when all candidates have the same raw value, engagement = 0 for all.
+- Final score = relevance × 0.8 + engagement × 0.2 in both modes. Ties: higher relevance first, then the more recently published post.
+- A post whose author is at HEAVY: final score × 0.5, in both modes, only when sorting by Relevance.
+- Sort Newest and Most upvoted reorder the same candidate set; ties → more recently published first; no HEAVY downranking in these two sorts.
+- The message "Thu hẹp tìm kiếm để có kết quả chính xác hơn" is shown when 120 results have been loaded and the user scrolls further.
+- Example: raw A 3, B 1, C 5; relevance A 0.9, B 0.9, C 0.7 → engagement A 0.5, B 0, C 1 → final A 0.82, C 0.76, B 0.72. If A's author is at HEAVY: A 0.41, last.
+- Source: QA-396, QA-397, QA-398
+
+### DEC-212: M06 — Filters and browsing without a query (clarifies DEC-056, DEC-064, DEC-142)
+- One value per filter type (one Topic, one Tag, one time range); several filters together → a post must satisfy all. Filters apply to post results only, not to user/Tag/Topic/Group results.
+- Following-only = posts by followed users, posts in followed Topics, and followed posts (the three follow targets, as the M14 Following tab, DEC-125).
+- Today / This week / This month are calendar periods in Asia/Ho_Chi_Minh (DEC-127) by the post's publish time: from 00:00 today; from 00:00 Monday this week; from 00:00 on the 1st of this month. Example: Wednesday 15/10 10:00 → This week = posts published from Monday 13/10 00:00.
+- Without a query (opening a Topic/Tag from M05, or sending an empty query with at least one filter): list every visible post matching the filters; default sort Newest, Most upvoted available, no Relevance; no 120-result limit; no AI call. An empty query with no filter does nothing.
+- Source: QA-399, QA-400, QA-402
+
+### DEC-213: M06 — Snippet, search history, rate-limit counting (clarifies DEC-059, DEC-061, DEC-063)
+- Snippet: the first 150 characters of the text content; if character 150 falls inside a word, cut before that word and add "…"; text content of 150 characters or fewer is shown whole without "…"; a post without text content (poll only) has no snippet.
+- History: an entry is added only when a query with text is sent (not when picking a typeahead item, not when opening a Topic/Tag page); sending a query already in history moves it to the top (no duplicate); shown newest first; picking an entry sends that query at once; no per-entry delete, only "clear history".
+- On logout, the whole search history in that browser is cleared (scope extension; Guest history on shared devices is not covered).
+- Rate limit "per minute" = the last 60 seconds (as DEC-144). Loading more results while scrolling is not counted. Changing a filter or the sort, opening a Topic/Tag page, and picking a history entry each count as one submit.
+- Source: QA-402, QA-403
+
+### DEC-214: M01 — @mention suggestions match names as DEC-209 (amends DEC-020)
+- The @mention suggestion list matches the typed text against display_name and username the same way as M06 user search (DEC-209): anywhere in the name, case-insensitive, ignoring Vietnamese diacritics, approximate (typo-tolerant). Examples: "@Nam" → "Nguyễn Văn Nam"; "@nguyen" and "@Nguyên" → "Nguyễn".
+- Ordering by context tiers (DEC-020, DEC-153) is unchanged; within a tier the closer match comes first (DEC-153). Accounts shown are unchanged (DEC-153).
+- Source: QA-404
+
+### Issues Closed
+ISS-333 → ISS-344
