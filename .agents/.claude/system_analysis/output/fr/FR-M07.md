@@ -2,7 +2,7 @@
 module: M07
 ten_module: Notification
 ma_tai_lieu: FR-M07
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
 ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M07 — Notification |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
+| Phiên bản | 1.1 |
 | Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
@@ -120,7 +120,7 @@ Module Notification cho người dùng biết những việc xảy ra liên quan
 | M06 Search | Dùng quan hệ theo dõi cho bộ lọc chỉ nội dung đang theo dõi. |
 | M08 Moderation | Sự kiện kết quả báo cáo, cảnh cáo, ban, gỡ ban. |
 | M09 Appeal | Sự kiện kết luận khiếu nại; đường dẫn khiếu nại trong thông báo. |
-| M10 Admin Panel | Sự kiện đề xuất làm Mod. |
+| M10 Admin Panel | Sự kiện đề xuất làm Mod, đề xuất làm Admin; trạng thái hết hiệu lực của đề xuất. |
 | M11 Group | Sự kiện mời, gia nhập, duyệt, thăng cấp, kick trong nhóm; quyền xem nhóm Private. |
 | M12 Gamification | Sự kiện upvote, badge, mốc điểm, danh hiệu tuần. |
 | M14 Feed & Discovery | Dùng quan hệ theo dõi cho tab Following. |
@@ -232,8 +232,8 @@ Các sự kiện phát sinh từ module Should (M11 Group, M12 Gamification, M16
 | FR-M07-02.11 | Nếu sự kiện liên quan tới nội dung trong nhóm Private, hệ thống phải chỉ tạo thông báo cho người nhận có quyền xem nội dung đó (BR-M07-18). |
 | FR-M07-02.12 | (Đã bỏ ở phiên bản 0.2 — hành vi thuộc M09, xem FR-M09-01.19.) |
 | FR-M07-02.13 | Khi sự kiện là một xử lý khiếu nại được (cảnh cáo, ban, bài bị Mod/Admin gỡ, bài bị AI từ chối), hệ thống phải đưa đường dẫn khiếu nại vào thông báo. |
-| FR-M07-02.14 | Khi Admin gửi đề xuất làm Mod cho một người dùng (M10), hệ thống phải tạo cho người đó thông báo có hai lựa chọn Chấp nhận và Từ chối (BR-M07-20). |
-| FR-M07-02.15 | Khi người được đề xuất bấm Chấp nhận trên thông báo, hệ thống phải chuyển lựa chọn cho M10 để đặt vai trò MOD ngay. |
+| FR-M07-02.14 | Khi Admin gửi đề xuất làm Mod, hoặc tài khoản ADMIN gốc gửi đề xuất làm Admin, cho một người dùng (M10), hệ thống phải tạo cho người đó thông báo có hai lựa chọn Chấp nhận và Từ chối (BR-M07-20). |
+| FR-M07-02.15 | Khi người được đề xuất bấm Chấp nhận trên thông báo, hệ thống phải chuyển lựa chọn cho M10 để đặt vai trò MOD hoặc ADMIN ngay theo loại đề xuất. |
 | FR-M07-02.16 | Khi người được đề xuất bấm Từ chối trên thông báo, hệ thống phải giữ nguyên vai trò của người đó. |
 | FR-M07-02.17 | Hệ thống phải không tạo thông báo cho các trường hợp ở BR-M07-21. |
 | FR-M07-02.18 | Hệ thống phải gộp upvote riêng cho từng bài viết và từng bình luận. |
@@ -247,8 +247,10 @@ Các sự kiện phát sinh từ module Should (M11 Group, M12 Gamification, M16
 | FR-M07-02.26 | Nếu người nhận đang BANNED hoặc DEACTIVATED, hệ thống phải vẫn tạo thông báo cho người đó. |
 | FR-M07-02.27 | Nếu người nhận đã DELETED, hệ thống phải không tạo thông báo cho người đó. |
 | FR-M07-02.28 | Khi người được đề xuất đã chọn Chấp nhận hoặc Từ chối, hệ thống phải hiện lựa chọn đó trên thông báo và không cho chọn lại (BR-M07-20). |
-| FR-M07-02.29 | Hệ thống phải không đặt hạn cho thông báo đề xuất làm Mod chưa được trả lời. |
-| FR-M07-02.30 | Khi Admin đề xuất lại cho cùng người dùng, hệ thống phải tạo một thông báo đề xuất mới. |
+| FR-M07-02.29 | (Đã bỏ ở phiên bản 1.1 — đề xuất có hạn 7 ngày, xem FR-M07-02.31) |
+| FR-M07-02.30 | Khi có đề xuất mới cùng loại cho cùng người dùng, hệ thống phải tạo một thông báo đề xuất mới. |
+| FR-M07-02.31 | Khi một đề xuất quá hạn 7 ngày mà chưa được trả lời (M10), hệ thống phải hiện "Đã hết hạn" trên thông báo đề xuất và không cho chọn Chấp nhận, Từ chối nữa (BR-M07-20). |
+| FR-M07-02.32 | Khi có đề xuất mới cùng loại cho cùng người dùng, hệ thống phải không cho chọn Chấp nhận, Từ chối trên thông báo của đề xuất cũ (BR-M07-20). |
 
 
 ### 5.3 FR-M07-03 Đẩy thông báo mới tới người dùng đang mở ứng dụng
@@ -389,7 +391,7 @@ Các sự kiện phát sinh từ module Should (M11 Group, M12 Gamification, M16
 
 | ID | Loại | Quy tắc | Ví dụ |
 |---|---|---|---|
-| BR-M07-01 | Sự kiện | Sự kiện sinh thông báo trong ứng dụng: mật khẩu đã đổi (đổi trong Cài đặt hoặc đặt lại); đã liên kết Google; có người theo dõi mới; người bạn theo dõi có bài mới; bài được đăng, bị từ chối, bị ẩn, poll kết thúc; upvote bài viết, upvote bình luận (gộp theo BR-M07-05); bình luận mới, trả lời, nhắc tên; "Bình luận của bạn đã bị ẩn" khi AI ẩn bình luận; kết quả báo cáo, nhận cảnh cáo; ban, gỡ ban; kết luận khiếu nại về ban, về bài viết, về cảnh cáo; nhóm: mời, gia nhập, duyệt, thăng cấp, kick; badge, mốc điểm, danh hiệu tuần; đề xuất làm Mod. | — |
+| BR-M07-01 | Sự kiện | Sự kiện sinh thông báo trong ứng dụng: mật khẩu đã đổi (đổi trong Cài đặt hoặc đặt lại); đã liên kết Google; có người theo dõi mới; người bạn theo dõi có bài mới; bài được đăng, bị từ chối, bị ẩn, poll kết thúc; upvote bài viết, upvote bình luận (gộp theo BR-M07-05); bình luận mới, trả lời, nhắc tên; "Bình luận của bạn đã bị ẩn" khi AI ẩn bình luận; kết quả báo cáo, nhận cảnh cáo; ban, gỡ ban; kết luận khiếu nại về ban, về bài viết, về cảnh cáo; nhóm: mời, gia nhập, duyệt, thăng cấp, kick; badge, mốc điểm, danh hiệu tuần; đề xuất làm Mod, đề xuất làm Admin. | — |
 | BR-M07-02 | Sự kiện | Tin nhắn mới trong cuộc trò chuyện 1-1 hoặc nhóm chat được báo bằng popup nhỏ (BR-M07-28) và bằng số trên biểu tượng Tin nhắn; không hiện ở chuông thông báo, không gửi email. Số trên biểu tượng Tin nhắn là số cuộc trò chuyện có tin chưa đọc, gồm cả cuộc đã tắt thông báo. | Bình gửi An 5 tin, Chi gửi An 2 tin, An chưa đọc → biểu tượng Tin nhắn hiện 2; chuông của An không đổi; An không nhận email. An đọc cuộc với Bình → còn 1. |
 | BR-M07-03 | Ràng buộc | Chỉ các sự kiện sau được gửi thêm qua email: mật khẩu đã đổi, đã liên kết Google, cảnh báo trước khi tự xóa, ban, gỡ ban, kết luận khiếu nại về ban. Mọi sự kiện khác chỉ báo trong ứng dụng. Không có email tổng hợp. | An bị ban: thông báo trong ứng dụng và email. An nhận cảnh cáo: chỉ trong ứng dụng. Khiếu nại ban của An được kết luận: trong ứng dụng và email; khiếu nại cảnh cáo được kết luận: chỉ trong ứng dụng. |
 | BR-M07-04 | Kích hoạt | Cảnh báo trước khi tự xóa chỉ gửi qua email, không có thông báo trong ứng dụng; gửi đúng một email, lúc còn 24 giờ trước khi tài khoản DEACTIVATED tự chuyển DELETED. | Vô hiệu hóa 01/10 21:00 → DELETED lúc 15/10 21:00 → email cảnh báo lúc 14/10 21:00. Kích hoạt lại lúc 14/10 20:00 → không gửi email. |
@@ -408,7 +410,7 @@ Các sự kiện phát sinh từ module Should (M11 Group, M12 Gamification, M16
 | BR-M07-17 | — | (Đã bỏ ở phiên bản 0.2 — quy tắc thuộc M01, xem BR-M01-47.) | — |
 | BR-M07-18 | Ràng buộc | Thông báo về nội dung trong Group dùng cùng cơ chế như ngoài Group; với nhóm Private, thông báo chỉ gửi cho người có quyền xem nội dung đó. | Bài trong nhóm Private G nhắc @An, An không là thành viên G → An không nhận thông báo (Suy ra). |
 | BR-M07-19 | — | (Đã bỏ ở phiên bản 0.2 — quy tắc thuộc M09, xem FR-M09-01.19.) | — |
-| BR-M07-20 | Sự kiện | Thông báo "Đề xuất làm Mod" có hai lựa chọn Chấp nhận và Từ chối, chọn được một lần; sau đó thông báo hiện lựa chọn đã chọn. Đề xuất không có hạn. Chấp nhận thì vai trò thành MOD ngay; Từ chối thì không có gì thay đổi; Admin đề xuất lại thì là một thông báo mới. | Admin đề xuất An; An bấm Từ chối → thông báo hiện "Đã từ chối", An vẫn là USER. Tuần sau Admin đề xuất lại → An nhận thông báo đề xuất mới và bấm Chấp nhận → An là MOD ngay. |
+| BR-M07-20 | Sự kiện | Thông báo "Đề xuất làm Mod" và "Đề xuất làm Admin" có hai lựa chọn Chấp nhận và Từ chối, chọn được một lần; sau đó thông báo hiện lựa chọn đã chọn. Đề xuất có hạn 7 ngày (7 × 24 giờ từ lúc gửi, M10); quá hạn mà chưa trả lời thì thông báo hiện "Đã hết hạn" và không chọn được nữa. Đề xuất mới cùng loại cho cùng người là một thông báo mới; đề xuất cũ thôi hiệu lực, không chọn được nữa. Chấp nhận thì vai trò đổi ngay (MOD hoặc ADMIN, M10); Từ chối thì không có gì thay đổi. | Admin đề xuất An làm Mod lúc 09:00 ngày 01/11; An bấm Từ chối → thông báo hiện "Đã từ chối", An vẫn là USER. Admin đề xuất lại lúc 09:00 ngày 03/11 → An nhận thông báo mới; nếu An chưa bấm tới 09:00 ngày 10/11 → thông báo hiện "Đã hết hạn". |
 | BR-M07-21 | Sự kiện | Không có thông báo cho: tác giả khi Mod/Admin đổi Topic, Tag trên bài của họ; việc một khiếu nại chỉ ADMIN thấy được; nhắc cập nhật Lớp/Khối đầu năm học. | — |
 | BR-M07-22 | Ràng buộc | Thời điểm của thông báo được lưu theo UTC và hiển thị theo giờ Asia/Ho_Chi_Minh (UTC+7). | Thông báo tạo lúc 02:30 UTC hiển thị 09:30. |
 | BR-M07-23 | Kích hoạt | Khi bài của một người dùng hiển thị công khai lần đầu, mỗi người đang theo dõi người đó nhận thông báo "người bạn theo dõi có bài mới" (chỉ trong ứng dụng). Không gửi khi bài ẩn danh, khi người theo dõi không xem được bài (nhóm Private, BR-M07-18), khi bài bị từ chối, khi bài được sửa hoặc khôi phục. | Bình đăng bài lúc 10:00, qua quét và công khai 10:01 → An (theo dõi Bình) nhận lúc 10:01. Bình đăng ẩn danh → An không nhận. Bình sửa bài lúc 11:00 → An không nhận lại. |
@@ -437,7 +439,7 @@ Topic (M05); nhóm và thành viên nhóm, quyền xem nhóm Private (M11); cu�
 
 | Thực thể | Tạo | Đọc | Sửa | Xóa |
 |---|---|---|---|---|
-| Thông báo | FR-M07-02.01 | FR-M07-05.01, FR-M07-05.02, FR-M07-03.02 | FR-M07-06.01, FR-M07-06.03 (đã đọc); FR-M07-02.04 (gộp upvote); FR-M07-02.28 (lựa chọn đề xuất) | Không có (BR-M07-13, FR-M07-05.07) |
+| Thông báo | FR-M07-02.01 | FR-M07-05.01, FR-M07-05.02, FR-M07-03.02 | FR-M07-06.01, FR-M07-06.03 (đã đọc); FR-M07-02.04 (gộp upvote); FR-M07-02.28 (lựa chọn đề xuất); FR-M07-02.31, FR-M07-02.32 (đề xuất hết hiệu lực) | Không có (BR-M07-13, FR-M07-05.07) |
 | Email thông báo (trong hàng đợi) | FR-M07-04.01 | FR-M07-04.02 | FR-M07-04.02 (đã gửi), FR-M07-04.09 (gửi lại) | Không có (nguồn không có việc xóa; DEC-129 chỉ xóa hẳn khi thật sự an toàn) |
 | Quan hệ theo dõi | FR-M07-01.01 | M02 (số, danh sách theo dõi), M06 (bộ lọc), M14 (tab Following), M01 (thứ tự gợi ý nhắc tên) | M05 (gộp Topic, FR-M05-07.06) | M05 (xóa Topic, FR-M05-08.06), M01 (DELETED, FR-M01-12.08), FR-M07-01.08 (bỏ theo dõi) |
 | Tắt thông báo cho bài | FR-M07-08.02 | FR-M07-02.08, FR-M07-08.01 | Không có (chỉ bật hoặc tắt) | FR-M07-08.03 (bật lại thông báo) |
@@ -487,7 +489,7 @@ trạng thái riêng (FR-M07-09.03, FR-M07-09.04). Quan hệ theo dõi không c�
 | Dùng | M05 | Topic để theo dõi; việc gộp, xóa Topic | FR-M07-01.01 |
 | Dùng | M08 | Sự kiện kết quả báo cáo (kèm người nhận), cảnh cáo, ban, gỡ ban; đường dẫn khiếu nại | FR-M07-02.01, FR-M07-02.02, FR-M07-02.13, FR-M07-04.08 |
 | Dùng | M09 | Sự kiện kết luận khiếu nại; thông báo gộp bài bị AI từ chối và cảnh cáo AI | FR-M07-02.01, FR-M07-02.13 |
-| Dùng | M10 | Sự kiện đề xuất làm Mod, đề xuất lại | FR-M07-02.14, FR-M07-02.30 |
+| Dùng | M10 | Sự kiện đề xuất làm Mod, đề xuất làm Admin, đề xuất lại; đề xuất quá hạn hoặc bị đề xuất mới thay | FR-M07-02.14, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32 |
 | Dùng | M11 | Sự kiện mời, gia nhập, duyệt, thăng cấp, kick trong nhóm; quyền xem nội dung nhóm Private | FR-M07-02.01, FR-M07-02.11 |
 | Dùng | M12 | Sự kiện upvote, bỏ upvote bài và bình luận, badge, mốc điểm, danh hiệu tuần | FR-M07-02.01, FR-M07-02.03, FR-M07-02.19 |
 | Dùng | M16 | Tin nhắn mới, thành viên cuộc trò chuyện, mốc đã đọc tin nhắn, cuộc trò chuyện người dùng đang xem, hộp thư Chat | FR-M07-07.02, FR-M07-07.03, FR-M07-07.05, FR-M07-07.06, FR-M07-09.05 |
@@ -495,7 +497,7 @@ trạng thái riêng (FR-M07-09.03, FR-M07-09.04). Quan hệ theo dõi không c�
 | Cung cấp | M02 | Quan hệ theo dõi và thời điểm bắt đầu theo dõi, để hiện số và danh sách người theo dõi, đang theo dõi | FR-M07-01.01 |
 | Cung cấp | M03, M04 | Công tắc "Tắt thông báo cho bài này" trên mỗi bài; nó tắt thông báo bình luận mới, trả lời, upvote của bài | FR-M07-08.01, FR-M07-02.08 |
 | Cung cấp | M06 | Quan hệ theo dõi (người dùng, Topic) cho bộ lọc chỉ nội dung đang theo dõi; không còn bài đang theo dõi (DEC-215) | FR-M07-01.01, FR-M07-01.02 |
-| Cung cấp | M10 | Lựa chọn Chấp nhận, Từ chối của người được đề xuất làm Mod | FR-M07-02.15, FR-M07-02.16 |
+| Cung cấp | M10 | Lựa chọn Chấp nhận, Từ chối của người được đề xuất làm Mod, làm Admin | FR-M07-02.15, FR-M07-02.16 |
 | Cung cấp | M14 | Quan hệ theo dõi (người dùng, Topic) cho tab Following; không còn bài đang theo dõi (DEC-215) | FR-M07-01.01, FR-M07-01.02 |
 | Cung cấp | Mọi module phát sinh sự kiện | Kênh thông báo trong ứng dụng và email theo danh sách sự kiện | FR-M07-02.01, FR-M07-04.01 |
 
@@ -518,6 +520,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-20 | Tạo mới | Phạm Văn Đức |
 | 0.2 | 2026-10-20 | Hoàn thành bước 1–6: 9 chức năng, 95 yêu cầu cấp dưới, 28 quy tắc; ghi DEC-215–DEC-220 (theo dõi người dùng và Topic, bỏ theo dõi bài viết, bỏ theo dõi, gộp upvote, chuông, người nhận, popup tin nhắn) | Phạm Văn Đức |
 | 1.0 | 2026-10-21 | Bỏ các yêu cầu viết trùng với module sở hữu (FR-M07-01.05–.07, 02.05, 02.06, 02.12, 04.05, 04.07, 05.08; BR-M07-16, 17, 19), trỏ tới FR-M01, M04, M05, M09; chốt tài liệu | Phạm Văn Đức |
+| 1.1 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-221, DEC-222): thêm thông báo "Đề xuất làm Admin"; đề xuất có hạn 7 ngày, hiện "Đã hết hạn" (FR-M07-02.31, 02.32); bỏ FR-M07-02.29 (không hết hạn); sửa BR-M07-01, BR-M07-20, giao tiếp M10, C.1, C.2. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -537,7 +540,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M07-01.11 | DEC-220 | Nói thẳng | — |
 | FR-M07-01.12 | DEC-220 | Nói thẳng | — |
 | FR-M07-01.13 | DEC-220, DEC-172 | Nói thẳng | — |
-| FR-M07-02 | DEC-065, DEC-066, DEC-069, DM-8.1, QA-017, DEC-045, DEC-153, DEC-010, DEC-147, DEC-151, DEC-180, DEC-091, DEC-198, DEC-070, DM-5.3 | Nói thẳng | — |
+| FR-M07-02 | DEC-065, DEC-066, DEC-069, DM-8.1, QA-017, DEC-045, DEC-153, DEC-010, DEC-147, DEC-151, DEC-180, DEC-091, DEC-198, DEC-070, DM-5.3, DEC-221 | Nói thẳng | — |
 | FR-M07-02.01 | DEC-065, QA-017, DM-8.1 | Nói thẳng | — |
 | FR-M07-02.02 | DEC-065, DEC-074, DEC-192, DEC-076 | Suy ra | DEC-065 chỉ quy định loại sự kiện và kênh; ai nhận và khi nào sự kiện xảy ra do module phát sinh quy định (ví dụ DEC-074, DEC-192 của M08) ⇒ M07 dùng thông tin đó |
 | FR-M07-02.03 | DEC-066, DEC-216 | Nói thẳng | — |
@@ -551,8 +554,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M07-02.11 | DM-5.3 | Suy ra | "chỉ lọc thêm theo quyền xem nếu Group ở chế độ private" ⇒ người không xem được nội dung không nhận thông báo về nó |
 | FR-M07-02.12 | DEC-198 | Nói thẳng | Đã bỏ ở phiên bản 0.2: hành vi thuộc M09, xem FR-M09-01.19 |
 | FR-M07-02.13 | DEC-197, DEC-192, DEC-194 | Nói thẳng | — |
-| FR-M07-02.14 | DEC-091 | Nói thẳng | — |
-| FR-M07-02.15 | DEC-091 | Nói thẳng | — |
+| FR-M07-02.14 | DEC-091, DEC-221 | Nói thẳng | — |
+| FR-M07-02.15 | DEC-091, DEC-221 | Nói thẳng | — |
 | FR-M07-02.16 | DEC-091 | Nói thẳng | — |
 | FR-M07-02.17 | DEC-142, DEC-196, DEC-176 | Nói thẳng | — |
 | FR-M07-02.18 | DEC-216 | Nói thẳng | — |
@@ -567,7 +570,9 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M07-02.27 | DEC-218 | Nói thẳng | — |
 | FR-M07-02.28 | DEC-220 | Nói thẳng | — |
 | FR-M07-02.29 | DEC-220 | Nói thẳng | — |
-| FR-M07-02.30 | DEC-220 | Nói thẳng | — |
+| FR-M07-02.30 | DEC-220, DEC-222 | Nói thẳng | — |
+| FR-M07-02.31 | DEC-222 | Nói thẳng | — |
+| FR-M07-02.32 | DEC-222 | Nói thẳng | — |
 | FR-M07-03 | DEC-069, DEC-135, DEC-017 | Nói thẳng | — |
 | FR-M07-03.01 | DEC-069 | Nói thẳng | — |
 | FR-M07-03.02 | DEC-069, DEC-135, DEC-017 | Nói thẳng | — |
@@ -627,7 +632,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M07-09.05 | DEC-070 | Suy ra | "mute individual DM/Group chat threads" của chính người dùng ⇒ chỉ thành viên |
 | FR-M07-09.06 | DEC-126 | Suy ra | Guest không nhắn tin được (QA-011) |
 | FR-M07-09.07 | DEC-219 | Nói thẳng | — |
-| BR-M07-01 | DEC-065, DEC-147, DEC-151, DEC-180, DEC-091, DEC-215, DM-8.1 | Suy ra | DEC-065 ghi "Appeal — post/comment/warn-related"; bình luận không có khiếu nại (DEC-180) nên chỉ còn bài viết, cảnh cáo. "Đề xuất làm Mod" thêm từ DEC-091, "bài mới của người đang theo dõi" từ DEC-215 |
+| BR-M07-01 | DEC-065, DEC-147, DEC-151, DEC-180, DEC-091, DEC-215, DM-8.1, DEC-221 | Suy ra | DEC-065 ghi "Appeal — post/comment/warn-related"; bình luận không có khiếu nại (DEC-180) nên chỉ còn bài viết, cảnh cáo. "Đề xuất làm Mod" thêm từ DEC-091, "bài mới của người đang theo dõi" từ DEC-215 |
 | BR-M07-02 | DEC-065, DEC-067, ISS-165, DEC-219, DEC-220 | Nói thẳng | — |
 | BR-M07-03 | DEC-065, DEC-147, DEC-151, ISS-165 | Nói thẳng | — |
 | BR-M07-04 | DEC-065, DEC-149 | Nói thẳng | — |
@@ -646,7 +651,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M07-17 | DEC-156, DEC-159, DEC-215 | Nói thẳng | Đã bỏ ở phiên bản 0.2: quy tắc thuộc M01, xem BR-M01-47 |
 | BR-M07-18 | DM-5.3 | Suy ra | "chỉ lọc thêm theo quyền xem nếu Group ở chế độ private" ⇒ người không xem được nội dung không nhận thông báo về nó |
 | BR-M07-19 | DEC-198 | Nói thẳng | Đã bỏ ở phiên bản 0.2: quy tắc thuộc M09, xem FR-M09-01.19 |
-| BR-M07-20 | DEC-091, DEC-220 | Nói thẳng | — |
+| BR-M07-20 | DEC-091, DEC-220, DEC-221, DEC-222 | Nói thẳng | — |
 | BR-M07-21 | DEC-142, DEC-196, DEC-176 | Nói thẳng | — |
 | BR-M07-22 | DEC-127 | Nói thẳng | — |
 | BR-M07-23 | DEC-215, DM-5.3 | Nói thẳng | — |
@@ -696,7 +701,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 
 | Nguồn | Nhãn | Trạng thái | Dùng ở | Ghi chú |
 |---|---|---|---|---|
-| DEC-065 | Sở hữu | Sửa một phần bởi DEC-147, DEC-151, DEC-180, DEC-091, DEC-198, DEC-215, DEC-218 | FR-M07-01.04, FR-M07-02, FR-M07-02.01, FR-M07-02.02, FR-M07-04, FR-M07-04.01, FR-M07-04.04, FR-M07-04.06, FR-M07-05.05, FR-M07-07, BR-M07-01, BR-M07-02, BR-M07-03, BR-M07-04 | Nhóm A. Danh sách sự kiện và kênh (trong ứng dụng, email); không có email tổng hợp. DEC-091, DEC-198 sửa không có dấu (xem C.2) |
+| DEC-065 | Sở hữu | Sửa một phần bởi DEC-147, DEC-151, DEC-180, DEC-091, DEC-198, DEC-215, DEC-218, DEC-221 | FR-M07-01.04, FR-M07-02, FR-M07-02.01, FR-M07-02.02, FR-M07-04, FR-M07-04.01, FR-M07-04.04, FR-M07-04.06, FR-M07-05.05, FR-M07-07, BR-M07-01, BR-M07-02, BR-M07-03, BR-M07-04 | Nhóm A. Danh sách sự kiện và kênh (trong ứng dụng, email); không có email tổng hợp. DEC-091, DEC-198 sửa không có dấu (xem C.2) |
 | DEC-066 | Sở hữu | Sửa một phần bởi DEC-216 | FR-M07-02, FR-M07-02.03, FR-M07-02.04, BR-M07-05 | Nhóm A. Gộp thông báo upvote trong cửa sổ 5 phút |
 | DEC-067 | Sở hữu | Sửa một phần bởi DEC-217, DEC-219, DEC-220 | FR-M07-02.10, FR-M07-05, FR-M07-05.01, FR-M07-05.02, FR-M07-06, FR-M07-06.01, FR-M07-06.02, FR-M07-06.03, FR-M07-06.05, FR-M07-07, FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, BR-M07-02, BR-M07-12, BR-M07-14 | Nhóm A. Chuông: danh sách gần nhất + trang /notifications; biểu tượng Tin nhắn riêng; đánh dấu đã đọc |
 | DEC-068 | Sở hữu | Sửa một phần bởi DEC-220 | FR-M07-04, FR-M07-04.01, FR-M07-04.02, FR-M07-04.03, BR-M07-11 | Nhóm A. Email gửi bất đồng bộ qua hàng đợi, quét mỗi phút |
@@ -728,7 +733,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-217 | Sở hữu | Hiện hành | FR-M07-05.01, FR-M07-05.02, FR-M07-05.10, FR-M07-05.11, BR-M07-12 | Nhóm A. Chuông và trang Thông báo |
 | DEC-218 | Sở hữu | Hiện hành | FR-M07-02.25, FR-M07-02.26, FR-M07-02.27, FR-M07-05.12, BR-M07-24 | Nhóm A. Người nhận, người gây sự kiện, tên hiển thị |
 | DEC-219 | Sở hữu | Hiện hành | FR-M07-07, FR-M07-07.02, FR-M07-07.05, FR-M07-07.06, FR-M07-07.07, FR-M07-09, FR-M07-09.01, FR-M07-09.02, FR-M07-09.03, FR-M07-09.04, FR-M07-09.07, BR-M07-02, BR-M07-08, BR-M07-28 | Nhóm A. Popup tin nhắn; tắt thông báo Chat chỉ ẩn popup |
-| DEC-220 | Sở hữu | Hiện hành | FR-M07-01, FR-M07-01.11, FR-M07-01.12, FR-M07-01.13, FR-M07-02.08, FR-M07-02.28, FR-M07-02.29, FR-M07-02.30, FR-M07-04.09, FR-M07-04.10, FR-M07-05.13, FR-M07-07, FR-M07-07.02, FR-M07-08, BR-M07-02, BR-M07-07, BR-M07-15, BR-M07-20, BR-M07-26, BR-M07-27 | Nhóm A. Danh sách xác nhận X1–X6 |
+| DEC-220 | Sở hữu | Sửa một phần bởi DEC-222 | FR-M07-01, FR-M07-01.11, FR-M07-01.12, FR-M07-01.13, FR-M07-02.08, FR-M07-02.28, FR-M07-02.29, FR-M07-02.30, FR-M07-04.09, FR-M07-04.10, FR-M07-05.13, FR-M07-07, FR-M07-07.02, FR-M07-08, BR-M07-02, BR-M07-07, BR-M07-15, BR-M07-20, BR-M07-26, BR-M07-27 | Nhóm A. Danh sách xác nhận X1–X6. DEC-222 (đối chiếu FR-M10) bỏ phần "đề xuất không hết hạn" |
 | ISS-345 | Sở hữu | Trùng với DEC-215 | — | Nhóm A. Câu hỏi của DEC-215 |
 | ISS-346 | Sở hữu | Trùng với DEC-215 | — | Nhóm A. Câu hỏi của DEC-215 |
 | ISS-347 | Sở hữu | Trùng với DEC-216 | — | Nhóm A. Câu hỏi của DEC-216 |
@@ -754,7 +759,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-074 | Phụ thuộc | Sửa một phần bởi DEC-192 | FR-M07-02.02 | Nhóm B. M08: nội dung thông báo kết quả báo cáo tách theo người nhận |
 | DEC-076 | Phụ thuộc | Hiện hành | FR-M07-02.02 | Nhóm B. M08: mọi người báo cáo trong vụ nhận cùng kết quả |
 | DEC-085 | Phụ thuộc | Sửa một phần bởi DEC-197 | FR-M07-04, FR-M07-04.08, FR-M07-05.09 | Nhóm B. M09: email ban kèm đường dẫn khiếu nại |
-| DEC-091 | Phụ thuộc | Sửa một phần bởi DEC-220 | FR-M07-02, FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, BR-M07-01, BR-M07-20 | Nhóm B. M10: người dùng nhận thông báo "Đề xuất làm Mod" có Chấp nhận/Từ chối |
+| DEC-091 | Phụ thuộc | Sửa một phần bởi DEC-220, DEC-221, DEC-222 | FR-M07-02, FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, BR-M07-01, BR-M07-20, FR-M07-02.31, FR-M07-02.32 | Nhóm B. M10: người dùng nhận thông báo "Đề xuất làm Mod" có Chấp nhận/Từ chối |
 | DEC-102 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B. M11: ai được kick, promote trong nhóm (nguồn sự kiện nhóm) |
 | DEC-110 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B. M11: mời vào nhóm Private qua lời mời/link; không có lời mời có Chấp nhận/Từ chối. DEC-210 (ngoài bảng nguồn) làm rõ phần tìm kiếm, không chạm M07 |
 | DEC-121 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B. M12: thông báo trao danh hiệu tuần, trễ tối đa 60 phút |
@@ -896,6 +901,8 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | QA-262 | Nhắc tới | Hiện hành | Không áp dụng: dùng chung, không quy định hành vi M07 | Nhóm D. Dùng chung; không quy định hành vi M07 |
 | QA-263 | Nhắc tới | Trùng với DEC-137 | — | Nhóm D. Dùng chung; không quy định hành vi M07 |
 | QA-264 | Nhắc tới | Hiện hành | Không áp dụng: dùng chung, không quy định hành vi M07 | Nhóm D. Dùng chung; không quy định hành vi M07 |
+| DEC-221 | Phụ thuộc | Hiện hành | FR-M07-02, FR-M07-02.14, FR-M07-02.15, BR-M07-01, BR-M07-20 | Nhóm B (đối chiếu FR-M10). M10: thêm đề xuất làm Admin do tài khoản ADMIN gốc gửi, cùng luồng thông báo với đề xuất làm Mod |
+| DEC-222 | Phụ thuộc | Hiện hành | FR-M07-02.30, FR-M07-02.31, FR-M07-02.32, BR-M07-20 | Nhóm B (đối chiếu FR-M10). M10: đề xuất có hạn 7 ngày, hiện "Đã hết hạn"; mỗi người một đề xuất cùng loại còn hiệu lực |
 
 <!-- Nhãn: Sở hữu · Phụ thuộc · Nhắc tới · Loại (khớp nhầm)
      Trạng thái: Hiện hành · Sửa một phần bởi X · Bị thay bởi X · Trùng với X · Mâu thuẫn với X
@@ -905,7 +912,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 
 | Chuỗi | Nội dung hiện hành |
 |---|---|
-| DEC-065 → DEC-147, DEC-151, DEC-180, DEC-215, DEC-218; DEC-091, DEC-198 (không có dấu) | Bảng sự kiện và kênh của DEC-065 còn hiệu lực, có thêm: "Đã liên kết Google" (trong ứng dụng + email, DEC-147); đặt lại mật khẩu cũng là "mật khẩu đã đổi" (DEC-151); "Bình luận của bạn đã bị ẩn" (chỉ trong ứng dụng, DEC-180); "Đề xuất làm Mod" có Chấp nhận/Từ chối (DEC-091, chỉ trong ứng dụng); "người bạn theo dõi có bài mới" (chỉ trong ứng dụng, DEC-215). Bài bị AI từ chối kèm cảnh cáo AI chỉ có một thông báo gộp (DEC-198). Không báo cho chính người gây sự kiện; vẫn tạo cho người nhận BANNED, DEACTIVATED, không tạo cho DELETED; tên người gây sự kiện theo DEC-149, DEC-156 (DEC-218). Email chỉ gồm: đổi/đặt lại mật khẩu, liên kết Google, cảnh báo trước khi tự xóa, ban/gỡ ban, khiếu nại liên quan ban; không có email tổng hợp. |
+| DEC-065 → DEC-147, DEC-151, DEC-180, DEC-215, DEC-218, DEC-221; DEC-091, DEC-198 (không có dấu) | Bảng sự kiện và kênh của DEC-065 còn hiệu lực, có thêm: "Đã liên kết Google" (trong ứng dụng + email, DEC-147); đặt lại mật khẩu cũng là "mật khẩu đã đổi" (DEC-151); "Bình luận của bạn đã bị ẩn" (chỉ trong ứng dụng, DEC-180); "Đề xuất làm Mod" có Chấp nhận/Từ chối (DEC-091, chỉ trong ứng dụng); "Đề xuất làm Admin" cùng dạng (DEC-221, chỉ trong ứng dụng); "người bạn theo dõi có bài mới" (chỉ trong ứng dụng, DEC-215). Bài bị AI từ chối kèm cảnh cáo AI chỉ có một thông báo gộp (DEC-198). Không báo cho chính người gây sự kiện; vẫn tạo cho người nhận BANNED, DEACTIVATED, không tạo cho DELETED; tên người gây sự kiện theo DEC-149, DEC-156 (DEC-218). Email chỉ gồm: đổi/đặt lại mật khẩu, liên kết Google, cảnh báo trước khi tự xóa, ban/gỡ ban, khiếu nại liên quan ban; không có email tổng hợp. |
 | DEC-065 + DEC-149 (làm rõ, không có dấu) | Email cảnh báo tự xóa: đúng một email, 24 giờ trước khi tài khoản DEACTIVATED tự chuyển DELETED; không có thông báo trong ứng dụng. |
 | DM-8.1 → DEC-065, DEC-169, DEC-215 | "Post nhận star" là upvote, gồm cả upvote bình luận, gộp theo DEC-066, DEC-216. Sự kiện Accepted Answer bị bỏ (MS1 không có Accepted Answer). "Report được xử lý", "Post hoàn tất moderation" ứng với các dòng kết quả báo cáo và bài được đăng/bị từ chối/bị ẩn của DEC-065. "Post mới từ user đang follow" còn hiệu lực (DEC-215). "Nội dung mới trong topic/tag/group đang follow" bị bỏ: Topic đang theo dõi không sinh thông báo, Tag và Group không theo dõi được. |
 | DM-4.5 → QA-043 → DEC-215 (QA-127 trùng) | Đối tượng theo dõi là người dùng và Topic; theo dõi bài viết bị bỏ; Tag, Group không theo dõi được. Theo dõi người dùng sinh thông báo bài mới; theo dõi Topic không sinh thông báo. Người dùng bỏ theo dõi được; "có người theo dõi mới" chỉ một lần mỗi cặp. Không theo dõi chính mình, không bắt đầu theo dõi tài khoản BANNED (DEC-220). |
@@ -926,6 +933,6 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-067 → DEC-217, DEC-219, DEC-220 | Chuông 10 thông báo, mới nhất trước theo lần cập nhật cuối, có số chưa đọc riêng; mở chuông không đánh dấu đã đọc; trang Thông báo tải 20 mỗi lần. Tin nhắn báo bằng popup và biểu tượng Tin nhắn; số trên biểu tượng là số cuộc trò chuyện có tin chưa đọc, gồm cả cuộc đã tắt. |
 | DEC-068 → DEC-220 | Email qua hàng đợi quét mỗi 1 phút; email lỗi gửi lại ở lần quét kế tiếp, tối đa 3 lần rồi dừng. |
 | DEC-070 → DEC-219, DEC-220 | Công tắc tắt thông báo bài có trên mọi bài, tắt bình luận mới, trả lời, upvote bài và upvote bình luận của người dùng trong bài; nhắc tên vẫn gửi. Tắt thông báo Chat (một cuộc hoặc toàn bộ) chỉ ẩn popup tin nhắn; tắt toàn bộ không có ngoại lệ; bỏ tắt toàn bộ thì cuộc đã tắt riêng vẫn tắt. |
-| DEC-091 → DEC-220 | Thông báo "Đề xuất làm Mod" trả lời một lần, sau đó hiện lựa chọn; không có hạn; đề xuất lại là thông báo mới. Chấp nhận thì MOD ngay (M10). |
+| DEC-091 → DEC-220 → DEC-221, DEC-222; DEC-091 → DEC-223 (tự từ chức, M10, không chạm M07) | Thông báo "Đề xuất làm Mod" và "Đề xuất làm Admin" trả lời một lần, sau đó hiện lựa chọn; đề xuất có hạn 7 ngày, quá hạn hiện "Đã hết hạn" (DEC-222 thay phần "không có hạn" của DEC-220); đề xuất mới cùng loại là thông báo mới, đề xuất cũ thôi hiệu lực. Chấp nhận thì vai trò đổi ngay (M10). |
 
 **Cạnh bị bác bỏ:** DEC-180 ← OPEN-012 (dấu ghi DEC-201 đóng OPEN-012; OPEN-012 không sửa DEC-180); DEC-020 ← DEC-209 (DEC-209 chỉ được trích làm chuẩn khớp tên; mục sửa là DEC-214). Các cạnh còn lại của tool tác động lên mục ngoài bảng nguồn (DEC-008, DEC-011, DEC-019, DEC-030, DEC-038, DEC-043, DEC-048–050, DEC-064, DEC-072, DEC-077, DEC-082, DEC-088, DEC-090, DEC-115, DEC-162, DEC-166, F-GRP-06, GL:Accepted Answer, GL:Topic, MR-M01, MR-M03, MR-M11, QA-011, QA-018, QA-021, QA-107, QA-160, QA-328): đúng nhưng không chạm M07.

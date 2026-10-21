@@ -22,6 +22,8 @@
 - **Source:** QA-009 / ISS-028
 - **Rationale:** Cho phép bàn giao vận hành linh hoạt mà không cần dev team can thiệp DB. Production-ready từ đầu.
 
+**[Amended 2026-10-21 — DEC-221: chỉ ADMIN gốc cấp, thu hồi Admin; cấp qua đề xuất; gốc không bị thu hồi]**
+
 ---
 
 ### DEC-008
@@ -475,6 +477,8 @@ Email limited to: security (password change), account-deletion warning, ban/unba
 
 **[Amended 2026-10-20 — DEC-215, DEC-218: thêm sự kiện bài mới của người đang theo dõi; quy tắc người nhận, tên người gây sự kiện]**
 
+**[Amended 2026-10-21 — DEC-221: thêm sự kiện "Đề xuất làm Admin" (in-app)]**
+
 ### DEC-066: Upvote notification batching
 Batch upvotes (post + comment) within a 5-minute rolling window into one notification ("A và N người khác đã upvote..."). Single upvote shows the voter's name directly.
 
@@ -599,6 +603,8 @@ Warning status is fully PRIVATE — visible only to the user themselves and to m
 
 **[Amended 2026-10-15 — DEC-193: ghi thêm gỡ ban, bỏ cảnh cáo AI, ẩn/khóa/mở khóa nhóm; không sửa, không xóa]**
 
+**[Amended 2026-10-21 — DEC-224: Admin lọc nhật ký kiểm duyệt theo người làm]**
+
 ### DEC-082: False/malicious report handling
 - No automated punishment — false positives risk discouraging legitimate reporting
 - Metric shown to mod as reference: target_concentration = (dismissed reports targeting the same single target) / (total resolved reports by that reporter), calculated over reports resolved in the last 90 days
@@ -658,11 +664,15 @@ Each resolved report action, warning, or ban may be appealed exactly once. A rej
 
 **[Amended 2026-10-07 — DEC-141: Topic thêm/gộp/xóa chỉ Admin; xóa mềm Tag vẫn dùng chung Mod]**
 
+**[Clarified 2026-10-21 — DEC-224: "performance" = xem nhật ký kiểm duyệt theo Mod]**
+
 ### DEC-091: Role management flow
 - Promote: Admin sends a proposal ("Đề xuất làm Mod") to a user (no eligibility conditions — admin free choice) → user receives notification with Accept/Decline → Accept sets role=MOD immediately; Decline does nothing (admin can re-propose later)
 - Demote: Admin executes directly and immediately, no consent needed, no appeal right (role management, not punishment — different from M09 appeal scope)
 
 **[Clarified 2026-10-20 — DEC-220: thông báo đề xuất trả lời một lần, không hết hạn]**
+
+**[Amended 2026-10-21 — DEC-221, DEC-222, DEC-223: đề xuất làm Admin; đề xuất hạn 7 ngày; tự từ chức]**
 
 ### DEC-092: System config list (Admin Panel)
 1. AI toggle (master + per-module, see DEC-093)
@@ -674,6 +684,8 @@ Each resolved report action, warning, or ban may be appealed exactly once. A rej
 
 **[Amended 2026-10-11 — DEC-152: phạm vi của tạm dừng đăng ký và chế độ bảo trì]**
 
+**[Clarified 2026-10-21 — DEC-225, DEC-226, DEC-228: cờ tính năng, banner, giá trị khởi tạo]**
+
 ### DEC-093: AI toggle granularity
 Two-tier hierarchy:
 - Master "AI Layer" toggle: overrides everything OFF when disabled
@@ -683,6 +695,8 @@ Two-tier hierarchy:
 
 ### DEC-094: Admin action audit log
 All admin actions (promote/demote, config toggles, ban/warn actions) logged. Append-only — admin can view but cannot edit or delete entries. Ensures transparency even over admin's own actions.
+
+**[Clarified 2026-10-21 — DEC-227, DEC-228: phạm vi, lý do, thứ tự và lọc của nhật ký]**
 
 ---
 ## Phase 5 — M13: AI Layer
@@ -1559,5 +1573,62 @@ ISS-333 → ISS-344
 - The "Tắt thông báo cho bài này" toggle is shown on every post to logged-in users and mutes upvotes on the post and on the user's own comments in it, besides comments and replies.
 - Source: QA-411
 
+**[Amended 2026-10-21 — DEC-222: đề xuất có hạn 7 ngày, mỗi người một đề xuất cùng loại]**
+
 ### Issues Closed
 ISS-345 → ISS-351
+
+---
+## Functional Requirement — M10: Admin Panel
+
+### DEC-221: M10 — ADMIN root; granting and revoking ADMIN (amends DEC-007, DEC-065)
+- The seeded root ADMIN account is marked "root" (ADMIN gốc). Its role is ADMIN; root is not a separate role. No one can revoke its ADMIN role, and it has no resign option.
+- Only the root ADMIN can grant or revoke the ADMIN role; other ADMINs cannot.
+- Grant follows the Mod flow: the root sends an "Đề xuất làm Admin" to a USER or MOD account; Accept sets the role to ADMIN immediately; Decline changes nothing.
+- Revoke is direct, immediate, needs no consent and has no appeal; the account returns to USER.
+- The root account always stays ADMIN, so the system always has at least one ADMIN.
+- M07 adds the in-app notification event "Đề xuất làm Admin" with Accept/Decline, the same as "Đề xuất làm Mod".
+- Source: QA-412
+
+### DEC-222: M10 — Proposal validity (amends DEC-220, DEC-091)
+- A "Đề xuất làm Mod" or "Đề xuất làm Admin" is valid for 7 days, counted as 7 × 24 hours from sending (policy constant, DEC-090). An expired proposal shows "Đã hết hạn" and can no longer be answered; the role does not change.
+- A person has at most one valid proposal of each kind; sending a new one ends the previous one.
+- Accept takes effect only if, at that moment, the account still has an eligible role: USER for Mod; USER or MOD for Admin.
+- Example: sent 09:00 on 01/11 → can be accepted until 08:59:59 on 08/11; at 09:00 on 08/11 it is expired.
+- Source: QA-413
+
+### DEC-223: M10 — Self-resignation (confirms QA-013)
+- A MOD may resign and return to USER; a non-root ADMIN may resign and return to USER. The system asks for confirmation once before changing the role. Regaining the role requires a new proposal.
+- Source: QA-414
+
+### DEC-224: M10 — MOD account management (clarifies DEC-090; amends DEC-081)
+- There is no separate "Mod performance" screen and no new metric. "Performance" means the ADMIN reviews a Mod's actions in the moderation log (M08) filtered by actor; "revoke" means demotion.
+- M08 adds the ability for ADMIN to filter the moderation log by actor.
+- Source: QA-415
+
+### DEC-225: M10 — Feature flags (clarifies DEC-092)
+- Exactly three flags: Group (M11), Chat (M16), Gamification (M12). No other module has a flag: Must modules are core or already have a switch (maintenance, registration pause, AI); Feed (M14) is the home page; Analytics (M15) is ADMIN-only. Registration pause is a separate config item, not a feature flag.
+- While a flag is off: every user request to that module is refused with "Hệ thống đang bận, vui lòng thử lại sau"; entry points stay visible; system-run work continues (e.g. points and leaderboard, group ownership succession); data is not deleted or changed; nothing is back-filled when the flag is turned on again; ADMIN can still open the module; M08 moderation continues.
+- The detailed lists of what is blocked and what keeps running belong to the FR of M11, M12, M16.
+- Source: QA-416, QA-417
+
+### DEC-226: M10 — Site-wide banner (clarifies DEC-092)
+- One banner at a time, plain text, 1–200 characters after trimming leading and trailing spaces. ADMIN sets, edits and removes it. It is shown on every page to everyone, including Guests.
+- A viewer can close it; a closed banner reappears when the ADMIN edits it or sets a new one.
+- Source: QA-418, QA-420
+
+### DEC-227: M10 — Admin action log scope (clarifies DEC-094)
+- Recorded: every data-changing action done in an ADMIN capacity — role (proposals sent, demotion, ADMIN revocation); config (every switch change; banner set, edit, remove); moderation, in parallel with the M08 log (warn, remove AI warning, ban, lift ban, hide content, hide/lock/unlock group, conclude case, conclude appeal); catalog (Topic add/merge/delete; Tag disable/reactivate; Topic/Tag change on others' posts).
+- Also recorded: every role change not done by an ADMIN — proposal accepted (actor: that person), resignation (actor: that person), MOD role lost on ban (actor: "Hệ thống").
+- Not recorded: viewing; claiming or releasing cases and appeals; actions an ADMIN does as an ordinary user (posting, commenting, starring).
+- Source: QA-419
+
+### DEC-228: M10 — Confirmation list (clarifies DEC-092, DEC-094, DEC-091)
+- User list: ADMIN searches users by username or display name (matched as M06 user search) and filters by role; each row shows username, display name, role and account state; the root is labelled; a Mod row links to the moderation log filtered by that Mod.
+- Proposals go only to ACTIVE accounts that completed Step 3; accepting while the account is not ACTIVE is refused.
+- Log reason is optional; when the source module requires a reason, the log entry uses it. The log is shown newest first and can be filtered by actor and by action type.
+- Initial config: master AI and the three per-module AI switches ON; maintenance and registration pause OFF; the three feature flags ON; no banner.
+- Source: QA-420
+
+### Issues Closed
+ISS-352 → ISS-359

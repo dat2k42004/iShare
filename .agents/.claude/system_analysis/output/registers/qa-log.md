@@ -173,6 +173,8 @@
 - **Implication:** Module ADMN cần 2 flow: (1) ADMIN revoke; (2) MODERATOR self-resign. Auto-revoke on ban là side-effect của ban action — cần ghi vào spec của feature Ban User.
 - **Traceability note:** Self-resign có chi phí implement thấp nhưng giá trị UX cao — phù hợp với đối tượng HS có lịch học biến động. Auto-revoke on ban là business rule không thể thiếu để đảm bảo data consistency giữa role và account status.
 
+**[Clarified 2026-10-21 — DEC-223: giữ tự từ chức, áp cả Admin không phải gốc]**
+
 ---
 
 ### QA-014
@@ -1235,3 +1237,19 @@
 | QA-409 | ISS-349: Ai nhận thông báo; tên người gây sự kiện hiện thế nào? | "ok, như đề xuất." — không báo cho chính người gây sự kiện; vẫn tạo cho người nhận BANNED, DEACTIVATED; không tạo cho DELETED; tên người gây sự kiện theo DEC-149, DEC-156 |
 | QA-410 | ISS-350: Tắt toàn bộ Chat và tắt từng cuộc tác động lên nhau thế nào? | "Ừm, chọn A" — tắt toàn bộ là tắt hết, không bật riêng được; bỏ tắt toàn bộ thì cuộc đã tắt riêng vẫn tắt. Sửa phần "bị tắt nghĩa là gì": "Với tin nhắn, có thể mỗi tin nhắn mới, ta sẽ có 1 cái popup nhỏ thông báo. tắt thông báo chỉ là không hiện popup, còn số count vẫn phải đúng số thông báo chưa đọc". Popup không hiện khi đang mở đúng cuộc trò chuyện đó: "đúng rồi!"; số trên biểu tượng Tin nhắn là số cuộc trò chuyện có tin chưa đọc: "đúng rồi, là số cuộc trò chuyện ấy!" |
 | QA-411 | ISS-351: Danh sách xác nhận X1–X6 | "OK cả nhóm" — (X1) không theo dõi chính mình, không theo dõi mới tài khoản BANNED, lượt theo dõi đã có được giữ; (X2) đề xuất làm Mod chọn một lần, không hết hạn, đề xuất lại là thông báo mới; (X3) email lỗi gửi lại ở lần quét kế tiếp, tối đa 3 lần; (X4) nội dung không còn: bấm thì thành đã đọc, hiện "Nội dung không tồn tại"; (X5) biểu tượng Tin nhắn đếm số cuộc trò chuyện có tin chưa đọc; (X6) công tắc tắt thông báo hiện trên mọi bài, tắt cả upvote bài và upvote bình luận của mình trong bài |
+
+---
+
+## Functional Requirement — M10: Admin Panel (QA-412 → QA-420)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-412 | ISS-352: Cấp, thu hồi vai trò Admin thế nào? | "nên có 1 ADMIN_ROOT, và chỉ admin này được thăng/giáng cấp admin khác. flow giống mod cho đồng nhất" — cấp qua đề xuất + chấp nhận; thu hồi trực tiếp, về USER; ADMIN gốc không bị thu hồi |
+| QA-413 | ISS-353: Đề xuất có hạn không; nhiều đề xuất thì sao? | "đề xuất chỉ có hiệu lực trong 7 ngày (hoặc ít hơn) thôi nhé, kể cả mod"; sau khi bàn lý do: "ok vậy 7 ngày" — phương án A: 7 × 24 giờ từ lúc gửi; hết hạn thì không bấm được; mỗi người một đề xuất cùng loại còn hiệu lực; chấp nhận chỉ có tác dụng khi còn đúng vai trò |
+| QA-414 | ISS-354: Giữ tự từ chức không? | "ừm chọn A" — giữ cho Mod và Admin (trừ ADMIN gốc), có bước xác nhận, ghi nhật ký |
+| QA-415 | ISS-355: "Performance" trong quản lý tài khoản Mod là gì? | "A nhé" — không có màn hình riêng; Admin xem nhật ký kiểm duyệt lọc theo Mod; "revoke" là giáng cấp |
+| QA-416 | ISS-356: Cờ tính năng chỉ cho Auth? | "ủa tưởng áp dụng cho module auth (register ...) thôi mà nhỉ" — đã làm rõ: tạm dừng đăng ký là mục riêng; cờ tính năng là mục khác của DEC-092. Stakeholder: "khi tắt thì một số thứ vẫn nên chạy ngầm, chỉ từ chối request của user và hiện thông báo hệ thống đang bận khi truy cập module đó" |
+| QA-417 | ISS-356: Xét toàn bộ module, module nào nên có cờ? | "ừ được" — chỉ Group, Chat, Gamification (giữ DEC-092); các module khác không có cờ, kèm lý do theo từng module |
+| QA-418 | ISS-357: Banner thế nào? | "ừ theo đề xuất đi" — một banner, văn bản thuần, tối đa 200 ký tự, người xem đóng được, nội dung mới thì hiện lại |
+| QA-419 | ISS-358: Nhật ký thao tác Admin ghi gì? | "ừm chọn A" — mọi thao tác làm đổi dữ liệu Admin làm với vai trò Admin, và mọi thay đổi vai trò kể cả khi người làm không phải Admin; không ghi việc xem, nhận/nhả vụ, việc làm như người dùng thường |
+| QA-420 | ISS-359: Danh sách xác nhận L1–L5 | "ok full" — chấp nhận toàn bộ đề xuất L1.1–L5.4 (xem người dùng, đối tượng đề xuất, độ dài banner, lý do và thứ tự, lọc nhật ký, giá trị khởi tạo cấu hình) |

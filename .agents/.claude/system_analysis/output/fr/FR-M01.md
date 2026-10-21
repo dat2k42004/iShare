@@ -2,7 +2,7 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.4
+phien_ban: 1.5
 trang_thai: Đã chốt
 ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
 | Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
@@ -731,6 +731,7 @@ SETUP_COMPLETED là mức cuối; nguồn không có đường đi ngược lạ
 | Dùng | M08 | Ban, gỡ ban, thời hạn ban (hết hạn thì tài khoản tự về ACTIVE) và lý do ban hiển thị trên màn hình tài khoản bị khóa; Mod xử lý báo cáo về nội dung của tác giả đã vô hiệu hóa | FR-M01-05.05, FR-M01-05.07, FR-M01-05.17, FR-M01-13.05 |
 | Dùng | M09 | Thời hạn khiếu nại và việc gửi khiếu nại từ màn hình tài khoản bị khóa; khiếu nại ban được chấp nhận đưa tài khoản về ACTIVE | FR-M01-05.08, FR-M01-05.09 |
 | Dùng | M10 | Công tắc tạm dừng đăng ký, chế độ bảo trì; cấp, thu hồi vai trò; tài khoản ADMIN gốc tạo sẵn không qua đăng ký | FR-M01-01.08, FR-M01-04.10, FR-M01-05.19, FR-M01-01.02 |
+| Cung cấp | M10 | Tài khoản mới mang vai trò USER; trạng thái tài khoản và việc đã xong bước 3 để M10 chỉ gửi đề xuất làm Mod, làm Admin cho tài khoản ACTIVE đã xong bước 3 | FR-M01-01.02, FR-M01-03.01 |
 | Cung cấp | M11 | Trạng thái tài khoản (vô hiệu hóa, đã xóa, bị ban) để chuyển quyền Owner | FR-M01-10.01, FR-M01-12.01 |
 | Dùng | M11 | Thành viên Group để xếp danh sách gợi ý nhắc tên | FR-M01-14.04, FR-M01-14.05 |
 | Cung cấp | M12 | Trạng thái BANNED để gắn nhãn "Tài khoản đã bị khóa" và loại khỏi bảng xếp hạng | FR-M01-05.06 |
@@ -767,6 +768,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.2 | 2026-10-15 | Đối chiếu với FR-M08: thêm dòng "Cung cấp M08" (trạng thái tài khoản khi ban, gỡ ban, ban hết hạn) ở mục Giao tiếp với module khác; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-20 | Đối chiếu với FR-M06: @mention khớp tên như tìm người dùng M06 (DEC-214); giao tiếp với M06 thêm trạng thái tài khoản, sự kiện đăng xuất. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): khi DELETED chỉ xóa lượt theo dõi người dùng, Topic; bỏ "bài viết" (FR-M01-12.08, BR-M01-47, C.2). Chốt bản 1.4 | Phạm Văn Đức |
+| 1.5 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-221, DEC-228): thêm dòng "Cung cấp M10" (vai trò USER khi tạo, trạng thái tài khoản và bước 3 cho đề xuất làm Mod, Admin); DEC-007 sửa một phần (chỉ ADMIN gốc cấp, thu hồi Admin). Không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1167,7 +1169,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-307 | Sở hữu | Trùng với DEC-152 | — | Nhóm A. Lời trả lời của stakeholder, bước 6 |
 | QA-308 | Sở hữu | Trùng với DEC-151 | — | Nhóm A. Lời trả lời của stakeholder, bước 6 |
 | DEC-001 | Sở hữu | Hiện hành | BR-M01-01 | Nhóm B. Không có loại tài khoản Giáo viên — ngoài phạm vi |
-| DEC-007 | Phụ thuộc | Hiện hành | FR-M01-01.02, BR-M01-01 | Nhóm B. M10: ADMIN gốc tạo sẵn, không qua đăng ký; ADMIN cấp quyền ADMIN |
+| DEC-007 | Phụ thuộc | Sửa một phần bởi DEC-221 | FR-M01-01.02, BR-M01-01 | Nhóm B. M10: ADMIN gốc tạo sẵn, không qua đăng ký; ADMIN cấp quyền ADMIN. DEC-221 (đối chiếu FR-M10): chỉ tài khoản ADMIN gốc cấp, thu hồi vai trò Admin; ADMIN gốc không bị thu hồi |
 | DEC-010 | Sở hữu | Sửa một phần bởi DEC-147 | FR-M01-01.06, FR-M01-04, FR-M01-04.04, FR-M01-04.05, BR-M01-04, BR-M01-09 | Nhóm B. Liên kết tài khoản Google theo email đã xác minh. Phần thông báo sau liên kết: Q-01 trả lời A, giữ thông báo (DEC-147) |
 | DEC-014 | Sở hữu | Sửa một phần bởi DEC-138 | FR-M01-01, FR-M01-01.01, FR-M01-01.03, FR-M01-01.07, FR-M01-02, FR-M01-02.01, FR-M01-02.02, FR-M01-02.03, FR-M01-03, FR-M01-03.01, FR-M01-03.02, FR-M01-03.03, FR-M01-03.04, FR-M01-03.08, FR-M01-03.09, FR-M01-04, FR-M01-04.01, FR-M01-04.02, FR-M01-04.03, FR-M01-04.06, FR-M01-05, FR-M01-05.10, FR-M01-05.11, FR-M01-05.12, BR-M01-02, BR-M01-05, BR-M01-06, BR-M01-08, BR-M01-10, BR-M01-18 | Nhóm B. Đăng ký 3 bước; cổng đăng nhập đưa về bước còn dở |
 | DEC-015 | Sở hữu | Sửa một phần bởi DEC-023, DEC-148 | FR-M01-03, FR-M01-03.01, FR-M01-03.05, FR-M01-03.06, FR-M01-03.07, FR-M01-03.10, FR-M01-14, FR-M01-14.03, BR-M01-05, BR-M01-06, BR-M01-07 | Nhóm B. display_name và username |
@@ -1313,6 +1315,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-209 | Phụ thuộc | Hiện hành | Chuyển M06 | Nhóm B. Thêm ở bản 1.3. M06: cách khớp tên dùng chung; tìm người dùng chỉ gồm tài khoản ACTIVE đã xong bước 3 |
 | DEC-213 | Phụ thuộc | Hiện hành | Chuyển M06 | Nhóm B. Thêm ở bản 1.3. M06: đăng xuất thì xóa lịch sử tìm kiếm trên trình duyệt; ghi ở Giao tiếp |
 | DEC-215 | Phụ thuộc | Hiện hành | FR-M01-12.08, BR-M01-47 | Nhóm B (đối chiếu FR-M07). M07: bỏ theo dõi bài viết, nên khi DELETED chỉ còn lượt theo dõi người dùng, Topic để xóa |
+| DEC-221 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm B (đối chiếu FR-M10). M10: tài khoản ADMIN gốc; chỉ gốc cấp (qua đề xuất), thu hồi vai trò Admin |
+| DEC-228 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm B (đối chiếu FR-M10). M10: đề xuất chỉ gửi cho tài khoản ACTIVE đã xong bước 3 (M01 cung cấp trạng thái) |
 
 ### C.2 Chuỗi quyết định
 
@@ -1332,4 +1336,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | DM-10.2, DM-10.3 → QA-018, DEC-080 | Admin, Mod không vô hiệu hóa hay xóa tài khoản người khác, chỉ cảnh báo hoặc ban. Register không có hình thức "Suspend account" riêng; khóa có thời hạn chỉ có dạng ban tạm thời 30 hoặc 90 ngày (DEC-080). |
 | DEC-019 → DEC-129 → DEC-156 → DEC-159 → DEC-215 | Khi DELETED, xóa dữ liệu cá nhân theo danh mục của BR-M01-47 (email được giải phóng); giữ username, trạng thái, vai trò, bài viết ẩn, bình luận và tin nhắn với người viết "[Người dùng đã xóa]", upvote đã cho không còn biết người cho. Tin nhắn, nhật ký kiểm duyệt, nhật ký AI giữ vĩnh viễn (DEC-129) và gắn với tài khoản đã xóa qua username. DEC-159: xóa cả lượt theo dõi Topic của tài khoản (DEC-215 bỏ theo dõi bài viết); giữ phản hồi gợi ý Topic (M05) không gắn danh tính. |
 | QA-019 → DEC-187, DEC-189; DEC-023 → DEC-170; DEC-065 → DEC-180; QA-011 → DEC-171, DEC-206, DEC-208; QA-110 → DEC-209; DEC-085 → DEC-197; DEC-086, DEC-089 → DEC-199, DEC-201 | Chỉ sửa phần thuộc module khác. QA-019: lần vi phạm thứ 7 thành yêu cầu ban, chỉ Admin ban Mod (DEC-187, DEC-189, M08); M01 vẫn chỉ giữ trạng thái tài khoản khi ban, gỡ ban. DEC-170, DEC-171 (M02), DEC-180 (M04) không đổi nội dung M01. DEC-208 (M06) chỉ làm rõ Guest tìm bài bằng full-text; DEC-209 (M06) chốt cách khớp tên và phạm vi tài khoản của tìm người dùng — M01 cung cấp trạng thái tài khoản cho việc này. DEC-206 (M13): tóm tắt AI chỉ cho người đã đăng nhập. DEC-197, DEC-199, DEC-201 (M09): khi BANNED chỉ khiếu nại được chính lệnh ban (khớp FR-M01-05.06, việc chọn đối tượng khiếu nại thuộc M09); thời hạn khiếu nại cảnh cáo; Mod bị ban được gỡ ban thì về ACTIVE với vai trò USER (vai trò thuộc M09, M10) — FR-M01-05.16 vẫn đúng. |
-| DEC-065 → DEC-215, DEC-218; DEC-070 → DEC-219, DEC-220 (đối chiếu FR-M07) | Phần thuộc M07: thêm sự kiện "người bạn theo dõi có bài mới", quy tắc người nhận; tắt thông báo Chat chỉ ẩn popup, công tắc tắt thông báo bài có trên mọi bài. Không đổi yêu cầu của module này. |
+| DEC-065 → DEC-215, DEC-218, DEC-221; DEC-070 → DEC-219, DEC-220 (đối chiếu FR-M07, FR-M10) | Phần thuộc M07: thêm sự kiện "người bạn theo dõi có bài mới", quy tắc người nhận; tắt thông báo Chat chỉ ẩn popup, công tắc tắt thông báo bài có trên mọi bài. Không đổi yêu cầu của module này. |
+| DEC-007 → DEC-221; DEC-092 → DEC-152, DEC-225, DEC-226, DEC-228 (đối chiếu FR-M10) | Tài khoản ADMIN gốc vẫn tạo sẵn, không qua đăng ký; chỉ tài khoản gốc cấp, thu hồi vai trò Admin (M10). Tạm dừng đăng ký, chế độ bảo trì không đổi đối với M01; DEC-225, DEC-226, DEC-228 chỉ thêm cờ tính năng, banner, giá trị khởi tạo (tạm dừng đăng ký, bảo trì khởi tạo ở Tắt) thuộc M10. M01 cung cấp trạng thái tài khoản và bước 3 để M10 chọn đối tượng đề xuất. |

@@ -533,3 +533,17 @@
 | ISS-349 | Người nhận không ACTIVE; người gây sự kiện là người nhận; tên người gây sự kiện đã vô hiệu hóa, đã xóa | Closed | Xem DEC-218 |
 | ISS-350 | Tắt thông báo toàn bộ Chat và tắt từng cuộc trò chuyện; "bị tắt" nghĩa là gì (popup tin nhắn, số trên biểu tượng Tin nhắn) | Closed | Xem DEC-219 |
 | ISS-351 | Danh sách xác nhận: theo dõi chính mình, tài khoản BANNED; đề xuất làm Mod; gửi lại email; nội dung không còn; số chưa đọc Tin nhắn; công tắc tắt thông báo bài | Closed | Xem DEC-220 |
+
+---
+## Functional Requirement — M10: Admin Panel | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-352 | Cấp, thu hồi vai trò Admin: trực tiếp hay qua đề xuất; ai được làm; tài khoản ADMIN gốc; không còn Admin nào | Closed | Xem DEC-221 |
+| ISS-353 | Hạn của đề xuất làm Mod, Admin; nhiều đề xuất cho cùng một người | Closed | Xem DEC-222 |
+| ISS-354 | Mod tự từ chức (QA-013) còn hiệu lực không; áp cho Admin không | Closed | Xem DEC-223 |
+| ISS-355 | "MOD account management (performance)" gồm những gì | Closed | Xem DEC-224 |
+| ISS-356 | Cờ tính năng: module nào; hành vi khi tắt | Closed | Xem DEC-225 |
+| ISS-357 | Banner thông báo toàn trang: nội dung, số lượng, đóng được không | Closed | Xem DEC-226 |
+| ISS-358 | "Mọi thao tác Admin" ghi vào nhật ký thao tác Admin gồm những gì | Closed | Xem DEC-227 |
+| ISS-359 | Danh sách xác nhận L1–L5: xem người dùng, đối tượng đề xuất, độ dài banner, nhật ký, giá trị khởi tạo cấu hình | Closed | Xem DEC-228 |

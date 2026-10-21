@@ -2,7 +2,7 @@
 module: M06
 ten_module: Search
 ma_tai_lieu: FR-M06
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
 ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M06 — Search |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
 | Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
@@ -407,6 +407,7 @@ M03, M05, M01, M11 quản lý; M06 chỉ đọc các trạng thái đó.
 | Dùng | M12 | Số upvote của bài; nhãn "Tài khoản đã bị khóa" | FR-M06-02.10, FR-M06-04.07, FR-M06-02.14 |
 | Dùng | M13 | Embedding của truy vấn và của bài; báo AI lỗi để tìm full-text | FR-M06-02.03, FR-M06-02.05 |
 | Cung cấp | M05 | Xem các bài của một Topic hay một Tag qua bộ lọc | FR-M06-04.08 |
+| Cung cấp | M10 | Cách khớp tên người dùng (username, display_name ở bất kỳ vị trí, bỏ dấu, chấp nhận gõ sai nhẹ), dùng lại cho tìm người dùng trong Admin Panel | BR-M06-09 |
 | Cung cấp | M13 | Truy vấn tìm bài của người dùng đã đăng nhập; giới hạn tần suất tìm kiếm | FR-M06-02.03, FR-M06-02.20 |
 | Cung cấp | M14 | Trang tìm kiếm mà tab Following rỗng dẫn người dùng tới | FR-M06-02.01 |
 
@@ -433,6 +434,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-20 | Chốt sau 7 bước; câu trả lời ghi vào register (DEC-208–213) | Phạm Văn Đức |
 | 1.1 | 2026-10-20 | Đối chiếu sau khi chốt: @mention của M01 dùng cùng cách khớp tên (DEC-214); giao tiếp M01 thêm sự kiện đăng xuất. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): bộ lọc "đang theo dõi" chỉ gồm bài của người dùng và bài thuộc Topic đang theo dõi, bỏ "bài đang theo dõi" (FR-M06-04.04, BR-M06-15, 2.1, C.2). Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-228): thêm dòng "Cung cấp M10" (cách khớp tên người dùng dùng lại ở Admin Panel); C.1. Không đổi yêu cầu. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -781,6 +783,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-403 | Sở hữu | Trùng với DEC-213 | — | Nhóm A. Câu trả lời của stakeholder ở bước 6, nội dung nằm trong DEC |
 | ISS-343 | Nhắc tới | Trùng với DEC-213 | — | Nhóm A. Câu hỏi bước 6, đã có DEC trả lời |
 | DEC-215 | Phụ thuộc | Hiện hành | FR-M06-04.04, BR-M06-15 | Nhóm B (đối chiếu FR-M07). M07: đối tượng theo dõi chỉ còn người dùng, Topic; bộ lọc "đang theo dõi" không còn bài đang theo dõi |
+| DEC-228 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm B (đối chiếu FR-M10). M10: tìm người dùng trong Admin Panel khớp tên như tìm người dùng M06 (BR-M06-09) |
 
 ### C.2 Chuỗi quyết định
 
