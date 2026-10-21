@@ -2,7 +2,7 @@
 module: M04
 ten_module: Comment
 ma_tai_lieu: FR-M04
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
 ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M04 — Comment |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
-| Ngày | 2026-10-20 |
+| Phiên bản | 1.2 |
+| Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -65,7 +65,7 @@ trích dẫn), chỉ nhận upvote để đánh giá mức độ hữu ích củ
   Mod, Admin xem nội dung bình luận đã xóa trong báo cáo và lịch sử báo cáo, chặn bình luận ở mức cảnh cáo nặng —
   M08 Moderation. Công tắc AI Moderation — M10 Admin Panel.
 - Khiếu nại cảnh cáo, ban; bình luận không có khiếu nại riêng — M09 Appeal.
-- Bình luận trong nhóm (quyền theo vai trò nhóm, Group Mod ẩn/xóa, nhóm chuyển Private) — M11 Group.
+- Bình luận trong nhóm (quyền theo thành viên nhóm, Owner, Group Mod gỡ bình luận khỏi nhóm, nhóm chuyển Private, nhóm Bị khóa) — M11 Group.
 - Thao tác upvote bình luận (upvote, rút lại, chặn tự vote), điểm Comment Star, trừ điểm khi bình luận bị xóa —
   M12 Gamification.
 - Ngưỡng AI và xử lý khi AI lỗi — M13 AI Layer.
@@ -417,7 +417,7 @@ cột MoSCoW ở dòng M04 của bảng Module List bị lệch nên không dùn
 | Dùng | M08 | Quét AI theo tốc độ trả lời và ẩn bình luận; báo cáo bình luận; Mod, Admin ẩn bình luận; thông báo kết quả xử lý; mức cảnh cáo HEAVY | FR-M04-01.09, FR-M04-02.07, FR-M04-03.08, FR-M04-06.02 |
 | Dùng | M09 | Khiếu nại cảnh cáo, ban; bình luận không có khiếu nại riêng | FR-M04-06.03 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Moderation (gồm quét bình luận) | — |
-| Dùng | M11 | Quyền bình luận theo vai trò nhóm; nhóm chuyển Private chặn bình luận | — |
+| Dùng | M11 | Quyền bình luận trong nhóm: thành viên bình luận bài nhóm; người ngoài nhóm đã đăng nhập bình luận bài nhóm Public như bài thường; nhóm Private, kể cả nhóm vừa chuyển Private, chặn bình luận của người ngoài; nhóm Bị khóa chặn bình luận; Owner, Group Mod gỡ bình luận khỏi nhóm (xóa mềm, không trừ điểm, không khiếu nại); người đã rời nhóm Private không sửa, xóa được bình luận của mình trong nhóm | — |
 | Dùng | M12 | Số upvote của bình luận (sắp xếp Top); thao tác upvote; nhãn "Tài khoản đã bị khóa" cạnh tên tác giả | FR-M04-01.03, FR-M04-01.04, FR-M04-01.14 |
 | Dùng | M13 | Ngưỡng điểm quét, xử lý khi AI lỗi | — |
 
@@ -443,6 +443,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-14 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-14 | Chốt sau 7 bước; bổ sung DEC-178–183 (xóa mềm, bình luận bị ẩn, giới hạn 1.000 từ, trích dẫn khi trả lời) | Phạm Văn Đức |
 | 1.1 | 2026-10-20 | Đối chiếu với FR-M06: ghi chuỗi DEC-208, DEC-211 ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231, DEC-234, DEC-235, DEC-237): "Dùng M11" ghi rõ người ngoài bình luận bài nhóm Public, gỡ bình luận khỏi nhóm, nhóm Bị khóa, người đã rời nhóm Private; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -833,6 +834,10 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-076 | Phụ thuộc | Hiện hành | BR-M04-21 | Nhóm C. M08: báo cáo gom theo đối tượng; lịch sử báo cáo |
 | DEC-163 | Phụ thuộc | Hiện hành | Chuyển M03 | Nhóm C. M03: mức cảnh cáo chỉ chặn tạo bài mới, vẫn cho sửa bài cũ; DEC-178 áp cùng nguyên tắc |
 | DEC-164 | Phụ thuộc | Hiện hành | FR-M04-02.09, FR-M04-04.12, BR-M04-19 | Nhóm C. M03: cách đếm từ, cảnh báo khi vượt giới hạn |
+| DEC-231 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: gỡ bình luận khỏi nhóm |
+| DEC-234 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: người ngoài bình luận bài nhóm Public |
+| DEC-235 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: nhóm Bị khóa chặn bình luận và thao tác quản trị |
+| DEC-237 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: người đã rời nhóm Private không sửa, xóa bình luận của mình |
 
 ### C.2 Chuỗi quyết định
 

@@ -2,7 +2,7 @@
 module: M05
 ten_module: Topic & Tag
 ma_tai_lieu: FR-M05
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
 ngay: 2026-10-20
 tac_gia: Phạm Văn Đức
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M05 — Topic & Tag |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
-| Ngày | 2026-10-20 |
+| Phiên bản | 1.4 |
+| Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -519,6 +519,7 @@ Tag không có trạng thái kết thúc: Tag không bị xóa (BR-M05-25).
 | Cung cấp | M14 | Danh sách Trending Topic và Trending Tag kèm điểm, theo thứ tự của BR-M05-31, cho tab Trending (kể cả Guest) | FR-M05-05.09, FR-M05-05.14 |
 | Dùng | M08 | Nhật ký kiểm duyệt: ghi việc vô hiệu hóa, kích hoạt lại Tag và việc đổi Topic, Tag trên bài người khác | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 |
 | Dùng | M01 | Trang Privacy Policy/ToS (thuộc M01) nêu việc tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, được xử lý bởi nhà cung cấp dịch vụ AI khi bấm "Gợi ý topic" (FR-M01-15.04) | FR-M05-02.01 |
+| Dùng | M11 | Bài thuộc nhóm Public, Private và việc bài bị gỡ khỏi nhóm, để chỉ tính bài đang hiển thị trên feed chính (bài nhóm Public tính, bài nhóm Private và bài bị gỡ khỏi nhóm không tính) | FR-M05-05.11 |
 | Dùng | M01 | Trạng thái tài khoản tác giả: bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn nên không tính Trending; dữ liệu của tài khoản đã xóa: upvote giữ, bookmark và lượt theo dõi Topic bị xóa, phản hồi gợi ý giữ | FR-M05-05.11, FR-M05-02.22 |
 | Cung cấp | M15 | Liên kết bài viết–Topic để thống kê phân bố bài viết theo Topic | FR-M05-01.02 |
 
@@ -547,6 +548,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-07 | Cập nhật Phụ lục C.2 và ghi chú, trạng thái ở C.1 theo DEC-140–146 (C.2 còn ghi trước bước 6 và công thức Trending cũ); thân tài liệu không đổi; thêm DEC-092 vào chuỗi DEC-008. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-11 | Đối chiếu lại với FR-M01 1.0: cách ghi "nhà cung cấp dịch vụ AI" (DEC-154); không tính Trending cho bài bị ẩn vì tác giả vô hiệu hóa hoặc xóa tài khoản; tương tác của tài khoản đã xóa (DEC-156); giữ phản hồi gợi ý của tài khoản đã xóa (DEC-159). Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-20 | Đối chiếu với FR-M06: thêm giao tiếp "Dùng M06" (xem bài của Topic/Tag qua trang tìm bài); Tag bị vô hiệu hóa không có trong kết quả tìm Tag; ghi C.2. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231): thêm "Dùng M11" (bài nhóm Public, Private, bài bị gỡ khỏi nhóm cho Trending); không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1001,6 +1003,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-037 | Phụ thuộc | Hiện hành | FR-M05-11.06 | Nhóm C. M03: lịch sử sửa bài; đổi Topic/Tag của Mod không ghi vào đây |
 | DEC-094 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm C. M10: nhật ký thao tác Admin |
 | OPEN-005 | Phụ thuộc | Hiện hành | TBD-M05-02 | Nhóm C. Hạ tầng ghi sự kiện hoãn; lượt xem trong Trending phụ thuộc vào đây |
+| DEC-231 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: bài bị gỡ khỏi nhóm không còn hiện trên feed chính |
 
 ### C.2 Chuỗi quyết định
 

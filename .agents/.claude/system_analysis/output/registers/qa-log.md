@@ -207,6 +207,8 @@
 - **New issues spawned (Phase 4 GRP backlog):** ISS-GRP-01 (Public vs Private), ISS-GRP-02 (chi tiết flow post trong group — nhiều sub-issues).
 - **Traceability note:** AI làm bộ lọc vi phạm nghiêm trọng (tự động, real-time); Group Mod tập trung vào curation chất lượng nội dung của group. Hai tầng có vai trò khác nhau, không chồng chéo. System MOD/ADMIN là tầng override cuối cùng — đảm bảo platform không có "vùng cấm" với kiểm duyệt hệ thống.
 
+**[Clarified 2026-10-21 — DEC-233: Mod, Admin can thiệp nội dung nhóm qua vụ báo cáo]**
+
 ---
 
 ### QA-017
@@ -560,6 +562,8 @@
 
 **[Amended 2026-10-20 — DEC-210: nhóm Private không hiện khi người ngoài nhóm tìm kiếm]**
 
+**[Amended 2026-10-21 — DEC-229: link mời không cho vào thẳng; người được mời theo luồng tham gia]**
+
 ---
 
 ### QA-045
@@ -569,6 +573,8 @@
 - **Answer:** Có 1 field `join_question` (TEXT NULL) trong Group. Owner tự custom câu hỏi hoặc để null (không cần trả lời). User request join điền `answer` TEXT NULL trong join request.
 - **Decision triggered:** —
 - **Implication:** `groups.join_question TEXT NULL`. `group_join_requests.answer TEXT NULL`. Simple 1-field approach.
+
+**[Clarified 2026-10-21 — DEC-237: có câu hỏi thì bắt buộc trả lời]**
 
 ---
 
@@ -1253,3 +1259,21 @@
 | QA-418 | ISS-357: Banner thế nào? | "ừ theo đề xuất đi" — một banner, văn bản thuần, tối đa 200 ký tự, người xem đóng được, nội dung mới thì hiện lại |
 | QA-419 | ISS-358: Nhật ký thao tác Admin ghi gì? | "ừm chọn A" — mọi thao tác làm đổi dữ liệu Admin làm với vai trò Admin, và mọi thay đổi vai trò kể cả khi người làm không phải Admin; không ghi việc xem, nhận/nhả vụ, việc làm như người dùng thường |
 | QA-420 | ISS-359: Danh sách xác nhận L1–L5 | "ok full" — chấp nhận toàn bộ đề xuất L1.1–L5.4 (xem người dùng, đối tượng đề xuất, độ dài banner, lý do và thứ tự, lọc nhật ký, giá trị khởi tạo cấu hình) |
+
+## Functional Requirement — M11: Group (QA-421 → QA-433)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-421 | ISS-360: Người được mời vào thẳng hay theo luồng tham gia? | "B nhé" — lời mời, link mời chỉ đưa người được mời tới nhóm, rồi theo ma trận DEC-103; nhóm Private hoặc có câu hỏi thì chờ duyệt |
+| QA-422 | ISS-361: Bài nhóm không có điểm quét đi nhánh nào? | "ừ C đi" — AI tắt có chủ đích hoặc tác giả Admin: theo công tắc duyệt trước; quét thất bại: bắt buộc chờ nhóm duyệt |
+| QA-423 | ISS-362: "Ẩn/xóa" của Owner, Group Mod là gì? | "ừ chọn A" — một thao tác "gỡ khỏi nhóm": xóa mềm, không hiện trong nhóm (trừ tác giả, Owner, Group Mod, Mod, Admin), tác giả không tự hiện lại, nhận thông báo, không trừ điểm; Group Mod không gỡ nội dung của Owner, Group Mod khác |
+| QA-424 | ISS-363: Ban tạm thời, tự vô hiệu hóa có chuyển Owner không? | "ừ chọn A đi" — mọi trường hợp ban (tạm thời, vĩnh viễn), vô hiệu hóa, xóa đều chuyển ngay; Owner cũ quay lại là Member |
+| QA-425 | ISS-364: Mod, Admin không là thành viên làm gì trong nhóm? | "A" — chỉ xem nội dung nhóm Private trong vụ báo cáo mình đang giữ; hàng chờ duyệt của nhóm chỉ Owner, Group Mod; hàng chờ của System Mod ở DEC-104 là bài không thuộc nhóm |
+| QA-426 | ISS-365: Người ngoài tương tác bài nhóm Public? "Đã hiện" là gì? | "chọn A nhé" — nhóm Public: người ngoài đã đăng nhập bình luận, vote, báo cáo, bookmark như bài thường; chuyển Private: chỉ còn đọc bài đang hiện sẵn trên màn hình đã tải, tải lại, mở lại thì "Nội dung không tồn tại" |
+| QA-427 | ISS-366: Nhóm Bị khóa còn thao tác quản trị không? | "có lẽ chặn hết mới hợp lí" — chặn mọi thao tác quản trị |
+| QA-428 | ISS-366: Điểm biên khi chặn hết? | "ok" — chặn duyệt yêu cầu, duyệt bài, gỡ nội dung, kick, chặn, bổ nhiệm, giáng, đổi cài đặt, xóa nhóm, Owner rời; Member, Group Mod tự rời được; bookmark, báo cáo được; hệ thống vẫn tự chuyển Owner |
+| QA-429 | ISS-367: Cờ Group tắt, nội dung nhóm ở module khác? | "ừ chọn A" — theo khung DEC-225: nhóm, bài nhóm vẫn hiện ở lối vào (danh sách, Trending, hồ sơ, tìm kiếm, bookmark, thông báo), mở ra thì "Hệ thống đang bận"; mọi tương tác bị từ chối |
+| QA-430 | ISS-368: Danh sách xác nhận L1–L13 | "ok", trừ L4: "duyệt luôn" — chấp nhận L1–L3, L5–L13 theo đề xuất; L4 đổi: yêu cầu đang chờ được duyệt luôn khi nhóm thành "vào ngay" |
+| QA-431 | ISS-369: Mở rộng phạm vi S1–S3 | "S1: có; S2: có; S3: không mở rộng" |
+| QA-432 | ISS-370: Đóng OPEN-011 phần M11? | "ok" — mọi cách nội dung nhóm mất đi đã là xóa mềm; phần M16 vẫn mở |
+| QA-433 | ISS-371: Bài của Owner có cần nhóm duyệt không? | "bài owner không cần duyệt"; điểm biên: "ok" — điểm ≥ 0.9 vẫn tự từ chối; điểm 0.5–< 0.9 hoặc quét lỗi vào hàng chờ duyệt của Mod hệ thống như bài không thuộc nhóm; điểm < 0.5 hoặc AI tắt thì đăng ngay, bỏ qua công tắc duyệt trước; Owner là Admin thì không quét, đăng ngay |

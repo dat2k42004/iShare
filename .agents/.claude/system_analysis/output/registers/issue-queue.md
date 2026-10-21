@@ -547,3 +547,21 @@
 | ISS-357 | Banner thông báo toàn trang: nội dung, số lượng, đóng được không | Closed | Xem DEC-226 |
 | ISS-358 | "Mọi thao tác Admin" ghi vào nhật ký thao tác Admin gồm những gì | Closed | Xem DEC-227 |
 | ISS-359 | Danh sách xác nhận L1–L5: xem người dùng, đối tượng đề xuất, độ dài banner, nhật ký, giá trị khởi tạo cấu hình | Closed | Xem DEC-228 |
+
+---
+## Functional Requirement — M11: Group | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-360 | Người được mời (lời mời, link mời) vào thẳng hay theo luồng tham gia (QA-044, F-GRP-07 vs DEC-110) | Closed | Xem DEC-229 |
+| ISS-361 | Bài gửi vào nhóm không có điểm quét (AI tắt, quét lỗi, tác giả Admin) đi nhánh nào của cổng duyệt | Closed | Xem DEC-230 |
+| ISS-362 | "Ẩn/xóa" bài, bình luận của Owner, Group Mod: một hay hai thao tác, trạng thái, thông báo, điểm, thứ bậc | Closed | Xem DEC-231 |
+| ISS-363 | Chuyển quyền Owner bắt buộc: ban tạm thời, tự vô hiệu hóa; vai trò Owner cũ khi quay lại | Closed | Xem DEC-232 |
+| ISS-364 | Mod, Admin hệ thống không là thành viên: xem nhóm Private, duyệt bài chờ của nhóm | Closed | Xem DEC-233 |
+| ISS-365 | Người ngoài nhóm tương tác bài nhóm Public; "bài đã hiện" khi nhóm chuyển Private | Closed | Xem DEC-234 |
+| ISS-366 | Thao tác quản trị trong nhóm Bị khóa | Closed | Xem DEC-235 |
+| ISS-367 | Cờ Group tắt: nội dung nhóm ở module khác | Closed | Xem DEC-236 |
+| ISS-368 | Danh sách xác nhận L1–L13: tạo nhóm, sửa cài đặt, danh sách nhóm, tham gia, thông báo, thâm niên, từ chối bài, tự duyệt, người đã rời | Closed | Xem DEC-237 |
+| ISS-369 | Mở rộng phạm vi: xem danh sách thành viên; rút yêu cầu, bỏ chặn; link mời | Closed | Xem DEC-238 |
+| ISS-370 | OPEN-011 phần M11: nội dung báo cáo được trong nhóm chỉ xóa mềm | Closed | Xem DEC-239 |
+| ISS-371 | Bài của Owner trong nhóm của mình có qua duyệt của nhóm không; bài điểm cao của Owner đi đâu | Closed | Xem DEC-240 |

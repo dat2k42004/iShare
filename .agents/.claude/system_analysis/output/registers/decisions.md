@@ -479,6 +479,8 @@ Email limited to: security (password change), account-deletion warning, ban/unba
 
 **[Amended 2026-10-21 — DEC-221: thêm sự kiện "Đề xuất làm Admin" (in-app)]**
 
+**[Amended 2026-10-21 — DEC-231, DEC-237: thêm thông báo gỡ khỏi nhóm, yêu cầu tham gia mới, trở thành Owner]**
+
 ### DEC-066: Upvote notification batching
 Batch upvotes (post + comment) within a 5-minute rolling window into one notification ("A và N người khác đã upvote..."). Single upvote shows the voter's name directly.
 
@@ -746,6 +748,8 @@ No dedicated AI-specific rate limit system. Relies on existing limits: Search (M
 ### DEC-101: Group creation — open access, rate-limited
 Any logged-in user can create a group freely. Rate limit: 5 groups/day/user (anti-spam). No cap on total groups a user can own.
 
+**[Clarified 2026-10-21 — DEC-237: 5 nhóm trong 24 giờ gần nhất; nhóm đã xóa vẫn tính; Admin cũng bị giới hạn]**
+
 ### DEC-102: Group role permission matrix
 | Quyền | Owner | Group Mod | Member |
 |-------|-------|-----------|--------|
@@ -759,6 +763,8 @@ Any logged-in user can create a group freely. Rate limit: 5 groups/day/user (ant
 | Xóa group | ✓ | ✗ | ✗ |
 Strict hierarchy: no role acts on a peer or superior (Group Mod cannot kick another Group Mod — Owner only).
 
+**[Clarified 2026-10-21 — DEC-231, DEC-237: "ẩn/xóa" là một thao tác gỡ khỏi nhóm; chỉ Owner sửa tên, mô tả]**
+
 ### DEC-103: Group join flow matrix
 |  | Không có join question | Có join question |
 |---|---|---|
@@ -766,8 +772,14 @@ Strict hierarchy: no role acts on a peer or superior (Group Mod cannot kick anot
 | Private | Cần duyệt | Cần duyệt (kèm câu trả lời) |
 Rejected join requests can be resubmitted immediately, no cooldown (matches Facebook/LinkedIn/Discord group behavior). Owner/Mod use per-user block for persistent spam requesters instead of a system cooldown.
 
+**[Amended 2026-10-21 — DEC-237, DEC-238: nhóm thành "vào ngay" thì duyệt luôn yêu cầu đang chờ; rút yêu cầu; bỏ chặn; chặn áp cho mọi cách vào]**
+
 ### DEC-104: Group content moderation layers on top of system-wide M08, does not replace it
 Report (M08) and "System Mod/Admin can intervene anytime" (Phase 2, QA-016) remain fully in effect for group content. The group's AI-scan → Group Mod queue → Live flow is an additional publishing gate, not a substitute for system oversight. For posts belonging to a group: score≥0.9 → auto-reject (skips everyone); 0.5≤score<0.9 → mandatory Group Mod/Owner review regardless of pre-mod toggle state; score<0.5 → follows the group's pre-mod toggle (ON=review, OFF=publish direct). Group and System Mod each get their own claim-based "pending publish" queue (30-min timeout), separate from the Report queue. Posts not in any group keep the original M03/M13 flow unchanged.
+
+**[Clarified 2026-10-21 — DEC-230, DEC-233: bài không có điểm quét; hàng chờ của nhóm chỉ Owner, Group Mod duyệt]**
+
+**[Amended 2026-10-21 — DEC-240: bài của Owner không qua duyệt của nhóm]**
 
 ### DEC-105: Group deletion & member departure — content and point handling
 Group deleted by Owner: soft-delete (content hidden from everyone including ex-members, not hard-deleted in DB). User's overall reputation is fully preserved — **AMENDED by DEC-113: the original exception deducting points tied to content lost with the group has been removed.** Group deletion is an indirect cause from the member's perspective (they didn't choose it, didn't violate anything), so no point deduction applies, consistent with DEC-113's direct-vs-indirect principle.
@@ -780,19 +792,29 @@ A user may join unlimited groups and be Owner of unlimited groups simultaneously
 Voluntary leave: Owner MUST designate a successor before leaving is allowed (blocking UI action). If the Owner is the group's only member, leaving deletes the group instead (with a warning shown).
 Involuntary loss (ban/deactivate/delete — no chance to designate): auto-promote in order — (1) currently-active Group Moderator with longest tenure as Mod (a demoted ex-Mod doesn't count); (2) if none, longest-tenured Member; (3) if Owner was the sole member, the group is soft-deleted.
 
+**[Clarified 2026-10-21 — DEC-232, DEC-237: mọi ban, vô hiệu hóa đều kích hoạt; Owner cũ quay lại là Member; thâm niên tính từ lần bổ nhiệm gần nhất]**
+
 ### DEC-108: Group visibility change (Public↔Private) — feed/post retention
 Owner can change visibility anytime. Posts already delivered to a given user's feed remain visible to that user (not retroactively pulled) but become non-interactive once the group goes Private (comment/vote/report → error). New feed/search queries by non-members exclude these posts going forward.
 
+**[Clarified 2026-10-21 — DEC-234: "đã hiện" là bài đang hiện trên màn hình đã tải]**
+
 ### DEC-109: No appeal path for group-level moderation
 Actions taken by Group Mod/Owner within a group (e.g. pre-mod rejection, content removal) are final — no appeal mechanism, unlike system-level MOD/ADMIN actions which go through the Appeal module (M09).
+
+**[Clarified 2026-10-21 — DEC-237: bài nhóm bị AI tự từ chối vẫn khiếu nại qua M09]**
 
 ### DEC-110: Private group discovery & invite permissions
 Private groups are fully hidden from search/discovery; reachable only via invite/link. Any group member (Member, Group Mod, or Owner alike) can invite others — not restricted to Mod/Owner. Join flow reuses the mechanism established in DEC-103 (no separate targeted Invitation entity with accept/decline).
 
 **[Clarified 2026-10-20 — DEC-210: thành viên vẫn tìm thấy nhóm Private của mình]**
 
+**[Clarified 2026-10-21 — DEC-229, DEC-238: người được mời theo luồng tham gia; một link mời chung, không hết hạn; chặn áp cho mọi cách vào nhóm]**
+
 ### DEC-111: Group post cross-posting to main feed
 A group post always appears in the feed of that group's own members, whether the group is Public or Private. For Public groups specifically, the post additionally appears on the main feed like an ordinary post (visible to non-members). Private group posts never surface on the main feed.
+
+**[Clarified 2026-10-21 — DEC-234: người ngoài nhóm tương tác bài nhóm Public như bài thường]**
 
 ### DEC-112: Anonymous posting in group — opt-in, sticky, visible to Group staff
 When a group's anonymous-posting toggle is ON, each member chooses per-post whether to post anonymously (not forced group-wide). If the Owner later turns the toggle OFF, previously-anonymous posts stay anonymous (the toggle only gates new posts, it does not retroactively reveal authors). Group Mod and Owner can see the real identity of an anonymous post's author, consistent with the system-wide MOD/ADMIN pattern (DEC-004, DEC-005).
@@ -807,6 +829,8 @@ Points are PRESERVED when the disappearance is INDIRECT — caused by someone el
 - Group deleted by its Owner (a Member's content vanishes as a side effect, not their own action) — supersedes and removes DEC-105's original exception
 - A comment cascade-hidden because its parent post was removed (for any reason) — the comment author didn't delete it themselves nor did their comment violate anything
 Timing: self-delete → deduction applied only after the 7-day soft-delete window ends (hard-delete); if restored within the window, no deduction ever occurs (no separate refund mechanic needed). Mod/Admin removal for violation → deducted immediately, no waiting period.
+
+**[Clarified 2026-10-21 — DEC-231: gỡ cấp nhóm không trừ điểm]**
 
 ### DEC-114: Badge permanence and audit trail
 Badges are permanent once earned and are never revoked, even if the user's points later drop below the badge's threshold (including via a legitimate DEC-113 deduction). Rationale: a badge represents an achieved milestone (a historical fact), not a live status — consistent with common platform convention (Stack Overflow, Duolingo); avoids penalizing users for point changes outside their control; avoids the added complexity of live threshold recheck-and-revoke logic. Badge UI displays the date earned rather than re-displaying the threshold value, to avoid the appearance of inconsistency when current points sit below it.
@@ -1362,6 +1386,8 @@ ISS-282 → ISS-289
 - How a hidden or locked group is displayed and which group actions are blocked is applied by M11; to be cross-checked when FR-M11 is written.
 - Source: QA-369
 
+**[Clarified 2026-10-21 — DEC-235: nhóm Bị khóa chặn mọi thao tác quản trị; thành viên vẫn tự rời được]**
+
 ### Issues Closed
 ISS-292 → ISS-309
 
@@ -1379,6 +1405,8 @@ ISS-292 → ISS-309
 - An ADMIN post inside a group still goes through that group's own approval gate (M11); only the system AI scan and system review are skipped.
 - Consequence accepted: ADMIN content has no system moderation at all (no scan, no review, no report).
 - Source: QA-370, QA-371
+
+**[Amended 2026-10-21 — DEC-240: bài của Owner không qua duyệt của nhóm]**
 
 ### DEC-196: M09 — Who sees an appeal; "escalate to ADMIN" is the visibility rule (clarifies DEC-088, QA-021)
 - An appeal about MOD X's action is shown to every MOD other than X and to ADMIN; an appeal sent by a MOD is shown to ADMIN only (DEC-195); ADMIN sees every appeal.
@@ -1612,6 +1640,8 @@ ISS-345 → ISS-351
 - The detailed lists of what is blocked and what keeps running belong to the FR of M11, M12, M16.
 - Source: QA-416, QA-417
 
+**[Clarified 2026-10-21 — DEC-236: nhóm, bài nhóm vẫn hiện ở lối vào, mở ra thì báo hệ thống đang bận]**
+
 ### DEC-226: M10 — Site-wide banner (clarifies DEC-092)
 - One banner at a time, plain text, 1–200 characters after trimming leading and trailing spaces. ADMIN sets, edits and removes it. It is shown on every page to everyone, including Guests.
 - A viewer can close it; a closed banner reappears when the ADMIN edits it or sets a new one.
@@ -1632,3 +1662,90 @@ ISS-345 → ISS-351
 
 ### Issues Closed
 ISS-352 → ISS-359
+
+## Functional Requirement — M11: Group
+
+### DEC-229: M11 — Invites lead into the normal join flow (resolves QA-044, F-GRP-07 vs DEC-110)
+- An invite or invite link only brings the invitee to the group; the invitee then follows the DEC-103 join matrix: Public without a join question → member at once; Public with a question, or any Private group → join request waiting for Owner/Group Mod approval (with the answer when there is a question).
+- "Invite link (direct join)" of F-GRP-07 and "direct approve" of QA-044 no longer apply.
+- Source: QA-421
+
+### DEC-230: M11 — Group posts without a scan score (clarifies DEC-104, DEC-195)
+- AI master switch or Moderation switch off, or author is ADMIN (not scanned, DEC-195): the post follows the group's pre-moderation toggle (ON → waits for group approval, OFF → published).
+- Scan failed (after the one retry): the post must wait for group approval, whatever the toggle.
+- Source: QA-422
+
+**[Amended 2026-10-21 — DEC-240: bài của Owner không qua duyệt của nhóm]**
+
+### DEC-231: M11 — Group-level removal of posts and comments (clarifies DEC-102; scope of DEC-113)
+- "Ẩn/xóa" by Owner/Group Mod is one action, "gỡ khỏi nhóm": soft delete. The content is no longer shown in the group to anyone except its author, the group's Owner and Group Mods, and system Mod/Admin. The author cannot restore it.
+- The author gets an in-app notification. No points are deducted (DEC-113 deduction applies only to system Mod/Admin removal for a violation).
+- Strict hierarchy applies to content: a Group Mod cannot remove content of the Owner or of another Group Mod.
+- No appeal (DEC-109 unchanged).
+- Source: QA-423
+
+### DEC-232: M11 — Triggers of forced ownership succession (clarifies DEC-107)
+- Any ban (temporary or permanent), deactivation (including self-deactivation that can still be reactivated) or deletion of the Owner account triggers the DEC-107 succession immediately.
+- When the former Owner's account becomes active again, they stay in the group as Member; the role is not given back automatically.
+- Source: QA-424
+
+### DEC-233: M11 — System Mod/Admin and groups they are not members of (clarifies QA-016, DEC-104)
+- A Mod/Admin who is not a member sees a Private group's content only inside a report case they hold (M08); they cannot find, list or open the Private group otherwise (DEC-210 holds).
+- Only the group's Owner and Group Mods approve posts in the group's approval queue. The "System Mod pending-publish queue" in DEC-104 is the queue of posts not in any group (M03).
+- System intervention "at any time" is exercised through reports and cases (M08).
+- Source: QA-425
+
+**[Amended 2026-10-21 — DEC-240: bài của Owner không qua duyệt của nhóm]**
+
+### DEC-234: M11 — Non-members and group posts (clarifies DEC-108, DEC-111)
+- Public group: logged-in non-members comment, vote, report and bookmark the group's posts like ordinary posts.
+- When a group becomes Private: a non-member can still read a post only as already loaded on their screen at the moment of the change, without interacting. Reloading, or opening it again by link, bookmark or notification, shows "Nội dung không tồn tại".
+- Source: QA-426
+
+### DEC-235: M11 — Locked group freezes management actions (clarifies DEC-194)
+- While a group is Bị khóa, in addition to DEC-194's list, these are refused for everyone including Owner and Group Mods: approving join requests and queued posts, removing content, kicking, blocking, appointing/demoting Group Mods, changing settings, deleting the group, Owner leaving.
+- Still allowed: Member/Group Mod leaving the group; bookmark and report; system-run ownership succession.
+- Source: QA-427, QA-428
+
+### DEC-236: M11 — Group content elsewhere while the Group flag is off (clarifies DEC-225)
+- Groups and group posts keep showing at entry points (group list, Trending, profile tab, search, bookmarks, old notifications); opening them gives "Hệ thống đang bận, vui lòng thử lại sau". Every interaction with group posts is refused. ADMIN is not affected.
+- Source: QA-429
+
+### DEC-237: M11 — Confirmation list L1–L13
+- L1 (DEC-101): 5 groups per 24 hours (last 24 hours, like DEC-144); deleted groups count; ADMIN is limited too. Example: groups at 20:00–20:20 on 01/11 → the 6th is refused at 19:59 on 02/11, allowed at 20:00 on 02/11.
+- L2: name required (≤ 100 characters), description optional (≤ 500 characters); names may repeat; mode (Public/Private) chosen at creation; pre-moderation and anonymous toggles default OFF; join question empty by default; all three can be set at creation.
+- L3: only the Owner edits name and description.
+- L4: when the Owner changes settings so the group becomes "join at once" (Private → Public without question, or the question removed from a Public group), pending join requests are approved immediately.
+- L5: turning the pre-moderation toggle off does not release posts already waiting; the new value applies to posts sent afterwards.
+- L6: the group list is its own page (target of M14 "Khám phá Group"): the viewer's Private groups and all Public groups; each shows name, description, mode; newest first. Search by name stays in M06.
+- L7: when the group has a join question, an answer is required.
+- L8: a person with a pending request cannot send another to the same group.
+- L9 (DEC-065): new join request → in-app notification to Owner and Group Mods; joining a Public group at once → no notification; rejection and demotion → no notification; becoming Owner (designated or automatic) → notification.
+- L10 (DEC-107): Group Mod tenure counts from the latest appointment.
+- L11 (DEC-109): group rejection of a queued post requires a reason; the author can edit and resubmit (back through the group gate); a group post auto-rejected by AI is appealable via M09 like any post (not a group-level decision).
+- L12: Owner/Group Mod cannot approve their own queued post; if no other approver exists, the post waits.
+- L13: after leaving, a former member can still edit and delete their own posts and comments in a Public group; not in a Private group they can no longer see.
+- Source: QA-430
+
+**[Amended 2026-10-21 — DEC-240: bài của Owner không qua duyệt của nhóm]**
+
+### DEC-238: M11 — Member list, withdrawing requests, unblocking (scope extension; invite link unchanged)
+- Whoever can view the group page can view its member list with roles (Public: everyone including Guest; Private: members).
+- The sender can withdraw a pending join request. Owner and Group Mods can view the block list and unblock.
+- A block applies to every way into the group (direct join, join request, invite). Blocking someone with a pending request turns it into Đã từ chối.
+- Invite link: one shared link per group, no expiry, no revocation; inviting a specific user sends a notification with that link.
+- Source: QA-431
+
+### DEC-239: M11 — Soft deletion of group content (closes the M11 part of OPEN-011)
+- Every way group content disappears in M11 is soft delete: Owner deletes the group (DEC-105), Mod/Admin hide the group (DEC-194), group-level removal (DEC-231); posts and comments follow M03, M04. The M16 part of OPEN-011 stays open.
+- Source: QA-432
+
+### DEC-240: M11 — The Owner's posts skip group approval (amends DEC-237 L12, DEC-104, DEC-195, DEC-230, DEC-233)
+- A post by a group's Owner in that group does not go through the group's approval: the pre-moderation toggle and the 0.5–<0.9 group review do not apply.
+- The AI scan still applies: score ≥ 0.9 → auto-rejected; 0.5 ≤ score < 0.9, or scan failed → system Mod pending-publish queue, as for a post not in any group (M03); score < 0.5, or AI master/Moderation switch off → published.
+- An Owner who is ADMIN: not scanned (DEC-195), published at once.
+- Group Mods still cannot approve their own posts (DEC-237 L12 unchanged for them); a Group Mod's post is approved by the Owner or another Group Mod.
+- Source: QA-433
+
+### Issues Closed
+ISS-360 → ISS-371

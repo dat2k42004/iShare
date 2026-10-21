@@ -2,7 +2,7 @@
 module: M06
 ten_module: Search
 ma_tai_lieu: FR-M06
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
 ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M06 — Search |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
 | Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
@@ -403,7 +403,7 @@ M03, M05, M01, M11 quản lý; M06 chỉ đọc các trạng thái đó.
 | Dùng | M07 | Quan hệ theo dõi (người dùng, Topic) của người tìm | FR-M06-04.04 |
 | Dùng | M08 | Mức cảnh cáo HEAVY của tác giả | FR-M06-02.11 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Search | FR-M06-02.03, FR-M06-02.04 |
-| Dùng | M11 | Nhóm, loại nhóm (Public, Private), thành viên nhóm, việc nhóm đổi từ Public sang Private | FR-M06-02.08, FR-M06-02.09, FR-M06-03.01, FR-M06-03.08, FR-M06-01.13 |
+| Dùng | M11 | Nhóm, loại nhóm (Public, Private), thành viên nhóm, việc nhóm đổi từ Public sang Private; Mod, Admin không là thành viên cũng không thấy nhóm Private; khi cờ Group tắt, nhóm và bài nhóm vẫn hiện trong kết quả, mở ra thì báo hệ thống đang bận (M11 sở hữu) | FR-M06-02.08, FR-M06-02.09, FR-M06-03.01, FR-M06-03.08, FR-M06-01.13 |
 | Dùng | M12 | Số upvote của bài; nhãn "Tài khoản đã bị khóa" | FR-M06-02.10, FR-M06-04.07, FR-M06-02.14 |
 | Dùng | M13 | Embedding của truy vấn và của bài; báo AI lỗi để tìm full-text | FR-M06-02.03, FR-M06-02.05 |
 | Cung cấp | M05 | Xem các bài của một Topic hay một Tag qua bộ lọc | FR-M06-04.08 |
@@ -435,6 +435,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-20 | Đối chiếu sau khi chốt: @mention của M01 dùng cùng cách khớp tên (DEC-214); giao tiếp M01 thêm sự kiện đăng xuất. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): bộ lọc "đang theo dõi" chỉ gồm bài của người dùng và bài thuộc Topic đang theo dõi, bỏ "bài đang theo dõi" (FR-M06-04.04, BR-M06-15, 2.1, C.2). Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-228): thêm dòng "Cung cấp M10" (cách khớp tên người dùng dùng lại ở Admin Panel); C.1. Không đổi yêu cầu. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-233, DEC-236): "Dùng M11" ghi thêm Mod, Admin không là thành viên không thấy nhóm Private; hành vi khi cờ Group tắt (M11 sở hữu); không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -784,6 +785,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-343 | Nhắc tới | Trùng với DEC-213 | — | Nhóm A. Câu hỏi bước 6, đã có DEC trả lời |
 | DEC-215 | Phụ thuộc | Hiện hành | FR-M06-04.04, BR-M06-15 | Nhóm B (đối chiếu FR-M07). M07: đối tượng theo dõi chỉ còn người dùng, Topic; bộ lọc "đang theo dõi" không còn bài đang theo dõi |
 | DEC-228 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm B (đối chiếu FR-M10). M10: tìm người dùng trong Admin Panel khớp tên như tìm người dùng M06 (BR-M06-09) |
+| DEC-233 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: Mod, Admin không là thành viên chỉ xem nhóm Private trong vụ báo cáo |
+| DEC-236 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: cờ Group tắt, lối vào vẫn hiện, mở ra thì báo hệ thống đang bận |
 
 ### C.2 Chuỗi quyết định
 

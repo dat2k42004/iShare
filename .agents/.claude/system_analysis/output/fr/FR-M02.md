@@ -2,7 +2,7 @@
 module: M02
 ten_module: User Profile
 ma_tai_lieu: FR-M02
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
 ngay: 2026-10-13
 tac_gia: Phạm Văn Đức
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M02 — User Profile |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-13 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -417,7 +417,7 @@ Cách trang hồ sơ hiện theo trạng thái tài khoản (M01) được ghi b
 | Dùng | M08 | Mức cảnh báo của người dùng, không được hiện trên hồ sơ | FR-M02-01.13 |
 | Cung cấp | M03, M04, M16, M01 | Avatar, display_name hiện ở nơi hiển thị tác giả, người gửi tin nhắn và danh sách gợi ý nhắc tên; avatar mặc định khi chưa đặt | FR-M02-04.01, FR-M02-01.18 |
 | Dùng | M03 | Trạng thái của bài (đã đăng, nháp, chờ duyệt, bị từ chối, tự ẩn, đã xóa, bị Mod ẩn) để chọn bài hiện ở tab Bài viết và dòng "Nội dung không tồn tại" ở tab Bookmark; thời điểm bài bị xóa hẳn | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03, FR-M02-07.06 |
-| Dùng | M11 | Bài đăng ẩn danh; thành viên nhóm Private, để chọn bài hiện ở tab Bài viết và bài đã lưu xem được | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03 |
+| Dùng | M11 | Bài đăng ẩn danh; thành viên nhóm Private, để chọn bài hiện ở tab Bài viết và bài đã lưu xem được; khi cờ Group tắt, bài nhóm vẫn hiện ở tab Bài viết và Bookmark, mở ra thì báo hệ thống đang bận (M11 sở hữu) | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03 |
 | Dùng | M08 | Việc xử lý báo cáo người dùng không gồm gỡ avatar, bio (cảnh cáo hoặc khóa như M08) | FR-M02-03.10, FR-M02-04.07 |
 
 ### 5.12 AI hỗ trợ và hành vi khi tắt AI
@@ -438,6 +438,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-12 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-13 | Chốt sau 7 bước; câu trả lời bước 6 ghi ở DEC-170–177 | Phạm Văn Đức |
+| 1.1 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-236): "Dùng M11" ghi thêm hành vi khi cờ Group tắt (M11 sở hữu); không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -753,6 +754,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-264 | Nhắc tới | Hiện hành | Không áp dụng: Dùng chung; không quy định hành vi M02 | Nhóm D. Dùng chung; không quy định hành vi M02. |
 | MR-A04 | Nhắc tới | Hiện hành | Không áp dụng: Dùng chung; không quy định hành vi M02 | Nhóm D. Dùng chung; không quy định hành vi M02. |
 | MR-A05 | Nhắc tới | Hiện hành | Không áp dụng: Công nghệ | Nhóm D. Công nghệ. |
+| DEC-236 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: cờ Group tắt, lối vào vẫn hiện, mở ra thì báo hệ thống đang bận |
 
 ### C.2 Chuỗi quyết định
 

@@ -2,7 +2,7 @@
 module: M03
 ten_module: Post & Content
 ma_tai_lieu: FR-M03
-phien_ban: 1.5
+phien_ban: 1.6
 trang_thai: Đã chốt
 ngay: 2026-10-21
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M03 — Post & Content |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
 | Ngày | 2026-10-21 |
 | Tác giả | Phạm Văn Đức |
 
@@ -306,7 +306,7 @@ cột MoSCoW ở dòng M03 của bảng Module List bị lệch nên không dùn
 | FR-M03-04.02 | Trong khi bài ở trạng thái Chờ duyệt, hệ thống phải ẩn bài với mọi người trừ tác giả và người duyệt bài theo FR-M03-06. |
 | FR-M03-04.03 | Ở nơi công tắc AI tổng hoặc công tắc Moderation đang tắt, khi tác giả gửi bài, hệ thống phải chuyển bài sang Đã đăng ngay mà không quét. |
 | FR-M03-04.04 | Khi tác giả gửi lại bài Bị từ chối sau khi sửa, hệ thống phải xử lý bài như bài nháp vừa được gửi theo FR-M03-04.01 và FR-M03-04.03. |
-| FR-M03-04.05 | Hệ thống phải áp dụng luồng gửi bài của FR-M03-04 cho bài không thuộc nhóm; bài thuộc nhóm theo luồng duyệt của M11. |
+| FR-M03-04.05 | Hệ thống phải áp dụng luồng gửi bài của FR-M03-04 cho bài không thuộc nhóm; bài thuộc nhóm theo luồng duyệt của M11, trong đó bài của Owner nhóm có điểm quét từ 0.5 đến nhỏ hơn 0.9 hoặc quét thất bại được đưa vào hàng chờ duyệt của Mod như bài không thuộc nhóm (BR-M03-25). |
 | FR-M03-04.06 | Nếu người gửi khác tác giả của bài, hệ thống phải từ chối. |
 | FR-M03-04.07 | Nếu bài không ở trạng thái Nháp hoặc Bị từ chối, hệ thống phải từ chối thao tác gửi bài. |
 | FR-M03-04.08 | Nếu bài được gửi không có tiêu đề, hệ thống phải từ chối gửi. |
@@ -586,7 +586,7 @@ cột MoSCoW ở dòng M03 của bảng Module List bị lệch nên không dùn
 | BR-M03-22 | Suy diễn | Khi công tắc AI tổng hoặc công tắc Moderation đang tắt, bài gửi được đăng ngay, không quét; người dùng dựa vào báo cáo để xử lý vi phạm. Khi bật lại, hệ thống không quét lại các bài đã đăng trong lúc tắt. | AI tắt từ 09:00 đến 10:00. Bài gửi 09:30: Đã đăng ngay. 10:00 bật lại: bài 09:30 không bị quét. Bài gửi 10:05: Chờ duyệt và được quét. |
 | BR-M03-23 | Kích hoạt | Khi Mod hoặc Admin duyệt một bài Chờ duyệt: chấp nhận → Đã đăng; từ chối → Bị từ chối, kèm lý do bắt buộc. | Mod từ chối mà không nhập lý do: từ chối thao tác. |
 | BR-M03-24 | Suy diễn | Bài Bị từ chối được tác giả sửa và gửi lại; khi gửi lại, bài đi lại luồng như bài mới gửi (BR-M03-19 đến BR-M03-22). | — |
-| BR-M03-25 | Ràng buộc | Luồng gửi, quét và duyệt của BR-M03-19 đến BR-M03-24 áp dụng cho bài không thuộc nhóm; bài thuộc nhóm theo cổng duyệt của M11. | — |
+| BR-M03-25 | Ràng buộc | Luồng gửi, quét và duyệt của BR-M03-19 đến BR-M03-24 áp dụng cho bài không thuộc nhóm; bài thuộc nhóm theo cổng duyệt của M11. Ngoại lệ: bài của Owner nhóm trong nhóm của mình có điểm quét từ 0.5 đến nhỏ hơn 0.9, hoặc quét thất bại, vào hàng chờ duyệt của Mod như bài không thuộc nhóm (M11). | Owner An gửi bài vào nhóm của mình, điểm 0.6 → hàng chờ duyệt của Mod. Member C gửi bài vào nhóm đó, điểm 0.6 → hàng chờ duyệt của nhóm (M11). |
 | BR-M03-26 | Kích hoạt | Khi tác giả sửa bài Đã đăng, hoặc hiện lại bài Tự ẩn có bản sửa được lưu trong lúc ẩn, trong lúc công tắc AI tổng và công tắc Moderation đều bật, bài được quét lại; bài vẫn ở trạng thái hiển thị (với nội dung đã sửa) trong lúc quét. Điểm quét dưới 0.5: giữ nguyên. Điểm từ 0.5 trở lên, kể cả từ 0.9: bài sang Bị gắn cờ, bị ẩn, chờ Mod xét. Quét lỗi: giữ nguyên, bài vẫn hiển thị. Sửa bài Tự ẩn không quét lúc lưu. Việc tự từ chối ở điểm từ 0.9 chỉ áp dụng cho bài vừa gửi. | Quét lại 0.3: bài vẫn hiện. 0.6: Bị gắn cờ. 0.95: Bị gắn cờ (không tự từ chối). Lỗi: bài vẫn hiện. X ẩn bài P, sửa hai lần (không quét), rồi hiện lại → P hiện ngay và được quét một lần; 0.7 → Bị gắn cờ, ẩn. X ẩn P rồi hiện lại mà không sửa → không quét. |
 | BR-M03-27 | Ràng buộc | Mỗi lần tác giả lưu bản sửa của bài đã gửi, hệ thống ghi một phiên bản vào lịch sử sửa (nội dung trước lần sửa, người sửa, thời điểm sửa). Bài có ít nhất một lần sửa hiện nhãn "(đã chỉnh sửa)" và nút "Xem lịch sử"; ai xem được bài thì xem được lịch sử sửa. | Bài đăng 10:00, sửa lúc 10:30 và 11:00: lịch sử có 2 lần sửa, bài có nhãn. Bài chưa sửa lần nào: không có nhãn. |
 | BR-M03-28 | Ràng buộc | Việc Mod hoặc Admin đổi Topic, Tag trên bài của người khác không ghi vào lịch sử sửa, không làm hiện nhãn "(đã chỉnh sửa)" và không báo cho tác giả. | Bài chưa sửa lần nào, Mod đổi Topic: bài vẫn không có nhãn. |
@@ -732,7 +732,8 @@ Bài Bị từ chối mà tác giả không gửi lại hay xóa thì ở mãi t
 | Dùng | M08 | Điểm quét; hàng chờ duyệt của Mod; gắn cờ, ẩn, gỡ bài; hạn chế tạo bài theo mức cảnh cáo | FR-M03-01.10, FR-M03-05.01, FR-M03-06.01 |
 | Dùng | M09 | Khiếu nại bài bị Mod ẩn ("gỡ") hoặc bị AI tự từ chối; bài trở lại hiển thị khi khiếu nại thành công; bài bị AI tự từ chối được chấp nhận khiếu nại thì Đã đăng ngay, không quét lại | FR-M03-13.05, BR-M03-46 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Moderation | FR-M03-04.03, FR-M03-05.08 |
-| Dùng | M11 | Luồng duyệt bài trong nhóm; đăng ẩn danh; bài trong nhóm Private | FR-M03-04.05 |
+| Dùng | M11 | Luồng duyệt bài trong nhóm (kể cả bài nhóm quét thất bại chờ nhóm duyệt); đăng ẩn danh; bài trong nhóm Private; bài bị Owner, Group Mod gỡ khỏi nhóm (xóa mềm, M11 làm) | FR-M03-04.05 |
+| Cung cấp | M11 | Soạn bài, trạng thái đăng, sửa, xóa của tác giả cho bài nhóm; hàng chờ duyệt của Mod cho bài của Owner nhóm có điểm quét từ 0.5 đến nhỏ hơn 0.9 hoặc quét thất bại | FR-M03-04.05, FR-M03-05.02, FR-M03-05.04 |
 | Dùng | M12 | Trừ điểm khi tác giả xóa bài hoặc bài bị Mod gỡ | — |
 | Dùng | M13 | Gọi AI kiểm duyệt (thời gian chờ, một lần thử lại), tóm tắt bài (chỉ người đã đăng nhập), embedding | FR-M03-05.04 |
 | Cung cấp | M13 | Thời điểm bài chuyển sang Đã đăng theo mọi đường (quét sạch, Mod chấp nhận, AI tắt, bài của Admin) để tạo embedding; thay đổi tiêu đề, nội dung chữ để tạo lại embedding | FR-M03-04.03, FR-M03-04.11, FR-M03-05.01, FR-M03-06.02, FR-M03-11.01 |
@@ -765,6 +766,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.3 | 2026-10-20 | Đối chiếu với FR-M06: ghi chuỗi DEC-208, DEC-211 ở C.2; không đổi yêu cầu. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): sự kiện bài được đăng cung cấp thêm tác giả, cờ ẩn danh, lần đầu công khai cho thông báo bài mới; thêm dòng "Dùng M07" (công tắc tắt thông báo bài). Không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 | 1.5 | 2026-10-21 | Đối chiếu với FR-M09, FR-M13: bài của Admin đăng ngay, không quét, không duyệt (FR-M03-04.11, FR-M03-05.15, BR-M03-51); khiếu nại bài bị AI từ chối được chấp nhận thì Đã đăng ngay (BR-M03-46, trạng thái); giao tiếp với M13 về embedding, tóm tắt; trạng thái kiểm duyệt trỏ tới FR-M08, FR-M09. Chốt bản 1.5 | Phạm Văn Đức |
+| 1.6 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-230, DEC-231, DEC-240): bài của Owner nhóm có điểm quét từ 0.5 đến nhỏ hơn 0.9 hoặc quét thất bại vào hàng chờ duyệt của Mod (FR-M03-04.05, BR-M03-25); thêm "Cung cấp M11"; "Dùng M11" ghi thêm bài nhóm quét lỗi chờ nhóm duyệt, bài bị gỡ khỏi nhóm. Chốt bản 1.6 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -817,7 +819,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M03-04.02 | DEC-013, DEC-034 | Nói thẳng | DEC-013: "ẩn với public cho đến khi AI scan xong" |
 | FR-M03-04.03 | DEC-099, DEC-013, MR-FB-M08 | Nói thẳng | — |
 | FR-M03-04.04 | DEC-031, DEC-034 | Nói thẳng | — |
-| FR-M03-04.05 | DEC-104 | Nói thẳng | — |
+| FR-M03-04.05 | DEC-104, DEC-240  | Nói thẳng | — |
 | FR-M03-04.06 | DM-1.3, DEC-031 | Suy ra | Gửi bài là thao tác của tác giả ⇒ người khác bị từ chối |
 | FR-M03-04.07 | DEC-031, DEC-034 | Suy ra | Theo bảng trạng thái, gửi bài chỉ đi từ Nháp hoặc Bị từ chối |
 | FR-M03-04.08 | DEC-164 | Nói thẳng | — |
@@ -962,7 +964,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M03-22 | DEC-013, DEC-099, MR-FB-M08 | Nói thẳng | Công tắc Moderation lấy từ DEC-093 (M10) |
 | BR-M03-23 | DEC-034 | Nói thẳng | "Lý do bắt buộc" suy ra từ "reject: REJECTED + reason" |
 | BR-M03-24 | DEC-031, DEC-034 | Nói thẳng | — |
-| BR-M03-25 | DEC-104 | Nói thẳng | — |
+| BR-M03-25 | DEC-104, DEC-240  | Nói thẳng | — |
 | BR-M03-26 | DEC-013, DEC-161, DEC-185, DEC-093 | Nói thẳng | — |
 | BR-M03-27 | DEC-037, DM-2.3, F-POST-04 | Nói thẳng | — |
 | BR-M03-28 | DEC-142 | Nói thẳng | "Không làm hiện nhãn" suy ra từ việc không ghi lịch sử |
@@ -1326,6 +1328,9 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-205 | Phụ thuộc | Hiện hành | Chuyển M13 | Nhóm B (đối chiếu FR-M13). M13: embedding bài tạo khi bài Đã đăng theo mọi đường, tạo lại khi đổi tiêu đề, nội dung chữ |
 | DEC-206 | Phụ thuộc | Hiện hành | Chuyển M13 | Nhóm B (đối chiếu FR-M13). M13: tóm tắt bài theo yêu cầu, chỉ người đã đăng nhập |
 | DEC-207 | Phụ thuộc | Hiện hành | Chuyển M13 | Nhóm B (đối chiếu FR-M13). M13: phạm vi nhật ký AI |
+| DEC-240 | Phụ thuộc | Hiện hành | FR-M03-04.05, BR-M03-25 | Nhóm B (đối chiếu FR-M11). M11: bài của Owner không qua duyệt của nhóm; điểm 0.5–< 0.9 hoặc quét lỗi vào hàng chờ duyệt của Mod |
+| DEC-230 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: bài nhóm không có điểm quét; quét lỗi thì chờ nhóm duyệt |
+| DEC-231 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: Owner, Group Mod gỡ bài khỏi nhóm (xóa mềm, không trừ điểm) |
 
 ### C.2 Chuỗi quyết định
 
@@ -1361,3 +1366,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-166 → DEC-198 | Bài bị AI tự từ chối khiếu nại được (M09); chấp nhận thì Đã đăng ngay, không quét lại; tác giả đã sửa và gửi lại trước khi có kết luận thì trạng thái bài không đổi (BR-M03-46). |
 | DEC-093, DEC-099 → DEC-205, DEC-206, DEC-207; QA-011 → DEC-206 | Phần thuộc M13: embedding bài tạo khi bài Đã đăng, tạo lại khi đổi tiêu đề, nội dung chữ; tóm tắt theo yêu cầu, chỉ người đã đăng nhập (Guest bấm thì được nhắc đăng nhập); phạm vi nhật ký AI. Yêu cầu của M03 không đổi, chỉ thêm dòng Giao tiếp với M13. |
 | DEC-186 → DEC-204 (ngoài bảng nguồn; dấu sửa trích DEC-097) | DEC-204 chỉ quy định khi hai nhóm vi phạm cùng điểm cao nhất thì lấy theo thứ tự nhóm của DEC-097; phần thuộc M08, M13, không chạm M03. Cạnh DEC-097 → DEC-186 của tool là trích dẫn, không phải sửa đổi. |
+| DEC-104 → DEC-240 | Bài của Owner nhóm không qua duyệt của nhóm; điểm 0.5–< 0.9 hoặc quét thất bại vào hàng chờ duyệt của Mod như bài không thuộc nhóm (BR-M03-25). |
