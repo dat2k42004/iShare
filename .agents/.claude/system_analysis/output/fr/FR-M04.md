@@ -2,11 +2,11 @@
 module: M04
 ten_module: Comment
 ma_tai_lieu: FR-M04
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
-ngay: 2026-10-20
+ngay: 2026-10-23
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-183, QA-349, ISS-289, OPEN-012
+moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M04 Comment
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M04 — Comment |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
-| Ngày | 2026-10-21 |
+| Phiên bản | 1.3 |
+| Ngày | 2026-10-23 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -117,7 +117,7 @@ trích dẫn), chỉ nhận upvote để đánh giá mức độ hữu ích củ
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-183, QA-349, ISS-289, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -349,7 +349,7 @@ cột MoSCoW ở dòng M04 của bảng Module List bị lệch nên không dùn
 | BR-M04-09 | Sự kiện | Phản ứng duy nhất trên bình luận là upvote; không có downvote hay phản ứng khác. Nội dung không phù hợp được xử lý bằng báo cáo (M08). | — |
 | BR-M04-10 | Sự kiện | Bình luận không có Topic hay Tag riêng; bình luận thuộc ngữ cảnh Topic, Tag của bài chứa nó. | — |
 | BR-M04-11 | Sự kiện | MS1 không có Accepted Answer: không có thao tác đánh dấu một bình luận là câu trả lời tốt nhất. | — |
-| BR-M04-12 | Ràng buộc | Bình luận hiển thị ngay khi được gửi, không qua bước quét trước khi đăng. Việc quét bình luận sau khi đăng thuộc M08. | — |
+| BR-M04-12 | Ràng buộc | Bình luận hiển thị ngay khi được gửi, không qua bước quét trước khi đăng. Việc quét bình luận sau khi đăng thuộc M08; bình luận của Admin không bị quét và không báo cáo được (M08). | — |
 | BR-M04-13 | Ràng buộc | Bình luận đang Bị ẩn không hiển thị nội dung trong luồng cho ai, kể cả tác giả. Bình luận gốc Bị ẩn còn ít nhất một trả lời hiển thị bình thường hiện dấu "[Bình luận đã bị xóa]" như bình luận đã xóa; trả lời Bị ẩn không hiện, các trả lời có bình luận được trả lời là nó hiện "trả lời [bình luận đã bị xóa]". | Bình luận gốc A của X bị ẩn, có trả lời B, C của người khác: X, Y và Guest đều thấy dấu ở chỗ A và thấy B, C. Trả lời D của X bị ẩn: không ai thấy D; trả lời E trả lời D hiện "trả lời [bình luận đã bị xóa]". |
 | BR-M04-14 | Ràng buộc | Trong khi bài ở mức Khóa bình luận hoặc Khóa toàn bộ, không ai tạo được bình luận gốc hay trả lời mới trên bài; bình luận đã có vẫn hiển thị. | — |
 | BR-M04-15 | Ràng buộc | Người đang ở mức cảnh cáo HEAVY không tạo được bình luận gốc hay trả lời; mức LIGHT và MEDIUM vẫn bình luận được. | X ở mức MEDIUM (3 lần cảnh cáo): viết bình luận → được. Y ở mức HEAVY (5 lần cảnh cáo): viết bình luận hoặc trả lời → bị từ chối. |
@@ -393,7 +393,7 @@ cột MoSCoW ở dòng M04 của bảng Module List bị lệch nên không dùn
 
 <!-- Đã xóa là trạng thái cuối: không khôi phục (FR-M04-05.04), không xóa hẳn (FR-M04-05.07).
      Bị ẩn do điểm ≥ 0,9 hoặc do Mod ẩn khi xử lý báo cáo là trạng thái cuối: bình luận không có khiếu nại (DEC-115, DEC-180);
-     bình luận có hiện lại khi khiếu nại cảnh cáo, ban liên quan thành công không: TBD-M04-01.
+     bình luận không hiện lại khi cảnh cáo, ban liên quan bị lật trên khiếu nại (DEC-201, M09).
      Bị ẩn → Đã xóa không có: tác giả không xóa được bình luận đang bị ẩn (FR-M04-05.10).
      Bị ẩn → Bình thường suy ra từ DEC-098 "hold for mod review".
      Sửa nội dung không đổi trạng thái kiểm duyệt (DEC-077: sửa không tự kích hoạt quét lại).
@@ -405,7 +405,7 @@ cột MoSCoW ở dòng M04 của bảng Module List bị lệch nên không dùn
 |---|---|---|---|
 | Cung cấp | M01 | Lưu, sửa, xóa bình luận chứa lượt nhắc tên (lượt nhắc đi theo bình luận); bình luận hiển thị công khai ngay khi gửi, là mốc gửi thông báo nhắc tên | FR-M04-02.01, FR-M04-02.02, FR-M04-03.04, FR-M04-04.01, FR-M04-05.02, FR-M04-05.03 |
 | Cung cấp | M07 | Sự kiện có bình luận gốc mới trên bài, có trả lời vào một bình luận; nơi mở bình luận bị ẩn từ thông báo "Bình luận của bạn đã bị ẩn" và thông báo xử lý | FR-M04-02.01, FR-M04-03.02, FR-M04-03.03, FR-M04-06.01, FR-M04-06.02 |
-| Cung cấp | M08 | Bình luận và luồng bình luận để báo cáo và quét AI sau khi đăng; trạng thái kiểm duyệt Bình thường, Bị ẩn; nội dung bình luận đã xóa được giữ để Mod, Admin xem trong báo cáo, lịch sử báo cáo | FR-M04-02.02, FR-M04-03.04, FR-M04-01.09, FR-M04-05.07 |
+| Cung cấp | M08 | Bình luận và luồng bình luận để báo cáo và quét AI sau khi đăng (bình luận của Admin không bị quét, không báo cáo được, DEC-195); trạng thái kiểm duyệt Bình thường, Bị ẩn; nội dung bình luận đã xóa được giữ để Mod, Admin xem trong báo cáo, lịch sử báo cáo | FR-M04-02.02, FR-M04-03.04, FR-M04-01.09, FR-M04-05.07 |
 | Cung cấp | M09 | Nơi chủ bình luận xem lại bình luận từ khiếu nại cảnh cáo, ban liên quan; nội dung bình luận đã xóa được giữ để xét khiếu nại | FR-M04-06.03, FR-M04-05.07 |
 | Cung cấp | M12 | Bình luận là đối tượng của upvote bình luận; thời điểm tác giả xóa bình luận (mốc trừ điểm) | FR-M04-05.01, FR-M04-05.02, FR-M04-05.03 |
 | Cung cấp | M05, M06, M14 | Bình luận (gồm trả lời) với thời điểm đăng và việc bị xóa, dùng cho Trending và xếp hạng; bình luận không được tìm kiếm | FR-M04-02.01, FR-M04-03.02, FR-M04-05.02 |
@@ -444,6 +444,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-14 | Chốt sau 7 bước; bổ sung DEC-178–183 (xóa mềm, bình luận bị ẩn, giới hạn 1.000 từ, trích dẫn khi trả lời) | Phạm Văn Đức |
 | 1.1 | 2026-10-20 | Đối chiếu với FR-M06: ghi chuỗi DEC-208, DEC-211 ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231, DEC-234, DEC-235, DEC-237): "Dùng M11" ghi rõ người ngoài bình luận bài nhóm Public, gỡ bình luận khỏi nhóm, nhóm Bị khóa, người đã rời nhóm Private; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: bình luận của Admin không bị quét, không báo cáo được (DEC-195, BR-M04-12, dòng Cung cấp M08); đóng TBD-M04-01 (DEC-201); ghi chú thời điểm trừ điểm bình luận theo DEC-241, DEC-231. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -536,7 +537,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M04-09 | DEC-041 | Nói thẳng | — |
 | BR-M04-10 | QA-108 | Nói thẳng | — |
 | BR-M04-11 | DEC-169 | Nói thẳng | — |
-| BR-M04-12 | DEC-077 | Nói thẳng | — |
+| BR-M04-12 | DEC-077, DEC-195 | Nói thẳng | — |
 | BR-M04-13 | DEC-180, DEC-181, DEC-083 | Nói thẳng | — |
 | BR-M04-14 | DEC-033, DEC-167 | Suy ra | "blocks new comments" ⇒ trả lời cũng là bình luận mới nên bị chặn; bình luận đã có vẫn hiển thị |
 | BR-M04-15 | DEC-079 | Nói thẳng | — |
@@ -576,7 +577,7 @@ Chưa có — chờ giai đoạn thiết kế.
 
 | ID | Nội dung | Ảnh hưởng | Lý do chưa chốt |
 |---|---|---|---|
-| TBD-M04-01 | Bình luận đang bị ẩn có hiện lại khi khiếu nại cảnh cáo, ban gắn với nó thành công không | Thấp | OPEN-012 hoãn có chủ đích, chốt khi viết FR-M09 |
+| TBD-M04-01 | (Đã đóng ở phiên bản 1.3 — DEC-201: bình luận bị ẩn vẫn Bị ẩn khi cảnh cáo, ban gắn với nó bị lật) | Thấp | Đã chốt |
 
 ### B.3 Cần cân nhắc (ngoài dữ liệu hiện có)
 
@@ -647,7 +648,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-102 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B. M11: vai trò nhóm bình luận, ẩn/xóa bình luận trong nhóm |
 | DEC-105 | Phụ thuộc | Sửa một phần bởi DEC-113 | Chuyển M11 | Nhóm B. M11: rời nhóm, bình luận giữ nguyên; nhóm bị xóa thì nội dung ẩn |
 | DEC-108 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B. M11: nhóm chuyển Private → bình luận báo lỗi |
-| DEC-113 | Phụ thuộc | Hiện hành | FR-M04-01.11, FR-M04-01.12, FR-M04-02.08, FR-M04-03.09, BR-M04-17 | Nhóm B. M12: trừ điểm khi tự xóa hoặc bị Mod xóa; bình luận ẩn theo bài cha không trừ. Thời điểm trừ điểm "sau cửa sổ xóa mềm 7 ngày" không khớp bình luận (xóa vĩnh viễn, DEC-043) — để M12 xử lý |
+| DEC-113 | Phụ thuộc | Sửa một phần bởi DEC-231, DEC-241 | FR-M04-01.11, FR-M04-01.12, FR-M04-02.08, FR-M04-03.09, BR-M04-17 | Nhóm B. M12: trừ điểm khi tự xóa hoặc bị Mod xóa; bình luận ẩn theo bài cha không trừ. Bình luận do tác giả tự xóa bị trừ điểm ngay lúc xóa; bình luận bị AI ẩn ≥ 0,9 trừ ngay, 0,5–< 0,9 trừ khi Mod kết luận vi phạm (DEC-241, M12); gỡ khỏi nhóm không trừ (DEC-231) |
 | DEC-115 | Phụ thuộc | Hiện hành | BR-M04-23 | Nhóm B. M09: khiếu nại xóa nội dung chỉ cho bài, không cho bình luận |
 | DEC-116 | Nhắc tới | Hiện hành | Không áp dụng: M12: Comment Star = 1 điểm | Nhóm B. M12: Comment Star = 1 điểm |
 | DEC-119 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B. M12: rút lại upvote |
@@ -829,7 +830,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-349 | Sở hữu | Trùng với DEC-179 | — | Nhóm A. Câu trả lời FR M04, chốt ở DEC-179 |
 | OPEN-010 | Nhắc tới | Hiện hành | Không áp dụng: M03: áp xóa mềm cho bài viết sau 7 ngày khôi phục | Nhóm B. M03: áp xóa mềm cho bài viết sau 7 ngày khôi phục |
 | OPEN-011 | Nhắc tới | Hiện hành | Không áp dụng: M11, M16: xét nguyên tắc xóa mềm khi viết FR | Nhóm B. M11, M16: xét nguyên tắc xóa mềm khi viết FR |
-| OPEN-012 | Phụ thuộc | Hiện hành | TBD-M04-01 | Nhóm B. M09: bình luận bị ẩn có hiện lại khi khiếu nại cảnh cáo, ban thành công |
+| OPEN-012 | Phụ thuộc | Bị thay bởi DEC-201 | — | Nhóm B. M09: bình luận bị ẩn có hiện lại khi khiếu nại cảnh cáo, ban thành công |
 | DEC-074 | Phụ thuộc | Hiện hành | FR-M04-06, FR-M04-06.02, BR-M04-22 | Nhóm C. M08: thông báo kết quả xử lý gửi người vi phạm |
 | DEC-076 | Phụ thuộc | Hiện hành | BR-M04-21 | Nhóm C. M08: báo cáo gom theo đối tượng; lịch sử báo cáo |
 | DEC-163 | Phụ thuộc | Hiện hành | Chuyển M03 | Nhóm C. M03: mức cảnh cáo chỉ chặn tạo bài mới, vẫn cho sửa bài cũ; DEC-178 áp cùng nguyên tắc |
@@ -838,6 +839,10 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-234 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: người ngoài bình luận bài nhóm Public |
 | DEC-235 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: nhóm Bị khóa chặn bình luận và thao tác quản trị |
 | DEC-237 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: người đã rời nhóm Private không sửa, xóa bình luận của mình |
+| DEC-195 | Phụ thuộc | Hiện hành | BR-M04-12 | Nhóm B (rà lại 1.3). M09: bình luận của Admin không bị AI quét, không báo cáo được; áp ở M08 |
+| DEC-201 | Phụ thuộc | Hiện hành | Chuyển M09 | Nhóm B (rà lại 1.3). M09: bình luận bị ẩn không hiện lại khi cảnh cáo, ban liên quan bị lật; đóng OPEN-012 |
+| DEC-231 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (rà lại 1.3). M11: gỡ bình luận khỏi nhóm không trừ điểm |
+| DEC-241 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: thời điểm trừ điểm của bình luận |
 
 ### C.2 Chuỗi quyết định
 
@@ -866,3 +871,6 @@ Chưa có — chờ giai đoạn thiết kế.
 | DM-10.2, GL:Moderator (MOD) → DEC-180 | Với bình luận của người khác, Mod, Admin chỉ có thao tác Ẩn; "Delete comment" của draft là Ẩn. Mod, Admin xem nội dung bình luận đã xóa qua báo cáo, lịch sử báo cáo, khiếu nại (DEC-179). |
 | DEC-077, DEC-115 → DEC-179 | Chủ bình luận xem lại, chỉ đọc, bình luận của mình bị ẩn hoặc bị xử lý khi mở từ thông báo xử lý (DEC-074) hoặc khiếu nại; không thấy thông tin người báo cáo. |
 | DEC-079 → DEC-211; QA-011 → DEC-208 (M06) | Chỉ sửa phần thuộc M06: cách áp giảm hạng ×0,5 khi tìm bài (DEC-211); Guest tìm bài bằng full-text (DEC-208). Bình luận vẫn không được tìm; quyền Guest xem bình luận không đổi. |
+| OPEN-012 → DEC-201 | Bình luận bị ẩn không hiện lại khi cảnh cáo, ban gắn với nó bị lật. |
+| DEC-077 → DEC-195 | Bình luận của Admin không bị AI quét và không báo cáo được; phần còn lại của việc quét sau khi đăng giữ nguyên (M08). |
+| DEC-113 → DEC-231, DEC-241 | Bình luận do tác giả tự xóa bị trừ điểm ngay lúc xóa (không chờ 7 ngày như bài); bình luận bị AI ẩn ≥ 0,9 trừ ngay, 0,5–< 0,9 trừ khi Mod kết luận vi phạm; gỡ khỏi nhóm không trừ. Việc trừ điểm thuộc M12. |

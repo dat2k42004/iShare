@@ -2,11 +2,11 @@
 module: M07
 ten_module: Notification
 ma_tai_lieu: FR-M07
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
-ngay: 2026-10-21
+ngay: 2026-10-23
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-220, QA-411, ISS-351, OPEN-012
+moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M07 Notification
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M07 — Notification |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
-| Ngày | 2026-10-21 |
+| Phiên bản | 1.3 |
+| Ngày | 2026-10-23 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -106,7 +106,7 @@ Module Notification cho người dùng biết những việc xảy ra liên quan
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-220, QA-411, ISS-351, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -122,7 +122,7 @@ Module Notification cho người dùng biết những việc xảy ra liên quan
 | M09 Appeal | Sự kiện kết luận khiếu nại; đường dẫn khiếu nại trong thông báo. |
 | M10 Admin Panel | Sự kiện đề xuất làm Mod, đề xuất làm Admin; trạng thái hết hiệu lực của đề xuất. |
 | M11 Group | Sự kiện mời, gia nhập, duyệt, thăng cấp, kick trong nhóm; quyền xem nhóm Private. |
-| M12 Gamification | Sự kiện upvote, badge, mốc điểm, danh hiệu tuần. |
+| M12 Gamification | Sự kiện upvote, đạt badge (cũng là "mốc điểm"), danh hiệu tuần. |
 | M14 Feed & Discovery | Dùng quan hệ theo dõi cho tab Following. |
 | M16 Chat & Messaging | Sự kiện tin nhắn mới, mốc đã đọc tin nhắn, cuộc trò chuyện đang xem; popup tin nhắn, tắt thông báo theo cuộc trò chuyện và toàn bộ Chat. |
 
@@ -391,7 +391,7 @@ Các sự kiện phát sinh từ module Should (M11 Group, M12 Gamification, M16
 
 | ID | Loại | Quy tắc | Ví dụ |
 |---|---|---|---|
-| BR-M07-01 | Sự kiện | Sự kiện sinh thông báo trong ứng dụng: mật khẩu đã đổi (đổi trong Cài đặt hoặc đặt lại); đã liên kết Google; có người theo dõi mới; người bạn theo dõi có bài mới; bài được đăng, bị từ chối, bị ẩn, poll kết thúc; upvote bài viết, upvote bình luận (gộp theo BR-M07-05); bình luận mới, trả lời, nhắc tên; "Bình luận của bạn đã bị ẩn" khi AI ẩn bình luận; kết quả báo cáo, nhận cảnh cáo; ban, gỡ ban; kết luận khiếu nại về ban, về bài viết, về cảnh cáo; nhóm: được mời (kèm link mời), có yêu cầu tham gia mới, yêu cầu được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bài hoặc bình luận bị gỡ khỏi nhóm (người nhận và các trường hợp không thông báo theo M11); badge, mốc điểm, danh hiệu tuần; đề xuất làm Mod, đề xuất làm Admin. | — |
+| BR-M07-01 | Sự kiện | Sự kiện sinh thông báo trong ứng dụng: mật khẩu đã đổi (đổi trong Cài đặt hoặc đặt lại); đã liên kết Google; có người theo dõi mới; người bạn theo dõi có bài mới; bài được đăng, bị từ chối, bị ẩn, poll kết thúc; upvote bài viết, upvote bình luận (gộp theo BR-M07-05); bình luận mới, trả lời, nhắc tên; "Bình luận của bạn đã bị ẩn" khi AI ẩn bình luận; kết quả báo cáo, nhận cảnh cáo; ban, gỡ ban; kết luận khiếu nại về ban, về bài viết, về cảnh cáo; nhóm: được mời (kèm link mời), có yêu cầu tham gia mới, yêu cầu được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bài hoặc bình luận bị gỡ khỏi nhóm (người nhận và các trường hợp không thông báo theo M11); đạt badge ("mốc điểm" chính là đạt badge, không có thông báo mốc điểm riêng), đạt danh hiệu "Ngôi sao tuần"; đề xuất làm Mod, đề xuất làm Admin. | — |
 | BR-M07-02 | Sự kiện | Tin nhắn mới trong cuộc trò chuyện 1-1 hoặc nhóm chat được báo bằng popup nhỏ (BR-M07-28) và bằng số trên biểu tượng Tin nhắn; không hiện ở chuông thông báo, không gửi email. Số trên biểu tượng Tin nhắn là số cuộc trò chuyện có tin chưa đọc, gồm cả cuộc đã tắt thông báo. | Bình gửi An 5 tin, Chi gửi An 2 tin, An chưa đọc → biểu tượng Tin nhắn hiện 2; chuông của An không đổi; An không nhận email. An đọc cuộc với Bình → còn 1. |
 | BR-M07-03 | Ràng buộc | Chỉ các sự kiện sau được gửi thêm qua email: mật khẩu đã đổi, đã liên kết Google, cảnh báo trước khi tự xóa, ban, gỡ ban, kết luận khiếu nại về ban. Mọi sự kiện khác chỉ báo trong ứng dụng. Không có email tổng hợp. | An bị ban: thông báo trong ứng dụng và email. An nhận cảnh cáo: chỉ trong ứng dụng. Khiếu nại ban của An được kết luận: trong ứng dụng và email; khiếu nại cảnh cáo được kết luận: chỉ trong ứng dụng. |
 | BR-M07-04 | Kích hoạt | Cảnh báo trước khi tự xóa chỉ gửi qua email, không có thông báo trong ứng dụng; gửi đúng một email, lúc còn 24 giờ trước khi tài khoản DEACTIVATED tự chuyển DELETED. | Vô hiệu hóa 01/10 21:00 → DELETED lúc 15/10 21:00 → email cảnh báo lúc 14/10 21:00. Kích hoạt lại lúc 14/10 20:00 → không gửi email. |
@@ -491,7 +491,7 @@ trạng thái riêng (FR-M07-09.03, FR-M07-09.04). Quan hệ theo dõi không c�
 | Dùng | M09 | Sự kiện kết luận khiếu nại; thông báo gộp bài bị AI từ chối và cảnh cáo AI | FR-M07-02.01, FR-M07-02.13 |
 | Dùng | M10 | Sự kiện đề xuất làm Mod, đề xuất làm Admin, đề xuất lại; đề xuất quá hạn hoặc bị đề xuất mới thay | FR-M07-02.14, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32 |
 | Dùng | M11 | Sự kiện nhóm kèm người nhận: mời (kèm link mời), yêu cầu tham gia mới (Owner, Group Mod), yêu cầu được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bài hoặc bình luận bị gỡ khỏi nhóm; quyền xem nội dung nhóm Private | FR-M07-02.01, FR-M07-02.11 |
-| Dùng | M12 | Sự kiện upvote, bỏ upvote bài và bình luận, badge, mốc điểm, danh hiệu tuần | FR-M07-02.01, FR-M07-02.03, FR-M07-02.19 |
+| Dùng | M12 | Sự kiện upvote, bỏ upvote bài và bình luận, đạt badge (cũng là "mốc điểm"), đạt danh hiệu tuần; sự kiện vẫn phát sinh khi cờ Gamification tắt (DEC-245) | FR-M07-02.01, FR-M07-02.03, FR-M07-02.19 |
 | Dùng | M16 | Tin nhắn mới, thành viên cuộc trò chuyện, mốc đã đọc tin nhắn, cuộc trò chuyện người dùng đang xem, hộp thư Chat | FR-M07-07.02, FR-M07-07.03, FR-M07-07.05, FR-M07-07.06, FR-M07-09.05 |
 | Cung cấp | M01 | Quan hệ theo dõi để xếp danh sách gợi ý nhắc tên | FR-M07-01.01 |
 | Cung cấp | M02 | Quan hệ theo dõi và thời điểm bắt đầu theo dõi, để hiện số và danh sách người theo dõi, đang theo dõi | FR-M07-01.01 |
@@ -522,6 +522,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-21 | Bỏ các yêu cầu viết trùng với module sở hữu (FR-M07-01.05–.07, 02.05, 02.06, 02.12, 04.05, 04.07, 05.08; BR-M07-16, 17, 19), trỏ tới FR-M01, M04, M05, M09; chốt tài liệu | Phạm Văn Đức |
 | 1.1 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-221, DEC-222): thêm thông báo "Đề xuất làm Admin"; đề xuất có hạn 7 ngày, hiện "Đã hết hạn" (FR-M07-02.31, 02.32); bỏ FR-M07-02.29 (không hết hạn); sửa BR-M07-01, BR-M07-20, giao tiếp M10, C.1, C.2. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231, DEC-237, DEC-238): sự kiện nhóm trong BR-M07-01 gồm mời kèm link, yêu cầu tham gia mới, được chấp nhận, được bổ nhiệm, bị kick, trở thành Owner, bị gỡ khỏi nhóm; người nhận theo M11; cập nhật "Dùng M11". Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: "mốc điểm" là đạt badge, không có thông báo riêng (DEC-246: BR-M07-01); dòng Dùng M12; C.1 DEC-121 theo DEC-242, DEC-247. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -633,7 +634,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M07-09.05 | DEC-070 | Suy ra | "mute individual DM/Group chat threads" của chính người dùng ⇒ chỉ thành viên |
 | FR-M07-09.06 | DEC-126 | Suy ra | Guest không nhắn tin được (QA-011) |
 | FR-M07-09.07 | DEC-219 | Nói thẳng | — |
-| BR-M07-01 | DEC-065, DEC-147, DEC-151, DEC-180, DEC-091, DEC-215, DM-8.1, DEC-221, DEC-231, DEC-237, DEC-238  | Suy ra | DEC-065 ghi "Appeal — post/comment/warn-related"; bình luận không có khiếu nại (DEC-180) nên chỉ còn bài viết, cảnh cáo. "Đề xuất làm Mod" thêm từ DEC-091, "bài mới của người đang theo dõi" từ DEC-215 |
+| BR-M07-01 | DEC-065, DEC-147, DEC-151, DEC-180, DEC-091, DEC-215, DM-8.1, DEC-221, DEC-231, DEC-237, DEC-238, DEC-246 | Suy ra | DEC-065 ghi "Appeal — post/comment/warn-related"; bình luận không có khiếu nại (DEC-180) nên chỉ còn bài viết, cảnh cáo. "Đề xuất làm Mod" thêm từ DEC-091, "bài mới của người đang theo dõi" từ DEC-215 |
 | BR-M07-02 | DEC-065, DEC-067, ISS-165, DEC-219, DEC-220 | Nói thẳng | — |
 | BR-M07-03 | DEC-065, DEC-147, DEC-151, ISS-165 | Nói thẳng | — |
 | BR-M07-04 | DEC-065, DEC-149 | Nói thẳng | — |
@@ -702,7 +703,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 
 | Nguồn | Nhãn | Trạng thái | Dùng ở | Ghi chú |
 |---|---|---|---|---|
-| DEC-065 | Sở hữu | Sửa một phần bởi DEC-147, DEC-151, DEC-180, DEC-091, DEC-198, DEC-215, DEC-218, DEC-221 | FR-M07-01.04, FR-M07-02, FR-M07-02.01, FR-M07-02.02, FR-M07-04, FR-M07-04.01, FR-M07-04.04, FR-M07-04.06, FR-M07-05.05, FR-M07-07, BR-M07-01, BR-M07-02, BR-M07-03, BR-M07-04 | Nhóm A. Danh sách sự kiện và kênh (trong ứng dụng, email); không có email tổng hợp. DEC-091, DEC-198 sửa không có dấu (xem C.2) |
+| DEC-065 | Sở hữu | Sửa một phần bởi DEC-147, DEC-151, DEC-180, DEC-091, DEC-198, DEC-215, DEC-218, DEC-221, DEC-246 | FR-M07-01.04, FR-M07-02, FR-M07-02.01, FR-M07-02.02, FR-M07-04, FR-M07-04.01, FR-M07-04.04, FR-M07-04.06, FR-M07-05.05, FR-M07-07, BR-M07-01, BR-M07-02, BR-M07-03, BR-M07-04 | Nhóm A. Danh sách sự kiện và kênh (trong ứng dụng, email); không có email tổng hợp. DEC-091, DEC-198 sửa không có dấu (xem C.2) |
 | DEC-066 | Sở hữu | Sửa một phần bởi DEC-216 | FR-M07-02, FR-M07-02.03, FR-M07-02.04, BR-M07-05 | Nhóm A. Gộp thông báo upvote trong cửa sổ 5 phút |
 | DEC-067 | Sở hữu | Sửa một phần bởi DEC-217, DEC-219, DEC-220 | FR-M07-02.10, FR-M07-05, FR-M07-05.01, FR-M07-05.02, FR-M07-06, FR-M07-06.01, FR-M07-06.02, FR-M07-06.03, FR-M07-06.05, FR-M07-07, FR-M07-07.01, FR-M07-07.02, FR-M07-07.03, FR-M07-07.04, BR-M07-02, BR-M07-12, BR-M07-14 | Nhóm A. Chuông: danh sách gần nhất + trang /notifications; biểu tượng Tin nhắn riêng; đánh dấu đã đọc |
 | DEC-068 | Sở hữu | Sửa một phần bởi DEC-220 | FR-M07-04, FR-M07-04.01, FR-M07-04.02, FR-M07-04.03, BR-M07-11 | Nhóm A. Email gửi bất đồng bộ qua hàng đợi, quét mỗi phút |
@@ -763,7 +764,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-091 | Phụ thuộc | Sửa một phần bởi DEC-220, DEC-221, DEC-222 | FR-M07-02, FR-M07-02.14, FR-M07-02.15, FR-M07-02.16, BR-M07-01, BR-M07-20, FR-M07-02.31, FR-M07-02.32 | Nhóm B. M10: người dùng nhận thông báo "Đề xuất làm Mod" có Chấp nhận/Từ chối |
 | DEC-102 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B. M11: ai được kick, promote trong nhóm (nguồn sự kiện nhóm) |
 | DEC-110 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B. M11: mời vào nhóm Private qua lời mời/link; không có lời mời có Chấp nhận/Từ chối. DEC-210 (ngoài bảng nguồn) làm rõ phần tìm kiếm, không chạm M07 |
-| DEC-121 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B. M12: thông báo trao danh hiệu tuần, trễ tối đa 60 phút |
+| DEC-121 | Phụ thuộc | Sửa một phần bởi DEC-242, DEC-247 | Chuyển M12 | Nhóm B. M12: thông báo trao danh hiệu tuần, trễ tối đa 60 phút |
 | DEC-125 | Nhắc tới | Sửa một phần bởi DEC-215 | FR-M07-01 | Nhóm B. M14: tab Following dùng đối tượng theo dõi của M07 |
 | DEC-126 | Phụ thuộc | Hiện hành | FR-M07-01, FR-M07-01.03, FR-M07-05.06, FR-M07-06.06, FR-M07-08.05, FR-M07-09.06, BR-M07-15 | Nhóm B. M14: theo dõi cần đăng nhập |
 | DEC-129 | Phụ thuộc | Sửa một phần bởi DEC-156 | FR-M07-05.07, BR-M07-13 | Nhóm B. Dùng chung: nguyên tắc giữ dữ liệu, nhất quán DEC-071 |
@@ -907,6 +908,9 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-231 | Phụ thuộc | Hiện hành | BR-M07-01 | Nhóm B (đối chiếu FR-M11). M11: thông báo bài, bình luận bị gỡ khỏi nhóm |
 | DEC-237 | Phụ thuộc | Hiện hành | BR-M07-01 | Nhóm B (đối chiếu FR-M11). M11: thông báo yêu cầu tham gia mới, trở thành Owner; không thông báo khi vào ngay, bị từ chối, bị giáng |
 | DEC-238 | Phụ thuộc | Hiện hành | BR-M07-01 | Nhóm B (đối chiếu FR-M11). M11: thông báo mời kèm link mời chung của nhóm |
+| DEC-242 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: bảng Tuần, Tháng hiện chu kỳ vừa chốt; thông báo danh hiệu vẫn trễ tối đa 60 phút sau lúc chốt |
+| DEC-245 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: khi cờ Gamification tắt, thông báo badge, danh hiệu vẫn gửi |
+| DEC-246 | Phụ thuộc | Hiện hành | BR-M07-01 | Nhóm B (rà lại 1.3). M12: "mốc điểm" là đạt badge |
 
 <!-- Nhãn: Sở hữu · Phụ thuộc · Nhắc tới · Loại (khớp nhầm)
      Trạng thái: Hiện hành · Sửa một phần bởi X · Bị thay bởi X · Trùng với X · Mâu thuẫn với X
@@ -941,3 +945,4 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 
 **Cạnh bị bác bỏ:** DEC-180 ← OPEN-012 (dấu ghi DEC-201 đóng OPEN-012; OPEN-012 không sửa DEC-180); DEC-020 ← DEC-209 (DEC-209 chỉ được trích làm chuẩn khớp tên; mục sửa là DEC-214). Các cạnh còn lại của tool tác động lên mục ngoài bảng nguồn (DEC-008, DEC-011, DEC-019, DEC-030, DEC-038, DEC-043, DEC-048–050, DEC-064, DEC-072, DEC-077, DEC-082, DEC-088, DEC-090, DEC-115, DEC-162, DEC-166, F-GRP-06, GL:Accepted Answer, GL:Topic, MR-M01, MR-M03, MR-M11, QA-011, QA-018, QA-021, QA-107, QA-160, QA-328): đúng nhưng không chạm M07.
 | DEC-065 → DEC-231, DEC-237, DEC-238 | Sự kiện nhóm (chỉ trong ứng dụng): được mời kèm link, yêu cầu tham gia mới, được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bị gỡ khỏi nhóm; người nhận và các trường hợp không thông báo do M11 quyết. |
+| DEC-065 → DEC-246 | Sự kiện "point milestone" của DEC-065 chính là đạt badge: một thông báo cho mỗi badge, không có thông báo mốc điểm riêng. |

@@ -2,11 +2,11 @@
 module: M11
 ten_module: Group
 ma_tai_lieu: FR-M11
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-10-21
+ngay: 2026-10-23
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-240, QA-433, ISS-371, OPEN-012
+moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M11 Group
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M11 — Group |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-21 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-23 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -135,7 +135,7 @@ theo quyền xem khi nhóm ở chế độ Private.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-240, QA-433, ISS-371, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -781,6 +781,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | Cung cấp | M09 | Quyết định kiểm duyệt cấp nhóm không khiếu nại được; bài nhóm bị AI tự từ chối khiếu nại được như bài thường | FR-M11-13.07, FR-M11-14.03, FR-M11-13.12 |
 | Dùng | M10 | Cờ tính năng Group | FR-M11-17.01, FR-M11-17.03 |
 | Cung cấp | M12 | Nhóm bị xóa, thành viên rời hoặc bị kick, nội dung bị gỡ khỏi nhóm, để M12 không trừ điểm | FR-M11-15.03, FR-M11-09.05, FR-M11-10.02, FR-M11-14.07 |
+| Cung cấp | M12 | Quyền vote bài nhóm: thành viên vote bài nhóm mình; người ngoài nhóm đã đăng nhập vote bài nhóm Public; nhóm Private (kể cả vừa chuyển Private) và nhóm Bị khóa chặn vote | FR-M11-03.07, FR-M11-03.08, FR-M11-03.13, FR-M11-02.03, FR-M11-16.04 |
 | Dùng | M13 | Điểm quét của bài trong nhóm, cùng ngưỡng 0.9, 0.5 | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 |
 | Cung cấp | M14 | Bài nhóm cho tab Group của thành viên; bài nhóm Public cho Trending, không cho Newest; trang danh sách nhóm cho nút "Khám phá Group"; lối vào vẫn hiện khi cờ Group tắt | FR-M11-03.05, FR-M11-12.12, FR-M11-12.13, FR-M11-03.16, FR-M11-17.07 |
 
@@ -806,6 +807,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-21 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-21 | Chốt sau 7 bước; câu trả lời bước 6 và sửa ở bước 7 (bài của Owner không qua duyệt của nhóm) ghi ở DEC-229–240 | Phạm Văn Đức |
+| 1.1 | 2026-10-23 | Rà lại với register tới DEC-247: thêm dòng Cung cấp M12 về quyền vote bài nhóm, khớp FR-M12. Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

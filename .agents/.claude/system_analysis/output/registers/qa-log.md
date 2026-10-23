@@ -257,6 +257,8 @@
 
 **[Amended 2026-10-11 — DEC-149: bình luận của tài khoản đã xóa giữ nội dung, tác giả "[Người dùng đã xóa]"]**
 
+**[Amended 2026-10-23 — DEC-246: nhãn "[Người dùng đã xóa]"; Toàn thời gian loại ngay]**
+
 ---
 
 ### QA-019
@@ -497,6 +499,8 @@
 - **Answer:** Time windows: Weekly / Monthly / All-time (không reset score, chỉ sum upvotes trong window). Grade filter: 10 / 11 / 12 / all (all bao gồm cả users không có grade). Scope: global only (không per-group).
 - **Decision triggered:** —
 - **Implication:** Leaderboard query: `SUM(upvotes_received) WHERE created_at IN [window]`, optional grade filter.
+
+**[Clarified 2026-10-23 — DEC-243: điểm theo thời điểm upvote; lọc Lớp/Khối đánh lại hạng]**
 
 ---
 
@@ -927,8 +931,8 @@
 | QA-199 | ISS-REWD-02: Warn level có ảnh hưởng hiển thị leaderboard/reputation không? | Có — nhưng chỉ HEAVY: ẩn hoàn toàn khỏi leaderboard công khai trong suốt thời gian probation. Đây là exception có chủ đích, amend DEC-079 (private scope gốc chỉ nói posts/comments/profile, nay thêm leaderboard eligibility là ngoại lệ công khai duy nhất). MEDIUM/LIGHT không bị ảnh hưởng |
 | QA-200 | ISS-147: Upvote rút lại được không? Điểm xử lý ra sao? | Có — vote là toggle (bấm lại để hủy). Điểm người nhận trừ ngay lập tức khi rút, đối xứng với lúc cộng |
 | QA-201 | ISS-148: Tự vote nội dung của chính mình có được phép không? | Không — hệ thống ẩn/disable nút vote trên chính content của tác giả, chặn gian lận từ gốc |
-| QA-202 | ISS-153: Có cho xem lại leaderboard đầy đủ của các chu kỳ trước không? | Không — chỉ hiển thị trạng thái hiện tại của Weekly/Monthly/All-time (không lưu snapshot lịch sử). Lịch sử "từng đạt danh hiệu gì" vẫn giữ qua title/badge audit trail (DEC-114) |
-| QA-203 | ISS-149: Leaderboard ranking tính real-time hay batch/cache định kỳ? | Batch — gộp thành 1 cron job duy nhất, chạy mỗi 60 phút. Job này vừa refresh ranking hiển thị (cho xem tạm), vừa kiểm tra "có chu kỳ nào vừa đóng chưa" — nếu có, tính lại ranking cuối cùng bằng query chính xác theo đúng mốc thời gian chu kỳ (không dùng số liệu cache), rồi award title + gửi notification. Trễ tối đa 60 phút so với giờ đóng chu kỳ thực, nhưng người thắng luôn đúng |
+| QA-202 | ISS-153: Có cho xem lại leaderboard đầy đủ của các chu kỳ trước không? | Không — chỉ hiển thị trạng thái hiện tại của Weekly/Monthly/All-time (không lưu snapshot lịch sử). Lịch sử "từng đạt danh hiệu gì" vẫn giữ qua title/badge audit trail (DEC-114) **[Amended 2026-10-23 — DEC-242: bảng Tuần, Tháng hiện chu kỳ vừa chốt]** |
+| QA-203 | ISS-149: Leaderboard ranking tính real-time hay batch/cache định kỳ? | Batch — gộp thành 1 cron job duy nhất, chạy mỗi 60 phút. Job này vừa refresh ranking hiển thị (cho xem tạm), vừa kiểm tra "có chu kỳ nào vừa đóng chưa" — nếu có, tính lại ranking cuối cùng bằng query chính xác theo đúng mốc thời gian chu kỳ (không dùng số liệu cache), rồi award title + gửi notification. Trễ tối đa 60 phút so với giờ đóng chu kỳ thực, nhưng người thắng luôn đúng **[Amended 2026-10-23 — DEC-242: bảng Tuần, Tháng hiện chu kỳ vừa chốt]** |
 | QA-204 | ISS-154: Tài khoản bị BAN — có ẩn khỏi leaderboard không? Profile/post/comment còn hiển thị cho người khác không? | Ẩn khỏi leaderboard trong suốt thời gian bị ban (nhất quán với HEAVY warn, mở rộng DEC-118). Nhưng profile/post/comment vẫn hiển thị bình thường cho người khác (không tombstone, không ẩn) — vì Ban khác Delete: có thể unban qua appeal, và nội dung vi phạm cụ thể đã được xử lý riêng qua M08 Report/Moderation, không liên quan đến việc khóa tài khoản |
 | QA-205 | ISS-154 (bổ sung): Nhãn "tài khoản bị khóa" hiển thị ở đâu? | Ở MỌI nơi tên tác giả xuất hiện — trang profile, và cạnh tên tác giả trên từng bài post/comment họ từng đăng. Nhãn: "Tài khoản đã bị khóa" (khác với "Tài khoản tạm thời vô hiệu hoá" dùng cho Deactivate — DEC-019). Khác nguyên tắc private tuyệt đối của Warn (DEC-079) — Ban là mức phạt nặng hơn, mang tính công khai |
 | QA-206 | ISS-150: Hai user bằng điểm nhau trên leaderboard thì xếp hạng thế nào? | Đồng hạng — cả hai cùng hiển thị chung 1 thứ hạng, người tiếp theo nhảy số hạng (giống xếp hạng thể thao/Olympic). Không cần tie-break riêng, nhất quán với nguyên tắc đã chốt ở ISS-152 |
@@ -1277,3 +1281,20 @@
 | QA-431 | ISS-369: Mở rộng phạm vi S1–S3 | "S1: có; S2: có; S3: không mở rộng" |
 | QA-432 | ISS-370: Đóng OPEN-011 phần M11? | "ok" — mọi cách nội dung nhóm mất đi đã là xóa mềm; phần M16 vẫn mở |
 | QA-433 | ISS-371: Bài của Owner có cần nhóm duyệt không? | "bài owner không cần duyệt"; điểm biên: "ok" — điểm ≥ 0.9 vẫn tự từ chối; điểm 0.5–< 0.9 hoặc quét lỗi vào hàng chờ duyệt của Mod hệ thống như bài không thuộc nhóm; điểm < 0.5 hoặc AI tắt thì đăng ngay, bỏ qua công tắc duyệt trước; Owner là Admin thì không quét, đăng ngay |
+
+---
+## Functional Requirement — M12: Gamification (QA-434 → QA-444)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-434 | ISS-372: Tự xóa bình luận thì trừ điểm lúc nào? | "ok, chọn A" — trừ ngay khi tác giả xóa bình luận |
+| QA-435 | ISS-373: Bình luận bị AI tự ẩn có trừ điểm không? | "ok, như đề xuất đi" — điểm quét ≥ 0,9: trừ ngay lúc AI ẩn; 0,5–< 0,9: chỉ trừ khi Mod kết luận vi phạm, tại lúc kết luận |
+| QA-436 | ISS-374: Bảng Tuần, Tháng hiện gì; mốc; Toàn thời gian; người bị loại sau chốt? | "không nhé, nó sẽ phải là tuần qua / tháng qua ấy!" — Tuần, Tháng hiện bảng đã chốt của chu kỳ vừa qua, không hiện chu kỳ đang chạy; "tuần sẽ là 0:00 thứ 2, còn tháng là 0:00 ngày mùng 1"; Toàn thời gian "giữ hiện tại" (tính lại mỗi 60 phút); người bị loại sau lúc chốt: "ok, theo đề xuất" (ẩn dòng lúc xem, người khác giữ hạng đã chốt) |
+| QA-437 | ISS-375: Điểm chu kỳ tính theo thời điểm nào? | "ừm, theo A" — theo thời điểm upvote; chỉ đếm upvote còn hiệu lực lúc chốt, trên nội dung chưa bị trừ điểm; không bao giờ âm |
+| QA-438 | ISS-376: Người 0 điểm có được xếp hạng, nhận danh hiệu không? | "theo đề xuất (A) đi" — chỉ người có điểm chu kỳ > 0 |
+| QA-439 | ISS-377: Danh hiệu hiển thị ở đâu? | "B nhé." — trên hồ sơ cạnh huy hiệu (số lần đạt, các tuần đạt) và dấu cạnh tên người nhận trên bảng Tuần |
+| QA-440 | ISS-378: Bảng xếp hạng hiện gì, bao nhiêu người? | "chọn A cũng được, hiện đủ thông tin" — thứ hạng, avatar, tên hiển thị, username (mở hồ sơ), điểm chu kỳ, dấu "Ngôi sao tuần" (tab Tuần), nhãn tài khoản đã xóa; mọi người có điểm > 0, tải 20 dòng mỗi lần cuộn |
+| QA-441 | ISS-379: Lọc Lớp/Khối thứ hạng thế nào? | "ừ, chọn A" — đánh lại thứ hạng trong nhóm lọc; Lớp/Khối lấy lúc chốt (Toàn thời gian: lần tính gần nhất) |
+| QA-442 | ISS-380: Cờ Gamification tắt thì sao? | "ừ chọn A" — xem DEC-245 |
+| QA-443 | ISS-381: Danh sách xác nhận Q-03, Q-07, Q-08, Q-09, Q-10, Q-12 | "ok" từng mục; Q-03: "khoá toàn bộ là khoá mọi thao tác mà" |
+| QA-444 | ISS-382: Hồ sơ hiện danh hiệu "Ngôi sao tuần" thế nào? | "cái này chỉ hiện nếu tuần vừa rồi được danh hiệu thôi, không cần đếm số lần, các tuần đạt"; "chỉ có badge mới hiện vĩnh viễn thôi!" — mỗi lần đạt vẫn lưu bản ghi (DEC-114), không hiển thị lịch sử |

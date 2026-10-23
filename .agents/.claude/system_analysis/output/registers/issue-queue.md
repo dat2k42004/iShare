@@ -565,3 +565,20 @@
 | ISS-369 | Mở rộng phạm vi: xem danh sách thành viên; rút yêu cầu, bỏ chặn; link mời | Closed | Xem DEC-238 |
 | ISS-370 | OPEN-011 phần M11: nội dung báo cáo được trong nhóm chỉ xóa mềm | Closed | Xem DEC-239 |
 | ISS-371 | Bài của Owner trong nhóm của mình có qua duyệt của nhóm không; bài điểm cao của Owner đi đâu | Closed | Xem DEC-240 |
+
+---
+## Functional Requirement — M12: Gamification | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-372 | Thời điểm trừ điểm khi tác giả tự xóa bình luận (DEC-113 "sau 7 ngày" vs DEC-179 bình luận không khôi phục) | Closed | Xem DEC-241 |
+| ISS-373 | Bình luận bị AI tự ẩn (≥ 0,9; 0,5–< 0,9 chờ Mod) có trừ điểm không | Closed | Xem DEC-241 |
+| ISS-374 | Bảng Tuần, Tháng hiện chu kỳ đang chạy hay chu kỳ vừa qua; mốc tuần, tháng; bảng Toàn thời gian; người bị loại sau lúc chốt | Closed | Xem DEC-242 |
+| ISS-375 | Điểm trong chu kỳ tính theo thời điểm nào khi upvote bị rút hoặc nội dung bị trừ điểm | Closed | Xem DEC-243 |
+| ISS-376 | Người có 0 điểm trong chu kỳ có được xếp hạng, nhận danh hiệu không | Closed | Xem DEC-243 |
+| ISS-377 | Danh hiệu "Ngôi sao tuần" đã đạt hiển thị ở đâu | Closed | Xem DEC-244 |
+| ISS-378 | Bảng xếp hạng hiện những thông tin gì, bao nhiêu người | Closed | Xem DEC-243 |
+| ISS-379 | Lọc Lớp/Khối: đánh lại thứ hạng hay giữ hạng chung; Lớp/Khối lấy lúc nào | Closed | Xem DEC-243 |
+| ISS-380 | Danh sách bị chặn, vẫn chạy, vẫn hiển thị khi cờ Gamification tắt | Closed | Xem DEC-245 |
+| ISS-381 | Danh sách xác nhận: Khóa toàn bộ; thứ tự đồng hạng; HEAVY/BANNED lúc chốt; tài khoản đã xóa, vô hiệu hóa; "mốc điểm"; chốt tháng | Closed | Xem DEC-246 |
+| ISS-382 | Danh hiệu "Ngôi sao tuần" trên hồ sơ: hiện lịch sử các tuần đạt hay chỉ tuần vừa chốt | Closed | Xem DEC-247 |

@@ -481,6 +481,8 @@ Email limited to: security (password change), account-deletion warning, ban/unba
 
 **[Amended 2026-10-21 — DEC-231, DEC-237: thêm thông báo gỡ khỏi nhóm, yêu cầu tham gia mới, trở thành Owner]**
 
+**[Clarified 2026-10-23 — DEC-246: "mốc điểm" là đạt huy hiệu]**
+
 ### DEC-066: Upvote notification batching
 Batch upvotes (post + comment) within a 5-minute rolling window into one notification ("A và N người khác đã upvote..."). Single upvote shows the voter's name directly.
 
@@ -832,9 +834,13 @@ Timing: self-delete → deduction applied only after the 7-day soft-delete windo
 
 **[Clarified 2026-10-21 — DEC-231: gỡ cấp nhóm không trừ điểm]**
 
+**[Clarified 2026-10-23 — DEC-241: bình luận tự xóa trừ ngay; bình luận bị AI ẩn]**
+
 ### DEC-114: Badge permanence and audit trail
 Badges are permanent once earned and are never revoked, even if the user's points later drop below the badge's threshold (including via a legitimate DEC-113 deduction). Rationale: a badge represents an achieved milestone (a historical fact), not a live status — consistent with common platform convention (Stack Overflow, Duolingo); avoids penalizing users for point changes outside their control; avoids the added complexity of live threshold recheck-and-revoke logic. Badge UI displays the date earned rather than re-displaying the threshold value, to avoid the appearance of inconsistency when current points sit below it.
 Audit trail: threshold-based permanent badges get a single audit entry (the date first achieved — they cannot be "re-earned"). Periodic top-N titles (e.g. "Ngôi sao tuần", reset each cycle) get multiple audit entries — one per cycle win, since the same title can be won again in a later cycle.
+
+**[Clarified 2026-10-23 — DEC-244: danh hiệu hiện trên hồ sơ, bảng Tuần]**
 
 ### DEC-115: Content Deletion Appeal — new appeal type, Post only (amends Phase 2 Appeal scope)
 Amends the original Phase 2 decision that Appeal (M09) covers only Warning and Ban. A third appeal type, "Content Deletion Appeal," is added for content removed by Mod/Admin due to violation — **scoped to Post only, explicitly excluding Comment** (posts are higher-value assets; comment volume is too high for a sustainable appeal queue; consistent with DEC-004 treating posts as higher-value than comments).
@@ -856,8 +862,12 @@ Post Star = 2, Comment Star = 1. A stronger 2:1 ratio (rather than a softer 3:2)
 ### DEC-117: Periodic top-N title — cadence and N
 The periodic top-N title ("Ngôi sao tuần") applies to the **Weekly** window only (not Monthly/All-time), with **N = 3** (top 3 users each week receive the title). N is a floor, not a hard cap: if multiple users tie exactly at the cutoff rank, all tied users receive the title that week (see DEC-123 for the tie mechanism) rather than applying a secondary tie-break rule.
 
+**[Clarified 2026-10-23 — DEC-243: chỉ người có điểm chu kỳ > 0]**
+
 ### DEC-118: HEAVY warn — leaderboard exclusion (amends DEC-079)
 A user at **HEAVY** warning level is excluded from the public leaderboard for the duration of their probation period. This is a deliberate, explicit exception carved into DEC-079's "fully private" warning-status guarantee — the only public-facing consequence of a warning. Does not apply to LIGHT or MEDIUM levels. Rationale: losing leaderboard visibility functions as an additional privilege loss at the most severe warning tier (consistent with HEAVY already losing posting/commenting rights per DEC-079), and the stakeholder accepted the trade-off that this may let observant peers infer a HEAVY warning is in effect, despite DEC-079's original bullying-prevention intent — deemed an acceptable, bounded exception rather than a full reversal of that principle.
+
+**[Clarified 2026-10-23 — DEC-242, DEC-246: ẩn sau lúc chốt; xét lúc chốt khi trao danh hiệu]**
 
 ### DEC-119: Vote retraction
 Upvotes are toggleable — a user can retract their own upvote by clicking again. The recipient's point total is deducted immediately upon retraction, symmetric with how it was added.
@@ -870,8 +880,14 @@ Leaderboard ranking (across all three windows — Weekly/Monthly/All-time) is co
 Individual point totals (on a user's own profile) remain real-time, unaffected by this batching — only the aggregate ranked list is batched.
 No historical full-leaderboard view is provided for past cycles (only the current state of each window is shown); past periodic-title wins remain permanently visible through the title/badge audit trail (DEC-114), which is a much narrower record than a full historical ranking snapshot.
 
+**[Amended 2026-10-23 — DEC-242: bảng Tuần, Tháng hiện chu kỳ vừa chốt]**
+
+**[Clarified 2026-10-23 — DEC-247: lịch sử danh hiệu tuần chỉ lưu, không hiển thị]**
+
 ### DEC-122: Banned account — display treatment (extends DEC-118's exception to DEC-079)
 A **BANNED** account is also excluded from the public leaderboard for the duration of the ban, consistent with the HEAVY-warn treatment in DEC-118 (a ban is a more severe sanction than a HEAVY warning). Unlike a HEAVY warning, however, a banned user's profile, posts and comments remain visible to other users as normal — not hidden or tombstoned — because a ban is reversible (via appeal, DEC-089) and distinct from account deletion (DEC-019); any specific violating content is handled separately through the existing M08 report/moderation flow, independent of the account-level ban action. A **"Tài khoản đã bị khóa"** ("Account has been locked") label is shown everywhere the banned user's name appears — on their profile page and next to their author name on every post/comment they've made — a deliberately public label, unlike the strict privacy DEC-079 applies to warning status, since a ban is treated as a more transparent, public-facing sanction.
+
+**[Clarified 2026-10-23 — DEC-242, DEC-246: ẩn sau lúc chốt; xét lúc chốt khi trao danh hiệu]**
 
 ### DEC-123: Leaderboard/title tie handling
 Two mechanisms, kept consistent with each other:
@@ -1182,6 +1198,8 @@ ISS-232 → ISS-260
 ### DEC-167: M03 — Scope of FULLY_LOCKED (clarifies DEC-033)
 - FULLY_LOCKED blocks new comments, upvotes and poll voting (including changing or withdrawing a vote). Bookmark and report remain available.
 - Source: QA-329
+
+**[Clarified 2026-10-23 — DEC-246: chặn cả upvote, rút upvote trên bình luận của bài]**
 
 ### DEC-168: M03 — Moderator visibility of non-public posts
 - MOD and ADMIN do not see other users' DRAFT, self-HIDDEN or REJECTED posts. They see PENDING posts through the review queue, and FLAGGED or moderation-HIDDEN posts through M08/M09.
@@ -1642,6 +1660,8 @@ ISS-345 → ISS-351
 
 **[Clarified 2026-10-21 — DEC-236: nhóm, bài nhóm vẫn hiện ở lối vào, mở ra thì báo hệ thống đang bận]**
 
+**[Clarified 2026-10-23 — DEC-245: danh sách khi cờ Gamification tắt]**
+
 ### DEC-226: M10 — Site-wide banner (clarifies DEC-092)
 - One banner at a time, plain text, 1–200 characters after trimming leading and trailing spaces. ADMIN sets, edits and removes it. It is shown on every page to everyone, including Guests.
 - A viewer can close it; a closed banner reappears when the ADMIN edits it or sets a new one.
@@ -1749,3 +1769,56 @@ ISS-352 → ISS-359
 
 ### Issues Closed
 ISS-360 → ISS-371
+
+## Functional Requirement — M12: Gamification
+
+### DEC-241: M12 — Point deduction for comments (clarifies DEC-113)
+- A comment deleted by its author: points from its upvotes are deducted at once (comments have no restore window, DEC-179). The 7-day wait of DEC-113 applies to posts only.
+- A comment hidden by AI with score ≥ 0.9: deducted at once when hidden. A comment hidden by AI with 0.5–< 0.9: deducted only when a Mod/Admin concludes it violates and keeps it hidden, at that moment; if the Mod concludes no violation, nothing is deducted.
+- Source: QA-434, QA-435
+
+### DEC-242: M12 — Weekly and monthly boards show the last closed cycle (amends DEC-121, QA-202)
+- The Week and Month tabs show the final ranking of the last closed week / month, computed once when the cycle closes and unchanged until the next close. The in-progress week or month is not shown.
+- Week: 00:00 Monday to before 00:00 the next Monday; month: 00:00 on the 1st; Asia/Ho_Chi_Minh (DEC-127). Closing and the weekly title stay as DEC-121 (at most 60 minutes after the boundary).
+- The All-time tab is unchanged: recomputed every 60 minutes.
+- A user who becomes excluded after the close (HEAVY, BANNED, DEACTIVATED) is hidden from the shown board while excluded; the others keep their closed ranks; titles already awarded are unchanged.
+- Source: QA-436
+
+### DEC-243: M12 — Cycle score, eligibility, Lớp/Khối filter and row content (clarifies QA-038, DEC-117, DEC-123, DM-9.4)
+- The cycle score counts upvotes by the time they were given: upvotes given inside the cycle, still in effect at the close, on content not deducted at the close. It is never negative. Later retractions or deductions change total points only, not a closed board.
+- Only users with cycle score > 0 are ranked or receive the weekly title (all three tabs). A week with fewer scorers awards fewer than 3 titles, possibly none.
+- Lớp/Khối filter: ranks are recomputed within the filtered group with the same tie rule; Lớp/Khối is taken at the close (All-time: at the latest computation).
+- Each row: rank, avatar, display name and username (opens the profile), cycle score, "Ngôi sao tuần" mark (Week tab), deleted-account label when applicable. All users with score > 0 are listed, 20 rows per scroll.
+- Source: QA-437, QA-438, QA-440, QA-441
+
+### DEC-244: M12 — Where weekly titles are shown (clarifies DEC-114, DEC-121)
+- On the profile, next to badges: "Ngôi sao tuần" with the number of wins and the list of weeks won, newest first (displayed by M02).
+- On the Week tab, a "Ngôi sao tuần" mark next to each recipient.
+- Source: QA-439
+
+**[Amended 2026-10-23 — DEC-247: hồ sơ chỉ hiện danh hiệu của tuần vừa chốt]**
+
+### DEC-245: M12 — Behaviour while the Gamification flag is off (clarifies DEC-225)
+- Refused with "Hệ thống đang bận, vui lòng thử lại sau": upvote and retracting an upvote (the button stays visible); opening the leaderboard (its entry stays visible). ADMIN is not affected.
+- Keeps running: point deduction and refund by content, badge award, All-time recomputation, week/month close, weekly title award, badge and title notifications.
+- Keeps showing: upvote counts on posts and comments (Top sort, Trending, search ranking unchanged), points, badges and titles on profiles, the "Tài khoản đã bị khóa" label.
+- Source: QA-442
+
+### DEC-246: M12 — Confirmation list (clarifies DEC-167, DEC-065; amends QA-018)
+- FULLY_LOCKED blocks new upvotes and retracting upvotes on the post and on every comment of the post.
+- Tied users are listed by username A–Z (display only).
+- Weekly title: HEAVY/BANNED is checked at the close; an excluded user gets no title and takes no top-3 place; their points keep accruing and show fully when they return.
+- Deleted account: All-time drops it from the next computation; the label is "[Người dùng đã xóa]" (replaces QA-018's "[Tài khoản đã xóa]"). DEACTIVATED accounts are excluded while deactivated and return when reactivated.
+- "Point milestone" in DEC-065 means earning a badge; one notification per badge, no separate milestone notification.
+- Closing a month only closes the monthly board; no award, no notification.
+- Source: QA-443
+
+### DEC-247: M12 — The profile shows the weekly title only for the last closed week (amends DEC-244; clarifies DEC-121)
+- The profile shows "Ngôi sao tuần" only if the user won it in the last closed week, from that close until the next weekly close; no win count, no list of weeks won.
+- Each win is still recorded (DEC-114). "Remain permanently visible" in DEC-121 means the records are kept (QA-202 "vẫn giữ"), not displayed; past weekly wins are not displayed anywhere.
+- Only threshold badges are shown permanently on the profile (DEC-114 unchanged).
+- The "Ngôi sao tuần" mark on the Week tab (DEC-244) is unchanged.
+- Source: QA-444
+
+### Issues Closed
+ISS-372 → ISS-382

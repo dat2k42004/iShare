@@ -2,11 +2,11 @@
 module: M05
 ten_module: Topic & Tag
 ma_tai_lieu: FR-M05
-phien_ban: 1.4
+phien_ban: 1.5
 trang_thai: Đã chốt
-ngay: 2026-10-20
+ngay: 2026-10-23
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-159, QA-320, ISS-260, OPEN-009
+moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M05 Topic & Tag
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M05 — Topic & Tag |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.4 |
-| Ngày | 2026-10-21 |
+| Phiên bản | 1.5 |
+| Ngày | 2026-10-23 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -112,7 +112,7 @@ phần khám phá nội dung sử dụng.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp (2026-09-19) |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-159, QA-320, ISS-260, OPEN-009 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -515,6 +515,7 @@ Tag không có trạng thái kết thúc: Tag không bị xóa (BR-M05-25).
 | Cung cấp | M07 | Danh mục Topic để người dùng theo dõi Topic; khi gộp Topic, người theo dõi Topic nguồn chuyển sang Topic đích; khi xóa Topic, lượt theo dõi bị bỏ | FR-M05-04.01, FR-M05-07.06, FR-M05-08.06 |
 | Dùng | M10 | Công tắc AI tổng và công tắc gợi ý Topic; nhật ký thao tác của Admin ghi việc thêm, gộp, xóa Topic | FR-M05-02.16 |
 | Dùng | M13 | Thực hiện gợi ý Topic (thời gian chờ, thử lại một lần), ghi kết quả thô của AI; dùng phản hồi gợi ý để đánh giá chất lượng AI | FR-M05-02.01, FR-M05-02.12 |
+| Cung cấp | M13 | Yêu cầu gợi ý Topic hợp lệ (đã qua giới hạn 10 lần / 60 giây và ngưỡng 20 từ); phản hồi gợi ý Topic để đánh giá chất lượng | FR-M05-02.01, FR-M05-02.05, FR-M05-02.15, FR-M05-02.12 |
 | Dùng | M03, M04, M12, M02 | Các tương tác dùng cho Trending: upvote bài viết, comment, bookmark, kèm thời điểm và việc rút lại | FR-M05-05.01 |
 | Cung cấp | M14 | Danh sách Trending Topic và Trending Tag kèm điểm, theo thứ tự của BR-M05-31, cho tab Trending (kể cả Guest) | FR-M05-05.09, FR-M05-05.14 |
 | Dùng | M08 | Nhật ký kiểm duyệt: ghi việc vô hiệu hóa, kích hoạt lại Tag và việc đổi Topic, Tag trên bài người khác | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 |
@@ -549,6 +550,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.2 | 2026-10-11 | Đối chiếu lại với FR-M01 1.0: cách ghi "nhà cung cấp dịch vụ AI" (DEC-154); không tính Trending cho bài bị ẩn vì tác giả vô hiệu hóa hoặc xóa tài khoản; tương tác của tài khoản đã xóa (DEC-156); giữ phản hồi gợi ý của tài khoản đã xóa (DEC-159). Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-20 | Đối chiếu với FR-M06: thêm giao tiếp "Dùng M06" (xem bài của Topic/Tag qua trang tìm bài); Tag bị vô hiệu hóa không có trong kết quả tìm Tag; ghi C.2. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231): thêm "Dùng M11" (bài nhóm Public, Private, bài bị gỡ khỏi nhóm cho Trending); không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
+| 1.5 | 2026-10-23 | Rà lại với register tới DEC-247: thêm dòng Cung cấp M13 (yêu cầu gợi ý Topic, phản hồi gợi ý), khớp FR-M13. Không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

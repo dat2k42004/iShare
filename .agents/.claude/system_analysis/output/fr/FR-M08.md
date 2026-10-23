@@ -2,11 +2,11 @@
 module: M08
 ten_module: Moderation
 ma_tai_lieu: FR-M08
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
-ngay: 2026-10-20
+ngay: 2026-10-23
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-194, QA-369, ISS-309, OPEN-012
+moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M08 Moderation
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M08 — Moderation |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
-| Ngày | 2026-10-20 |
+| Phiên bản | 1.3 |
+| Ngày | 2026-10-23 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -149,7 +149,7 @@ Mọi thao tác kiểm duyệt được ghi vào nhật ký để minh bạch v�
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-194, QA-369, ISS-309, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -215,6 +215,8 @@ Không có.
 | Xem nhật ký kiểm duyệt | ✗ | ✗ | ✓ (của mình) | ✓ | FR-M08-17.01, FR-M08-17.02, FR-M08-17.05 |
 | Xem thao tác của Mod khác trong nhật ký | ✗ | ✗ | ✓ (khi xét khiếu nại về thao tác đó) | ✓ | FR-M08-17.03, FR-M08-17.04 |
 | Xem danh tính người báo cáo | ✗ | ✗ | ✓ | ✓ | FR-M08-04.01, FR-M08-05.06 |
+| Báo cáo bài viết, bình luận, tài khoản của Admin hoặc nhóm có Owner là Admin | ✗ | ✗ | ✗ | ✗ | FR-M08-01.20 |
+| Thấy, nhận vụ về bài viết, bình luận, tài khoản của một Mod khác | ✗ | ✗ | ✗ | ✓ | FR-M08-02.09, FR-M08-03.09 |
 
 <!-- Ô nói thẳng: hàng 1 Guest ✗ và User ✓ (DEC-072 "Only logged-in users can report", QA-011, DM-1.3 "Report content");
      hàng 2–3 (DEC-191); hàng 4–8, 10–15 cột Mod, Admin (DM-1.3 "Review reports, Moderate content", DEC-090 "Shared with Mod",
@@ -224,7 +226,9 @@ Không có.
      Ô suy ra: hàng 1 cột Mod, Admin (Mod, Admin cũng là người dùng đã đăng nhập; DM-1.3); cột Guest ở mọi hàng (QA-011, QA-227:
      mọi tương tác cần đăng nhập); cột User ở các hàng chỉ Mod, Admin làm (DEC-090, DM-1.3); hàng 20 cột Admin (Admin có quyền của
      Mod); hàng 23 cột Mod, Admin (mỗi báo cáo giữ người báo cáo, DEC-076; chỉ số tính theo người báo cáo, DEC-082) và cột User
-     (người bị xử lý không thấy danh tính người báo cáo, DEC-179). -->
+     (người bị xử lý không thấy danh tính người báo cáo, DEC-179).
+     Thêm ở phiên bản 1.3 (DEC-195, nói thẳng): hai hàng cuối.
+-->
 
 ### 4.4 Danh sách chức năng
 
@@ -285,6 +289,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | FR-M08-01.17 | Hệ thống phải cho người đang ở mức cảnh cáo HEAVY gửi báo cáo (BR-M08-47). |
 | FR-M08-01.18 | Hệ thống phải không cho người báo cáo rút hoặc sửa báo cáo đã gửi (BR-M08-47). |
 | FR-M08-01.19 | Hệ thống phải chỉ nhận một lý do cho mỗi báo cáo (BR-M08-02). |
+| FR-M08-01.20 | Nếu đối tượng là bài viết, bình luận hoặc tài khoản của Admin, hoặc nhóm có Owner là Admin, hệ thống phải từ chối báo cáo (BR-M08-55). |
 
 ### 5.2 FR-M08-02 Xem hàng chờ vụ báo cáo
 
@@ -304,6 +309,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | FR-M08-02.06 | Hệ thống phải không hiển thị cho một Mod hoặc Admin các vụ nhắm vào bài viết, bình luận hoặc tài khoản của chính người đó (BR-M08-46). |
 | FR-M08-02.07 | Nếu hai vụ có cùng điểm ưu tiên, hệ thống phải xếp vụ mở trước đứng trước (BR-M08-07). |
 | FR-M08-02.08 | Hệ thống phải đánh dấu trong hàng chờ các vụ là yêu cầu ban (BR-M08-36). |
+| FR-M08-02.09 | Hệ thống phải chỉ hiển thị cho Admin các vụ nhắm vào bài viết, bình luận hoặc tài khoản của một Mod, không hiển thị cho các Mod khác (BR-M08-46). |
 
 ### 5.3 FR-M08-03 Nhận và nhả vụ báo cáo
 
@@ -323,6 +329,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | FR-M08-03.06 | Nếu người chọn "Nhận xử lý" không có vai trò Mod hoặc Admin, hệ thống phải từ chối. |
 | FR-M08-03.07 | Nếu một Mod hoặc Admin chọn "Nhận xử lý" một vụ nhắm vào bài viết, bình luận hoặc tài khoản của chính mình, hệ thống phải từ chối (BR-M08-46). |
 | FR-M08-03.08 | Hệ thống phải tính 30 phút không thao tác từ thao tác cuối của người giữ trên vụ: mở xem vụ, ẩn nội dung, cảnh cáo, ban, kết luận (BR-M08-09). |
+| FR-M08-03.09 | Nếu một Mod chọn "Nhận xử lý" một vụ nhắm vào bài viết, bình luận hoặc tài khoản của một Mod khác, hệ thống phải từ chối (BR-M08-46). |
 
 ### 5.4 FR-M08-04 Xem chi tiết vụ báo cáo
 
@@ -426,6 +433,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | FR-M08-08.09 | Nếu quét một bình luận thất bại sau một lần thử lại, hệ thống phải giữ nguyên trạng thái bình luận và ghi lỗi cho Admin (BR-M08-27). |
 | FR-M08-08.10 | Trong khi công tắc AI tổng hoặc công tắc Moderation tắt, hệ thống phải không quét luồng bình luận (BR-M08-26). |
 | FR-M08-08.11 | Hệ thống phải lấy điểm quét của một bài viết, bình luận là điểm cao nhất trong bốn nhóm vi phạm AI trả về (BR-M08-51). |
+| FR-M08-08.12 | Khi quét một luồng bình luận, hệ thống phải không gửi quét các bình luận của Admin (BR-M08-55). |
 
 ### 5.9 FR-M08-09 Tự cảnh cáo bằng AI
 
@@ -441,7 +449,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | FR-M08-09.02 | Khi kết quả quét có điểm quét từ 0,5 đến dưới 0,9, hệ thống phải không tự cảnh cáo mà để Mod, Admin quyết khi xét (BR-M08-23). |
 | FR-M08-09.03 | Khi kết quả quét có điểm quét dưới 0,5, hệ thống phải không cảnh cáo tác giả. |
 | FR-M08-09.04 | Khi một cảnh cáo được ra, hệ thống phải cập nhật số lần cảnh cáo, mức cảnh cáo và thời gian thử thách của người bị cảnh cáo theo BR-M08-28, BR-M08-29. |
-| FR-M08-09.05 | Khi AI ra một cảnh cáo, hệ thống phải gửi cho người bị cảnh cáo thông báo cảnh cáo trong ứng dụng (qua M07). |
+| FR-M08-09.05 | Khi AI ra một cảnh cáo, hệ thống phải gửi cho người bị cảnh cáo thông báo cảnh cáo trong ứng dụng kèm đường dẫn khiếu nại (qua M07). |
 | FR-M08-09.06 | Hệ thống phải không để AI ban tài khoản, dù điểm quét cao tới đâu (BR-M08-33). |
 | FR-M08-09.07 | Trong khi công tắc AI tổng hoặc công tắc Moderation tắt, hệ thống phải không tự cảnh cáo (BR-M08-26). |
 | FR-M08-09.08 | Khi kết quả quét có điểm quét từ 0,9 trở lên với nội dung của tác giả có vai trò Mod, hệ thống phải không tự cảnh cáo mà thêm một mục do "Hệ thống (AI)" tạo vào vụ của nội dung đó để Admin quyết có cảnh cáo hay không (BR-M08-46). |
@@ -462,7 +470,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 |---|---|
 | FR-M08-10.01 | Khi Mod hoặc Admin đang giữ vụ cảnh cáo người vi phạm, hệ thống phải lưu một cảnh cáo với người ra là Mod hoặc Admin đó, lý do và vụ liên quan. |
 | FR-M08-10.02 | Khi Mod hoặc Admin ra một cảnh cáo, hệ thống phải cập nhật số lần cảnh cáo, mức cảnh cáo và thời gian thử thách của người bị cảnh cáo theo BR-M08-28, BR-M08-29. |
-| FR-M08-10.03 | Khi Mod hoặc Admin ra một cảnh cáo, hệ thống phải gửi cho người bị cảnh cáo thông báo cảnh cáo trong ứng dụng (qua M07). |
+| FR-M08-10.03 | Khi Mod hoặc Admin ra một cảnh cáo, hệ thống phải gửi cho người bị cảnh cáo thông báo cảnh cáo trong ứng dụng kèm đường dẫn khiếu nại (qua M07). |
 | FR-M08-10.04 | Hệ thống phải cho Mod, Admin cảnh cáo người báo cáo của vụ khi đánh giá người đó báo cáo ác ý (BR-M08-18). |
 | FR-M08-10.05 | Hệ thống phải không tự cảnh cáo hay phạt người báo cáo có báo cáo bị Bác bỏ (BR-M08-18). |
 | FR-M08-10.06 | Khi xử lý vụ báo cáo người dùng, hệ thống phải chỉ cho Mod, Admin cảnh cáo hoặc ban, không cho gỡ, sửa avatar, bio của người đó (BR-M08-17). |
@@ -665,7 +673,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | BR-M08-43 | Ràng buộc | Mọi thời điểm hiển thị và mọi ranh giới ngày theo lịch tính theo giờ Việt Nam; các thời hạn tính bằng ngày (thời gian thử thách, thời hạn ban, cửa sổ 90 ngày) là đủ N × 24 giờ. | — |
 | BR-M08-44 | Sự kiện | Nội dung trong nhóm vẫn báo cáo được và vẫn do Mod, Admin hệ thống xử lý; cổng duyệt của nhóm (M11) chỉ thêm vào, không thay thế. | — |
 | BR-M08-45 | Ràng buộc | Bài đang ở mức Khóa toàn bộ vẫn báo cáo được. Bài trong nhóm đã chuyển Private không báo cáo được bởi người không phải thành viên (M11). | — |
-| BR-M08-46 | Ràng buộc | Chỉ Admin cảnh cáo, ban tài khoản Mod; Mod xử lý vụ nhắm vào một Mod khác chỉ được ẩn nội dung và kết luận vụ. Tài khoản Admin không bị cảnh cáo, ban. AI không tự cảnh cáo Mod, Admin; nội dung của Mod có điểm quét ≥ 0,9 được đưa vào vụ để Admin quyết. Mod, Admin không thấy, không nhận vụ nhắm vào bài viết, bình luận hoặc tài khoản của chính mình. | Bình luận của Mod M1 bị báo cáo: M1 không thấy vụ trong hàng chờ. Mod M2 nhận vụ, ẩn bình luận được, cảnh cáo M1 bị từ chối; Admin cảnh cáo M1 được. Bình luận của M1 được quét 0,95: bị ẩn, không có cảnh cáo tự động, vụ chờ Admin quyết. |
+| BR-M08-46 | Ràng buộc | Chỉ Admin cảnh cáo, ban tài khoản Mod. Vụ nhắm vào bài viết, bình luận hoặc tài khoản của một Mod chỉ Admin thấy, nhận và xử lý; các Mod khác không thấy vụ đó. Tài khoản Admin không bị cảnh cáo, ban. AI không tự cảnh cáo Mod, Admin; nội dung của Mod có điểm quét ≥ 0,9 được đưa vào vụ để Admin quyết. Mod, Admin không thấy, không nhận vụ nhắm vào bài viết, bình luận hoặc tài khoản của chính mình. | Bình luận của Mod M1 bị báo cáo: M1 và Mod M2 đều không thấy vụ trong hàng chờ; Admin nhận vụ, ẩn bình luận và cảnh cáo M1 được. Bình luận của M1 được quét 0,95: bị ẩn, không có cảnh cáo tự động, vụ chờ Admin quyết. |
 | BR-M08-47 | Ràng buộc | Gửi báo cáo: không báo cáo được bài viết, bình luận, tài khoản của chính mình; khi đối tượng đang có vụ Mở, một người chỉ có một báo cáo trong vụ đó; người ở mức HEAVY vẫn báo cáo được; đối tượng không còn hiển thị với người báo cáo thì bị từ chối; báo cáo đã gửi không rút, không sửa được. | Minh báo cáo bài P lúc 10:00 (vụ V1 mở); báo cáo lại P lúc 10:30: bị từ chối. V1 kết luận lúc 11:00; Minh báo cáo P lúc 12:00: nhận, mở vụ V2. |
 | BR-M08-48 | Sự kiện | Ẩn nội dung, cảnh cáo, ban, ẩn và khóa nhóm chỉ làm được trong một vụ mà người làm đang giữ; Mod tự phát hiện vi phạm thì báo cáo trước rồi nhận xử lý. Ngoại lệ: gỡ ban và mở khóa nhóm làm trực tiếp, không cần vụ. Báo cáo của người dùng không làm đổi trạng thái kiểm duyệt của bài viết, bình luận; chỉ AI quét lại (M03) mới làm bài Bị gắn cờ. | Bài P của Bình bị 3 người báo cáo: P vẫn hiển thị cho tới khi Mod kết luận. |
 | BR-M08-49 | Kích hoạt | Các việc do AI phát hiện cần Mod xem trở thành mục do "Hệ thống (AI)" tạo trong hàng chờ báo cáo: bình luận bị AI ẩn với điểm 0,5–< 0,9; bài Bị gắn cờ sau khi quét lại; nội dung của Mod có điểm ≥ 0,9; yêu cầu ban (BR-M08-36). Đối tượng đang có vụ Mở thì mục được thêm vào vụ đó, không thì mở vụ mới. Lý do của mục là nhóm vi phạm AI phát hiện; mục tính là một báo cáo. | Bình luận C bị AI chấm Quấy rối 0,7, chưa có vụ: vụ mới, điểm 10 + 1 × 2 = 12. C đã có vụ với 2 báo cáo "Spam" (điểm 2 + 2 × 2 = 6): thêm mục AI, điểm max(2, 10) + 3 × 2 = 16. |
@@ -674,6 +682,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | BR-M08-52 | Ràng buộc | Không ban chồng: tài khoản đang có ban Đang hiệu lực thì không ban mới được; muốn đổi sang vĩnh viễn thì gỡ ban rồi chọn "Ban vĩnh viễn". | Lan đang bị ban 30 ngày; Mod chọn "Ban vĩnh viễn": bị từ chối. Mod gỡ ban rồi chọn "Ban vĩnh viễn": được; ban đã gỡ vẫn tính vào số lần đã bị ban. |
 | BR-M08-53 | Sự kiện | Thao tác của Mod, Admin với tài khoản người vi phạm chỉ có cảnh cáo, "Ban" và "Ban vĩnh viễn". "Suspend" trong draft là ban tạm thời; không có thao tác suspend hay vô hiệu hóa tài khoản người khác. | — |
 | BR-M08-54 | Sự kiện | Cảnh cáo bị Mod, Admin bỏ (cảnh cáo do AI ra) hoặc bị lật khi khiếu nại thành công (M09): số lần cảnh cáo giảm 1, mức tính lại theo số lần còn lại; bản ghi cảnh cáo giữ, đánh dấu "đã bỏ" hoặc "bị lật"; thời điểm kết thúc thời gian thử thách hiện tại không đổi. | Lan có 3 lần (MEDIUM, hết thử thách 09:00 20/10); Mod bỏ cảnh cáo AI thứ 3: Lan còn 2 lần, về LIGHT, vẫn hết thử thách 09:00 20/10. |
+| BR-M08-55 | Ràng buộc | Không ai báo cáo được bài viết, bình luận, tài khoản của Admin, hay nhóm có Owner là Admin. Nội dung của Admin không bị AI quét: bài của Admin đăng không qua quét trước (M03), bình luận của Admin không được quét khi quét luồng. Hệ quả đã chấp nhận: nội dung của Admin không có kiểm duyệt hệ thống. | Minh bấm "Báo cáo" trên bình luận của Admin A → bị từ chối. Luồng có 12 trả lời, 2 trong đó của Admin A → khi quét luồng, 2 trả lời của A không được gửi quét. |
 
 ### 5.20 Dữ liệu nghiệp vụ
 
@@ -781,8 +790,8 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 <!-- Báo cáo: Đã xử lý là trạng thái cuối. Vụ: Đã xử lý là trạng thái cuối, không mở lại (BR-M08-05).
      Ban: Hết hạn, Đã gỡ, Bị lật là trạng thái cuối của bản ghi ban; tài khoản về ACTIVE (M01).
      Báo cáo của người dùng không đổi trạng thái kiểm duyệt của bài viết, bình luận (BR-M08-48); dòng "báo cáo gắn cờ bài" đã bỏ theo DEC-190.
-     Bị ẩn của bình luận do điểm ≥ 0,9 hoặc do Mod ẩn là trạng thái cuối (bình luận không có khiếu nại); hiện lại khi khiếu nại cảnh cáo,
-     ban liên quan thành công: TBD-M08-03.
+     Bị ẩn của bình luận do điểm ≥ 0,9 hoặc do Mod ẩn là trạng thái cuối (bình luận không có khiếu nại); không hiện lại khi cảnh cáo,
+     ban liên quan bị lật trên khiếu nại (DEC-201, M09).
      Nhóm Bị ẩn là trạng thái cuối: không có bỏ ẩn (FR-M08-18.03, FR-M08-18.09).
      "HEAVY → vi phạm tiếp" không đổi mức cảnh cáo; sau khi bị ban, mức cảnh cáo vẫn chạy theo thời gian thử thách. -->
 
@@ -806,9 +815,10 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | Cung cấp | M10 | Sự kiện ban một tài khoản Mod để M10 thu hồi vai trò Mod; nhật ký kiểm duyệt lọc theo người làm để Admin theo dõi Mod | FR-M08-14.05, FR-M08-17.06 |
 | Cung cấp | M11 | Trạng thái kiểm duyệt của nhóm (Bình thường, Bị khóa, Bị ẩn) để M11 ẩn nhóm, chặn thao tác trong nhóm bị khóa | FR-M08-18.02, FR-M08-18.05, FR-M08-18.06 |
 | Dùng | M11 | Nhóm là đối tượng báo cáo, Owner là người bị báo cáo; nhóm Private chặn báo cáo của người ngoài; danh tính thật của bài ẩn danh | FR-M08-01.11, FR-M08-04.06, FR-M08-04.10 |
-| Cung cấp | M12 | Nội dung bị Mod, Admin gỡ vì vi phạm (để trừ điểm ngay); mức HEAVY và tài khoản BANNED (loại khỏi bảng xếp hạng, nhãn "Tài khoản đã bị khóa") | FR-M08-06.01, FR-M08-06.02, FR-M08-09.04, FR-M08-14.03 |
+| Cung cấp | M12 | Nội dung bị Mod, Admin gỡ vì vi phạm (để trừ điểm ngay); bình luận bị AI tự ẩn với điểm quét ≥ 0,9 (trừ điểm ngay) và kết luận của Mod, Admin với bình luận bị AI ẩn 0,5–< 0,9 (vi phạm thì trừ điểm, DEC-241); mức HEAVY và tài khoản BANNED (loại khỏi bảng xếp hạng, nhãn "Tài khoản đã bị khóa") | FR-M08-06.01, FR-M08-06.02, FR-M08-09.04, FR-M08-14.03, FR-M08-08.04, FR-M08-07.03, FR-M08-07.04 |
 | Dùng | M13 | Gọi AI kiểm duyệt, điểm bốn nhóm vi phạm, thời gian chờ và một lần thử lại; nhật ký quyết định AI | FR-M08-08.01, FR-M08-08.09, FR-M08-08.11 |
 | Cung cấp | M15 | Dữ liệu báo cáo, kết luận, cảnh cáo, ban cho thống kê kiểm duyệt | FR-M08-05.01, FR-M08-09.01, FR-M08-10.01, FR-M08-14.01 |
+| Cung cấp | M13 | Kích hoạt quét luồng bình luận theo tốc độ trả lời (bình luận của Admin không gửi quét) | FR-M08-08.01, FR-M08-08.12 |
 
 ### 5.23 AI hỗ trợ và hành vi khi tắt AI
 
@@ -838,6 +848,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-15 | Chốt sau 7 bước; câu trả lời bước 6 ghi ở DEC-186–DEC-194, QA-352–QA-369, ISS-292–ISS-309; thêm FR-M08-18 Ẩn, khóa nhóm (mở rộng phạm vi) | Phạm Văn Đức |
 | 1.1 | 2026-10-20 | Đối chiếu với FR-M06: ghi cách M06 áp giảm hạng ×0,5 (DEC-211) ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-224, DEC-227): Admin lọc nhật ký kiểm duyệt theo người làm (FR-M08-17.06, BR-M08-41); thêm dòng "Cung cấp M10"; C.1, C.2. Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: không báo cáo được Admin, vụ về Mod chỉ Admin xử lý, bình luận của Admin không bị quét (DEC-195: BR-M08-46, BR-M08-55, FR-M08-01.20, FR-M08-02.09, FR-M08-03.09, FR-M08-08.12); thông báo cảnh cáo kèm đường dẫn khiếu nại (DEC-197); đóng TBD-M08-03 (DEC-201), thu hẹp TBD-M08-02 (DEC-239); dòng Cung cấp M12 thêm bình luận bị AI ẩn (DEC-241); thêm dòng Cung cấp M13 khớp FR-M13. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -863,6 +874,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M08-01.17 | DEC-191, QA-364 | Nói thẳng | — |
 | FR-M08-01.18 | DEC-191, QA-368 | Nói thẳng | — |
 | FR-M08-01.19 | DEC-190, QA-357 | Nói thẳng | — |
+| FR-M08-01.20 | DEC-195 | Nói thẳng | — |
 | FR-M08-02 | DEC-075, DEC-076, DEC-090, DM-1.3, MR-FB-M08, MR-M08 | Nói thẳng | — |
 | FR-M08-02.01 | DEC-075, DEC-090, DEC-190 | Nói thẳng | — |
 | FR-M08-02.02 | DEC-075 | Suy ra | Vụ đang được giữ thì người khác không nhận được (BR-M08-08) ⇒ hàng chờ phải cho biết vụ nào đang được giữ |
@@ -872,6 +884,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M08-02.06 | DEC-189, QA-355, QA-365 | Nói thẳng | — |
 | FR-M08-02.07 | DEC-190, QA-357 | Nói thẳng | — |
 | FR-M08-02.08 | DEC-190, DEC-187 | Nói thẳng | — |
+| FR-M08-02.09 | DEC-195 | Nói thẳng | — |
 | FR-M08-03 | DEC-075 | Nói thẳng | Nhả tự động sau 30 phút không thao tác thuộc cùng chức năng |
 | FR-M08-03.01 | DEC-075 | Nói thẳng | — |
 | FR-M08-03.02 | DEC-075 | Suy ra | "lock a case" ⇒ không ai khác nhận được vụ đang khóa |
@@ -881,6 +894,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M08-03.06 | DEC-090, DM-1.3 | Suy ra | Chỉ Mod, Admin xử lý báo cáo |
 | FR-M08-03.07 | DEC-189, QA-355, QA-365 | Nói thẳng | — |
 | FR-M08-03.08 | DEC-190, QA-365 | Nói thẳng | — |
+| FR-M08-03.09 | DEC-195 | Nói thẳng | — |
 | FR-M08-04 | DEC-076, DEC-079, DEC-082, DEC-168, DEC-179, DEC-184, DEC-185 | Nói thẳng | — |
 | FR-M08-04.01 | DEC-076 | Nói thẳng | — |
 | FR-M08-04.02 | DEC-179, DEC-184, DEC-185 | Nói thẳng | — |
@@ -934,12 +948,13 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M08-08.09 | DEC-099 | Nói thẳng | — |
 | FR-M08-08.10 | DEC-008, DEC-093, DEC-099 | Nói thẳng | — |
 | FR-M08-08.11 | DEC-186, QA-366 | Nói thẳng | — |
+| FR-M08-08.12 | DEC-195 | Nói thẳng | — |
 | FR-M08-09 | DEC-078, DEC-098, QA-019 | Nói thẳng | — |
 | FR-M08-09.01 | DEC-078, DEC-098 | Nói thẳng | — |
 | FR-M08-09.02 | DEC-078, DEC-098 | Nói thẳng | — |
 | FR-M08-09.03 | DEC-098 | Nói thẳng | — |
 | FR-M08-09.04 | DEC-079, QA-020, DEC-188 | Nói thẳng | — |
-| FR-M08-09.05 | DEC-065, DEC-078 | Nói thẳng | — |
+| FR-M08-09.05 | DEC-065, DEC-078, DEC-197 | Nói thẳng | — |
 | FR-M08-09.06 | DEC-078, DEC-080, QA-019 | Nói thẳng | — |
 | FR-M08-09.07 | DEC-093, DEC-099 | Nói thẳng | — |
 | FR-M08-09.08 | DEC-186, DEC-189, DEC-190 | Nói thẳng | Việc đưa vào vụ suy từ DEC-190: mọi xử lý qua vụ |
@@ -950,7 +965,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M08-10 | DEC-078, DEC-079, DEC-082, DEC-177, DM-10.2, QA-019 | Nói thẳng | — |
 | FR-M08-10.01 | DEC-078, DEC-098, DEC-190 | Nói thẳng | — |
 | FR-M08-10.02 | DEC-079, QA-020, DEC-188 | Nói thẳng | — |
-| FR-M08-10.03 | DEC-065, DEC-074 | Nói thẳng | — |
+| FR-M08-10.03 | DEC-065, DEC-074, DEC-197 | Nói thẳng | — |
 | FR-M08-10.04 | DEC-082 | Nói thẳng | — |
 | FR-M08-10.05 | DEC-082 | Nói thẳng | — |
 | FR-M08-10.06 | DEC-177 | Nói thẳng | — |
@@ -1068,7 +1083,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M08-43 | DEC-127, DEC-188 | Nói thẳng | — |
 | BR-M08-44 | DEC-104 | Nói thẳng | — |
 | BR-M08-45 | DEC-167, DEC-108 | Nói thẳng | — |
-| BR-M08-46 | DEC-189, DEC-186, QA-355, QA-365 | Nói thẳng | — |
+| BR-M08-46 | DEC-189, DEC-186, QA-355, QA-365, DEC-195 | Nói thẳng | — |
 | BR-M08-47 | DEC-191, QA-363, QA-364, QA-368 | Nói thẳng | — |
 | BR-M08-48 | DEC-190, QA-356, QA-360 | Nói thẳng | — |
 | BR-M08-49 | DEC-190, DEC-186, QA-361 | Nói thẳng | — |
@@ -1077,6 +1092,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M08-52 | DEC-187, QA-367 | Nói thẳng | — |
 | BR-M08-53 | DEC-187, QA-353, DM-10.3 | Nói thẳng | — |
 | BR-M08-54 | DEC-188, QA-366 | Nói thẳng | — |
+| BR-M08-55 | DEC-195 | Nói thẳng | — |
 
 ## Phụ lục B. Câu hỏi, giả định và TBD
 
@@ -1116,8 +1132,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | ID | Nội dung | Ảnh hưởng | Lý do chưa chốt |
 |---|---|---|---|
 | TBD-M08-01 | Báo cáo tin nhắn chat (đối tượng "Message" của draft) | Thấp | OPEN-003 hoãn có chủ đích; MS1 không làm |
-| TBD-M08-02 | Nội dung báo cáo được trong nhóm và chat có chỉ xóa mềm để Mod xem lại trong báo cáo không | Thấp | OPEN-011 hoãn có chủ đích; chốt khi làm FR-M11, FR-M16 |
-| TBD-M08-03 | Bình luận bị ẩn có hiện lại khi khiếu nại cảnh cáo, ban gắn với nó thành công không | Trung bình | OPEN-012 hoãn có chủ đích; chốt khi làm FR-M09 |
+| TBD-M08-02 | Tin nhắn chat có chỉ xóa mềm để Mod xem lại trong báo cáo không (phần nhóm đã đóng ở phiên bản 1.3 — DEC-239: mọi cách nội dung nhóm mất đi đều là xóa mềm) | Thấp | Phần M16 của OPEN-011 hoãn có chủ đích; chốt khi làm FR-M16 |
+| TBD-M08-03 | (Đã đóng ở phiên bản 1.3 — DEC-201: bình luận bị ẩn vẫn Bị ẩn khi cảnh cáo, ban gắn với nó bị lật) | Thấp | Đã chốt |
 | TBD-M08-04 | Ngưỡng tốc độ trả lời và khoảng thời gian trượt để kích hoạt quét luồng (giá trị tạm "10 trả lời trong 5 phút") | Trung bình | Nguồn (DEC-077) để ngỏ có chủ đích: cần dữ liệu dùng thật để chỉnh |
 | TBD-M08-05 | Ngưỡng 0,9 và 0,5 là giá trị tạm | Thấp | Nguồn (DEC-098) để ngỏ có chủ đích: chỉnh theo dữ liệu thật (DEC-133) |
 
@@ -1184,12 +1200,12 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-148 | Sở hữu | Trùng với DEC-081 | — | Nhóm A. Quyền xem nhật ký kiểm duyệt |
 | QA-149 | Sở hữu | Trùng với DEC-082 | — | Nhóm A. Phát hiện báo cáo ác ý |
 | MR-M08 | Sở hữu | Sửa một phần bởi DEC-186, DEC-187, DEC-188, DEC-189, DEC-190, DEC-191, DEC-192, DEC-193, DEC-194 | FR-M08-01, FR-M08-02 | Nhóm A. Dòng module-registry của M08; cột MoSCoW lệch (xem 4.5) |
-| DEC-186 | Sở hữu | Hiện hành | FR-M08-04, FR-M08-08, FR-M08-09, BR-M08-20, BR-M08-23, BR-M08-24, BR-M08-46, BR-M08-49, BR-M08-51 | Nhóm A. Ngưỡng AI cho mọi người, điểm quét, ngưỡng tốc độ, cảnh cáo AI |
+| DEC-186 | Sở hữu | Sửa một phần bởi DEC-195 | FR-M08-04, FR-M08-08, FR-M08-09, BR-M08-20, BR-M08-23, BR-M08-24, BR-M08-46, BR-M08-49, BR-M08-51 | Nhóm A. Ngưỡng AI cho mọi người, điểm quét, ngưỡng tốc độ, cảnh cáo AI |
 | DEC-187 | Sở hữu | Hiện hành | FR-M08-02, FR-M08-09, FR-M08-10, FR-M08-14, BR-M08-34, BR-M08-36, BR-M08-52, BR-M08-53 | Nhóm A. Chỉ cảnh cáo và ban; lần vi phạm thứ 7; đếm số lần ban; không ban chồng |
 | DEC-188 | Sở hữu | Hiện hành | FR-M08-09, FR-M08-10, FR-M08-11, FR-M08-12, BR-M08-29, BR-M08-30, BR-M08-43, BR-M08-54 | Nhóm A. Giảm mức cảnh cáo, N × 24 giờ, bỏ hoặc lật cảnh cáo |
-| DEC-189 | Sở hữu | Hiện hành | FR-M08-02, FR-M08-03, FR-M08-09, FR-M08-10, FR-M08-14, BR-M08-46 | Nhóm A. Xử lý tài khoản Mod, Admin; vụ nhắm vào chính mình |
+| DEC-189 | Sở hữu | Sửa một phần bởi DEC-195 | FR-M08-02, FR-M08-03, FR-M08-09, FR-M08-10, FR-M08-14, BR-M08-46 | Nhóm A. Xử lý tài khoản Mod, Admin; vụ nhắm vào chính mình |
 | DEC-190 | Sở hữu | Hiện hành | FR-M08-01, FR-M08-02, FR-M08-03, FR-M08-04, FR-M08-06, FR-M08-07, FR-M08-08, FR-M08-09, FR-M08-10, FR-M08-14, FR-M08-15, BR-M08-02, BR-M08-06, BR-M08-07, BR-M08-09, BR-M08-36, BR-M08-48, BR-M08-49 | Nhóm A. Mọi xử lý qua vụ; mục do AI tạo; mức nặng; báo cáo không ẩn bài |
-| DEC-191 | Sở hữu | Hiện hành | FR-M08-01, BR-M08-31, BR-M08-47 | Nhóm A. Quy tắc gửi báo cáo |
+| DEC-191 | Sở hữu | Sửa một phần bởi DEC-195 | FR-M08-01, BR-M08-31, BR-M08-47 | Nhóm A. Quy tắc gửi báo cáo |
 | DEC-192 | Sở hữu | Hiện hành | FR-M08-04, FR-M08-05, FR-M08-18, BR-M08-12, BR-M08-13, BR-M08-19 | Nhóm A. Kết luận vụ, thông báo, chỉ số tập trung |
 | DEC-193 | Sở hữu | Hiện hành | FR-M08-16, BR-M08-39, BR-M08-40 | Nhóm A. Bổ sung nhật ký kiểm duyệt |
 | DEC-194 | Sở hữu | Hiện hành | FR-M08-04, FR-M08-18, BR-M08-13, BR-M08-50 | Nhóm A. Ẩn, khóa nhóm (mở rộng phạm vi) |
@@ -1372,8 +1388,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-REWD-02 | Phụ thuộc | Trùng với DEC-118 | — | Nhóm B. M12: mức cảnh cáo và bảng xếp hạng |
 | OPEN-003 | Sở hữu | Hiện hành | Không áp dụng: báo cáo tin nhắn ngoài phạm vi MS1 (ghi ở 1.2 và B.2) | Nhóm B. Hoãn có chủ đích: chưa có báo cáo tin nhắn ở MS1 |
 | OPEN-008 | Phụ thuộc | Sửa một phần bởi DEC-154, DEC-156 | Chuyển M01 | Nhóm B. M01: privacy — giữ nhật ký vĩnh viễn so với xóa dữ liệu cá nhân. Phần còn mở không chạm M08 |
-| OPEN-011 | Nhắc tới | Hiện hành | Không áp dụng: M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được | Nhóm B. M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được |
-| OPEN-012 | Phụ thuộc | Hiện hành | Chuyển M09 | Nhóm B. M09: bình luận bị ẩn có hiện lại khi khiếu nại cảnh cáo/ban thành công |
+| OPEN-011 | Nhắc tới | Sửa một phần bởi DEC-239 | Không áp dụng: M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được | Nhóm B. M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được |
+| OPEN-012 | Phụ thuộc | Bị thay bởi DEC-201 | — | Nhóm B. M09: bình luận bị ẩn có hiện lại khi khiếu nại cảnh cáo/ban thành công |
 | QA-007 | Nhắc tới | Hiện hành | Không áp dụng: AI Moderation API miễn phí | Nhóm B. AI Moderation API miễn phí |
 | QA-011 | Sở hữu | Hiện hành | FR-M08-01, BR-M08-01 | Nhóm B. Khách không báo cáo bài, bình luận. DEC-171 (ngoài bảng nguồn) chỉ sửa quyền Guest xem hồ sơ |
 | QA-013 | Phụ thuộc | Hiện hành | FR-M08-14 | Nhóm B. M10: Mod bị ban thì tự mất vai trò Mod |
@@ -1504,6 +1520,11 @@ Chưa có — chờ giai đoạn thiết kế.
 | MR-A05 | Nhắc tới | Hiện hành | Không áp dụng: Công nghệ | Nhóm D. Công nghệ |
 | DEC-224 | Phụ thuộc | Hiện hành | FR-M08-17, FR-M08-17.06, BR-M08-41 | Nhóm B (đối chiếu FR-M10). M10: Admin theo dõi Mod qua nhật ký kiểm duyệt lọc theo người làm |
 | DEC-227 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm B (đối chiếu FR-M10). M10: phạm vi nhật ký thao tác Admin, gồm thao tác kiểm duyệt của Admin ghi song song với nhật ký kiểm duyệt |
+| DEC-195 | Sở hữu | Hiện hành | FR-M08-01, FR-M08-02, FR-M08-03, FR-M08-08, BR-M08-46, BR-M08-55 | Nhóm B (rà lại 1.3). M09: không báo cáo được Admin; vụ về Mod chỉ Admin xử lý; nội dung Admin không bị quét. DEC-240 chỉ sửa phần bài của Owner nhóm |
+| DEC-197 | Sở hữu | Hiện hành | FR-M08-09, FR-M08-10 | Nhóm B (rà lại 1.3). M09: mọi thông báo về thao tác khiếu nại được đều kèm đường dẫn khiếu nại |
+| DEC-201 | Phụ thuộc | Hiện hành | Chuyển M09 | Nhóm B (rà lại 1.3). M09: bình luận bị ẩn không hiện lại khi cảnh cáo, ban liên quan bị lật; đóng OPEN-012 |
+| DEC-239 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (rà lại 1.3). M11: nội dung nhóm mất đi đều là xóa mềm; đóng phần M11 của OPEN-011 |
+| DEC-241 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: bình luận bị AI ẩn ≥ 0,9 trừ điểm ngay; 0,5–< 0,9 trừ khi Mod kết luận vi phạm |
 
 ### C.2 Chuỗi quyết định
 
@@ -1535,3 +1556,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | Mục ngoài bảng nguồn | DEC-141 (DEC-090), DEC-144 (DEC-100), DEC-160 (DEC-130), DEC-141, DEC-144 (DEC-132), DEC-155, DEC-157 (DEC-138), DEC-159 (DEC-156), DEC-171 (DEC-025, QA-011), DEC-050 (QA-017), DEC-147, DEC-148, DEC-149 (MR-M01), DEC-160 (MR-M03): chỉ sửa phần không thuộc M08. |
 | DEC-079 → DEC-211; QA-011 → DEC-208 (M06) | M08 vẫn chỉ cung cấp mức HEAVY cho M06. Cách áp do M06 quyết: Điểm cuối của bài × 0,5, ở cả tìm ngữ nghĩa và full-text, chỉ khi xếp theo Liên quan; không giảm hạng khi xếp Mới nhất, Nhiều upvote nhất; không hiện dấu hiệu (DEC-211, khớp BR-M08-31). DEC-208 chỉ nói cách Guest tìm bài. |
 | DEC-094 → DEC-227, DEC-228; QA-013 → DEC-223; DEC-065 → DEC-221 (đối chiếu FR-M10) | Nhật ký thao tác Admin (M10) ghi song song thao tác kiểm duyệt của Admin; nhật ký kiểm duyệt M08 không đổi, chỉ thêm việc Admin lọc theo người làm (DEC-224). Mod bị ban vẫn mất vai trò Mod (M10 thực hiện); tự từ chức và sự kiện "Đề xuất làm Admin" thuộc M10, M07, không chạm M08. |
+| DEC-189, DEC-191, DEC-186 → DEC-195 | Vụ về bài viết, bình luận, tài khoản của Mod chỉ Admin thấy và xử lý; không ai báo cáo được Admin (bài, bình luận, tài khoản, nhóm có Owner là Admin); nội dung của Admin không bị AI quét. Các phần khác của DEC-189, DEC-191, DEC-186 giữ nguyên. |
+| DEC-074, DEC-078 → DEC-192 → DEC-197 | Mọi thông báo về thao tác khiếu nại được (cảnh cáo kể cả do AI, ban, bài bị ẩn) kèm đường dẫn khiếu nại; bình luận bị ẩn, nhóm bị ẩn hoặc khóa thì không. |
+| OPEN-012 → DEC-201 | Bình luận bị ẩn không hiện lại khi cảnh cáo, ban gắn với nó bị lật. |
+| OPEN-011 → DEC-239 | Phần nhóm đã đóng: nội dung nhóm mất đi đều là xóa mềm. Phần chat (M16) còn mở (TBD-M08-02). |

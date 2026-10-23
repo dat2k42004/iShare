@@ -2,11 +2,11 @@
 module: M02
 ten_module: User Profile
 ma_tai_lieu: FR-M02
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
-ngay: 2026-10-13
+ngay: 2026-10-23
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-177, QA-341, ISS-281, OPEN-009
+moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M02 User Profile
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M02 — User Profile |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
-| Ngày | 2026-10-21 |
+| Phiên bản | 1.2 |
+| Ngày | 2026-10-23 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -118,7 +118,7 @@ trên trang hồ sơ của mình.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-177, QA-341, ISS-281, OPEN-009 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -225,6 +225,8 @@ cột MoSCoW ở dòng M02 của bảng Module List bị lệch nên không dùn
 | FR-M02-01.21 | Nếu không có tài khoản nào mang username trong địa chỉ /u/{username}, hệ thống phải hiển thị "người dùng không tồn tại". |
 | FR-M02-01.22 | Khi người dùng đã đổi username, hệ thống phải không chuyển hướng địa chỉ theo username cũ sang địa chỉ theo username mới. |
 | FR-M02-01.23 | Hệ thống phải không hiển thị số stars nhận, số stars cho trên trang hồ sơ. |
+| FR-M02-01.24 | Nếu chủ hồ sơ đạt danh hiệu "Ngôi sao tuần" ở tuần vừa chốt, hệ thống phải hiển thị danh hiệu đó trên trang hồ sơ cạnh badge, từ lúc chốt tuần tới lần chốt tuần sau, không kèm số lần đạt hay danh sách tuần đạt (BR-M02-37). |
+| FR-M02-01.25 | Hệ thống phải không hiển thị trên hồ sơ các lần đạt "Ngôi sao tuần" của những tuần trước tuần vừa chốt (BR-M02-37). |
 
 ### 5.2 FR-M02-02 Xem danh sách người theo dõi và đang theo dõi
 
@@ -352,7 +354,7 @@ cột MoSCoW ở dòng M02 của bảng Module List bị lệch nên không dùn
 | BR-M02-09 | Ràng buộc | Lớp/Khối trên hồ sơ không bắt buộc, nhận một trong ba giá trị 10, 11, 12, có thể bỏ chọn để về trống, và độc lập với Lớp/Khối trên bài viết. | Hồ sơ đặt Lớp 11: nhận. Bỏ chọn Lớp 11: hồ sơ không có Lớp/Khối. Hồ sơ Lớp 12, đăng bài chọn Lớp 10: hợp lệ. |
 | BR-M02-10 | Sự kiện | Lớp/Khối trên hồ sơ chỉ đổi khi người dùng tự sửa; hệ thống không tự tăng theo năm học. | Đặt Lớp 10 tháng 9/2026; tháng 9/2027 hồ sơ vẫn hiện Lớp 10 cho tới khi người dùng sửa. |
 | BR-M02-11 | Sự kiện | Điểm và badge trên hồ sơ chỉ để hiển thị; việc tính điểm, trao badge thuộc M12. | — |
-| BR-M02-12 | Ràng buộc | Tổng điểm trên hồ sơ phản ánh ngay mỗi thay đổi điểm, không chờ chu kỳ tính bảng xếp hạng. | Bài của Lan được upvote lúc 10:05: tổng điểm trên hồ sơ đổi ngay, dù bảng xếp hạng chỉ cập nhật ở lần tính kế tiếp. |
+| BR-M02-12 | Ràng buộc | Tổng điểm trên hồ sơ phản ánh ngay mỗi thay đổi điểm, không chờ chu kỳ tính bảng xếp hạng. | Bài của Lan được upvote lúc 10:05: tổng điểm trên hồ sơ đổi ngay, trong khi bảng xếp hạng Toàn thời gian chỉ cập nhật ở lần tính kế tiếp (mỗi 60 phút) và bảng Tuần, Tháng chỉ đổi khi chốt chu kỳ (M12). |
 | BR-M02-13 | Ràng buộc | Hồ sơ chỉ hiện badge người dùng đã đạt; không hiện tiến độ tới badge chưa đạt. | Lan đang có 150 điểm, mốc badge kế tiếp là 300: không hiện "150/300 điểm". |
 | BR-M02-14 | Ràng buộc | Danh sách người theo dõi và đang theo dõi của mọi người dùng xem được bởi mọi người dùng đã đăng nhập; người dùng không ẩn được danh sách của mình. Guest thấy hai con số nhưng phải đăng nhập mới mở được danh sách. | — |
 | BR-M02-15 | Suy diễn | Trang hồ sơ của tài khoản DEACTIVATED hoặc DELETED hiện "người dùng không tồn tại" thay cho nội dung hồ sơ. | Lan vô hiệu hóa lúc 01/10 21:00: từ lúc đó /u/lan_12 hiện "người dùng không tồn tại". Lan kích hoạt lại ngày 05/10: hồ sơ hiện lại bình thường. |
@@ -377,6 +379,7 @@ cột MoSCoW ở dòng M02 của bảng Module List bị lệch nên không dùn
 | BR-M02-34 | Ràng buộc | Địa chỉ /u/{username} không phân biệt chữ hoa, chữ thường. Địa chỉ theo username cũ không chuyển hướng sang username mới; địa chỉ không ứng với tài khoản nào hiện "người dùng không tồn tại". | /u/LAN_12 mở hồ sơ lan_12. Lan đổi sang lan_nguyen: /u/lan_12 hiện "người dùng không tồn tại" nếu chưa ai lấy lan_12; Tú lấy lan_12 thì /u/lan_12 mở hồ sơ của Tú. |
 | BR-M02-35 | Sự kiện | Không có thông báo nhắc cập nhật Lớp/Khối theo năm học ở MS1. | — |
 | BR-M02-36 | Sự kiện | Mod và Admin không gỡ, không sửa avatar hoặc bio của người khác; xử lý báo cáo người dùng giữ như M08 (cảnh cáo hoặc khóa). | — |
+| BR-M02-37 | Ràng buộc | Hồ sơ chỉ hiện danh hiệu "Ngôi sao tuần" khi chủ hồ sơ đạt ở tuần vừa chốt, trong tuần ngay sau đó; không có số lần đạt, không có lịch sử. Badge (huy hiệu theo mốc điểm) hiện vĩnh viễn. Danh hiệu do M12 trao. | An đạt ở tuần 13/10–19/10 → hồ sơ An hiện "Ngôi sao tuần" từ lúc chốt 20/10 tới lần chốt 27/10; tuần 20/10–26/10 An không đạt → từ 27/10 không còn. |
 
 ### 5.9 Dữ liệu nghiệp vụ
 
@@ -413,7 +416,8 @@ Cách trang hồ sơ hiện theo trạng thái tài khoản (M01) được ghi b
 | Cung cấp | M05 | Bookmark kèm thời điểm lưu và việc bỏ lưu, dùng tính Trending Topic/Tag | FR-M02-05.01, FR-M02-06.01 |
 | Cung cấp | M14 | Bookmark cho Trending Post nếu OPEN-009 chốt thêm bookmark | FR-M02-05.01 |
 | Dùng | M07 | Quan hệ theo dõi để hiện số và danh sách người theo dõi, đang theo dõi; hành động theo dõi và thông báo người theo dõi mới thuộc M07 | FR-M02-02.01, FR-M02-02.02 |
-| Dùng | M12 | Tổng điểm, badge đã đạt; nhãn "Tài khoản đã bị khóa" cho tài khoản BANNED | FR-M02-01.09, FR-M02-01.10, FR-M02-01.12 |
+| Dùng | M12 | Tổng điểm, badge đã đạt; danh hiệu "Ngôi sao tuần" khi đạt ở tuần vừa chốt; nhãn "Tài khoản đã bị khóa" cho tài khoản BANNED | FR-M02-01.09, FR-M02-01.10, FR-M02-01.12, FR-M02-01.24 |
+| Cung cấp | M12 | Lớp/Khối của người dùng, để lọc bảng xếp hạng (M12 lấy giá trị tại lúc chốt bảng) | FR-M02-03.02 |
 | Dùng | M08 | Mức cảnh báo của người dùng, không được hiện trên hồ sơ | FR-M02-01.13 |
 | Cung cấp | M03, M04, M16, M01 | Avatar, display_name hiện ở nơi hiển thị tác giả, người gửi tin nhắn và danh sách gợi ý nhắc tên; avatar mặc định khi chưa đặt | FR-M02-04.01, FR-M02-01.18 |
 | Dùng | M03 | Trạng thái của bài (đã đăng, nháp, chờ duyệt, bị từ chối, tự ẩn, đã xóa, bị Mod ẩn) để chọn bài hiện ở tab Bài viết và dòng "Nội dung không tồn tại" ở tab Bookmark; thời điểm bài bị xóa hẳn | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03, FR-M02-07.06 |
@@ -439,12 +443,13 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-12 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-13 | Chốt sau 7 bước; câu trả lời bước 6 ghi ở DEC-170–177 | Phạm Văn Đức |
 | 1.1 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-236): "Dùng M11" ghi thêm hành vi khi cờ Group tắt (M11 sở hữu); không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-23 | Rà lại với register tới DEC-247: hồ sơ hiện danh hiệu "Ngôi sao tuần" của tuần vừa chốt (DEC-244, DEC-247: FR-M02-01.24, FR-M02-01.25, BR-M02-37); ví dụ BR-M02-12 theo cách tính bảng xếp hạng mới (DEC-242); thêm dòng Cung cấp M12 (Lớp/Khối). Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
 | ID | Nguồn | Căn cứ | Ghi chú |
 |---|---|---|---|
-| FR-M02-01 | DEC-023, DEC-024, DEC-038, DEC-170, DEC-171, DEC-173, DEC-175, DEC-176, DEC-025, DEC-028, DEC-022, DEC-021, DEC-122, QA-018, QA-067, QA-034, DM-1.2, DM-3.3 | Nói thẳng | — |
+| FR-M02-01 | DEC-023, DEC-024, DEC-038, DEC-170, DEC-171, DEC-173, DEC-175, DEC-176, DEC-025, DEC-028, DEC-022, DEC-021, DEC-122, QA-018, QA-067, QA-034, DM-1.2, DM-3.3, DEC-244, DEC-247 | Nói thẳng | — |
 | FR-M02-01.01 | DEC-023, QA-018, DEC-122 | Suy ra | Hồ sơ của DEACTIVATED, DELETED bị thay (BR-M02-15), BANNED vẫn hiện (BR-M02-16) ⇒ hồ sơ hiện với ACTIVE và BANNED |
 | FR-M02-01.02 | QA-067, DEC-025, DEC-028, DEC-173 | Nói thẳng | — |
 | FR-M02-01.03 | DEC-021 | Nói thẳng | — |
@@ -468,6 +473,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M02-01.21 | DEC-176 | Nói thẳng | Gồm username cũ đã đổi mà chưa ai lấy |
 | FR-M02-01.22 | DEC-176 | Nói thẳng | — |
 | FR-M02-01.23 | DEC-173 | Nói thẳng | — |
+| FR-M02-01.24 | DEC-244, DEC-247 | Nói thẳng | — |
+| FR-M02-01.25 | DEC-247 | Nói thẳng | — |
 | FR-M02-02 | DEC-025, DEC-171, DEC-172, DEC-176, QA-067, DM-1.2 | Nói thẳng | — |
 | FR-M02-02.01 | DEC-025, DEC-171, QA-067 | Nói thẳng | — |
 | FR-M02-02.02 | DEC-025, DEC-172, QA-067 | Nói thẳng | — |
@@ -530,7 +537,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M02-09 | QA-034, DM-1.2, DM-3.3, GL:Lớp/Khối, DEC-176 | Nói thẳng | — |
 | BR-M02-10 | QA-034 | Nói thẳng | — |
 | BR-M02-11 | DEC-028 | Nói thẳng | — |
-| BR-M02-12 | DEC-121 | Nói thẳng | — |
+| BR-M02-12 | DEC-121, DEC-242 | Nói thẳng | — |
 | BR-M02-13 | QA-207 | Nói thẳng | — |
 | BR-M02-14 | DEC-025, DEC-171 | Suy ra | "Full list public (no privacy restriction)" ⇒ không có tùy chọn ẩn danh sách |
 | BR-M02-15 | QA-018 | Nói thẳng | Ví dụ kích hoạt lại thì hồ sơ hiện lại: quy tắc chỉ áp cho DEACTIVATED, DELETED |
@@ -555,6 +562,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M02-34 | DEC-176 | Nói thẳng | — |
 | BR-M02-35 | DEC-176 | Nói thẳng | — |
 | BR-M02-36 | DEC-177 | Nói thẳng | — |
+| BR-M02-37 | DEC-244, DEC-247 | Nói thẳng | — |
 
 ## Phụ lục B. Câu hỏi, giả định và TBD
 
@@ -657,8 +665,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-052 | Nhắc tới | Sửa một phần bởi DEC-145 | Không áp dụng: M05: công thức cũ; bookmark chỉ có trong ghi chú sửa đổi DEC-145 | Nhóm B. M05: công thức cũ; bookmark chỉ có trong ghi chú sửa đổi DEC-145. Công thức bị thay |
 | DEC-065 | Phụ thuộc | Sửa một phần bởi DEC-151 | Chuyển M07 | Nhóm B. M07: thông báo "người theo dõi mới". DEC-147 (ngoài bảng nguồn) cũng sửa; dòng "New follower" không đổi |
 | DEC-079 | Phụ thuộc | Sửa một phần bởi DEC-122, QA-199 | FR-M02-01.13, BR-M02-17 | Nhóm B. M08: mức cảnh báo không bao giờ hiện trên hồ sơ. DEC-118, DEC-163 (ngoài bảng nguồn) cũng sửa; phần không hiện cảnh báo trên hồ sơ còn hiệu lực |
-| DEC-121 | Phụ thuộc | Hiện hành | FR-M02-01.09, BR-M02-12 | Nhóm B. M12: tổng điểm trên hồ sơ của chính người dùng cập nhật tức thì. |
-| DEC-122 | Sở hữu | Hiện hành | FR-M02-01, FR-M02-01.01, FR-M02-01.12, BR-M02-16 | Nhóm B. M12 section; hồ sơ tài khoản BANNED vẫn hiện bình thường, kèm nhãn "Tài khoản đã bị khóa". |
+| DEC-121 | Phụ thuộc | Sửa một phần bởi DEC-242, DEC-247 | FR-M02-01.09, BR-M02-12 | Nhóm B. M12: tổng điểm trên hồ sơ của chính người dùng cập nhật tức thì. |
+| DEC-122 | Sở hữu | Sửa một phần bởi DEC-242, DEC-246 | FR-M02-01, FR-M02-01.01, FR-M02-01.12, BR-M02-16 | Nhóm B. M12 section; hồ sơ tài khoản BANNED vẫn hiện bình thường, kèm nhãn "Tài khoản đã bị khóa". |
 | DEC-125 | Phụ thuộc | Hiện hành | Không áp dụng: M14 bỏ feed cá nhân hóa; ghi ở C.2 | Nhóm B. M14: không có feed cá nhân hóa; Lớp/Khối trên hồ sơ không còn dùng xếp feed. |
 | DEC-126 | Phụ thuộc | Hiện hành | FR-M02-05.02, BR-M02-24 | Nhóm B. M14: Guest phải đăng nhập để bookmark, follow. |
 | DEC-145 | Phụ thuộc | Hiện hành | Chuyển M05 | Nhóm B. M05: bookmark là tương tác tính Trending; bookmark đã bỏ không tính. |
@@ -755,6 +763,11 @@ Chưa có — chờ giai đoạn thiết kế.
 | MR-A04 | Nhắc tới | Hiện hành | Không áp dụng: Dùng chung; không quy định hành vi M02 | Nhóm D. Dùng chung; không quy định hành vi M02. |
 | MR-A05 | Nhắc tới | Hiện hành | Không áp dụng: Công nghệ | Nhóm D. Công nghệ. |
 | DEC-236 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: cờ Group tắt, lối vào vẫn hiện, mở ra thì báo hệ thống đang bận |
+| DEC-242 | Phụ thuộc | Hiện hành | BR-M02-12 | Nhóm B (rà lại 1.2). M12: bảng Tuần, Tháng hiện chu kỳ vừa chốt; Toàn thời gian tính lại mỗi 60 phút |
+| DEC-243 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.2). M12: lọc bảng xếp hạng theo Lớp/Khối lấy tại lúc chốt |
+| DEC-244 | Phụ thuộc | Sửa một phần bởi DEC-247 | FR-M02-01, FR-M02-01.24, BR-M02-37 | Nhóm B (rà lại 1.2). M12: danh hiệu hiện trên hồ sơ |
+| DEC-246 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.2). M12: tài khoản đã xóa trên bảng xếp hạng; HEAVY/BANNED lúc chốt |
+| DEC-247 | Sở hữu | Hiện hành | FR-M02-01, FR-M02-01.24, FR-M02-01.25, BR-M02-37 | Nhóm B (rà lại 1.2). M12: hồ sơ chỉ hiện danh hiệu của tuần vừa chốt; chỉ badge hiện vĩnh viễn |
 
 ### C.2 Chuỗi quyết định
 
@@ -776,3 +789,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-052 → DEC-145 (QA-271) | Bookmark là tương tác trọng số 1 trong Trending Topic/Tag; bookmark đã bỏ không tính. |
 | DEC-020 → DEC-153 (QA-301) | Lượt nhắc tới tài khoản DEACTIVATED, DELETED không dẫn tới trang hồ sơ. |
 | DEC-065 → DEC-151 | Dòng "người theo dõi mới" (in-app, không email) không đổi; DEC-151 chỉ thêm việc đặt lại mật khẩu cũng gửi thông báo "đổi mật khẩu", không chạm M02. |
+| DEC-121 → DEC-242, DEC-247; DEC-244 → DEC-247 | Tổng điểm trên hồ sơ cập nhật tức thời. Bảng xếp hạng Toàn thời gian tính lại mỗi 60 phút, bảng Tuần, Tháng chỉ đổi khi chốt (M12). Hồ sơ hiện danh hiệu "Ngôi sao tuần" chỉ khi đạt ở tuần vừa chốt, tới lần chốt sau; không có số lần, lịch sử; badge hiện vĩnh viễn. |
