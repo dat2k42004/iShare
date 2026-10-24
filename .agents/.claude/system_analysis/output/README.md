@@ -2,7 +2,7 @@
 
 > Thư mục này là workspace đầu ra của agent trong giai đoạn System Analysis của iShare.
 > Mọi thứ ở đây là tài liệu làm việc, chưa phải bản chính thức.
-> Tài liệu được stakeholder duyệt sẽ được chuyển sang `docs/approved/` (COMMON-RULES Rule 3).
+> Tài liệu được stakeholder duyệt sẽ được chuyển sang `docs/specs/` (COMMON-RULES Rule 3).
 > Cách làm từng loại tài liệu: xem `.agent-instructions/README.md`.
 
 ---
@@ -94,7 +94,7 @@ Lưu ý: cột MoSCoW và Dependencies đang bị lệch ở các dòng M02–M1
      ↓
 [Viết FR]     → fr/FR-Mxx.md (Bản nháp → Đã chốt, mỗi bước có stakeholder xác nhận)
      ↓ stakeholder duyệt
-[Chính thức]  → docs/approved/
+[Chính thức]  → docs/specs/
 ```
 
 ---

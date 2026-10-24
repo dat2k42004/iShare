@@ -7,7 +7,7 @@ description: System design tasks for iShare outside the interview — architectu
 
 > Phase: **System Analysis** → [../../phases/system-analysis.md](../../phases/system-analysis.md) · Inputs come from the registers and FR documents produced with [ba-interview](../ba-interview/SKILL.md) and [analyzing-functional-requirements](../analyzing-functional-requirements/SKILL.md). Common rules: [../../COMMON-RULES.md](../../COMMON-RULES.md)
 
-**Output location (all tasks):** `.agents/.claude/system_analysis/output/<folder>/` — `architecture/`, `data-model/`, `api/`, `adr/`, `performance/`. Final versions are promoted to `docs/approved/` after stakeholder approval.
+**Output location (all tasks):** `.agents/.claude/system_analysis/output/<folder>/` — `architecture/`, `data-model/`, `api/`, `adr/`, `performance/`. Final versions are promoted to `docs/specs/` after stakeholder approval.
 
 **iShare note (Phase 8):** the stakeholder expects the data model to be derived module by module — extract nouns → entities and attributes → system-wide entity diagram → database → class and flow design. The inputs for this work are the FR documents (`FR-Mxx.md`): section 5 business rules, business data with the CRUD matrix, state transitions and interfaces with other modules. Database and model design is not a requirement and does not belong in an FR document.
 
