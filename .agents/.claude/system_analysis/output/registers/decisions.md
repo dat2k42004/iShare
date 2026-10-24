@@ -1967,3 +1967,54 @@ ISS-383 → ISS-393
 
 ### Issues Closed
 ISS-394 → ISS-402
+
+---
+
+## Functional Requirement — M15: Analytics & Stats
+
+### DEC-264: M15 — Final metric list; draft-only metrics dropped (resolves DM-9.5 vs QA-243)
+- The three dashboards hold exactly the metrics of QA-242, QA-243 (with the Topic-suggestion metric of DEC-203) and QA-244. The draft-only items of DM-9.5 "Stars per day" and "Popular tags" are dropped; "Active users" stays dropped (QA-242).
+- Source: QA-465
+
+### DEC-265: M15 — Time filter, period boundaries and trend buckets (clarifies QA-245, QA-246, DEC-127)
+- The time filter applies to every metric of the three pages. A metric counts the objects created (or, for events, the events that happened) within the selected period, grouped by their state at the moment of viewing. "Toàn thời gian" means no time limit and is the selection when a page is opened; Admin narrows it by choosing Hôm nay, 7 ngày or 30 ngày.
+- Hôm nay: from 00:00 of the current day to the moment of viewing. 7 ngày, 30 ngày: calendar days including today, from 00:00 of the first day (today and the previous 6 or 29 days). All boundaries in Asia/Ho_Chi_Minh (DEC-127).
+- Trend charts: Hôm nay by hour; 7 ngày and 30 ngày by day; Toàn thời gian by month.
+- Example: 1,000 accounts (950 ACTIVE, 30 DEACTIVATED, 20 BANNED); 50 created in the last 7 days, now 48 ACTIVE and 2 BANNED. Toàn thời gian shows 950 / 30 / 20; 7 ngày shows 48 / 0 / 2. Viewed at 15:00 on 10/10, 7 ngày covers 00:00 04/10 → now, 7 daily bars 04/10 … 10/10; 30 ngày starts 00:00 11/09; Hôm nay shows 16 hourly bars 00h … 15h.
+- Source: QA-466, QA-467, QA-468
+
+### DEC-266: M15 — Accounts counted in User Stats (clarifies QA-242; scope extension: two onboarding groups, DELETED group)
+- The account-status block has six groups, each account in exactly one: Chờ xác minh email (ACTIVE, email not verified), Chờ hoàn tất hồ sơ (ACTIVE, email verified, Step 3 not done — Google accounts without a username included), ACTIVE (Step 3 done), DEACTIVATED, BANNED, DELETED.
+- "Đăng ký mới" counts every account created in the period (Step 1 done by email, or first Google sign-in), including accounts later deleted or not finished; its total equals the total of the status block for the same period.
+- The role, Lớp/Khối and warning-level breakdowns count only accounts that finished Step 3 and are not DELETED.
+- Lớp/Khối has four groups: 10, 11, 12, Chưa khai. The warning-level breakdown has five groups, each account in one: Sạch, LIGHT, MEDIUM, HEAVY, BANNED; a BANNED account appears only under BANNED; ADMIN accounts (never warned) are Sạch.
+- Example: 60 accounts created in 7 days → status block 6 / 4 / 48 / 0 / 1 / 1 (Chờ xác minh email / Chờ hoàn tất hồ sơ / ACTIVE / DEACTIVATED / BANNED / DELETED); "Đăng ký mới" 60; role USER 49.
+- Source: QA-469, QA-472
+
+### DEC-267: M15 — Counting in Moderation Stats (clarifies QA-244, DEC-076, DEC-190)
+- Reports are counted one by one, not by case. The status block has three groups: Mở; Đã xử lý – Có xử lý; Đã xử lý – Bác bỏ. Each AI-created entry, including a system ban request (DEC-187), counts as one report.
+- Reasons are shown per target type (post, comment, user, group), each with its own list (DEC-072); the same name under two types (e.g. "Khác") is not merged.
+- Warnings issued are counted by the level the account reached right after that warning (LIGHT, MEDIUM, HEAVY), AI and MOD/ADMIN warnings alike; a warning later removed or overturned is still counted.
+- Bans: every ban issued in the period, split temporary / permanent, including bans later overturned. Gỡ ban: only lifts by MOD/ADMIN; expired and overturned bans are not counted as gỡ ban (overturned bans show under ban appeals, Chấp nhận).
+- Appeals by result have three groups: Chờ xét, Chấp nhận, Từ chối.
+- Example: post X reported "Spam" by 5 users (case dismissed); comment Y reported "Quấy rối/Bắt nạt" by 1 user and by AI (case open); user Z reported "Khác" (action taken) → Mở 2, Bác bỏ 5, Có xử lý 1; reasons: Bài viết – Spam 5, Bình luận – Quấy rối/Bắt nạt 2, Người dùng – Khác 1. In 30 days: 10 bans (8 temporary, 2 permanent, 1 later overturned), 2 lifted by MOD → Ban 10, Gỡ ban 2.
+- Source: QA-470, QA-471, QA-474
+
+### DEC-268: M15 — Counting in Content Stats (clarifies QA-243)
+- Draft posts are not counted anywhere on the page. The publish-state block has six groups: Chờ duyệt, Đã đăng, Tự ẩn, Bị từ chối, Đã xóa, Đã xóa hẳn.
+- Group posts and anonymous posts are counted like other posts.
+- The publish-state, moderation-state and Topic blocks place a post by its creation time; the "bài viết mới" trend places a post by its publish time (when it became Đã đăng).
+- A post with several Topics counts once under each of its Topics.
+- The "bình luận mới" trend counts every comment posted in the period, including comments later hidden or deleted (comments are never erased, M04).
+- Example: in 7 days 30 non-draft posts are created, 25 of them published; 2 posts created earlier are published this week → publish-state block total 30, "bài viết mới" 27. 62 comments posted on 05/10, 3 of them later deleted or hidden → the 05/10 bar stays 62.
+- Source: QA-473
+
+**[Clarified 2026-10-24 — DEC-269: bài bị ẩn theo tài khoản tác giả hoặc theo nhóm vẫn đếm theo trạng thái đăng]**
+
+### DEC-269: M15 — Posts hidden by their author's account or their group (clarifies DEC-268)
+- Content Stats counts a post by its own publish state, moderation state and Topics, also when it is hidden because its author is DEACTIVATED or DELETED (DEC-019, DEC-156) or because its group is hidden (DEC-194). Such posts are neither left out nor shown as a separate group.
+- Example: 500 posts Đã đăng, 15 of them by deactivated or deleted accounts, 5 in a hidden group → Đã đăng 500.
+- Source: QA-475
+
+### Issues Closed
+ISS-403 → ISS-413

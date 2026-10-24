@@ -616,3 +616,21 @@
 | ISS-400 | Danh sách xác nhận: số mục Trending Topic/Tag, bình luận gồm trả lời, bằng điểm, mốc 30 phút, tab rỗng khi chưa có bài, tab Group khi cờ Group tắt, banner 60 giây | Closed | Xem DEC-259, DEC-261 |
 | ISS-401 | Bài nhóm Private chỉ xuất hiện ở tab Following ngoài khu vực nhóm (DEC-258): giữ, mở rộng hay rút lại | Closed | Xem DEC-262 |
 | ISS-402 | Bộ lọc "đang theo dõi" của M06 có giữ bài ẩn danh nhờ việc theo dõi tác giả không (DEC-212 định nghĩa bộ lọc như tab Following) | Closed | Xem DEC-263 |
+
+---
+
+## Functional Requirement — M15: Analytics & Stats | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-403 | Draft DM-9.5 có "Stars per day", "Popular tags" mà danh sách chỉ số chốt ở QA-243 không nhắc: giữ hay bỏ | Closed | Xem DEC-264 |
+| ISS-404 | Bộ lọc thời gian áp thế nào cho các chỉ số đếm theo nhóm (trạng thái, vai trò, Lớp/Khối, mức cảnh cáo, Topic, báo cáo…); lựa chọn mặc định khi mở trang | Closed | Xem DEC-265 |
+| ISS-405 | "7 ngày", "30 ngày" tính theo ngày lịch hay 7 × 24 giờ, 30 × 24 giờ lùi từ lúc xem | Closed | Xem DEC-265 |
+| ISS-406 | Biểu đồ xu hướng chia theo đơn vị thời gian nào cho từng khoảng | Closed | Xem DEC-265 |
+| ISS-407 | Thống kê người dùng đếm những tài khoản nào (DELETED, chưa xong đăng ký); "đăng ký mới" tính theo lúc nào | Closed | Xem DEC-266 |
+| ISS-408 | Thống kê báo cáo đếm theo báo cáo hay theo vụ; lý do báo cáo gộp theo tên hay tách theo loại đối tượng | Closed | Xem DEC-267 |
+| ISS-409 | "Ban/Unban theo thời gian" đếm những gì: ban bị lật, ban hết hạn | Closed | Xem DEC-267 |
+| ISS-410 | Danh sách xác nhận thống kê người dùng: nhóm Chưa khai Lớp/Khối; tài khoản BANNED, Admin ở phân bố mức cảnh cáo | Closed | Xem DEC-266 |
+| ISS-411 | Danh sách xác nhận thống kê nội dung: trạng thái đăng hiện, bài nhóm và ẩn danh, mốc thời gian, bài nhiều Topic, bình luận bị ẩn hoặc xóa | Closed | Xem DEC-268 |
+| ISS-412 | Danh sách xác nhận thống kê kiểm duyệt: mức của cảnh cáo, cảnh cáo bị bỏ hoặc lật, khiếu nại Chờ xét, nhóm trạng thái báo cáo | Closed | Xem DEC-267 |
+| ISS-413 | Bài Đã đăng bị ẩn vì tác giả vô hiệu hóa, xóa tài khoản hoặc vì nhóm bị ẩn: thống kê nội dung đếm thế nào | Closed | Xem DEC-269 |

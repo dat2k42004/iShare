@@ -2,9 +2,9 @@
 module: M13
 ten_module: AI Layer
 ma_tai_lieu: FR-M13
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
-ngay: 2026-10-20
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-207, QA-392, ISS-332, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M13 — AI Layer |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
-| Ngày | 2026-10-20 |
+| Phiên bản | 1.2 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -132,7 +132,7 @@ với trường hợp không ở khoảng điểm cao, và phần lõi vẫn ho�
 | M10 Admin Panel | Công tắc AI tổng và riêng; ngưỡng là hằng số chính sách, không chỉnh qua giao diện. |
 | M11 Group | Bài trong nhóm dùng cùng ngưỡng AI trước cổng duyệt của nhóm. |
 | M14 Feed & Discovery | Không còn phụ thuộc M13 (không có feed cá nhân hóa bằng AI). |
-| M15 Analytics & Stats | Hiển thị tỷ lệ Topic gợi ý được giữ lại cho Admin ở bảng thống kê Nội dung. |
+| M15 Analytics & Stats | Hiển thị tỷ lệ Topic gợi ý được giữ lại cho Admin ở bảng thống kê Nội dung; định nghĩa các khoảng thời gian và cách hiện khi không có dữ liệu. |
 | M16 Chat & Messaging | Không có AI kiểm duyệt tin nhắn. |
 
 ## 4. Tổng quan chức năng
@@ -466,7 +466,7 @@ trạng thái riêng (xem CRUD).
 | Cung cấp | M09 | Nhật ký quyết định AI của bài bị AI tự từ chối cho người xét khiếu nại | FR-M13-09.01 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Search, Moderation, Topic suggestion; ngưỡng là hằng số, không chỉnh qua giao diện | FR-M13-01.02, FR-M13-01.03, FR-M13-01.09, FR-M13-02.14 |
 | Cung cấp | M11 | Điểm quét của bài trong nhóm, dùng cùng ngưỡng trước cổng duyệt của nhóm | FR-M13-02.08 |
-| Cung cấp | M15 | Tỷ lệ Topic gợi ý được giữ lại theo khoảng thời gian cho bảng thống kê Nội dung (chỉ Admin) | FR-M13-10.02, FR-M13-10.04 |
+| Cung cấp | M15 | Tỷ lệ Topic gợi ý được giữ lại theo khoảng thời gian M15 định nghĩa (Hôm nay; 7 ngày, 30 ngày theo ngày lịch; Toàn thời gian), không có giá trị khi khoảng không có phản hồi, cho bảng thống kê Nội dung (chỉ Admin); cách hiển thị thuộc M15 | FR-M13-10.02, FR-M13-10.03, FR-M13-10.04 |
 | Cung cấp | M16 | Không chấm điểm tin nhắn chat | FR-M13-02.12 |
 
 ### 5.15 AI hỗ trợ và hành vi khi tắt AI
@@ -499,6 +499,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-18 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-19 | Chốt sau 7 bước; câu trả lời ghi vào register (DEC-203–207) | Phạm Văn Đức |
 | 1.1 | 2026-10-20 | Đối chiếu với FR-M06: FR-M13-04.04 khớp DEC-208; ghi chuỗi DEC-208–213 ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-24 | Đối chiếu với FR-M15: dòng Cung cấp M15 nêu rõ M13 tính tỷ lệ theo khoảng thời gian M15 định nghĩa và không có giá trị khi khoảng không có phản hồi; cách hiển thị thuộc M15; sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

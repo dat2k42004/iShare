@@ -2,7 +2,7 @@
 module: M08
 ten_module: Moderation
 ma_tai_lieu: FR-M08
-phien_ban: 1.5
+phien_ban: 1.6
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M08 — Moderation |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -167,7 +167,7 @@ Mọi thao tác kiểm duyệt được ghi vào nhật ký để minh bạch v�
 | M11 Group | Báo cáo nhóm; kiểm duyệt cấp nhóm chồng lên kiểm duyệt hệ thống. |
 | M12 Gamification | Trừ điểm khi nội dung bị gỡ; loại người ở mức HEAVY hoặc bị ban khỏi bảng xếp hạng. |
 | M13 AI Layer | Điểm AI kiểm duyệt, ngưỡng, xử lý khi AI lỗi. |
-| M15 Analytics & Stats | Thống kê báo cáo, cảnh cáo, ban. |
+| M15 Analytics & Stats | Thống kê báo cáo, cảnh cáo, ban, gỡ ban; mức cảnh cáo của tài khoản. |
 | M16 Chat & Messaging | Tin nhắn chưa báo cáo được ở MS1. |
 | M14 Feed & Discovery | Mức cảnh cáo không hiện và không làm bài bị loại hay hạ điểm ở feed; báo cáo bài hiện trong feed. |
 
@@ -819,7 +819,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | Dùng | M11 | Nhóm là đối tượng báo cáo, Owner là người bị báo cáo; nhóm Private chặn báo cáo của người ngoài; danh tính thật của bài ẩn danh | FR-M08-01.11, FR-M08-04.06, FR-M08-04.10 |
 | Cung cấp | M12 | Nội dung bị Mod, Admin gỡ vì vi phạm (để trừ điểm ngay); bình luận bị AI tự ẩn với điểm quét ≥ 0,9 (trừ điểm ngay) và kết luận của Mod, Admin với bình luận bị AI ẩn 0,5–< 0,9 (vi phạm thì trừ điểm, DEC-241); mức HEAVY và tài khoản BANNED (loại khỏi bảng xếp hạng, nhãn "Tài khoản đã bị khóa") | FR-M08-06.01, FR-M08-06.02, FR-M08-09.04, FR-M08-14.03, FR-M08-08.04, FR-M08-07.03, FR-M08-07.04 |
 | Dùng | M13 | Gọi AI kiểm duyệt, điểm bốn nhóm vi phạm, thời gian chờ và một lần thử lại; nhật ký quyết định AI | FR-M08-08.01, FR-M08-08.09, FR-M08-08.11 |
-| Cung cấp | M15 | Dữ liệu báo cáo, kết luận, cảnh cáo, ban cho thống kê kiểm duyệt | FR-M08-05.01, FR-M08-09.01, FR-M08-10.01, FR-M08-14.01 |
+| Cung cấp | M15 | Dữ liệu báo cáo, kết luận, cảnh cáo (kèm mức đạt sau cảnh cáo), ban, gỡ ban cho thống kê kiểm duyệt; mức cảnh cáo của tài khoản cho thống kê người dùng | FR-M08-05.01, FR-M08-09.01, FR-M08-09.04, FR-M08-10.01, FR-M08-10.02, FR-M08-14.01, FR-M08-15.01 |
 | Cung cấp | M13 | Kích hoạt quét luồng bình luận theo tốc độ trả lời (bình luận của Admin không gửi quét) | FR-M08-08.01, FR-M08-08.12 |
 | Cung cấp | M14 | Mức cảnh cáo không hiện trên bài ở feed và không làm bài bị loại hay hạ điểm Trending Post; báo cáo bài từ feed theo luồng báo cáo chung | FR-M08-13.03, FR-M08-01.01 |
 
@@ -854,6 +854,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: không báo cáo được Admin, vụ về Mod chỉ Admin xử lý, bình luận của Admin không bị quét (DEC-195: BR-M08-46, BR-M08-55, FR-M08-01.20, FR-M08-02.09, FR-M08-03.09, FR-M08-08.12); thông báo cảnh cáo kèm đường dẫn khiếu nại (DEC-197); đóng TBD-M08-03 (DEC-201), thu hẹp TBD-M08-02 (DEC-239); dòng Cung cấp M12 thêm bình luận bị AI ẩn (DEC-241); thêm dòng Cung cấp M13 khớp FR-M13. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-24 | Đối chiếu với FR-M16: đóng TBD-M08-02 (DEC-248: thu hồi tin nhắn là xóa mềm); dòng Dùng M16; C.1 OPEN-011, C.2. Không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 | 1.5 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (mức cảnh cáo riêng tư ở feed, báo cáo bài từ feed) và dòng M14 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
+| 1.6 | 2026-10-24 | Đối chiếu với FR-M15: dòng Cung cấp M15 thêm mức cảnh cáo của tài khoản (cùng mức đạt sau mỗi cảnh cáo) và gỡ ban; sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

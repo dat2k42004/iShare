@@ -2,7 +2,7 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.8
+phien_ban: 1.9
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.8 |
+| Phiên bản | 1.9 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -156,7 +156,7 @@ vô hiệu hóa rồi xóa tài khoản của mình. Module cũng xác định h
 | M10 Admin Panel | Vai trò, tài khoản ADMIN gốc, công tắc tạm dừng đăng ký, chế độ bảo trì. |
 | M11 Group | Chuyển quyền Owner khi tài khoản Owner bị vô hiệu hóa, bị xóa hoặc bị ban. |
 | M12 Gamification | Nhãn tài khoản bị khóa, bảng xếp hạng với tài khoản BANNED. |
-| M15 Analytics & Stats | Thống kê tài khoản theo trạng thái, lượt đăng ký mới. |
+| M15 Analytics & Stats | Thống kê tài khoản theo trạng thái và mức xác minh, lượt đăng ký mới. |
 | M05 Topic & Tag | Trang Privacy Policy/ToS nêu việc bài đang soạn được gửi cho nhà cung cấp dịch vụ AI khi bấm "Gợi ý topic"; bài của tài khoản vô hiệu hóa hoặc đã xóa không tính Trending; lượt theo dõi Topic bị xóa và phản hồi gợi ý được giữ khi tài khoản bị xóa. |
 | M13 AI Layer | Nhật ký AI của tài khoản đã xóa vẫn tra cứu được qua username. |
 | M16 Chat & Messaging | Nhắn tin yêu cầu đăng nhập; tin nhắn của tài khoản đã xóa hiện người gửi "[Người dùng đã xóa]". |
@@ -739,7 +739,7 @@ SETUP_COMPLETED là mức cuối; nguồn không có đường đi ngược lạ
 | Cung cấp | M11 | Trạng thái tài khoản (vô hiệu hóa, đã xóa, bị ban) để chuyển quyền Owner | FR-M01-10.01, FR-M01-12.01 |
 | Dùng | M11 | Thành viên Group để xếp danh sách gợi ý nhắc tên | FR-M01-14.04, FR-M01-14.05 |
 | Cung cấp | M12 | Trạng thái BANNED để gắn nhãn "Tài khoản đã bị khóa" và loại khỏi bảng xếp hạng; trạng thái DEACTIVATED (loại khỏi bảng xếp hạng trong thời gian vô hiệu hóa, có lại khi kích hoạt lại) và DELETED (hiện mờ trên bảng đã chốt với nhãn "[Người dùng đã xóa]", sau đó bị loại) (DEC-246) | FR-M01-05.06, FR-M01-10.01, FR-M01-11.02, FR-M01-12.01 |
-| Cung cấp | M15 | Trạng thái tài khoản và việc tạo tài khoản mới để thống kê | FR-M01-01.01, FR-M01-04.01 |
+| Cung cấp | M15 | Trạng thái tài khoản (kể cả DELETED), mức xác minh (chưa xác minh email, chưa xong bước 3) và việc tạo tài khoản mới để thống kê người dùng | FR-M01-01.01, FR-M01-04.01, FR-M01-02.01, FR-M01-03.01 |
 | Cung cấp | M05 | Trang Privacy Policy/ToS nêu việc tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, được xử lý bởi nhà cung cấp dịch vụ AI khi bấm "Gợi ý topic" | FR-M01-15.04 |
 | Cung cấp | M05 | Trạng thái tài khoản tác giả (bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn); dữ liệu của tài khoản đã xóa: upvote giữ, bookmark và lượt theo dõi Topic bị xóa, phản hồi gợi ý Topic giữ | FR-M01-13.01, FR-M01-12.08, FR-M01-12.09, FR-M01-12.11 |
 | Cung cấp | M16 | Tên thay thế cho người gửi tin nhắn: "[Người dùng đã xóa]" (DELETED), "Tài khoản tạm thời vô hiệu hoá" và avatar mặc định (DEACTIVATED); M16 hiển thị | FR-M01-13.06, FR-M01-13.07 |
@@ -777,6 +777,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.6 | 2026-10-23 | Rà lại với register tới DEC-247: dòng Cung cấp M12 thêm trạng thái DEACTIVATED, DELETED cho bảng xếp hạng (DEC-246); thêm dòng Dùng M02 khớp FR-M02, dòng Cung cấp M09 khớp FR-M09. Không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
 | 1.7 | 2026-10-24 | Đối chiếu với FR-M16: hiển thị tin nhắn thuộc M16, M01 chỉ cung cấp tên thay thế (FR-M01-13.06); thêm tên thay thế cho người gửi tin nhắn của tài khoản DEACTIVATED (DEC-253: FR-M01-13.07); dòng Cung cấp M16. Chốt bản 1.7 | Phạm Văn Đức |
 | 1.8 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (ẩn bài của tài khoản DEACTIVATED, DELETED ở feed; đăng nhập cho tab Following, Group) và dòng M14 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.8 | Phạm Văn Đức |
+| 1.9 | 2026-10-24 | Đối chiếu với FR-M15: dòng Cung cấp M15 thêm mức xác minh (M15 tách nhóm chờ xác minh email, chờ hoàn tất hồ sơ) và tài khoản DELETED vẫn được đếm; sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.9 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

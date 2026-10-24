@@ -2,7 +2,7 @@
 module: M02
 ten_module: User Profile
 ma_tai_lieu: FR-M02
-phien_ban: 1.4
+phien_ban: 1.5
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M02 — User Profile |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -134,6 +134,7 @@ trên trang hồ sơ của mình.
 | M11 Group | Bài đăng ẩn danh và bài trong nhóm Private quyết định bài nào hiện ở tab Bài viết và bài đã lưu nào xem được. |
 | M14 Feed & Discovery | Guest phải đăng nhập để bookmark, theo dõi; điểm Trending Post tính số bookmark của bài. |
 | M16 Chat & Messaging | Avatar, display_name hiện ở người gửi tin nhắn. |
+| M15 Analytics & Stats | Lớp/Khối trên hồ sơ cho phân bố theo Lớp/Khối ở thống kê người dùng. |
 
 ## 4. Tổng quan chức năng
 
@@ -427,6 +428,7 @@ Cách trang hồ sơ hiện theo trạng thái tài khoản (M01) được ghi b
 | Dùng | M03 | Trạng thái của bài (đã đăng, nháp, chờ duyệt, bị từ chối, tự ẩn, đã xóa, bị Mod ẩn) để chọn bài hiện ở tab Bài viết và dòng "Nội dung không tồn tại" ở tab Bookmark; thời điểm bài bị xóa hẳn | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03, FR-M02-07.06 |
 | Dùng | M11 | Bài đăng ẩn danh; thành viên nhóm Private, để chọn bài hiện ở tab Bài viết và bài đã lưu xem được; khi cờ Group tắt, bài nhóm vẫn hiện ở tab Bài viết và Bookmark, mở ra thì báo hệ thống đang bận (M11 sở hữu) | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03 |
 | Dùng | M08 | Việc xử lý báo cáo người dùng không gồm gỡ avatar, bio (cảnh cáo hoặc khóa như M08) | FR-M02-03.10, FR-M02-04.07 |
+| Cung cấp | M15 | Lớp/Khối trên hồ sơ (10, 11, 12 hoặc không khai) cho phân bố theo Lớp/Khối ở thống kê người dùng | FR-M02-03.02, FR-M02-03.07 |
 
 ### 5.12 AI hỗ trợ và hành vi khi tắt AI
 
@@ -450,6 +452,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.2 | 2026-10-23 | Rà lại với register tới DEC-247: hồ sơ hiện danh hiệu "Ngôi sao tuần" của tuần vừa chốt (DEC-244, DEC-247: FR-M02-01.24, FR-M02-01.25, BR-M02-37); ví dụ BR-M02-12 theo cách tính bảng xếp hạng mới (DEC-242); thêm dòng Cung cấp M12 (Lớp/Khối). Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-24 | Đối chiếu với FR-M16: nút "Nhắn tin" trên hồ sơ người khác, ẩn với Guest và trên hồ sơ của chính mình (DEC-252, DEC-256: FR-M02-01.26, FR-M02-01.27); dòng quyền và dòng Cung cấp M16. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-24 | Đối chiếu với FR-M14 (DEC-259 đóng OPEN-009): điểm Trending Post cộng bookmark trọng số 1; sửa mục 3.2 và dòng Cung cấp M14; không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
+| 1.5 | 2026-10-24 | Đối chiếu với FR-M15: thêm dòng Cung cấp M15 (Lớp/Khối trên hồ sơ cho thống kê người dùng) và dòng M15 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
