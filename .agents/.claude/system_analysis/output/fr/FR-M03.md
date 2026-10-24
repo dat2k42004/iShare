@@ -2,9 +2,9 @@
 module: M03
 ten_module: Post & Content
 ma_tai_lieu: FR-M03
-phien_ban: 1.7
+phien_ban: 1.8
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M03 — Post & Content |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.7 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.8 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -135,7 +135,7 @@ lịch sử sửa, và xóa bài với thời hạn khôi phục.
 | M11 Group | Bài trong nhóm dùng chung cơ chế bài, có cổng duyệt riêng và tùy chọn đăng ẩn danh. |
 | M12 Gamification | Upvote bài; trừ điểm khi bài do tác giả xóa bị xóa hẳn hoặc bài bị Mod ẩn ("gỡ"). |
 | M13 AI Layer | Ngưỡng quét nội dung, xử lý khi AI lỗi, tóm tắt bài, embedding. |
-| M14 Feed & Discovery | Feed và Trending Post hiển thị bài đã đăng. |
+| M14 Feed & Discovery | Feed và Trending Post hiển thị bài đã đăng; dùng thời điểm đăng để xếp bài và tính tuổi bài. |
 | M15 Analytics & Stats | Thống kê bài theo trạng thái. |
 
 ## 4. Tổng quan chức năng
@@ -719,6 +719,7 @@ Bài Bị từ chối mà tác giả không gửi lại hay xóa thì ở mãi t
 | Cung cấp | M01 | Lưu, sửa nội dung bài chứa lượt nhắc tên (lượt nhắc đi theo bài, giữ cùng bài khi Đã xóa hẳn); thời điểm bài trở thành công khai (sau bước quét) để gửi thông báo nhắc tên | FR-M03-01.01, FR-M03-11.01, FR-M03-17.02, FR-M03-05.01 |
 | Cung cấp | M05 | Thao tác soạn, gửi, sửa bài và trạng thái nháp, đã gửi, là nơi áp quy tắc Topic, Tag và gợi ý Topic; khi bài chuyển Đã xóa hẳn, liên kết bài–Topic, bài–Tag được giữ cùng bài (bài không còn hiển thị) | FR-M03-01.01, FR-M03-04.01, FR-M03-11.01, FR-M03-17.02 |
 | Cung cấp | M06, M14 | Bài viết đang hiển thị công khai và nội dung chữ của bài | FR-M03-07.01 |
+| Cung cấp | M14 | Thời điểm đăng của bài (lúc chuyển sang Đã đăng), để xếp bài ở Newest, Following, Group và tính tuổi bài của Trending Post | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 |
 | Cung cấp | M07 | Sự kiện bài được đăng, bài bị từ chối, poll kết thúc. Sự kiện bài được đăng kèm tác giả, bài có đăng ẩn danh không và có phải lần đầu hiển thị công khai không, để M07 báo bài mới cho người theo dõi tác giả (DEC-215) | FR-M03-05.01, FR-M03-05.03, FR-M03-06.02, FR-M03-06.03, FR-M03-10.02 |
 | Dùng | M07 | Công tắc "Tắt thông báo cho bài này" hiện trên mỗi bài (FR-M07-08) | — |
 | Cung cấp | M08 | Bài vào hàng chờ duyệt sau bước quét; bài đã sửa (hoặc tự ẩn đã sửa rồi hiện lại) bị bước quét lại gắn cờ; bài Tự ẩn xem được trong báo cáo | FR-M03-05.02, FR-M03-05.04, FR-M03-05.07 |
@@ -768,6 +769,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.5 | 2026-10-21 | Đối chiếu với FR-M09, FR-M13: bài của Admin đăng ngay, không quét, không duyệt (FR-M03-04.11, FR-M03-05.15, BR-M03-51); khiếu nại bài bị AI từ chối được chấp nhận thì Đã đăng ngay (BR-M03-46, trạng thái); giao tiếp với M13 về embedding, tóm tắt; trạng thái kiểm duyệt trỏ tới FR-M08, FR-M09. Chốt bản 1.5 | Phạm Văn Đức |
 | 1.6 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-230, DEC-231, DEC-240): bài của Owner nhóm có điểm quét từ 0.5 đến nhỏ hơn 0.9 hoặc quét thất bại vào hàng chờ duyệt của Mod (FR-M03-04.05, BR-M03-25); thêm "Cung cấp M11"; "Dùng M11" ghi thêm bài nhóm quét lỗi chờ nhóm duyệt, bài bị gỡ khỏi nhóm. Chốt bản 1.6 | Phạm Văn Đức |
 | 1.7 | 2026-10-23 | Rà lại với register tới DEC-247: Khóa toàn bộ chặn cả rút upvote và upvote bình luận của bài (DEC-246: FR-M03-14.06, BR-M03-31); dòng Dùng M12. Chốt bản 1.7 | Phạm Văn Đức |
+| 1.8 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (thời điểm đăng để xếp feed và tính tuổi bài Trending Post); sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.8 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

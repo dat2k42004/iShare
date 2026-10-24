@@ -2,7 +2,7 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.7
+phien_ban: 1.8
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.7 |
+| Phiên bản | 1.8 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -160,6 +160,7 @@ vô hiệu hóa rồi xóa tài khoản của mình. Module cũng xác định h
 | M05 Topic & Tag | Trang Privacy Policy/ToS nêu việc bài đang soạn được gửi cho nhà cung cấp dịch vụ AI khi bấm "Gợi ý topic"; bài của tài khoản vô hiệu hóa hoặc đã xóa không tính Trending; lượt theo dõi Topic bị xóa và phản hồi gợi ý được giữ khi tài khoản bị xóa. |
 | M13 AI Layer | Nhật ký AI của tài khoản đã xóa vẫn tra cứu được qua username. |
 | M16 Chat & Messaging | Nhắn tin yêu cầu đăng nhập; tin nhắn của tài khoản đã xóa hiện người gửi "[Người dùng đã xóa]". |
+| M14 Feed & Discovery | Bài của tài khoản vô hiệu hóa, đã xóa không hiện ở feed; tab Following, Group yêu cầu đăng nhập. |
 
 ## 4. Tổng quan chức năng
 
@@ -746,6 +747,7 @@ SETUP_COMPLETED là mức cuối; nguồn không có đường đi ngược lạ
 | Cung cấp | M08, M13 | Liên kết nhật ký kiểm duyệt và nhật ký AI với tài khoản đã xóa qua username | FR-M01-12.10 |
 | Cung cấp | M12 | Upvote đã cho của tài khoản đã xóa vẫn tính cho người nhận, không còn biết ai cho | FR-M01-12.09 |
 | Cung cấp | Mọi module | Phiên đăng nhập xác định người đang dùng là ai và đã đăng nhập hay chưa | FR-M01-05.12, FR-M01-06.01 |
+| Cung cấp | M14 | Ẩn bài của tài khoản DEACTIVATED, DELETED ở mọi tab feed và Trending Post; phiên đăng nhập để mở tab Following, Group | FR-M01-13.01, FR-M01-05.12 |
 
 ### 5.21 AI hỗ trợ và hành vi khi tắt AI
 
@@ -774,6 +776,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.5 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-221, DEC-228): thêm dòng "Cung cấp M10" (vai trò USER khi tạo, trạng thái tài khoản và bước 3 cho đề xuất làm Mod, Admin); DEC-007 sửa một phần (chỉ ADMIN gốc cấp, thu hồi Admin). Không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 | 1.6 | 2026-10-23 | Rà lại với register tới DEC-247: dòng Cung cấp M12 thêm trạng thái DEACTIVATED, DELETED cho bảng xếp hạng (DEC-246); thêm dòng Dùng M02 khớp FR-M02, dòng Cung cấp M09 khớp FR-M09. Không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
 | 1.7 | 2026-10-24 | Đối chiếu với FR-M16: hiển thị tin nhắn thuộc M16, M01 chỉ cung cấp tên thay thế (FR-M01-13.06); thêm tên thay thế cho người gửi tin nhắn của tài khoản DEACTIVATED (DEC-253: FR-M01-13.07); dòng Cung cấp M16. Chốt bản 1.7 | Phạm Văn Đức |
+| 1.8 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (ẩn bài của tài khoản DEACTIVATED, DELETED ở feed; đăng nhập cho tab Following, Group) và dòng M14 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.8 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

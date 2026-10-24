@@ -2,7 +2,7 @@
 module: M10
 ten_module: Admin Panel
 ma_tai_lieu: FR-M10
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M10 — Admin Panel |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -152,6 +152,7 @@ Admin. Các hằng số chính sách (thời hạn, ngưỡng) không chỉnh qu
 | M11 Group, M12 Gamification, M16 Chat & Messaging | Bị bật, tắt bằng cờ tính năng; FR của từng module ghi chi tiết thao tác bị chặn và việc chạy ngầm khi cờ tắt. |
 | M13 AI Layer | Áp dụng trạng thái công tắc AI cho các lời gọi AI. |
 | M15 Analytics & Stats | Bảng thống kê chỉ Admin xem. |
+| M14 Feed & Discovery | M14 là trang chủ, không có cờ tính năng; cờ Group, Gamification tác động lên nội dung feed. |
 
 ## 4. Tổng quan chức năng
 
@@ -624,6 +625,7 @@ Danh sách chi tiết thao tác bị chặn và việc chạy ngầm của từn
 | Dùng | M07 | Lựa chọn Chấp nhận, Từ chối của người được đề xuất trên thông báo | FR-M10-03.01, FR-M10-03.03, FR-M10-03.09 |
 | Dùng | M08 | Sự kiện ban một tài khoản Mod để thu hồi vai trò Mod; nhật ký kiểm duyệt ghi song song thao tác kiểm duyệt của Admin; nhật ký kiểm duyệt lọc được theo người làm | FR-M10-06.01, FR-M10-14.03, FR-M10-01.06 |
 | Cung cấp | M11, M12, M16 | Cờ tính năng của Group, Gamification, Chat; khi tắt: chặn thao tác của người dùng không phải Admin, hiện "Hệ thống đang bận…", việc tự làm và kiểm duyệt vẫn chạy, dữ liệu giữ nguyên; danh sách chi tiết ở FR của từng module | FR-M10-12.03, FR-M10-12.04, FR-M10-12.05, FR-M10-12.06, FR-M10-12.07, FR-M10-12.08 |
+| Cung cấp | M14 | Không có cờ tính năng cho M14 (trang chủ luôn truy cập được); trạng thái cờ Group, Gamification | FR-M10-12.03, FR-M10-12.04 |
 
 ### 5.20 AI hỗ trợ và hành vi khi tắt AI
 
@@ -649,6 +651,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-21 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-21 | Chốt sau 7 bước; ghi register DEC-221–228, QA-412–420, ISS-352–359; còn TBD-M10-01 (Trung bình) | Phạm Văn Đức |
 | 1.1 | 2026-10-24 | Đối chiếu với FR-M11, FR-M12, FR-M16: đóng TBD-M10-01 (DEC-236, DEC-245, DEC-256). Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (không có cờ cho M14; trạng thái cờ Group, Gamification) và dòng M14 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 

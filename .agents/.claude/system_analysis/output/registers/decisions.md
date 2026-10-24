@@ -820,6 +820,10 @@ A group post always appears in the feed of that group's own members, whether the
 
 **[Clarified 2026-10-21 — DEC-234: người ngoài nhóm tương tác bài nhóm Public như bài thường]**
 
+**[Amended 2026-10-24 — DEC-258: tab Following của thành viên có bài nhóm Private]**
+
+**[Amended 2026-10-24 — DEC-262: bỏ ngoại lệ tab Following của DEC-258]**
+
 ### DEC-112: Anonymous posting in group — opt-in, sticky, visible to Group staff
 When a group's anonymous-posting toggle is ON, each member chooses per-post whether to post anonymously (not forced group-wide). If the Owner later turns the toggle OFF, previously-anonymous posts stay anonymous (the toggle only gates new posts, it does not retroactively reveal authors). Group Mod and Owner can see the real identity of an anonymous post's author, consistent with the system-wide MOD/ADMIN pattern (DEC-004, DEC-005).
 
@@ -902,10 +906,14 @@ Two mechanisms, kept consistent with each other:
 ### DEC-124: Trending Post — decay formula (new, distinct from DEC-052)
 DEC-052 (Trending Topic/Tag, M05) stays unchanged — rolling 7-day hard window, no decay. Trending Post (new sub-view under M14's Trending tab) uses a separate, smoother formula: exponential half-life decay, `weight = 0.5^(age_days / 7)` (weight halves every 7 days), hard cutoff at 28 days (4 weeks) — posts older than that are excluded entirely regardless of residual weight. Base engagement score unchanged: `Σ(weight × (1 + upvotes×2 + comments×1))`, recalculated every 15-30 min (same cadence as DEC-052). 28-day cutoff chosen as a clean multiple of the 7-day half-life (residual weight ≈6.25% at cutoff — negligible, avoids an abrupt "cliff" effect vs. shorter windows like 21 days which would cut off content still at 12.5% weight).
 
+**[Amended 2026-10-24 — DEC-259: thêm bookmark; tuổi bài liên tục; bình luận gồm trả lời; bằng điểm; mốc 30 phút]**
+
 ### DEC-125: M14 Feed structure — 4 tabs, no AI-driven personalization tab
 M14 Feed consists of 4 tabs: **Trending** (3 sub-views: Post/Topic/Tag), **Following** (chronological, from Follow targets established in M07 — User/Topic/Post), **Group** (chronological, aggregated from all groups — Public+Private — the user has joined), **Newest** (chronological, site-wide, excluding Group-sourced posts). There is no separate algorithmic "For You" personalized-ranking tab — this simplifies scope and removes M14's dependency on M13 (AI Layer); M14 now depends only on M03 (Post) and M05 (Topic & Tag). Group Public posts cross-posted to the main feed (per DEC-111) are included in Trending Post and the Group tab, but excluded from Newest (Newest is kept as a pure non-group content stream).
 
 **[Amended 2026-10-20 — DEC-215: tab Following không còn bài đang theo dõi]**
+
+**[Clarified 2026-10-24 — DEC-258, DEC-260: tab Following gồm bài nhóm, không lấy bài ẩn danh qua theo dõi tác giả; tab mặc định Trending]**
 
 ### DEC-126: Guest access to Feed tabs
 Guest (unauthenticated) can view Newest and the full Trending tab (all 3 sub-views) without restriction — consistent with the existing Guest browse permissions (QA-011) and the SEO/discoverability rationale behind them. The Following and Group tabs remain visible to Guest but are gated behind login. All interactions (upvote, report, bookmark, follow, join) require login regardless of tab, per the existing Guest permission matrix (QA-011).
@@ -1563,6 +1571,8 @@ ISS-324 → ISS-332
 
 **[Amended 2026-10-20 — DEC-215: "đang theo dõi" gồm người dùng, Topic; không còn bài đang theo dõi]**
 
+**[Clarified 2026-10-24 — DEC-263: bộ lọc đang theo dõi không giữ bài ẩn danh nhờ theo dõi tác giả]**
+
 ### DEC-213: M06 — Snippet, search history, rate-limit counting (clarifies DEC-059, DEC-061, DEC-063)
 - Snippet: the first 150 characters of the text content; if character 150 falls inside a word, cut before that word and add "…"; text content of 150 characters or fewer is shown whole without "…"; a post without text content (poll only) has no snippet.
 - History: an entry is added only when a query with text is sent (not when picking a typeahead item, not when opening a Topic/Tag page); sending a query already in history moves it to the top (no duplicate); shown newest first; picking an entry sends that query at once; no per-entry delete, only "clear history".
@@ -1737,6 +1747,8 @@ ISS-352 → ISS-359
 - Groups and group posts keep showing at entry points (group list, Trending, profile tab, search, bookmarks, old notifications); opening them gives "Hệ thống đang bận, vui lòng thử lại sau". Every interaction with group posts is refused. ADMIN is not affected.
 - Source: QA-429
 
+**[Clarified 2026-10-24 — DEC-261: tab Group khi cờ Group tắt]**
+
 ### DEC-237: M11 — Confirmation list L1–L13
 - L1 (DEC-101): 5 groups per 24 hours (last 24 hours, like DEC-144); deleted groups count; ADMIN is limited too. Example: groups at 20:00–20:20 on 01/11 → the 6th is refused at 19:59 on 02/11, allowed at 20:00 on 02/11.
 - L2: name required (≤ 100 characters), description optional (≤ 500 characters); names may repeat; mode (Public/Private) chosen at creation; pre-moderation and anonymous toggles default OFF; join question empty by default; all three can be set at creation.
@@ -1909,3 +1921,49 @@ ISS-372 → ISS-382
 
 ### Issues Closed
 ISS-383 → ISS-393
+
+---
+
+## Functional Requirement — M14: Feed & Discovery
+
+### DEC-258: M14 — Following tab content (clarifies DEC-125, DEC-215; amends DEC-111)
+- The Following tab lists posts by followed users and posts in followed Topics, group posts included: Public-group posts for every follower; Private-group posts only when the viewer is a member of that group. This is the only exception to DEC-111 "Private group posts never surface on the main feed".
+- Anonymous posts (anonymous group posts included) never enter the tab through following their author. They enter only through a followed Topic, shown as anonymous as everywhere else.
+- Example: A follows B and Topic Toán; A is a member of Private group 12A1. B's post in Public group CLB Toán → in. B's post in 12A1 → in. B's anonymous post in Văn → out. B's anonymous post in Toán → in, shown as anonymous.
+- Source: QA-456, QA-457
+
+**[Amended 2026-10-24 — DEC-262: bài nhóm Private không vào tab Following]**
+
+### DEC-259: M14 — Trending Post score details (clarifies DEC-124; closes OPEN-009)
+- Score of a post = 0.5^(t / 7) × (1 + 2 × upvotes + 1 × comments + 1 × bookmarks), using the counts the post has at computation time: retracted upvotes, deleted comments and removed bookmarks do not count. Comments include replies.
+- t = time elapsed since the post was published, in days (24 hours = 1 day, fractions kept); no rounding to whole or calendar days. The post leaves Trending Post once t exceeds 28, i.e. exactly 28 × 24 hours after publishing.
+- Equal scores: the more recently published post first.
+- Freshness: every upvote, comment and bookmark is reflected in the score at most 30 minutes after it happens; the recalculation cycle stays within 15–30 minutes (as DEC-145).
+- Example: published 01/10 08:00, computed 04/10 20:00 → t = 3.5, weight 0.707; with 2 upvotes, 1 comment, 3 bookmarks → 0.707 × 9 ≈ 6.36. It leaves Trending Post at 29/10 08:00.
+- Source: QA-458, QA-459, QA-462
+
+### DEC-260: M14 — Default tab and Trending refresh (clarifies QA-227, QA-237)
+- Everyone, logged in or not, opens the home page on the Trending tab, Trending Post sub-view.
+- A viewing of the Trending tab keeps the result that was current when the tab was opened; every further load in that viewing uses the same result, so no post repeats or is skipped (posts no longer visible are still left out). A newer result appears when the viewer opens the tab again or reloads the page. Trending has no "có bài mới" banner.
+- Source: QA-460, QA-461
+
+### DEC-261: M14 — Confirmation list (clarifies QA-228, QA-230, QA-237, DEC-236)
+- Trending Topic and Trending Tag show every item with score > 0 in the M05 order, 20 items per load, more on scroll.
+- Following with follows but no post shows the same empty state and search button; Group with groups joined but no post shows the same empty state and "Khám phá Group" button.
+- While the Group flag is off, the Group tab stays and keeps listing group posts as an entry point; opening one gives "Hệ thống đang bận, vui lòng thử lại sau"; every interaction is refused (M11).
+- The "có bài mới" banner appears at most 60 seconds after a new post of the tab is published (the check runs at most every 60 seconds); clicking it inserts all new posts at the top.
+- Source: QA-462
+
+### DEC-262: M14 — Private-group posts stay out of the Following tab (amends DEC-258; restores DEC-111)
+- Private-group posts never enter the Following tab, members included; members see them only on the group page and in the Group tab. DEC-111 "Private group posts never surface on the main feed" holds without exception.
+- Public-group posts in the Following tab and the anonymous-post rule of DEC-258 are unchanged.
+- Example: A follows B; both are members of Private group 12A1. B's post in 12A1 → in A's Group tab, not in Following. B's post in Public group CLB Toán → in Following.
+- Source: QA-463
+
+### DEC-263: M06 — Following-only filter and anonymous posts (clarifies DEC-212; aligns with DEC-258)
+- The Following-only search filter keeps an anonymous post only when it is in a Topic the viewer follows, never because the viewer follows its author — the same rule as the M14 Following tab.
+- Example: A follows B and Topic Toán. B's anonymous post in Public group CLB Toán tagged Văn → removed by the filter; tagged Toán → kept, shown as anonymous.
+- Source: QA-464
+
+### Issues Closed
+ISS-394 → ISS-402

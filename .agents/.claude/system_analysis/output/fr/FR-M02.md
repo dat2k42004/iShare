@@ -2,7 +2,7 @@
 module: M02
 ten_module: User Profile
 ma_tai_lieu: FR-M02
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M02 — User Profile |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -132,7 +132,7 @@ trên trang hồ sơ của mình.
 | M08 Moderation | Mức cảnh báo không hiện trên hồ sơ; báo cáo người dùng xử lý bằng cảnh cáo, khóa, không gỡ avatar, bio. |
 | M12 Gamification | Điểm, badge, thống kê hiển thị trên hồ sơ; nhãn tài khoản bị khóa. |
 | M11 Group | Bài đăng ẩn danh và bài trong nhóm Private quyết định bài nào hiện ở tab Bài viết và bài đã lưu nào xem được. |
-| M14 Feed & Discovery | Guest phải đăng nhập để bookmark, theo dõi; Trending Post có thể tính bookmark (OPEN-009). |
+| M14 Feed & Discovery | Guest phải đăng nhập để bookmark, theo dõi; điểm Trending Post tính số bookmark của bài. |
 | M16 Chat & Messaging | Avatar, display_name hiện ở người gửi tin nhắn. |
 
 ## 4. Tổng quan chức năng
@@ -417,7 +417,7 @@ Cách trang hồ sơ hiện theo trạng thái tài khoản (M01) được ghi b
 | Cung cấp | M03 | Tab Đã xóa trên hồ sơ tác giả, nơi tác giả khôi phục bài (FR-M03-15.03, FR-M03-16) | FR-M02-01.05, FR-M02-01.08 |
 | Dùng | M03 | Bài viết của chủ hồ sơ cho tab Bài viết; mức Khóa toàn bộ của bài (vẫn lưu, bỏ lưu được) | FR-M02-01.07, FR-M02-05.04, FR-M02-06.02 |
 | Cung cấp | M05 | Bookmark kèm thời điểm lưu và việc bỏ lưu, dùng tính Trending Topic/Tag | FR-M02-05.01, FR-M02-06.01 |
-| Cung cấp | M14 | Bookmark cho Trending Post nếu OPEN-009 chốt thêm bookmark | FR-M02-05.01 |
+| Cung cấp | M14 | Số bookmark của bài cho điểm Trending Post (trọng số 1; bookmark đã bỏ không tính) | FR-M02-05.01 |
 | Dùng | M07 | Quan hệ theo dõi để hiện số và danh sách người theo dõi, đang theo dõi; hành động theo dõi và thông báo người theo dõi mới thuộc M07 | FR-M02-02.01, FR-M02-02.02 |
 | Dùng | M12 | Tổng điểm, badge đã đạt; danh hiệu "Ngôi sao tuần" khi đạt ở tuần vừa chốt; nhãn "Tài khoản đã bị khóa" cho tài khoản BANNED | FR-M02-01.09, FR-M02-01.10, FR-M02-01.12, FR-M02-01.24 |
 | Cung cấp | M12 | Lớp/Khối của người dùng, để lọc bảng xếp hạng (M12 lấy giá trị tại lúc chốt bảng) | FR-M02-03.02 |
@@ -449,6 +449,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-236): "Dùng M11" ghi thêm hành vi khi cờ Group tắt (M11 sở hữu); không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-23 | Rà lại với register tới DEC-247: hồ sơ hiện danh hiệu "Ngôi sao tuần" của tuần vừa chốt (DEC-244, DEC-247: FR-M02-01.24, FR-M02-01.25, BR-M02-37); ví dụ BR-M02-12 theo cách tính bảng xếp hạng mới (DEC-242); thêm dòng Cung cấp M12 (Lớp/Khối). Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-24 | Đối chiếu với FR-M16: nút "Nhắn tin" trên hồ sơ người khác, ẩn với Guest và trên hồ sơ của chính mình (DEC-252, DEC-256: FR-M02-01.26, FR-M02-01.27); dòng quyền và dòng Cung cấp M16. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-24 | Đối chiếu với FR-M14 (DEC-259 đóng OPEN-009): điểm Trending Post cộng bookmark trọng số 1; sửa mục 3.2 và dòng Cung cấp M14; không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -696,7 +697,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-051 | Nhắc tới | Trùng với QA-043 | — | Nhóm B. Câu hỏi phạm vi follow; đã có QA-043. |
 | ISS-154 | Nhắc tới | Trùng với DEC-122 | — | Nhóm B. Câu hỏi hiển thị tài khoản BANNED; đã có QA-204, QA-205, DEC-122. |
 | OPEN-008 | Nhắc tới | Sửa một phần bởi DEC-154 | Không áp dụng: Privacy; nêu M02 là module chịu ảnh hưởng; phần còn mở (email liên hệ, bản sao dữ liệu) không thuộc M02 | Nhóm B. Privacy; nêu M02 là module chịu ảnh hưởng; phần còn mở (email liên hệ, bản sao dữ liệu) không thuộc M02. DEC-155–157 cũng chốt; phần còn mở không thuộc M02 |
-| OPEN-009 | Nhắc tới | Hiện hành | Không áp dụng: M14: Trending Post có tính bookmark không | Nhóm B. M14: Trending Post có tính bookmark không. |
+| OPEN-009 | Nhắc tới | Bị thay bởi DEC-259 | — | Nhóm B. M14: Trending Post có tính bookmark không. |
+| DEC-259 | Nhắc tới | Hiện hành | Không áp dụng: M14: điểm Trending Post cộng bookmark; M02 chỉ cung cấp bookmark | Nhóm B (đối chiếu FR-M14). Đóng OPEN-009: Trending Post cộng bookmark trọng số 1 |
 | QA-011 | Phụ thuộc | Sửa một phần bởi DEC-171 | Không áp dụng: quyền Guest với hồ sơ lấy từ DEC-171 | Nhóm B. Quyền Guest: xem Leaderboard, Badges, Reputation của user; INTR không. |
 | QA-015 | Nhắc tới | Hiện hành | Không áp dụng: M03/M11: bài ẩn danh; Mod/Admin thấy link hồ sơ tác giả thật | Nhóm B. M03/M11: bài ẩn danh; Mod/Admin thấy link hồ sơ tác giả thật. |
 | QA-018 | Sở hữu | Sửa một phần bởi DEC-149, DEC-156 | FR-M02-01, FR-M02-01.01, FR-M02-01.11, FR-M02-02.04, BR-M02-15 | Nhóm B. Hồ sơ của tài khoản DEACTIVATED/DELETED hiện "người dùng không tồn tại"; phần còn lại thuộc M01. Phần hồ sơ "người dùng không tồn tại" còn hiệu lực |

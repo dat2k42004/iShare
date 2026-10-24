@@ -600,3 +600,19 @@
 | ISS-391 | Danh sách thao tác bị chặn, vẫn chạy, vẫn hiển thị khi cờ Chat tắt | Closed | Xem DEC-256 |
 | ISS-392 | Danh sách xác nhận: công tắc duyệt, độ dài tin, cách tính 1 phút, đã xem của người gửi, tên nhóm chat, vào lại nhóm, thu hồi tức thời | Closed | Xem DEC-249, DEC-255 |
 | ISS-393 | Người chờ duyệt được tự chấp nhận khi nhóm không đủ chỗ: ai vào trước, người còn lại ra sao | Closed | Xem DEC-257 |
+
+---
+
+## Functional Requirement — M14: Feed & Discovery | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-394 | Tab Following có lấy bài ẩn danh của người dùng đang theo dõi không | Closed | Xem DEC-258 |
+| ISS-395 | Tab Following có lấy bài nhóm Public, bài nhóm Private (người xem là thành viên) không | Closed | Xem DEC-258 |
+| ISS-396 | Điểm Trending Post có cộng bookmark không (OPEN-009) | Closed | Xem DEC-259 |
+| ISS-397 | Tuổi bài trong công thức Trending Post tính liên tục hay theo ngày nguyên | Closed | Xem DEC-259 |
+| ISS-398 | Trending khi có lần tính mới: danh sách đang xem và các lần tải thêm theo kết quả nào | Closed | Xem DEC-260 |
+| ISS-399 | Tab mặc định khi người đã đăng nhập mở trang chủ; mục con mặc định của Trending | Closed | Xem DEC-260 |
+| ISS-400 | Danh sách xác nhận: số mục Trending Topic/Tag, bình luận gồm trả lời, bằng điểm, mốc 30 phút, tab rỗng khi chưa có bài, tab Group khi cờ Group tắt, banner 60 giây | Closed | Xem DEC-259, DEC-261 |
+| ISS-401 | Bài nhóm Private chỉ xuất hiện ở tab Following ngoài khu vực nhóm (DEC-258): giữ, mở rộng hay rút lại | Closed | Xem DEC-262 |
+| ISS-402 | Bộ lọc "đang theo dõi" của M06 có giữ bài ẩn danh nhờ việc theo dõi tác giả không (DEC-212 định nghĩa bộ lọc như tab Following) | Closed | Xem DEC-263 |

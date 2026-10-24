@@ -2,9 +2,9 @@
 module: M11
 ten_module: Group
 ma_tai_lieu: FR-M11
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M11 — Group |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.2 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -58,7 +58,7 @@ theo quyền xem khi nhóm ở chế độ Private.
 
 - Group Chat — M16 Chat & Messaging (cuộc trò chuyện nhiều người độc lập, không gắn với nhóm).
 - Tìm nhóm theo tên, gợi ý khi gõ, quy tắc nhóm Private không hiện với người ngoài nhóm khi tìm — M06 Search.
-- Tab Group của feed (gom bài mọi nhóm đã tham gia), bài nhóm Public trong Trending, Newest — M14 Feed & Discovery;
+- Tab Group của feed (gom bài mọi nhóm đã tham gia), bài nhóm Public trong Trending (không vào Newest) và tab Following — M14 Feed & Discovery;
   Trending Topic/Tag tính bài nhóm Public — M05 Topic & Tag.
 - Gửi thông báo các sự kiện nhóm (mời, tham gia, duyệt, bổ nhiệm, kick) — M07 Notification.
 - Báo cáo nhóm, thao tác Ẩn/Khóa/Mở khóa nhóm, nhật ký kiểm duyệt, quét AI và kiểm duyệt hệ thống của bài, bình luận — M08
@@ -151,7 +151,7 @@ theo quyền xem khi nhóm ở chế độ Private.
 | M09 Appeal | Quyết định cấp nhóm không có khiếu nại; nhóm bị Ẩn/Khóa không có link khiếu nại. |
 | M10 Admin Panel | Cờ tính năng Group. |
 | M12 Gamification | Xóa nhóm không trừ điểm; không có leaderboard theo nhóm. |
-| M14 Feed & Discovery | Tab Group; nút "Khám phá Group" dẫn sang trang danh sách/tìm nhóm. |
+| M14 Feed & Discovery | Tab Group; bài nhóm Public ở Trending và tab Following; nút "Khám phá Group" dẫn sang trang danh sách/tìm nhóm. |
 | M16 Chat & Messaging | Group Chat độc lập với nhóm. |
 
 ## 4. Tổng quan chức năng
@@ -511,7 +511,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | FR-M11-12.10 | Khi bài ẩn danh được lưu, hệ thống phải giữ danh tính thật của tác giả (BR-M11-17). |
 | FR-M11-12.11 | Nếu người không là thành viên gửi bài vào nhóm, hệ thống phải từ chối (BR-M11-06). |
 | FR-M11-12.12 | Khi bài của nhóm Public được đăng, hệ thống phải cho bài hiện với người ngoài nhóm như bài thường ở feed chính (M14) (BR-M11-14). |
-| FR-M11-12.13 | Nếu bài thuộc nhóm Private, hệ thống phải không đưa bài ra feed chính (BR-M11-14). |
+| FR-M11-12.13 | Nếu bài thuộc nhóm Private, hệ thống phải không đưa bài ra feed chính, kể cả với thành viên nhóm (BR-M11-14). |
 | FR-M11-12.14 | Trong khi công tắc AI tổng hoặc công tắc Moderation tắt, hệ thống phải đưa bài của thành viên khác Owner gửi vào nhóm theo công tắc duyệt trước: bật thì vào hàng chờ duyệt của nhóm, tắt thì Đã đăng (BR-M11-18). |
 | FR-M11-12.15 | Nếu quét bài nhóm của thành viên khác Owner thất bại sau một lần thử lại, hệ thống phải đưa bài vào hàng chờ duyệt của nhóm, dù công tắc duyệt trước tắt (BR-M11-18). |
 | FR-M11-12.16 | Khi Owner gửi bài trong nhóm của mình, hệ thống phải gắn bài với nhóm và không đưa bài vào hàng chờ duyệt của nhóm, bất kể công tắc duyệt trước (BR-M11-40). |
@@ -616,7 +616,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | FR-M11-17.04 | Trong khi cờ Group tắt, hệ thống phải không xóa hay đổi dữ liệu của nhóm (BR-M11-29). |
 | FR-M11-17.05 | Trong khi cờ Group tắt, hệ thống phải vẫn cho kiểm duyệt M08 chạy với nhóm và nội dung nhóm (BR-M11-29). |
 | FR-M11-17.06 | Khi cờ Group được bật lại, hệ thống phải không làm bù các thao tác đã bị từ chối trong lúc cờ tắt (BR-M11-29). |
-| FR-M11-17.07 | Trong khi cờ Group tắt, hệ thống phải vẫn hiển thị nhóm và bài nhóm ở các lối vào: danh sách nhóm, Trending, tab Bài viết trên hồ sơ, tìm kiếm, bookmark, thông báo (BR-M11-29). |
+| FR-M11-17.07 | Trong khi cờ Group tắt, hệ thống phải vẫn hiển thị nhóm và bài nhóm ở các lối vào: danh sách nhóm, Trending, tab Group và tab Following của feed, tab Bài viết trên hồ sơ, tìm kiếm, bookmark, thông báo (BR-M11-29). |
 | FR-M11-17.08 | Trong khi cờ Group tắt, nếu người dùng khác Admin mở một nhóm, mở một bài nhóm hoặc tương tác với bài nhóm, hệ thống phải từ chối với thông báo "Hệ thống đang bận, vui lòng thử lại sau" (BR-M11-29). |
 
 ### 5.18 Quy tắc nghiệp vụ
@@ -636,7 +636,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | BR-M11-11 | Sự kiện | Nhóm Private không hiện với người ngoài nhóm, kể cả Guest, ở danh sách nhóm, tìm kiếm, gợi ý khi gõ, khám phá; người ngoài tới nhóm Private chỉ qua lời mời hoặc link mời. Thành viên vẫn thấy và tìm thấy nhóm Private của mình. | Nhóm Private "CLB Hóa": D không là thành viên tìm "Hóa" → không thấy nhóm. E là thành viên tìm "Hóa" → thấy nhóm. |
 | BR-M11-12 | Ràng buộc | Mọi thành viên (Member, Group Mod, Owner) mời được người khác. Mỗi nhóm có một link mời chung, không hết hạn, không thu hồi hay tạo lại được; mời một người cụ thể là gửi cho người đó thông báo kèm link này. Không có lời mời riêng để chấp nhận hay từ chối; người được mời vào nhóm theo luồng tham gia (BR-M11-07). | Member Bình gửi link mời nhóm Private N (có câu hỏi) cho Chi → Chi thấy tên, mô tả N, trả lời câu hỏi, yêu cầu Chờ duyệt; Owner An chấp nhận → Chi là Member. Link mời nhóm Public không câu hỏi → Chi vào ngay. |
 | BR-M11-13 | Suy diễn | Nhóm Public: mọi người kể cả Guest xem được thông tin và nội dung nhóm; người ngoài nhóm đã đăng nhập bình luận, vote, báo cáo, bookmark bài như bài không thuộc nhóm. Nhóm Private: chỉ thành viên xem được thông tin và nội dung (bài, bình luận) của nhóm. | Bài P thuộc nhóm Public: người ngoài D upvote, bình luận P → được; Guest đọc P → được, upvote → bị từ chối. Bài Q thuộc nhóm Private: thành viên E mở Q → thấy; người ngoài D, Guest mở link Q → không thấy. |
-| BR-M11-14 | Suy diễn | Bài nhóm luôn hiện với thành viên của nhóm (trang nhóm; tab Group, M14), dù nhóm Public hay Private. Bài nhóm Public còn hiện với người ngoài nhóm như bài thường ở feed chính, cụ thể là Trending, không vào Newest (M14). Bài nhóm Private không bao giờ ra feed chính. | Bài P nhóm Public đã đăng: Guest thấy P ở Trending nếu P đủ điểm; P không có ở Newest. Bài Q nhóm Private: không có ở Trending, Newest với ai. |
+| BR-M11-14 | Suy diễn | Bài nhóm luôn hiện với thành viên của nhóm (trang nhóm; tab Group, M14), dù nhóm Public hay Private. Bài nhóm Public còn hiện với người ngoài nhóm như bài thường ở feed chính, cụ thể là Trending và tab Following, không vào Newest (M14). Bài nhóm Private không bao giờ ra feed chính, kể cả với thành viên nhóm. | Bài P nhóm Public đã đăng: Guest thấy P ở Trending nếu P đủ điểm; P không có ở Newest; người theo dõi tác giả của P thấy P ở tab Following. Bài Q nhóm Private: không có ở Trending, Newest, tab Following với ai, kể cả thành viên; thành viên thấy Q ở trang nhóm và tab Group. |
 | BR-M11-15 | Kích hoạt | Owner đổi chế độ Public↔Private bất kỳ lúc nào. Khi nhóm chuyển sang Private: người ngoài nhóm chỉ còn đọc những bài của nhóm đang hiện sẵn trên màn hình họ đã tải trước thời điểm đổi, không bình luận, vote, báo cáo được; tải lại hoặc mở lại bằng link, bookmark, thông báo thì thấy "Nội dung không tồn tại"; các lần tải feed, tìm kiếm sau đó không còn trả bài của nhóm cho người ngoài nhóm. | Nhóm chuyển Private lúc 10:00; người ngoài D đang xem P từ 09:55 → D vẫn đọc P, bấm upvote lúc 10:05 bị từ chối. D tải lại trang P lúc 10:10 → "Nội dung không tồn tại"; tải lại Trending → không còn P. |
 | BR-M11-16 | Ràng buộc | Ẩn danh chỉ có trong nhóm. Khi công tắc ẩn danh của nhóm bật, thành viên tự chọn đăng ẩn danh hay không cho từng bài. Owner tắt công tắc thì chỉ chặn chọn ẩn danh cho bài mới; bài đã đăng ẩn danh vẫn ẩn danh. | Công tắc bật ngày 01/11; A đăng P1 ẩn danh, P2 không ẩn danh. Owner tắt công tắc ngày 05/11 → P1 vẫn ẩn danh; ngày 06/11 A đăng P3 → không có lựa chọn ẩn danh. |
 | BR-M11-17 | Suy diễn | Hệ thống luôn giữ danh tính thật của tác giả bài ẩn danh. Người thấy danh tính thật: Owner, Group Mod của nhóm đó và Mod, Admin hệ thống; mọi người khác (Member, người ngoài nhóm, Guest) thấy "Ẩn danh". | Bài ẩn danh P của A trong nhóm N: Group Mod của N thấy "A"; Member khác của N thấy "Ẩn danh"; Mod hệ thống mở P từ một vụ báo cáo thấy "A". |
@@ -651,7 +651,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | BR-M11-26 | Kích hoạt | Owner mất quyền ngoài ý muốn (bị ban tạm thời hoặc vĩnh viễn, bị vô hiệu hóa kể cả tự vô hiệu hóa, bị xóa tài khoản) thì hệ thống chuyển ngay vai trò Owner theo thứ tự: (1) Group Mod có thâm niên Group Mod dài nhất, tính từ lần bổ nhiệm gần nhất; (2) không có Group Mod thì Member có thời điểm tham gia sớm nhất; (3) Owner là thành viên duy nhất thì nhóm bị xóa mềm. Owner cũ ở lại nhóm với vai trò Member, kể cả khi tài khoản hoạt động trở lại. Việc này vẫn chạy khi cờ Group tắt hoặc nhóm Bị khóa. | Owner A bị ban 7 ngày từ 01/11. Group Mod B bổ nhiệm 01/09, Group Mod D bổ nhiệm 15/10 → B thành Owner ngày 01/11; ngày 08/11 A hết ban, vẫn là Member. D từng làm Group Mod từ 01/06, bị giáng 01/09, bổ nhiệm lại 20/10 → thâm niên của D tính từ 20/10. Không có Group Mod; Member C tham gia 01/08, E tham gia 01/07 → E thành Owner. Nhóm chỉ có A → nhóm bị xóa mềm. |
 | BR-M11-27 | Kích hoạt | Nhóm Bị ẩn (M08): nhóm và mọi nội dung không hiện với ai, kể cả thành viên và Owner; dữ liệu được giữ; không có bỏ ẩn. | — |
 | BR-M11-28 | Kích hoạt | Nhóm Bị khóa (M08): nhóm vẫn hiện như trước theo chế độ Public, Private và nội dung cũ vẫn đọc được. Bị chặn với mọi người, kể cả Owner và Group Mod: đăng bài, bình luận, vote, bình chọn poll, tham gia, mời; duyệt yêu cầu tham gia, duyệt bài chờ, gỡ nội dung, kick, chặn, bỏ chặn, bổ nhiệm, giáng Group Mod, đổi thông tin và cài đặt, xóa nhóm, Owner rời nhóm. Vẫn được: Member, Group Mod tự rời nhóm; bookmark, báo cáo; hệ thống tự chuyển quyền Owner. Mod, Admin mở khóa trực tiếp; nhóm đang Bị khóa vẫn có thể bị ẩn ở một vụ sau. | Nhóm N bị khóa lúc 09:00: Owner A đăng bài lúc 09:10 → bị từ chối; A kick C lúc 09:15 → bị từ chối; A xóa nhóm → bị từ chối; C tự rời lúc 09:20 → được; Guest đọc bài cũ (N Public) → được; A bị ban lúc 09:30 → Group Mod B thành Owner. Mod mở khóa lúc 10:00 → B làm lại mọi thao tác. |
-| BR-M11-29 | Kích hoạt | Trong khi cờ Group tắt: mọi thao tác người dùng gửi tới module bị từ chối với thông báo "Hệ thống đang bận, vui lòng thử lại sau", kể cả mở nhóm, mở bài nhóm và tương tác với bài nhóm; nhóm và bài nhóm vẫn hiện ở các lối vào (danh sách nhóm, Trending, tab Bài viết trên hồ sơ, tìm kiếm, bookmark, thông báo); việc hệ thống tự làm vẫn chạy (kế nhiệm Owner); dữ liệu không bị xóa hay đổi; bật lại cờ thì không làm bù; Admin vẫn dùng được module; kiểm duyệt M08 vẫn chạy. | Cờ tắt lúc 08:00; User C thấy bài nhóm P ở Trending lúc 08:06, bấm mở → "Hệ thống đang bận, vui lòng thử lại sau"; Admin mở P → đọc được. Owner bị ban lúc 09:00 → vẫn chuyển Owner lúc 09:00. |
+| BR-M11-29 | Kích hoạt | Trong khi cờ Group tắt: mọi thao tác người dùng gửi tới module bị từ chối với thông báo "Hệ thống đang bận, vui lòng thử lại sau", kể cả mở nhóm, mở bài nhóm và tương tác với bài nhóm; nhóm và bài nhóm vẫn hiện ở các lối vào (danh sách nhóm, Trending, tab Group và tab Following của feed, tab Bài viết trên hồ sơ, tìm kiếm, bookmark, thông báo); việc hệ thống tự làm vẫn chạy (kế nhiệm Owner); dữ liệu không bị xóa hay đổi; bật lại cờ thì không làm bù; Admin vẫn dùng được module; kiểm duyệt M08 vẫn chạy. | Cờ tắt lúc 08:00; User C thấy bài nhóm P ở Trending lúc 08:06, bấm mở → "Hệ thống đang bận, vui lòng thử lại sau"; Admin mở P → đọc được. Owner bị ban lúc 09:00 → vẫn chuyển Owner lúc 09:00. |
 | BR-M11-30 | Kích hoạt | Owner, Group Mod gỡ bài hoặc bình luận khỏi nhóm bằng một thao tác: xóa mềm; nội dung chỉ còn hiện với tác giả, Owner, Group Mod của nhóm, Mod và Admin; tác giả không tự hiện lại được; tác giả nhận thông báo trong ứng dụng; không trừ điểm; không khiếu nại. | Bài P của C (10 upvote, C có 20 điểm từ P) bị Group Mod B gỡ → Member khác, Guest không thấy P; C vẫn thấy P, nhận thông báo, giữ 20 điểm; C khiếu nại → bị từ chối. |
 | BR-M11-31 | Ràng buộc | Tên nhóm bắt buộc, tối đa 100 ký tự; mô tả không bắt buộc, tối đa 500 ký tự; tên được trùng với nhóm khác. Khi tạo, người tạo chọn chế độ Public hoặc Private và đặt được ngay công tắc duyệt trước, công tắc ẩn danh, câu hỏi tham gia; mặc định hai công tắc Tắt, câu hỏi trống. | Tên 100 ký tự → được; 101 ký tự → bị từ chối; tên trống → bị từ chối. Mô tả 500 ký tự → được; 501 → bị từ chối. Hai nhóm cùng tên "Ôn thi Toán" → được. |
 | BR-M11-32 | Kích hoạt | Owner đổi cài đặt làm nhóm thành vào ngay (Private sang Public không có câu hỏi tham gia, hoặc bỏ câu hỏi của nhóm Public) thì mọi yêu cầu tham gia đang Chờ duyệt của nhóm được chấp nhận ngay. | Nhóm Private N có 3 yêu cầu chờ; lúc 10:00 Owner đổi N sang Public, không câu hỏi → 3 người thành Member lúc 10:00. Nhóm Public M có câu hỏi và 2 yêu cầu chờ; Owner chỉ sửa câu hỏi → 2 yêu cầu vẫn chờ. |
@@ -783,7 +783,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | Cung cấp | M12 | Nhóm bị xóa, thành viên rời hoặc bị kick, nội dung bị gỡ khỏi nhóm, để M12 không trừ điểm | FR-M11-15.03, FR-M11-09.05, FR-M11-10.02, FR-M11-14.07 |
 | Cung cấp | M12 | Quyền vote bài nhóm: thành viên vote bài nhóm mình; người ngoài nhóm đã đăng nhập vote bài nhóm Public; nhóm Private (kể cả vừa chuyển Private) và nhóm Bị khóa chặn vote | FR-M11-03.07, FR-M11-03.08, FR-M11-03.13, FR-M11-02.03, FR-M11-16.04 |
 | Dùng | M13 | Điểm quét của bài trong nhóm, cùng ngưỡng 0.9, 0.5 | FR-M11-12.02, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05 |
-| Cung cấp | M14 | Bài nhóm cho tab Group của thành viên; bài nhóm Public cho Trending, không cho Newest; trang danh sách nhóm cho nút "Khám phá Group"; lối vào vẫn hiện khi cờ Group tắt | FR-M11-03.05, FR-M11-12.12, FR-M11-12.13, FR-M11-03.16, FR-M11-17.07 |
+| Cung cấp | M14 | Bài nhóm cho tab Group của thành viên; bài nhóm Public cho Trending, không cho Newest; bài nhóm Public cho tab Following, không có bài nhóm Private; bài nhóm đăng ẩn danh; trang danh sách nhóm cho nút "Khám phá Group"; lối vào (Trending, tab Group, tab Following) vẫn hiện khi cờ Group tắt | FR-M11-03.05, FR-M11-12.07, FR-M11-12.12, FR-M11-12.13, FR-M11-03.16, FR-M11-17.07 |
 
 ### 5.22 AI hỗ trợ và hành vi khi tắt AI
 
@@ -808,6 +808,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-21 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-21 | Chốt sau 7 bước; câu trả lời bước 6 và sửa ở bước 7 (bài của Owner không qua duyệt của nhóm) ghi ở DEC-229–240 | Phạm Văn Đức |
 | 1.1 | 2026-10-23 | Rà lại với register tới DEC-247: thêm dòng Cung cấp M12 về quyền vote bài nhóm, khớp FR-M12. Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-24 | Đối chiếu với FR-M14 (DEC-258, DEC-261, DEC-262): bài nhóm Public vào tab Following, bài nhóm Private vẫn không ra feed chính kể cả tab Following (BR-M11-14); tab Group, tab Following là lối vào khi cờ Group tắt (FR-M11-17.07, BR-M11-29); dòng Cung cấp M14 thêm bài nhóm cho tab Following và bài đăng ẩn danh. Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -942,7 +943,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M11-12.10 | QA-015, DM-2.1, GL:Anonymous Post | Nói thẳng | — |
 | FR-M11-12.11 | DEC-102 | Suy ra | DEC-102 chỉ liệt kê đăng bài là quyền của thành viên ⇒ người ngoài nhóm không đăng được |
 | FR-M11-12.12 | DEC-111, DEC-125 | Nói thẳng | — |
-| FR-M11-12.13 | DEC-111 | Nói thẳng | — |
+| FR-M11-12.13 | DEC-111, DEC-262 | Nói thẳng | — |
 | FR-M11-12.14 | DEC-230, DEC-240 | Nói thẳng | — |
 | FR-M11-12.15 | DEC-230, DEC-240 | Nói thẳng | — |
 | FR-M11-12.16 | DEC-240 | Nói thẳng | — |
@@ -997,7 +998,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M11-17.04 | DEC-225 | Nói thẳng | — |
 | FR-M11-17.05 | DEC-225 | Nói thẳng | — |
 | FR-M11-17.06 | DEC-225 | Nói thẳng | — |
-| FR-M11-17.07 | DEC-236 | Nói thẳng | — |
+| FR-M11-17.07 | DEC-236, DEC-261 | Nói thẳng | — |
 | FR-M11-17.08 | DEC-236 | Nói thẳng | — |
 | BR-M11-01 | DEC-003, DM-5, DM-5.3, DM-5.4, DG-5 | Nói thẳng | — |
 | BR-M11-02 | DM-5.4, DG-5, QA-038, DM-9.4 | Nói thẳng | — |
@@ -1012,7 +1013,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M11-11 | DEC-110, DEC-210, QA-011 | Nói thẳng | — |
 | BR-M11-12 | DEC-110, DEC-229, DEC-238 | Nói thẳng | — |
 | BR-M11-13 | QA-011, DM-5.3, DEC-062, DEC-175, DEC-234 | Nói thẳng | — |
-| BR-M11-14 | DEC-111, DEC-125 | Nói thẳng | — |
+| BR-M11-14 | DEC-111, DEC-125, DEC-258, DEC-262 | Nói thẳng | — |
 | BR-M11-15 | DEC-108, DEC-234 | Nói thẳng | — |
 | BR-M11-16 | DEC-009, DEC-112, F-GRP-10, DG-5 | Nói thẳng | — |
 | BR-M11-17 | QA-015, DEC-112, GL:Anonymous Post, DM-2.1 | Nói thẳng | — |
@@ -1027,7 +1028,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M11-26 | DEC-107, DEC-225, DEC-232, DEC-235, DEC-237 | Nói thẳng | — |
 | BR-M11-27 | DEC-194 | Nói thẳng | — |
 | BR-M11-28 | DEC-194, DEC-235 | Nói thẳng | — |
-| BR-M11-29 | DEC-225, DEC-236 | Nói thẳng | — |
+| BR-M11-29 | DEC-225, DEC-236, DEC-261 | Nói thẳng | — |
 | BR-M11-30 | DEC-102, DEC-231 | Nói thẳng | — |
 | BR-M11-31 | DEC-237 | Nói thẳng | — |
 | BR-M11-32 | DEC-237 | Nói thẳng | — |
@@ -1107,7 +1108,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-108 | Sở hữu | Sửa một phần bởi DEC-234 | FR-M11-02, FR-M11-02.02, FR-M11-02.03, FR-M11-02.04, FR-M11-02.12, FR-M11-03, FR-M11-03.07, BR-M11-15 | Nhóm A. Đổi Public↔Private bất kỳ lúc nào; bài đã hiện giữ hiện nhưng khóa tương tác khi sang Private|
 | DEC-109 | Sở hữu | Sửa một phần bởi DEC-237 | FR-M11-13, FR-M11-13.07, FR-M11-14, FR-M11-14.03, BR-M11-21 | Nhóm A. Quyết định kiểm duyệt cấp nhóm không có khiếu nại|
 | DEC-110 | Sở hữu | Sửa một phần bởi DEC-210, DEC-229, DEC-238 | FR-M11-03, FR-M11-03.02, FR-M11-05, FR-M11-05.01, FR-M11-05.03, FR-M11-05.04, BR-M11-06, BR-M11-11, BR-M11-12 | Nhóm A. Nhóm Private ẩn khỏi tìm kiếm, khám phá; vào qua lời mời/link; mọi thành viên mời được; không có thực thể lời mời riêng. DEC-210 làm rõ: thành viên vẫn tìm thấy. DEC-210 làm rõ: thành viên vẫn tìm thấy nhóm Private của mình. Câu "dùng lại luồng DEC-103" mâu thuẫn với link mời vào thẳng (QA-044, F-GRP-07) — Q-01|
-| DEC-111 | Sở hữu | Sửa một phần bởi DEC-125, DEC-234 | FR-M11-03, FR-M11-03.05, FR-M11-12, FR-M11-12.12, FR-M11-12.13, BR-M11-14 | Nhóm A. Bài nhóm luôn hiện ở feed của thành viên; nhóm Public thêm hiện ở feed chính; nhóm Private không bao giờ. Không dấu sửa: DEC-125 (nguồn QA-233) cho bài nhóm Public vào Trending và tab Group, không vào Newest|
+| DEC-111 | Sở hữu | Sửa một phần bởi DEC-125, DEC-234, DEC-258, DEC-262 | FR-M11-03, FR-M11-03.05, FR-M11-12, FR-M11-12.12, FR-M11-12.13, BR-M11-14 | Nhóm A. Bài nhóm luôn hiện ở feed của thành viên; nhóm Public thêm hiện ở feed chính; nhóm Private không bao giờ. Không dấu sửa: DEC-125 (nguồn QA-233) cho bài nhóm Public vào Trending và tab Group, không vào Newest |
 | DEC-112 | Sở hữu | Hiện hành | FR-M11-02, FR-M11-02.06, FR-M11-03, FR-M11-03.09, FR-M11-03.10, FR-M11-12, FR-M11-12.07, FR-M11-12.08, BR-M11-16, BR-M11-17, BR-M11-24 | Nhóm A. Ẩn danh trong nhóm: chọn từng bài khi công tắc bật; tắt không lộ bài cũ; Group Mod/Owner thấy danh tính thật. Ghi "giống DEC-004/005" nhưng mẫu MOD/ADMIN thấy danh tính thật là QA-015|
 | DM-5 | Sở hữu | Hiện hành | BR-M11-01 | Nhóm A. Draft: nhóm dạng cộng đồng, tái dùng cơ chế Forum|
 | DM-5.1 | Sở hữu | Sửa một phần bởi DEC-103, DEC-110 | FR-M11-01, FR-M11-01.01, FR-M11-01.02, FR-M11-02, FR-M11-03.04, BR-M11-04 | Nhóm A. Draft: tên, mô tả, public/private, người tạo/owner. Không dấu sửa: nhóm Public có câu hỏi cũng cần duyệt; nhóm Private vào qua lời mời/link|
@@ -1328,7 +1329,10 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-233 | Sở hữu | Sửa một phần bởi DEC-240 | FR-M11-03.11, FR-M11-03.12, FR-M11-13.09, BR-M11-33 | Nhóm A. Mod, Admin ngoài nhóm chỉ xem nhóm Private trong vụ báo cáo; hàng chờ nhóm chỉ Owner, Group Mod |
 | DEC-234 | Sở hữu | Hiện hành | FR-M11-02.12, FR-M11-02.13, FR-M11-03.13, BR-M11-13, BR-M11-15 | Nhóm A. Người ngoài tương tác bài nhóm Public; "đã hiện" khi chuyển Private |
 | DEC-235 | Sở hữu | Hiện hành | FR-M11-16.07, FR-M11-16.08, FR-M11-16.09, FR-M11-16.10, BR-M11-26, BR-M11-28 | Nhóm A. Nhóm Bị khóa chặn mọi thao tác quản trị; thành viên vẫn tự rời |
-| DEC-236 | Sở hữu | Hiện hành | FR-M11-17.07, FR-M11-17.08, BR-M11-29 | Nhóm A. Cờ Group tắt: lối vào vẫn hiện, mở ra thì hệ thống đang bận |
+| DEC-236 | Sở hữu | Sửa một phần bởi DEC-261 | FR-M11-17.07, FR-M11-17.08, BR-M11-29 | Nhóm A. Cờ Group tắt: lối vào vẫn hiện, mở ra thì hệ thống đang bận |
+| DEC-258 | Phụ thuộc | Sửa một phần bởi DEC-262 | BR-M11-14 | Nhóm B (đối chiếu FR-M14). Bài nhóm Public vào tab Following; bài ẩn danh không vào nhờ theo dõi tác giả; phần bài nhóm Private bị DEC-262 rút |
+| DEC-261 | Phụ thuộc | Hiện hành | FR-M11-17.07, BR-M11-29 | Nhóm B (đối chiếu FR-M14). Cờ Group tắt: tab Group vẫn liệt kê bài nhóm như lối vào |
+| DEC-262 | Phụ thuộc | Hiện hành | FR-M11-12.13, BR-M11-14 | Nhóm B (đối chiếu FR-M14). Bài nhóm Private không vào tab Following; DEC-111 giữ nguyên |
 | DEC-237 | Sở hữu | Sửa một phần bởi DEC-240 | FR-M11-01.03, FR-M11-01.06, FR-M11-01.07, FR-M11-01.08, FR-M11-01.09, FR-M11-01.10, FR-M11-01.11, FR-M11-01.12, FR-M11-02.10, FR-M11-02.11, FR-M11-02.14, FR-M11-02.15, FR-M11-03.16, FR-M11-03.17, FR-M11-04.08, FR-M11-04.09, FR-M11-06.04, FR-M11-06.07, FR-M11-06.08, FR-M11-06.09, FR-M11-08.06, FR-M11-10.07, FR-M11-10.08, FR-M11-10.09, FR-M11-11.06, FR-M11-11.07, FR-M11-13.06, FR-M11-13.10, FR-M11-13.11, FR-M11-13.12, FR-M11-13.13, BR-M11-03, BR-M11-08, BR-M11-09, BR-M11-18, BR-M11-21, BR-M11-24, BR-M11-26, BR-M11-31, BR-M11-32, BR-M11-35, BR-M11-37, BR-M11-38, BR-M11-39 | Nhóm A. Danh sách xác nhận L1–L13 (L4 duyệt luôn) |
 | DEC-238 | Sở hữu | Hiện hành | FR-M11-03.14, FR-M11-03.15, FR-M11-04.06, FR-M11-04.10, FR-M11-05.02, FR-M11-05.06, FR-M11-05.07, FR-M11-07.02, FR-M11-07.03, FR-M11-07.04, FR-M11-07.05, BR-M11-10, BR-M11-12, BR-M11-34, BR-M11-36, BR-M11-37 | Nhóm A. Mở rộng phạm vi: danh sách thành viên, rút yêu cầu, bỏ chặn; link mời chung không thu hồi |
 | DEC-239 | Sở hữu | Hiện hành | FR-M11-15.02, BR-M11-23 | Nhóm A. Đóng phần M11 của OPEN-011: nội dung nhóm chỉ xóa mềm |
@@ -1371,7 +1375,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-044, F-GRP-07, MR-M11 → DEC-110 → DEC-210, DEC-229, DEC-238 | Nhóm Private không hiện với người ngoài nhóm (kể cả Guest, Mod, Admin), thành viên vẫn tìm thấy. Mọi thành viên mời được; một link mời chung của nhóm, không hết hạn, không thu hồi; người được mời theo luồng tham gia, không vào thẳng (mâu thuẫn Q-01 đã giải). |
 | DEC-053, DEC-062, QA-120, ISS-095, F-GRP-06 → DEC-210 | "Visible-but-gated" không còn áp dụng: nhóm Private ẩn khỏi tìm kiếm với người ngoài nhóm; nội dung chỉ thành viên thấy. |
 | DG-5, DM-2.1 → DEC-009 → DEC-112; QA-015 → DEC-112 | Ẩn danh chỉ có trong nhóm, công tắc do Owner, chỉ áp cho bài mới; khi bật, thành viên chọn ẩn danh cho từng bài; tắt không lộ bài cũ. Người thấy danh tính thật: MODERATOR, ADMIN và Group Mod, Owner của nhóm. |
-| DEC-111, DEC-108 → DEC-125, DEC-234 (QA-232 → QA-233) | Bài nhóm luôn hiện với thành viên; bài nhóm Public hiện với người ngoài nhóm ở Trending (không vào Newest) và người ngoài đã đăng nhập tương tác như bài thường. Nhóm chuyển Private: người ngoài chỉ còn đọc bài đang hiện sẵn trên màn hình đã tải, tải lại hoặc mở lại thì "Nội dung không tồn tại"; feed, tìm kiếm sau đó không trả bài. |
+| DEC-111, DEC-108 → DEC-125, DEC-234, DEC-258 → DEC-262 (QA-232 → QA-233) | Bài nhóm luôn hiện với thành viên; bài nhóm Public hiện với người ngoài nhóm ở Trending (không vào Newest) và người ngoài đã đăng nhập tương tác như bài thường. Bài nhóm Public vào tab Following của người theo dõi; bài ẩn danh không vào nhờ theo dõi tác giả (DEC-258). Bài nhóm Private không bao giờ ra feed chính, kể cả tab Following của thành viên (DEC-262 rút ngoại lệ của DEC-258). Nhóm chuyển Private: người ngoài chỉ còn đọc bài đang hiện sẵn trên màn hình đã tải, tải lại hoặc mở lại thì "Nội dung không tồn tại"; feed, tìm kiếm sau đó không trả bài. |
 | DEC-102 → DEC-231, DEC-237 | Quyền theo ma trận DEC-102, thứ bậc chặt áp cả cho nội dung. "Ẩn/xóa" là một thao tác gỡ khỏi nhóm: xóa mềm, thông báo tác giả, không trừ điểm, không khiếu nại. Chỉ Owner sửa tên, mô tả. |
 | DEC-107 → DEC-232, DEC-237 | Owner tự rời phải chỉ định người kế nhiệm; một mình thì rời là xóa nhóm. Mọi ban, vô hiệu hóa, xóa tài khoản Owner chuyển quyền ngay: Group Mod thâm niên dài nhất (tính từ lần bổ nhiệm gần nhất) → Member tham gia sớm nhất → xóa nhóm; Owner cũ ở lại làm Member. |
 | DEC-109 → DEC-237 | Quyết định cấp nhóm không khiếu nại; bài nhóm bị AI tự từ chối vẫn khiếu nại qua M09. Nhóm từ chối bài phải kèm lý do; tác giả sửa, gửi lại được. |
@@ -1380,7 +1384,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | DM-4.5, DM-8.1, QA-043 → DEC-215 | Không theo dõi được nhóm; không có thông báo "nội dung mới trong nhóm đang theo dõi". |
 | DM-7.1 → DEC-125 | Không có feed Personalized theo nhóm đang theo dõi; thay bằng tab Group. |
 | DEC-072 → DEC-194 → DEC-235; DEC-192 → DEC-197 | Nhóm bị báo cáo (Owner là người bị báo cáo); Mod, Admin Ẩn (không bỏ ẩn) hoặc Khóa (mở khóa trực tiếp). Nhóm Bị khóa chặn đăng, bình luận, vote, bình chọn, tham gia, mời và mọi thao tác quản trị kể cả xóa nhóm, Owner rời; Member, Group Mod tự rời được; bookmark, báo cáo vẫn được; hệ thống vẫn chuyển Owner. Không có link khiếu nại. |
-| DEC-092 → DEC-225 → DEC-236 | Cờ Group tắt: mọi yêu cầu của người dùng khác Admin bị từ chối với "Hệ thống đang bận, vui lòng thử lại sau", kể cả mở nhóm, mở bài nhóm; lối vào (danh sách nhóm, Trending, hồ sơ, tìm kiếm, bookmark, thông báo) vẫn hiện; kế nhiệm Owner và kiểm duyệt M08 vẫn chạy; dữ liệu giữ nguyên; không làm bù. |
+| DEC-092 → DEC-225 → DEC-236 → DEC-261 | Cờ Group tắt: mọi yêu cầu của người dùng khác Admin bị từ chối với "Hệ thống đang bận, vui lòng thử lại sau", kể cả mở nhóm, mở bài nhóm; lối vào (danh sách nhóm, Trending, tab Group và tab Following của feed, hồ sơ, tìm kiếm, bookmark, thông báo) vẫn hiện; kế nhiệm Owner và kiểm duyệt M08 vẫn chạy; dữ liệu giữ nguyên; không làm bù. |
+| DEC-065 → DEC-246; DEC-113 → DEC-241; DEC-125 → DEC-260; DEC-225 → DEC-245, DEC-256; QA-038 → DEC-243 | Các sửa đổi này chỉ chạm phần M11 không dùng: thông báo danh hiệu tuần, trừ điểm bình luận, bảng xếp hạng (M12); tab mặc định của feed (M14); cờ Gamification, cờ Chat (M12, M16). Phần M11 dùng giữ nguyên. |
 | DEC-065 → DEC-215, DEC-231, DEC-237 (DEC-147, DEC-151, DEC-180, DEC-218, DEC-221 ngoài bảng nguồn hoặc đã loại) | Thông báo nhóm chỉ trong ứng dụng: mời (kèm link), yêu cầu tham gia mới (tới Owner, Group Mod), được chấp nhận, được bổ nhiệm, bị kick, trở thành Owner, bị gỡ khỏi nhóm. Không thông báo khi vào ngay nhóm Public, bị từ chối, bị giáng. |
 | QA-023, ISS-041 → QA-221 | Group Chat độc lập, không thuộc M11. |
 | DEC-020 → DEC-153 (→ DEC-214, ngoài bảng nguồn) | Gợi ý @mention trong bài nhóm ưu tiên: đang theo dõi > cùng nhóm > toàn hệ thống; DEC-153, DEC-214 chỉ đổi thứ tự trong tầng và cách khớp tên. |

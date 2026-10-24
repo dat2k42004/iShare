@@ -2,9 +2,9 @@
 module: M05
 ten_module: Topic & Tag
 ma_tai_lieu: FR-M05
-phien_ban: 1.5
+phien_ban: 1.6
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M05 — Topic & Tag |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.5 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.6 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -551,6 +551,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.3 | 2026-10-20 | Đối chiếu với FR-M06: thêm giao tiếp "Dùng M06" (xem bài của Topic/Tag qua trang tìm bài); Tag bị vô hiệu hóa không có trong kết quả tìm Tag; ghi C.2. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231): thêm "Dùng M11" (bài nhóm Public, Private, bài bị gỡ khỏi nhóm cho Trending); không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 | 1.5 | 2026-10-23 | Rà lại với register tới DEC-247: thêm dòng Cung cấp M13 (yêu cầu gợi ý Topic, phản hồi gợi ý), khớp FR-M13. Không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
+| 1.6 | 2026-10-24 | Đối chiếu với FR-M14: OPEN-009 đã đóng bởi DEC-259 (Trending Post cộng bookmark trọng số 1); sửa C.1, C.2; không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -802,7 +803,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-096 | Phụ thuộc | Hiện hành | Chuyển M13 | Nhóm B. M13: mô hình gợi ý topic (chi tiết công nghệ) |
 | DEC-099 | Sở hữu | Hiện hành | FR-M05-02, FR-M05-02.07, FR-M05-02.08, FR-M05-02.16, FR-M05-02.17, BR-M05-18, BR-M05-19 | Nhóm B. Phần gợi ý topic khi AI tắt/lỗi; timeout và retry thuộc M13 |
 | DEC-100 | Sở hữu | Sửa một phần bởi DEC-144 | FR-M05-02, FR-M05-02.15, BR-M05-17 | Nhóm B. Giới hạn 10 lần/phút/user cho nút gợi ý topic |
-| DEC-124 | Nhắc tới | Hiện hành | Không áp dụng: M14: xác nhận DEC-052 giữ nguyên | Nhóm B. M14: xác nhận DEC-052 giữ nguyên |
+| DEC-124 | Nhắc tới | Sửa một phần bởi DEC-259 | Không áp dụng: M14: xác nhận DEC-052 giữ nguyên | Nhóm B. M14: xác nhận DEC-052 giữ nguyên |
 | DEC-125 | Phụ thuộc | Hiện hành | Chuyển M14 | Nhóm B. M14: tab Trending có sub-view Topic/Tag |
 | DEC-126 | Phụ thuộc | Hiện hành | Chuyển M14 | Nhóm B. M14: Guest xem Trending Topic/Tag |
 | DEC-132 | Sở hữu | Sửa một phần bởi DEC-141, DEC-144 | FR-M05-02, FR-M05-02.06, FR-M05-02.07, FR-M05-08.04, BR-M05-14, BR-M05-19 | Nhóm B. Kết quả gợi ý ngoài 11 topic |
@@ -1001,7 +1002,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-290 | Sở hữu | Trùng với DEC-146 | — | Nhóm A. Câu trả lời của stakeholder, nội dung nằm trong DEC |
 | QA-291 | Sở hữu | Trùng với DEC-146 | — | Nhóm A. Câu trả lời của stakeholder, nội dung nằm trong DEC |
 | DEC-081 | Phụ thuộc | Sửa một phần bởi DEC-146 | FR-M05-09.07, FR-M05-10.06, FR-M05-11.07 | Nhóm B. M08: nhật ký kiểm duyệt |
-| OPEN-009 | Phụ thuộc | Hiện hành | Chuyển M14 | Nhóm B. M14: Trending Post có thêm bookmark không |
+| OPEN-009 | Phụ thuộc | Bị thay bởi DEC-259 | — | Nhóm B. M14: Trending Post có thêm bookmark không |
+| DEC-259 | Phụ thuộc | Hiện hành | Chuyển M14 | Nhóm B (đối chiếu FR-M14). Trending Post cộng bookmark trọng số 1; đóng OPEN-009 |
 | DEC-037 | Phụ thuộc | Hiện hành | FR-M05-11.06 | Nhóm C. M03: lịch sử sửa bài; đổi Topic/Tag của Mod không ghi vào đây |
 | DEC-094 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm C. M10: nhật ký thao tác Admin |
 | OPEN-005 | Phụ thuộc | Hiện hành | TBD-M05-02 | Nhóm C. Hạ tầng ghi sự kiện hoãn; lượt xem trong Trending phụ thuộc vào đây |
@@ -1022,7 +1024,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DM-7.2 → DEC-052 → DEC-145 | Tiêu chí Views/Bookmarks/Recency của draft bị thay. Công thức hiện hành là của DEC-145 (BR-M05-29): tổng tương tác xảy ra trong cửa sổ 7 ngày trượt, bất kể bài đăng lúc nào; bài được đăng = 1, upvote cho bài = 2, comment (kể cả reply) = 1, bookmark = 1; không decay; chỉ tính bài trên feed chính; tương tác đã rút lại, upvote cho comment và lượt xem không tính. Công thức Σ(1 + upvotes×2 + comments×1) trên các bài đăng trong cửa sổ của DEC-052 bị thay. |
 | DEC-052, QA-106 → DEC-145 | Phần còn hiệu lực của DEC-052: cửa sổ 7 ngày trượt theo thời điểm tính (không theo tuần lịch), chu kỳ tính lại 15–30 phút, Trending Topic/Tag là phần riêng của Feed. DEC-145 thêm: mọi tương tác có mặt trong điểm chậm nhất 30 phút; chỉ hiện mục có điểm lớn hơn 0; thứ tự theo điểm, rồi số bài mới, rồi tên A–Z. |
 | ISS-171 → ISS-185, DEC-124; DEC-145 | Công thức decay của DEC-124 chỉ áp cho Trending Post (M14). Trending Topic/Tag không dùng decay và theo DEC-145. Việc Trending Post có thêm bookmark hay không nằm ở OPEN-009. |
-| DEC-124 → OPEN-009 | Trending Post (M14) có thêm bookmark hay không còn mở; hướng đang được chấp nhận là thêm với cùng trọng số, review ở M14. Không thuộc yêu cầu M05. |
+| DEC-124 → OPEN-009 → DEC-259 | Trending Post (M14) cộng bookmark với trọng số 1, như Trending Topic/Tag; decay và mốc 28 ngày giữ nguyên (DEC-259, đóng OPEN-009). Không thuộc yêu cầu M05. |
 | DM-7.1 → QA-225 → DEC-125 | Feed gồm 4 tab; tab Trending có sub-view Topic và Tag (M14 hiển thị, M05 cung cấp). Feed Latest/Popular/Personalized của draft bị thay. |
 | DM-4.5, DM-8.1 → QA-043 | Chỉ theo dõi được User, Topic, Post; Tag và Group không phải đối tượng theo dõi (QA-228 nhắc lại cho Tag). Thuộc M07. |
 | QA-022 → DEC-053 | Tìm kiếm gồm cả Tag và Topic (khớp chính xác hoặc tiền tố). Thuộc M06. |
