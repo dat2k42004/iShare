@@ -1,10 +1,19 @@
 # Temporary files
-**/_temp
+# **/_temp
 
 # AI agents
-**/.claude
-**/.agents
-**/.agent-instructions
+# **/.claude
+# **/.agents
+# **/.agent-instructions
 
-# sub-modules .gitignore
-./**/.gitignore
+# Claude Code: cài đặt quyền riêng của máy này
+.claude/settings.local.json
+
+# Tệp tạm của tool skill FR (sinh lại được)
+.agents/.claude/system_analysis/output/fr/.work/
+
+# Python
+__pycache__/
+*.pyc
+
+.agents/.claude/system_analysis/output/export
