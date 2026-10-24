@@ -2,11 +2,11 @@
 module: M03
 ten_module: Post & Content
 ma_tai_lieu: FR-M03
-phien_ban: 1.9
+phien_ban: 1.10
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M03 Post & Content
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M03 — Post & Content |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.9 |
+| Phiên bản | 1.10 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -117,7 +117,7 @@ lịch sử sửa, và xóa bài với thời hạn khôi phục.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -368,7 +368,7 @@ cột MoSCoW ở dòng M03 của bảng Module List bị lệch nên không dùn
 
 | ID | Yêu cầu |
 |---|---|
-| FR-M03-07.01 | Hệ thống phải hiển thị bài cho mọi người, kể cả Guest, khi bài có trạng thái đăng Đã đăng và trạng thái kiểm duyệt Bình thường, bất kể mức khóa, trừ bài trong nhóm Private chỉ hiển thị cho thành viên nhóm (M11). |
+| FR-M03-07.01 | Hệ thống phải hiển thị bài cho mọi người, kể cả Guest, khi bài có trạng thái đăng Đã đăng và trạng thái kiểm duyệt Bình thường, bất kể mức khóa, trừ bài trong nhóm Private chỉ hiển thị cho thành viên nhóm (M11) và bài bị module khác ẩn: bài của tài khoản DEACTIVATED, DELETED (FR-M01-13.01), bài trong nhóm Bị ẩn (M08, M11), bài bị gỡ khỏi nhóm (M11). |
 | FR-M03-07.02 | Nếu bài không ở trạng thái hiển thị công khai, hệ thống phải không hiển thị bài cho người khác tác giả, trừ bài Chờ duyệt trong hàng chờ ở FR-M03-06.01, bài Bị gắn cờ, Bị Mod ẩn mà Mod, Admin xem khi xử lý ở M08, M09, và bài Tự ẩn, Đã xóa, Đã xóa hẳn mà Mod, Admin xem trong báo cáo, lịch sử báo cáo, khiếu nại (FR-M03-07.11, FR-M03-17.04). |
 | FR-M03-07.03 | Hệ thống phải cho tác giả xem bài của mình ở mọi trạng thái đăng, cho tới khi bài bị xóa hẳn. |
 | FR-M03-07.04 | Hệ thống phải hiển thị trên bài: tiêu đề, nội dung, tác giả, Lớp/Khối (nếu có), tệp đính kèm và poll (nếu có). |
@@ -607,7 +607,7 @@ cột MoSCoW ở dòng M03 của bảng Module List bị lệch nên không dùn
 | BR-M03-43 | Kích hoạt | Khi tiêu đề hoặc nội dung vượt giới hạn trong lúc soạn hoặc sửa, hệ thống cảnh báo ngay kèm số hiện tại so với giới hạn; lưu hoặc gửi khi đang vượt thì bị từ chối và nội dung được giữ nguyên. | Tiêu đề 162 ký tự: cảnh báo "162/150" hiện ngay; bấm gửi → từ chối, tiêu đề vẫn còn để sửa. |
 | BR-M03-44 | Ràng buộc | Poll chỉ được thêm hoặc bỏ khi bài chưa gửi. Sau khi gửi, tác giả chỉ được thêm lựa chọn (tổng vẫn tối đa 10) và đổi hạn trong lúc poll còn mở; không sửa hay xóa lựa chọn đã có. Chỉ tác giả thêm được lựa chọn. | Bài đã đăng có poll 9 lựa chọn: thêm lựa chọn thứ 10 → nhận; thứ 11 → từ chối. Sửa chữ của lựa chọn cũ → từ chối. Bỏ poll → từ chối. |
 | BR-M03-45 | Sự kiện | Tác giả được bình chọn trong poll của chính bài mình. | — |
-| BR-M03-46 | Suy diễn | Bài vừa gửi bị AI tự từ chối thì tác giả thấy nhóm vi phạm AI phát hiện; tác giả sửa và gửi lại không giới hạn số lần, mỗi lần đều được quét lại; phản đối thì khiếu nại qua M09. Khiếu nại được chấp nhận thì bài chuyển Đã đăng ngay, không quét lại; nếu tác giả đã sửa và gửi lại bài trước khi có kết luận thì trạng thái bài không đổi (M09). | Bài bị từ chối lúc 09:00, khiếu nại được chấp nhận lúc 15:00 → Đã đăng lúc 15:00. Tác giả đã gửi lại bản sửa lúc 10:00 và bài đã được đăng → khiếu nại được chấp nhận lúc 15:00 không đổi trạng thái bài. |
+| BR-M03-46 | Suy diễn | Bài vừa gửi bị AI tự từ chối thì tác giả thấy nhóm vi phạm AI phát hiện; tác giả sửa và gửi lại không giới hạn số lần, mỗi lần đều được quét lại; phản đối thì khiếu nại qua M09. Khiếu nại được chấp nhận thì bài không thuộc nhóm chuyển Đã đăng ngay, bài nhóm đi tiếp qua cổng duyệt của nhóm (M11), cả hai không quét lại; nếu tác giả đã sửa và gửi lại bài trước khi có kết luận thì trạng thái bài không đổi (M09). | Bài bị từ chối lúc 09:00, khiếu nại được chấp nhận lúc 15:00 → Đã đăng lúc 15:00. Tác giả đã gửi lại bản sửa lúc 10:00 và bài đã được đăng → khiếu nại được chấp nhận lúc 15:00 không đổi trạng thái bài. |
 | BR-M03-47 | Ràng buộc | Tác giả sửa được bài ở trạng thái Nháp, Bị từ chối, Đã đăng, Tự ẩn, kể cả khi bài đang bị khóa; không sửa được bài Chờ duyệt, Đã xóa hoặc Bị Mod ẩn. | Bài Chờ duyệt: sửa → từ chối. Bài Đã đăng bị Mod khóa bình luận: sửa → được. |
 | BR-M03-48 | Sự kiện | Bài viết mới có trạng thái kiểm duyệt Bình thường. "Mod gỡ bài" chính là trạng thái kiểm duyệt Bị Mod ẩn. | — |
 | BR-M03-49 | Ràng buộc | Mod và Admin không xem bài Nháp, Bị từ chối của người khác; Mod, Admin xem bài Chờ duyệt qua hàng chờ duyệt, bài Bị gắn cờ, Bị Mod ẩn qua M08, M09, và bài Tự ẩn, Đã xóa, Đã xóa hẳn chỉ trong báo cáo, lịch sử báo cáo, khiếu nại liên quan tới bài đó. | Y báo cáo bài P của X; X tự ẩn P → Mod mở báo cáo vẫn xem được P. Mod mở thẳng bài nháp của X → từ chối. |
@@ -618,7 +618,7 @@ cột MoSCoW ở dòng M03 của bảng Module List bị lệch nên không dùn
 
 | Thực thể | Thuộc tính nguồn đã nêu | Quan hệ |
 |---|---|---|
-| Bài viết | Tiêu đề (tối đa 150 ký tự); nội dung giàu định dạng (tối đa 6.000 từ); nội dung dạng chữ thuần (dùng cho tìm kiếm); tác giả; Lớp/Khối (tùy chọn); trạng thái đăng; trạng thái kiểm duyệt; mức khóa và người khóa; lý do từ chối (khi bị Mod từ chối); thời điểm tạo; thời điểm cập nhật; thời điểm xóa và trạng thái trước khi xóa (khi Đã xóa); cờ Đã xóa hẳn (khi hết thời hạn khôi phục); có bản sửa được lưu trong lúc Tự ẩn chưa được quét | Thuộc một tác giả (M01); có 0–1 Poll, 0–10 ảnh và 0–3 tài liệu đính kèm, nhiều Phiên bản sửa; có Topic, Tag (M05); có thể thuộc một nhóm (M11); có bình luận (M04) |
+| Bài viết | Tiêu đề (tối đa 150 ký tự); nội dung giàu định dạng (tối đa 6.000 từ); nội dung dạng chữ thuần (dùng cho tìm kiếm); tác giả; Lớp/Khối (tùy chọn); trạng thái đăng; trạng thái kiểm duyệt; mức khóa và người khóa; lý do từ chối (khi bị Mod từ chối); thời điểm tạo; thời điểm cập nhật; thời điểm xóa và trạng thái trước khi xóa (khi Đã xóa); cờ Đã xóa hẳn (khi hết thời hạn khôi phục); có bản sửa được lưu trong lúc Tự ẩn chưa được quét; dấu "bị gỡ khỏi nhóm" (M11 đặt, không phải trạng thái đăng: bài giữ trạng thái đăng của nó) | Thuộc một tác giả (M01); có 0–1 Poll, 0–10 ảnh và 0–3 tài liệu đính kèm, nhiều Phiên bản sửa; có Topic, Tag (M05); có thể thuộc một nhóm (M11); có bình luận (M04) |
 | Tệp đính kèm | Loại (ảnh hoặc tài liệu), định dạng tệp, dung lượng | Thuộc một Bài viết |
 | Poll | Các lựa chọn (2–10); chọn một hoặc chọn nhiều; hiện kết quả trước khi bình chọn; hạn kết thúc; đã đóng | Thuộc một Bài viết; có nhiều Phiếu bình chọn |
 | Phiếu bình chọn | Người bình chọn; các lựa chọn đã chọn | Thuộc một Poll và một người dùng |
@@ -658,7 +658,7 @@ cột MoSCoW ở dòng M03 của bảng Module List bị lệch nên không dùn
 | Chờ duyệt | Mod hoặc Admin từ chối | Có lý do | Bị từ chối | FR-M03-06.03 |
 | Bị từ chối | Tác giả sửa và gửi lại | AI tổng và công tắc Moderation bật; tác giả khác Admin | Chờ duyệt | FR-M03-04.04, FR-M03-04.01 |
 | Bị từ chối | Admin sửa và gửi lại bài của mình | Bài không thuộc nhóm | Đã đăng | FR-M03-04.11 |
-| Bị từ chối | Khiếu nại về bài bị AI tự từ chối được chấp nhận (M09) | Tác giả chưa gửi lại bài trước khi có kết luận | Đã đăng | FR-M09-08.12 |
+| Bị từ chối | Khiếu nại về bài bị AI tự từ chối được chấp nhận (M09) | Tác giả chưa gửi lại bài trước khi có kết luận; bài không thuộc nhóm (bài nhóm theo cổng duyệt của nhóm, M11) | Đã đăng | FR-M09-08.12 |
 | Bị từ chối | Tác giả sửa và gửi lại | AI tổng hoặc công tắc Moderation tắt | Đã đăng | FR-M03-04.04, FR-M03-04.03 |
 | Đã đăng | Tác giả tự ẩn | — | Tự ẩn | FR-M03-13.01 |
 | Tự ẩn | Tác giả hiện lại | — | Đã đăng | FR-M03-13.02 |
@@ -681,8 +681,9 @@ Bài Bị từ chối mà tác giả không gửi lại hay xóa thì ở mãi t
 |---|---|---|---|---|
 | (bắt đầu) | Bài được tạo | — | Bình thường | FR-M03-01.12 |
 | Bình thường | Quét lại sau khi sửa bài Đã đăng, hoặc sau khi hiện lại bài Tự ẩn đã sửa trong lúc ẩn, cho điểm từ 0.5 trở lên | Công tắc AI tổng và công tắc Moderation đều bật | Bị gắn cờ | FR-M03-05.07, FR-M03-13.06 |
-| Bị gắn cờ | Mod xét và giữ bài | — | Bình thường | FR-M08-07.01 |
-| Bị gắn cờ | Mod xét và ẩn bài | — | Bị Mod ẩn | FR-M08-07.02 |
+| Bị gắn cờ | Mod hoặc Admin xét và giữ bài | — | Bình thường | FR-M08-07.01 |
+| Bị gắn cờ | Mod hoặc Admin xét và ẩn bài | — | Bị Mod ẩn | FR-M08-07.02 |
+| Bình thường | Mod hoặc Admin ẩn bài khi xử lý vụ báo cáo | — | Bị Mod ẩn | FR-M08-06.01 |
 | Bị Mod ẩn | Khiếu nại của tác giả được chấp nhận | — | Bình thường | FR-M09-08.08 |
 
 <!-- Hai dòng "Mod xét…" suy ra từ DEC-032 "FLAGGED: awaiting mod" và "HIDDEN: mod-hidden". -->
@@ -720,7 +721,7 @@ Bài Bị từ chối mà tác giả không gửi lại hay xóa thì ở mãi t
 | Cung cấp | M05 | Thao tác soạn, gửi, sửa bài và trạng thái nháp, đã gửi, là nơi áp quy tắc Topic, Tag và gợi ý Topic; khi bài chuyển Đã xóa hẳn, liên kết bài–Topic, bài–Tag được giữ cùng bài (bài không còn hiển thị) | FR-M03-01.01, FR-M03-04.01, FR-M03-11.01, FR-M03-17.02 |
 | Cung cấp | M06, M14 | Bài viết đang hiển thị công khai và nội dung chữ của bài | FR-M03-07.01 |
 | Cung cấp | M14 | Thời điểm đăng của bài (lúc chuyển sang Đã đăng), để xếp bài ở Newest, Following, Group và tính tuổi bài của Trending Post | FR-M03-04.03, FR-M03-05.01, FR-M03-06.02 |
-| Cung cấp | M07 | Sự kiện bài được đăng, bài bị từ chối, poll kết thúc. Sự kiện bài được đăng kèm tác giả, bài có đăng ẩn danh không và có phải lần đầu hiển thị công khai không, để M07 báo bài mới cho người theo dõi tác giả (DEC-215) | FR-M03-05.01, FR-M03-05.03, FR-M03-06.02, FR-M03-06.03, FR-M03-10.02 |
+| Cung cấp | M07 | Sự kiện bài được đăng, bài bị từ chối, poll kết thúc, kể cả bài nhóm được đăng hoặc bị từ chối qua cổng duyệt của nhóm (M11). Sự kiện bài được đăng kèm tác giả, bài có đăng ẩn danh không và có phải lần đầu hiển thị công khai không, để M07 báo bài mới cho người theo dõi tác giả (DEC-215) | FR-M03-05.01, FR-M03-05.03, FR-M03-06.02, FR-M03-06.03, FR-M03-10.02 |
 | Dùng | M07 | Công tắc "Tắt thông báo cho bài này" hiện trên mỗi bài (FR-M07-08) | — |
 | Cung cấp | M08 | Bài vào hàng chờ duyệt sau bước quét; bài đã sửa (hoặc tự ẩn đã sửa rồi hiện lại) bị bước quét lại gắn cờ; bài Tự ẩn xem được trong báo cáo | FR-M03-05.02, FR-M03-05.04, FR-M03-05.07 |
 | Cung cấp | M12 | Thời điểm bài do tác giả xóa chuyển sang Đã xóa hẳn (mốc trừ điểm) | FR-M03-17.01 |
@@ -731,13 +732,13 @@ Bài Bị từ chối mà tác giả không gửi lại hay xóa thì ở mãi t
 | Dùng | M02 | Tab "Đã xóa" trên hồ sơ tác giả | FR-M03-15.03 |
 | Dùng | M05 | Quy tắc Topic, Tag khi gửi và sửa bài; Mod, Admin đổi Topic, Tag trên bài người khác | FR-M03-11.05, FR-M03-11.06 |
 | Dùng | M08 | Điểm quét; hàng chờ duyệt của Mod; gắn cờ, ẩn, gỡ bài; hạn chế tạo bài theo mức cảnh cáo | FR-M03-01.10, FR-M03-05.01, FR-M03-06.01 |
-| Dùng | M09 | Khiếu nại bài bị Mod ẩn ("gỡ") hoặc bị AI tự từ chối; bài trở lại hiển thị khi khiếu nại thành công; bài bị AI tự từ chối được chấp nhận khiếu nại thì Đã đăng ngay, không quét lại | FR-M03-13.05, BR-M03-46 |
+| Dùng | M09 | Khiếu nại bài bị Mod ẩn ("gỡ") hoặc bị AI tự từ chối; bài trở lại hiển thị khi khiếu nại thành công; bài bị AI tự từ chối được chấp nhận khiếu nại thì Đã đăng ngay, không quét lại; bài nhóm thì đi tiếp qua cổng duyệt của nhóm (M11) | FR-M03-13.05, BR-M03-46 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Moderation | FR-M03-04.03, FR-M03-05.08 |
-| Dùng | M11 | Luồng duyệt bài trong nhóm (kể cả bài nhóm quét thất bại chờ nhóm duyệt); đăng ẩn danh; bài trong nhóm Private; bài bị Owner, Group Mod gỡ khỏi nhóm (xóa mềm, M11 làm) | FR-M03-04.05 |
+| Dùng | M11 | Luồng duyệt bài trong nhóm (kể cả bài nhóm quét thất bại chờ nhóm duyệt); đăng ẩn danh; bài trong nhóm Private; bài bị Owner, Group Mod gỡ khỏi nhóm (xóa mềm bằng dấu "bị gỡ khỏi nhóm", bài giữ trạng thái đăng; M11 làm) | FR-M03-04.05 |
 | Cung cấp | M11 | Soạn bài, trạng thái đăng, sửa, xóa của tác giả cho bài nhóm; hàng chờ duyệt của Mod cho bài của Owner nhóm có điểm quét từ 0.5 đến nhỏ hơn 0.9 hoặc quét thất bại | FR-M03-04.05, FR-M03-05.02, FR-M03-05.04 |
 | Dùng | M12 | Trừ điểm khi tác giả xóa bài hoặc bài bị Mod gỡ; thao tác upvote, rút upvote (bị chặn khi bài ở mức Khóa toàn bộ, DEC-246) | FR-M03-14.06 |
 | Dùng | M13 | Gọi AI kiểm duyệt (thời gian chờ, một lần thử lại), tóm tắt bài (chỉ người đã đăng nhập), embedding | FR-M03-05.04 |
-| Cung cấp | M13 | Thời điểm bài chuyển sang Đã đăng theo mọi đường (quét sạch, Mod chấp nhận, AI tắt, bài của Admin) để tạo embedding; thay đổi tiêu đề, nội dung chữ để tạo lại embedding | FR-M03-04.03, FR-M03-04.11, FR-M03-05.01, FR-M03-06.02, FR-M03-11.01 |
+| Cung cấp | M13 | Thời điểm bài chuyển sang Đã đăng theo mọi đường (quét sạch, Mod chấp nhận, AI tắt, bài của Admin, cổng duyệt của nhóm ở M11) để tạo embedding; thay đổi tiêu đề, nội dung chữ để tạo lại embedding | FR-M03-04.03, FR-M03-04.11, FR-M03-05.01, FR-M03-06.02, FR-M03-11.01 |
 
 ### 5.22 AI hỗ trợ và hành vi khi tắt AI
 
@@ -771,6 +772,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.7 | 2026-10-23 | Rà lại với register tới DEC-247: Khóa toàn bộ chặn cả rút upvote và upvote bình luận của bài (DEC-246: FR-M03-14.06, BR-M03-31); dòng Dùng M12. Chốt bản 1.7 | Phạm Văn Đức |
 | 1.8 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (thời điểm đăng để xếp feed và tính tuổi bài Trending Post); sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.8 | Phạm Văn Đức |
 | 1.9 | 2026-10-24 | Đối chiếu với FR-M15: dòng Cung cấp M15 thêm trạng thái kiểm duyệt, thời điểm tạo, thời điểm đăng và yêu cầu nguồn; sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.9 | Phạm Văn Đức |
+| 1.10 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): FR-M03-07.01 thêm ngoại lệ bài bị module khác ẩn (M01, M08, M11); bảng trạng thái kiểm duyệt thêm "Bình thường → Bị Mod ẩn" khi Mod, Admin ẩn bài lúc xử lý vụ và ghi "Mod hoặc Admin"; bài nhóm được chấp nhận khiếu nại đi qua cổng duyệt của nhóm (DEC-271: BR-M03-46, bảng trạng thái, giao tiếp M09); dấu "bị gỡ khỏi nhóm" ở dữ liệu (DEC-270); dòng Cung cấp M07, M13 gồm bài nhóm qua cổng duyệt; sửa ghi chú C.1 về theo dõi bài; C.1, C.2 (gồm chuỗi sửa đổi của các nguồn mới trích). Chốt bản 1.10 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -855,7 +857,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M03-06.06 | DEC-034 | Suy ra | Chỉ Mod (và Admin) duyệt ⇒ người khác bị từ chối |
 | FR-M03-06.07 | DEC-034 | Suy ra | Theo bảng trạng thái, duyệt chỉ đi từ Chờ duyệt |
 | FR-M03-07 | QA-011, DEC-033, DM-2.1 | Nói thẳng | Lý do lấy từ QA-011 |
-| FR-M03-07.01 | DEC-033, QA-011, DEC-175 | Nói thẳng | "Bất kể mức khóa" suy ra từ quy tắc hiển thị chỉ xét hai trường; ngoại lệ nhóm Private theo DEC-175, M11 |
+| FR-M03-07.01 | DEC-033, QA-011, DEC-175, DEC-019, DEC-156, DEC-194, DEC-231, DEC-270 | Nói thẳng | Ngoại lệ bài bị module khác ẩn: M01 (DEC-019, DEC-156), nhóm Bị ẩn (DEC-194), bài bị gỡ khỏi nhóm (DEC-231, DEC-270). "Bất kể mức khóa" suy ra từ quy tắc hiển thị chỉ xét hai trường; ngoại lệ nhóm Private theo DEC-175, M11 |
 | FR-M03-07.02 | DEC-033, DEC-168, DEC-184, DEC-185 | Suy ra | Quy tắc hiển thị là điều kiện cần ⇒ bài không thỏa thì người khác không thấy; ngoại lệ theo DEC-168, DEC-184, DEC-185 |
 | FR-M03-07.03 | DEC-031, DEC-038 | Suy ra | Tác giả sửa bài nháp, sửa bài bị từ chối, hiện lại bài tự ẩn, khôi phục bài từ tab "Đã xóa" ⇒ tác giả phải thấy bài ở các trạng thái đó |
 | FR-M03-07.04 | DEC-030, DM-2.1 | Nói thẳng | — |
@@ -989,7 +991,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M03-43 | DEC-164 | Nói thẳng | — |
 | BR-M03-44 | DEC-165 | Nói thẳng | — |
 | BR-M03-45 | DEC-165 | Nói thẳng | — |
-| BR-M03-46 | DEC-166, DEC-097, DEC-198 | Nói thẳng | — |
+| BR-M03-46 | DEC-166, DEC-097, DEC-198, DEC-271 | Nói thẳng | — |
 | BR-M03-47 | DEC-162 | Nói thẳng | — |
 | BR-M03-48 | DEC-161 | Nói thẳng | — |
 | BR-M03-49 | DEC-168, DEC-184, DEC-185 | Suy ra | Phần bài Tự ẩn nói thẳng (DEC-185); phần bài Đã xóa (trong hạn khôi phục) suy từ DEC-184: bài Đã xóa hẳn còn xem được trong báo cáo thì bài vừa xóa cũng xem được |
@@ -1088,7 +1090,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-011 | Sở hữu | Sửa một phần bởi DEC-162, DEC-184 | FR-M03-15, FR-M03-15.01, FR-M03-16, FR-M03-16.03, FR-M03-16.04, FR-M03-17, FR-M03-17.01, BR-M03-34, BR-M03-36, BR-M03-37 | Nhóm B. Xóa mềm 7 ngày; khôi phục nếu Mod chưa gỡ (cũ hơn DEC-038). Điều kiện "Mod chưa removed" dùng tên trạng thái Phase 4 |
 | DEC-012 | Sở hữu | Sửa một phần bởi DEC-031, DEC-032, DEC-033 | BR-M03-17 | Nhóm B. Mô hình 3 trường trạng thái (bản Phase 4, giá trị khác DEC-031/032/033) |
 | DEC-013 | Sở hữu | Sửa một phần bởi DEC-032, DEC-034, DEC-161, DEC-195 | FR-M03-04.01, FR-M03-04.02, FR-M03-04.03, FR-M03-05, FR-M03-05.05, FR-M03-05.06, FR-M03-05.07, FR-M03-05.08, FR-M03-05.09, FR-M03-11, FR-M03-11.03, BR-M03-19, BR-M03-22, BR-M03-26 | Nhóm B. Quét trước bài mới, quét lại ngầm khi sửa, AI tắt thì đăng ngay, không quét lại khi bật AI |
-| DEC-019 | Phụ thuộc | Sửa một phần bởi DEC-156 | Chuyển M01 | Nhóm B. M01: bài của tài khoản vô hiệu hóa bị ẩn ("Nội dung không tồn tại"). DEC-148, DEC-149 (ngoài bảng nguồn) chỉ sửa phần thời hạn, username, bình luận; phần bài bị ẩn giữ nguyên |
+| DEC-019 | Phụ thuộc | Sửa một phần bởi DEC-156 | FR-M03-07.01; Chuyển M01 | Nhóm B. M01: bài của tài khoản vô hiệu hóa bị ẩn ("Nội dung không tồn tại"). DEC-148, DEC-149 (ngoài bảng nguồn) chỉ sửa phần thời hạn, username, bình luận; phần bài bị ẩn giữ nguyên |
 | DEC-049 | Phụ thuộc | Sửa một phần bởi DEC-141, DEC-142 | Chuyển M05 | Nhóm B. M05: 1–3 Topic mỗi bài khi gửi |
 | DEC-050 | Phụ thuộc | Sửa một phần bởi DEC-142, DEC-144 | Chuyển M05 | Nhóm B. M05: nút gợi ý Topic trong trình soạn bài |
 | DEC-057 | Nhắc tới | Hiện hành | Không áp dụng: M06: dùng nội dung văn bản của bài để tìm kiếm | Nhóm B. M06: dùng nội dung văn bản của bài để tìm kiếm |
@@ -1122,7 +1124,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-150 | Phụ thuộc | Hiện hành | Chuyển M01 | Nhóm B. M01: Mod/Admin xem bài bị ẩn của tác giả đã vô hiệu hóa |
 | DEC-153 | Phụ thuộc | Hiện hành | Chuyển M01 | Nhóm B. M01: thông báo nhắc tên gửi khi bài công khai (sau quét); sửa bài chỉ báo nhắc tên mới |
 | DEC-154 | Nhắc tới | Hiện hành | Không áp dụng: M01: trang chính sách nhắc tệp đính kèm | Nhóm B. M01: trang chính sách nhắc tệp đính kèm |
-| DEC-156 | Phụ thuộc | Hiện hành | Chuyển M01 | Nhóm B. M01: bài của tài khoản DELETED vẫn ẩn. DEC-159 (ngoài bảng nguồn) thêm xóa lượt theo dõi bài; phần bài vẫn ẩn giữ nguyên |
+| DEC-156 | Phụ thuộc | Hiện hành | FR-M03-07.01; Chuyển M01 | Nhóm B. M01: bài của tài khoản DELETED vẫn ẩn. DEC-159 (ngoài bảng nguồn) thêm xóa lượt theo dõi (DEC-215 đã bỏ theo dõi bài viết); phần bài vẫn ẩn giữ nguyên |
 | DG-3 | Nhắc tới | Hiện hành | Không áp dụng: Ba trục phân loại | Nhóm B. Ba trục phân loại |
 | DG-4 | Nhắc tới | Hiện hành | Không áp dụng: Bản đồ module | Nhóm B. Bản đồ module |
 | DG-5 | Phụ thuộc | Sửa một phần bởi DEC-009 | FR-M03-06 | Nhóm B. Nguyên tắc: Lớp/Khối gắn bài; bài ẩn danh; nhóm dùng lại cơ chế bài |
@@ -1208,7 +1210,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-288 | Phụ thuộc | Trùng với DEC-142 | — | Nhóm B. M05: gợi ý Topic khi sửa bài |
 | QA-289 | Phụ thuộc | Trùng với DEC-142 | — | Nhóm B. M05: Mod đổi Topic/Tag không ghi lịch sử sửa |
 | QA-311 | Phụ thuộc | Trùng với DEC-156 | — | Nhóm B. M01: dữ liệu khi xóa tài khoản |
-| QA-319 | Nhắc tới | Hiện hành | Không áp dụng: M01: xóa lượt theo dõi bài khi xóa tài khoản | Nhóm B. M01: xóa lượt theo dõi bài khi xóa tài khoản |
+| QA-319 | Nhắc tới | Hiện hành | Không áp dụng: M01: xóa lượt theo dõi khi xóa tài khoản | Nhóm B. M01: xóa lượt theo dõi khi xóa tài khoản (theo dõi bài viết đã bỏ, DEC-215) |
 | F-GRP-10 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B. M11: công tắc đăng ẩn danh (thay F-POST-05) |
 | F-POST-01 | Sở hữu | Hiện hành | FR-M03-01, FR-M03-11, FR-M03-11.01, BR-M03-02 | Nhóm B. Tạo, đọc, sửa, xóa bài |
 | F-POST-02 | Sở hữu | Hiện hành | FR-M03-02, FR-M03-02.01, BR-M03-04 | Nhóm B. Tải tệp đính kèm |
@@ -1324,18 +1326,20 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-351 | Sở hữu | Trùng với DEC-185 | — | Nhóm A (bản 1.1). Câu trả lời bài Tự ẩn né kiểm duyệt |
 | DEC-186 | Phụ thuộc | Hiện hành | Chuyển M08 | Nhóm B. M08: điểm quét là điểm cao nhất trong bốn nhóm; AI không tự cảnh cáo Mod, Admin |
 | DEC-190 | Phụ thuộc | Hiện hành | Chuyển M08 | Nhóm B. M08: báo cáo của người dùng không đổi trạng thái kiểm duyệt của bài; chỉ bước quét lại làm bài Bị gắn cờ; bài Bị gắn cờ thành mục trong vụ ở hàng chờ báo cáo |
-| DEC-194 | Phụ thuộc | Hiện hành | Chuyển M08, M11 | Nhóm B. M08, M11: nhóm Bị khóa chặn đăng bài, bình chọn poll trong nhóm; nhóm Bị ẩn ẩn mọi bài của nhóm |
+| DEC-194 | Phụ thuộc | Hiện hành | FR-M03-07.01; Chuyển M08, M11 | Nhóm B. M08, M11: nhóm Bị khóa chặn đăng bài, bình chọn poll trong nhóm; nhóm Bị ẩn ẩn mọi bài của nhóm |
 | ISS-300 | Phụ thuộc | Trùng với DEC-190 | — | Nhóm C. Báo cáo có làm bài Bị gắn cờ không |
 | DEC-215 | Phụ thuộc | Hiện hành | Chuyển M07 | Nhóm B (đối chiếu FR-M07). M07: thông báo bài mới cho người theo dõi tác giả; không gửi khi bài ẩn danh, bị từ chối, sửa, khôi phục |
 | DEC-195 | Sở hữu | Hiện hành | FR-M03-04.01, FR-M03-04.11, FR-M03-05.05, FR-M03-05.15, BR-M03-19, BR-M03-51 | Nhóm B (đối chiếu FR-M09). Bài của Admin đăng ngay, không quét, không duyệt; trong nhóm vẫn qua duyệt của nhóm |
-| DEC-198 | Phụ thuộc | Hiện hành | BR-M03-46 | Nhóm B (đối chiếu FR-M09). M09: khiếu nại bài bị AI tự từ chối, chấp nhận thì Đã đăng ngay không quét lại |
+| DEC-198 | Phụ thuộc | Sửa một phần bởi DEC-271 | BR-M03-46 | Nhóm B (đối chiếu FR-M09). M09: khiếu nại bài bị AI tự từ chối, chấp nhận thì Đã đăng ngay không quét lại |
 | DEC-205 | Phụ thuộc | Hiện hành | Chuyển M13 | Nhóm B (đối chiếu FR-M13). M13: embedding bài tạo khi bài Đã đăng theo mọi đường, tạo lại khi đổi tiêu đề, nội dung chữ |
 | DEC-206 | Phụ thuộc | Hiện hành | Chuyển M13 | Nhóm B (đối chiếu FR-M13). M13: tóm tắt bài theo yêu cầu, chỉ người đã đăng nhập |
 | DEC-207 | Phụ thuộc | Hiện hành | Chuyển M13 | Nhóm B (đối chiếu FR-M13). M13: phạm vi nhật ký AI |
 | DEC-240 | Phụ thuộc | Hiện hành | FR-M03-04.05, BR-M03-25 | Nhóm B (đối chiếu FR-M11). M11: bài của Owner không qua duyệt của nhóm; điểm 0.5–< 0.9 hoặc quét lỗi vào hàng chờ duyệt của Mod |
 | DEC-230 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: bài nhóm không có điểm quét; quét lỗi thì chờ nhóm duyệt |
-| DEC-231 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: Owner, Group Mod gỡ bài khỏi nhóm (xóa mềm, không trừ điểm) |
+| DEC-231 | Phụ thuộc | Sửa một phần bởi DEC-270 | FR-M03-07.01; Chuyển M11 | Nhóm B (đối chiếu FR-M11). M11: Owner, Group Mod gỡ bài khỏi nhóm (xóa mềm, không trừ điểm) |
 | DEC-246 | Phụ thuộc | Hiện hành | FR-M03-14.06, BR-M03-31 | Nhóm B (rà lại 1.7). M12: Khóa toàn bộ chặn cả rút upvote và upvote bình luận của bài |
+| DEC-270 | Phụ thuộc | Hiện hành | FR-M03-07.01; Chuyển M11, M15 | Rà soát chéo 2026-10-24. Bài bị gỡ khỏi nhóm giữ trạng thái đăng, mang dấu "bị gỡ khỏi nhóm"; không thêm trạng thái đăng |
+| DEC-271 | Phụ thuộc | Hiện hành | BR-M03-46 | Rà soát chéo 2026-10-24. Bài nhóm bị AI từ chối, được chấp nhận khiếu nại thì đi qua cổng duyệt của nhóm (M11) |
 
 ### C.2 Chuỗi quyết định
 
@@ -1372,3 +1376,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-093, DEC-099 → DEC-205, DEC-206, DEC-207; QA-011 → DEC-206 | Phần thuộc M13: embedding bài tạo khi bài Đã đăng, tạo lại khi đổi tiêu đề, nội dung chữ; tóm tắt theo yêu cầu, chỉ người đã đăng nhập (Guest bấm thì được nhắc đăng nhập); phạm vi nhật ký AI. Yêu cầu của M03 không đổi, chỉ thêm dòng Giao tiếp với M13. |
 | DEC-186 → DEC-204 (ngoài bảng nguồn; dấu sửa trích DEC-097) | DEC-204 chỉ quy định khi hai nhóm vi phạm cùng điểm cao nhất thì lấy theo thứ tự nhóm của DEC-097; phần thuộc M08, M13, không chạm M03. Cạnh DEC-097 → DEC-186 của tool là trích dẫn, không phải sửa đổi. |
 | DEC-104 → DEC-240 | Bài của Owner nhóm không qua duyệt của nhóm; điểm 0.5–< 0.9 hoặc quét thất bại vào hàng chờ duyệt của Mod như bài không thuộc nhóm (BR-M03-25). |
+| DEC-065 → DEC-221, DEC-231, DEC-237; DEC-104 → DEC-230, DEC-233 | Không đổi hành vi M03 ngoài các dòng dưới. DEC-221, DEC-231, DEC-237 thêm sự kiện thông báo (M07, M10, M11); DEC-230, DEC-233 nói bài nhóm không có điểm quét và hàng chờ của nhóm (M11), đã phản ánh ở bản 1.6 (rà soát chéo 2026-10-24). |
+| DEC-019, DEC-156, DEC-194, DEC-231 → DEC-270 | Bài Đã đăng, Bình thường hiển thị công khai, trừ nhóm Private và bài bị module khác ẩn: tài khoản tác giả DEACTIVATED, DELETED (M01), nhóm Bị ẩn (M08, M11), bài bị gỡ khỏi nhóm (M11). Gỡ khỏi nhóm không phải trạng thái đăng: bài giữ trạng thái, mang dấu "bị gỡ khỏi nhóm" (DEC-270). |
+| DEC-198 → DEC-271 | Khiếu nại bài bị AI tự từ chối được chấp nhận: bài không thuộc nhóm sang Đã đăng ngay, không quét lại; bài nhóm đi tiếp qua cổng duyệt của nhóm như bài có điểm quét sạch (M11). |
+| DEC-019 → DEC-148, DEC-149; DEC-156 → DEC-159; DEC-194 → DEC-235; GL:Lớp/Khối → DEC-125 | Phần dùng cho ngoại lệ hiển thị của FR-M03-07.01 không đổi: bài của tài khoản DEACTIVATED, DELETED vẫn ẩn (DEC-148, DEC-149 chỉ sửa thời hạn, username; DEC-159 xóa lượt theo dõi); nhóm Bị khóa chặn thêm thao tác quản lý (M11), không đổi việc hiển thị bài; Lớp/Khối trên bài không dùng để cá nhân hóa feed (DEC-125). |

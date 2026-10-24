@@ -2,11 +2,11 @@
 module: M07
 ten_module: Notification
 ma_tai_lieu: FR-M07
-phien_ban: 1.4
+phien_ban: 1.5
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M07 Notification
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M07 — Notification |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -106,7 +106,7 @@ Module Notification cho người dùng biết những việc xảy ra liên quan
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -493,9 +493,9 @@ trạng thái riêng (FR-M07-09.03, FR-M07-09.04). Quan hệ theo dõi không c�
 | Dùng | M08 | Sự kiện kết quả báo cáo (kèm người nhận), cảnh cáo, ban, gỡ ban; đường dẫn khiếu nại | FR-M07-02.01, FR-M07-02.02, FR-M07-02.13, FR-M07-04.08 |
 | Dùng | M09 | Sự kiện kết luận khiếu nại; thông báo gộp bài bị AI từ chối và cảnh cáo AI | FR-M07-02.01, FR-M07-02.13 |
 | Dùng | M10 | Sự kiện đề xuất làm Mod, đề xuất làm Admin, đề xuất lại; đề xuất quá hạn hoặc bị đề xuất mới thay | FR-M07-02.14, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32 |
-| Dùng | M11 | Sự kiện nhóm kèm người nhận: mời (kèm link mời), yêu cầu tham gia mới (Owner, Group Mod), yêu cầu được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bài hoặc bình luận bị gỡ khỏi nhóm; quyền xem nội dung nhóm Private | FR-M07-02.01, FR-M07-02.11 |
+| Dùng | M11 | Sự kiện nhóm kèm người nhận: mời (kèm link mời), yêu cầu tham gia mới (Owner, Group Mod), yêu cầu được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bài hoặc bình luận bị gỡ khỏi nhóm; quyền xem nội dung nhóm Private; bài nhóm được đăng hoặc bị nhóm từ chối qua cổng duyệt của nhóm dùng chung sự kiện bài được đăng, bị từ chối (M03) | FR-M07-02.01, FR-M07-02.11 |
 | Dùng | M12 | Sự kiện upvote, bỏ upvote bài và bình luận, đạt badge (cũng là "mốc điểm"), đạt danh hiệu tuần; sự kiện vẫn phát sinh khi cờ Gamification tắt (DEC-245) | FR-M07-02.01, FR-M07-02.03, FR-M07-02.19 |
-| Dùng | M16 | Tin nhắn mới, thành viên cuộc trò chuyện (kể cả việc rời, bị xóa khỏi nhóm chat), mốc đã đọc tin nhắn và việc cuộc có tin chưa đọc mà người dùng thấy được, cuộc trò chuyện người dùng đang xem, hộp thư Chat | FR-M07-07.02, FR-M07-07.03, FR-M07-07.05, FR-M07-07.06, FR-M07-09.05, FR-M07-09.08 |
+| Dùng | M16 | Tin nhắn mới, thành viên cuộc trò chuyện (kể cả việc rời, bị xóa khỏi nhóm chat), mốc đã đọc tin nhắn và việc cuộc có tin chưa đọc mà người dùng thấy được, cuộc trò chuyện người dùng đang xem, hộp thư Chat; khi cờ Chat tắt, biểu tượng Tin nhắn và số chưa đọc vẫn hiện (M16 sở hữu danh sách) | FR-M07-07.02, FR-M07-07.03, FR-M07-07.05, FR-M07-07.06, FR-M07-09.05, FR-M07-09.08 |
 | Cung cấp | M01 | Quan hệ theo dõi để xếp danh sách gợi ý nhắc tên | FR-M07-01.01 |
 | Cung cấp | M02 | Quan hệ theo dõi và thời điểm bắt đầu theo dõi, để hiện số và danh sách người theo dõi, đang theo dõi | FR-M07-01.01 |
 | Cung cấp | M03, M04 | Công tắc "Tắt thông báo cho bài này" trên mỗi bài; nó tắt thông báo bình luận mới, trả lời, upvote của bài | FR-M07-08.01, FR-M07-02.08 |
@@ -527,6 +527,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231, DEC-237, DEC-238): sự kiện nhóm trong BR-M07-01 gồm mời kèm link, yêu cầu tham gia mới, được chấp nhận, được bổ nhiệm, bị kick, trở thành Owner, bị gỡ khỏi nhóm; người nhận theo M11; cập nhật "Dùng M11". Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: "mốc điểm" là đạt badge, không có thông báo riêng (DEC-246: BR-M07-01); dòng Dùng M12; C.1 DEC-121 theo DEC-242, DEC-247. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-24 | Đối chiếu với FR-M16: số trên biểu tượng Tin nhắn chỉ tính tin người dùng thấy được (DEC-249: FR-M07-07.02); rời, bị xóa khỏi nhóm chat thì bỏ cài đặt tắt thông báo (FR-M07-09.08, bảng trạng thái); dòng Dùng M16. Chốt bản 1.4 | Phạm Văn Đức |
+| 1.5 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): dòng "Dùng M11" ghi bài nhóm qua cổng duyệt dùng chung sự kiện bài được đăng, bị từ chối; dòng "Dùng M16" ghi biểu tượng Tin nhắn vẫn hiện khi cờ Chat tắt (DEC-256); C.1, C.2; không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -917,6 +918,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-245 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: khi cờ Gamification tắt, thông báo badge, danh hiệu vẫn gửi |
 | DEC-246 | Phụ thuộc | Hiện hành | BR-M07-01 | Nhóm B (rà lại 1.3). M12: "mốc điểm" là đạt badge |
 | DEC-249 | Phụ thuộc | Hiện hành | FR-M07-07.02, FR-M07-09.08 | Đối chiếu FR-M16 (bản 1.4). M16: thành viên cũ chỉ thấy tin trước thời điểm rời; vào lại theo luồng thường |
+| DEC-256 | Phụ thuộc | Hiện hành | Chuyển M16 | Rà soát chéo 2026-10-24. M16: khi cờ Chat tắt, biểu tượng Tin nhắn và số chưa đọc vẫn hiện |
 
 <!-- Nhãn: Sở hữu · Phụ thuộc · Nhắc tới · Loại (khớp nhầm)
      Trạng thái: Hiện hành · Sửa một phần bởi X · Bị thay bởi X · Trùng với X · Mâu thuẫn với X
@@ -948,6 +950,9 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-068 → DEC-220 | Email qua hàng đợi quét mỗi 1 phút; email lỗi gửi lại ở lần quét kế tiếp, tối đa 3 lần rồi dừng. |
 | DEC-070 → DEC-219, DEC-220 | Công tắc tắt thông báo bài có trên mọi bài, tắt bình luận mới, trả lời, upvote bài và upvote bình luận của người dùng trong bài; nhắc tên vẫn gửi. Tắt thông báo Chat (một cuộc hoặc toàn bộ) chỉ ẩn popup tin nhắn; tắt toàn bộ không có ngoại lệ; bỏ tắt toàn bộ thì cuộc đã tắt riêng vẫn tắt. |
 | DEC-091 → DEC-220 → DEC-221, DEC-222; DEC-091 → DEC-223 (tự từ chức, M10, không chạm M07) | Thông báo "Đề xuất làm Mod" và "Đề xuất làm Admin" trả lời một lần, sau đó hiện lựa chọn; đề xuất có hạn 7 ngày, quá hạn hiện "Đã hết hạn" (DEC-222 thay phần "không có hạn" của DEC-220); đề xuất mới cùng loại là thông báo mới, đề xuất cũ thôi hiệu lực. Chấp nhận thì vai trò đổi ngay (M10). |
+| DEC-067 → DEC-254; DEC-125 → DEC-258, DEC-260; DEC-129 → DEC-248; DEC-194 → DEC-235; DEC-212 → DEC-263; DEC-237 → DEC-240 | Không đổi hành vi M07. DEC-254: hộp thư Chat (M16) đếm cuộc chưa đọc như biểu tượng Tin nhắn; DEC-258, DEC-260, DEC-263: tab Following, tab mặc định, bộ lọc đang theo dõi (M14, M06); DEC-248: thu hồi tin nhắn là xóa mềm (M16); DEC-235: nhóm Bị khóa (M11); DEC-240: bài của Owner nhóm không qua duyệt của nhóm (rà soát chéo 2026-10-24). |
+| DEC-225 → DEC-256 | Khi cờ Chat tắt, biểu tượng Tin nhắn và số chưa đọc vẫn hiện; danh sách thao tác bị chặn thuộc M16. |
+| DEC-198 → DEC-271; DEC-231 → DEC-270; DEC-237 → DEC-271 | Không đổi hành vi M07: thông báo bài bị gỡ khỏi nhóm, kết luận khiếu nại giữ nguyên; bài nhóm được chấp nhận khiếu nại mà chờ nhóm duyệt thì nhận thông báo bài được đăng khi nhóm duyệt. |
 
 **Cạnh bị bác bỏ:** DEC-180 ← OPEN-012 (dấu ghi DEC-201 đóng OPEN-012; OPEN-012 không sửa DEC-180); DEC-020 ← DEC-209 (DEC-209 chỉ được trích làm chuẩn khớp tên; mục sửa là DEC-214). Các cạnh còn lại của tool tác động lên mục ngoài bảng nguồn (DEC-008, DEC-011, DEC-019, DEC-030, DEC-038, DEC-043, DEC-048–050, DEC-064, DEC-072, DEC-077, DEC-082, DEC-088, DEC-090, DEC-115, DEC-162, DEC-166, F-GRP-06, GL:Accepted Answer, GL:Topic, MR-M01, MR-M03, MR-M11, QA-011, QA-018, QA-021, QA-107, QA-160, QA-328): đúng nhưng không chạm M07.
 | DEC-065 → DEC-231, DEC-237, DEC-238 | Sự kiện nhóm (chỉ trong ứng dụng): được mời kèm link, yêu cầu tham gia mới, được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bị gỡ khỏi nhóm; người nhận và các trường hợp không thông báo do M11 quyết. |

@@ -2,11 +2,11 @@
 module: M05
 ten_module: Topic & Tag
 ma_tai_lieu: FR-M05
-phien_ban: 1.6
+phien_ban: 1.7
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M05 Topic & Tag
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M05 — Topic & Tag |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.6 |
+| Phiên bản | 1.7 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -112,7 +112,7 @@ phần khám phá nội dung sử dụng.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp (2026-09-19) |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -552,6 +552,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.4 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231): thêm "Dùng M11" (bài nhóm Public, Private, bài bị gỡ khỏi nhóm cho Trending); không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 | 1.5 | 2026-10-23 | Rà lại với register tới DEC-247: thêm dòng Cung cấp M13 (yêu cầu gợi ý Topic, phản hồi gợi ý), khớp FR-M13. Không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 | 1.6 | 2026-10-24 | Đối chiếu với FR-M14: OPEN-009 đã đóng bởi DEC-259 (Trending Post cộng bookmark trọng số 1); sửa C.1, C.2; không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
+| 1.7 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): ghi vào C.2 các DEC sinh sau khi chốt có sửa một phần nguồn của M05 (DEC-215, DEC-224, DEC-248); không đổi yêu cầu. Chốt bản 1.7 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1033,3 +1034,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-232 → QA-233; QA-234 → QA-256; DEC-139 → QA-266 | Không ảnh hưởng hành vi M05 (Trending Post, SSR, quy ước tài liệu). |
 | QA-011 → DEC-208; DEC-142 → DEC-212 (M06) | Chỉ sửa phần thuộc M06. DEC-208: Guest tìm bài bằng full-text (quyền Guest xem danh sách Topic, Tag và Topic, Tag trên bài của M05 không đổi). DEC-212: trang xem các bài của một Topic hay Tag là trang tìm bài của M06 với bộ lọc đó và truy vấn rỗng — mọi bài khớp, mặc định Mới nhất, không giới hạn số kết quả; M05 vẫn chỉ có danh sách Topic, Tag. |
 | DEC-081 → DEC-193 (M08); DEC-093, DEC-099 → DEC-205, DEC-206, DEC-207; QA-017 → DEC-203; QA-011 → DEC-171, DEC-206 (M13, M02) | Không đổi hành vi M05. DEC-193 thêm mục khác vào nhật ký kiểm duyệt và xác nhận mục nhật ký không sửa, không xóa (mục thao tác Tag, Topic của M05 cũng vậy). DEC-205 chỉ nói công tắc Search (embedding); công tắc Topic suggestion của M05 không đổi. DEC-206, DEC-207 nói tóm tắt và nhật ký AI (M13). DEC-203: phản hồi gợi ý của M05 là dữ liệu duy nhất để M13 đánh giá AI (khớp FR-M05-02.12). DEC-171 nói Guest xem hồ sơ (M02). |
+| DEC-081, DEC-090 → DEC-224; DEC-129 → DEC-248; DEC-159 → DEC-215 | Không đổi hành vi M05. DEC-224: Admin lọc nhật ký kiểm duyệt theo người làm (M08); DEC-248: thu hồi tin nhắn là xóa mềm (M16); DEC-215 bỏ theo dõi bài viết, lượt theo dõi Topic của tài khoản đã xóa vẫn bị xóa (rà soát chéo 2026-10-24). |

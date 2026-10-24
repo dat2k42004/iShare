@@ -2,11 +2,11 @@
 module: M13
 ten_module: AI Layer
 ma_tai_lieu: FR-M13
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-207, QA-392, ISS-332, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M13 AI Layer
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M13 — AI Layer |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -116,7 +116,7 @@ với trường hợp không ở khoảng điểm cao, và phần lõi vẫn ho�
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-207, QA-392, ISS-332, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -249,7 +249,7 @@ cột MoSCoW ở dòng M13 của bảng Module List bị lệch nên không dùn
 
 | ID | Yêu cầu |
 |---|---|
-| FR-M13-03.01 | Khi một bài viết chuyển sang Đã đăng (qua bước quét, được Mod duyệt, đăng thẳng khi AI tắt, hoặc là bài của Admin), hệ thống phải tạo embedding cho bài qua FR-M13-01 (BR-M13-18). |
+| FR-M13-03.01 | Khi một bài viết chuyển sang Đã đăng (qua bước quét, được Mod duyệt, đăng thẳng khi AI tắt, là bài của Admin, hoặc qua cổng duyệt của nhóm ở M11), hệ thống phải tạo embedding cho bài qua FR-M13-01 (BR-M13-18). |
 | FR-M13-03.02 | Khi tiêu đề hoặc nội dung chữ của một bài Đã đăng thay đổi, hệ thống phải tạo lại embedding của bài (BR-M13-18). |
 | FR-M13-03.03 | Hệ thống phải giữ đúng một embedding cho mỗi bài viết; embedding tạo lại thay embedding cũ (BR-M13-17). |
 | FR-M13-03.04 | Khi chỉ Tag, Topic, ảnh hoặc tài liệu đính kèm của bài thay đổi, hệ thống phải không tạo lại embedding (BR-M13-18). |
@@ -455,7 +455,7 @@ trạng thái riêng (xem CRUD).
 |---|---|---|---|
 | Dùng | M01 | Username giữ lại của tài khoản DELETED để nhật ký AI vẫn tra cứu được; trang chính sách công bố nội dung được nhà cung cấp dịch vụ AI xử lý | FR-M13-08.08, FR-M13-09.03 |
 | Cung cấp | M03 | Điểm quét, nhóm vi phạm, khoảng điểm của bài; báo AI tắt hoặc lời gọi thất bại; nút và nội dung tóm tắt trên bài | FR-M13-02.08, FR-M13-01.02, FR-M13-01.06, FR-M13-07.01, FR-M13-07.02 |
-| Dùng | M03 | Bài viết cần quét (tiêu đề, nội dung chữ, bình chọn, ảnh); mốc Đã đăng và các lần sửa tiêu đề, nội dung chữ; vai trò tác giả (Admin không quét) | FR-M13-02.01, FR-M13-02.11, FR-M13-03.01, FR-M13-03.02, FR-M13-06.05 |
+| Dùng | M03 | Bài viết cần quét (tiêu đề, nội dung chữ, bình chọn, ảnh); mốc Đã đăng (kể cả bài nhóm đăng qua cổng duyệt của nhóm, M11) và các lần sửa tiêu đề, nội dung chữ; vai trò tác giả (Admin không quét) | FR-M13-02.01, FR-M13-02.11, FR-M13-03.01, FR-M13-03.02, FR-M13-06.05 |
 | Cung cấp | M04 | Điểm quét bình luận để M04, M08 hiển thị, ẩn bình luận | FR-M13-02.08 |
 | Cung cấp | M05 | Các Topic AI gợi ý; báo AI tắt hoặc lời gọi thất bại | FR-M13-05.02, FR-M13-05.03, FR-M13-05.04 |
 | Dùng | M05 | Yêu cầu gợi ý Topic hợp lệ (đã qua giới hạn 10 lần / 60 giây và ngưỡng 20 từ); phản hồi gợi ý Topic để đánh giá chất lượng | FR-M13-05.01, FR-M13-10.01 |
@@ -466,6 +466,7 @@ trạng thái riêng (xem CRUD).
 | Cung cấp | M09 | Nhật ký quyết định AI của bài bị AI tự từ chối cho người xét khiếu nại | FR-M13-09.01 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Search, Moderation, Topic suggestion; ngưỡng là hằng số, không chỉnh qua giao diện | FR-M13-01.02, FR-M13-01.03, FR-M13-01.09, FR-M13-02.14 |
 | Cung cấp | M11 | Điểm quét của bài trong nhóm, dùng cùng ngưỡng trước cổng duyệt của nhóm | FR-M13-02.08 |
+| Dùng | M11 | Bài nhóm chuyển sang Đã đăng qua cổng duyệt của nhóm, để tạo embedding | FR-M13-03.01 |
 | Cung cấp | M15 | Tỷ lệ Topic gợi ý được giữ lại theo khoảng thời gian M15 định nghĩa (Hôm nay; 7 ngày, 30 ngày theo ngày lịch; Toàn thời gian), không có giá trị khi khoảng không có phản hồi, cho bảng thống kê Nội dung (chỉ Admin); cách hiển thị thuộc M15 | FR-M13-10.02, FR-M13-10.03, FR-M13-10.04 |
 | Cung cấp | M16 | Không chấm điểm tin nhắn chat | FR-M13-02.12 |
 
@@ -500,6 +501,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-19 | Chốt sau 7 bước; câu trả lời ghi vào register (DEC-203–207) | Phạm Văn Đức |
 | 1.1 | 2026-10-20 | Đối chiếu với FR-M06: FR-M13-04.04 khớp DEC-208; ghi chuỗi DEC-208–213 ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-24 | Đối chiếu với FR-M15: dòng Cung cấp M15 nêu rõ M13 tính tỷ lệ theo khoảng thời gian M15 định nghĩa và không có giá trị khi khoảng không có phản hồi; cách hiển thị thuộc M15; sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): FR-M13-03.01 gồm đường đăng qua cổng duyệt của nhóm (M11); dòng "Dùng M03" ghi như vậy, thêm dòng "Dùng M11"; ghi vào C.2 các DEC sinh sau khi chốt. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -535,7 +537,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M13-02.14 | DEC-090 | Nói thẳng | — |
 | FR-M13-02.15 | DEC-099, DEC-161 | Nói thẳng | — |
 | FR-M13-03 | DEC-095, DEC-205, QA-037, DEC-053 | Nói thẳng | — |
-| FR-M13-03.01 | DEC-205, DEC-095 | Nói thẳng | — |
+| FR-M13-03.01 | DEC-205, DEC-095, DEC-104 | Nói thẳng | Đường đăng qua cổng duyệt của nhóm theo DEC-104 (M11) |
 | FR-M13-03.02 | DEC-205, DEC-095 | Nói thẳng | — |
 | FR-M13-03.03 | DEC-095 | Suy ra | DEC-095: "computed once at publish", "recomputed if content edited" ⇒ mỗi bài một embedding, bản tính lại thay bản cũ |
 | FR-M13-03.04 | DEC-205 | Nói thẳng | — |
@@ -910,3 +912,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-016 → DEC-104 | Thuộc M11: bài trong nhóm qua AI trước cổng duyệt của nhóm; Mod hệ thống vẫn can thiệp được. |
 | QA-217, ISS-159 | Thuộc M16: không có AI kiểm duyệt tin nhắn chat. |
 | DEC-053 → DEC-209, DEC-210; DEC-055 → DEC-211; DEC-063 → DEC-213; QA-011 → DEC-208 (M06) | Chỉ sửa hành vi tìm kiếm của M06: cách khớp tên, nhóm Private, chi tiết xếp hạng, cách đếm giới hạn tần suất. M13 không đổi: Guest không có embedding truy vấn (FR-M13-04.04) khớp DEC-208 — Guest tìm bài bằng full-text, bấm "Tìm kiếm thông minh" thì được nhắc đăng nhập, không gọi AI; giới hạn tần suất tìm kiếm vẫn là của M06. |
+| DEC-090 → DEC-224; DEC-092 → DEC-225, DEC-226, DEC-228; DEC-104 → DEC-230, DEC-233, DEC-240; DEC-129 → DEC-248; DEC-159 → DEC-215; DEC-195 → DEC-240 | Không đổi hành vi M13. DEC-228: cấu hình khởi tạo bật công tắc AI tổng và ba công tắc riêng; DEC-225, DEC-226: cờ tính năng, banner không chạm lớp AI; DEC-230, DEC-233, DEC-240: bài nhóm dùng cùng điểm quét, ngưỡng; bài nhóm Đã đăng qua cổng duyệt của nhóm cũng được tạo embedding; DEC-248: thu hồi tin nhắn là xóa mềm, tin nhắn không bị chấm điểm; DEC-215: phản hồi gợi ý của tài khoản đã xóa vẫn giữ; DEC-240: Admin vẫn không bị quét (rà soát chéo 2026-10-24). |
+| DEC-198 → DEC-271 | Không đổi hành vi M13: bài nhóm được chấp nhận khiếu nại đi qua cổng duyệt của nhóm, không quét lại; khi bài Đã đăng thì tạo embedding như mọi bài (FR-M13-03.01). |

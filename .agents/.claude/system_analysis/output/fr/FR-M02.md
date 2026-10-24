@@ -2,11 +2,11 @@
 module: M02
 ten_module: User Profile
 ma_tai_lieu: FR-M02
-phien_ban: 1.5
+phien_ban: 1.6
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M02 User Profile
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M02 — User Profile |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -118,7 +118,7 @@ trên trang hồ sơ của mình.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -424,7 +424,7 @@ Cách trang hồ sơ hiện theo trạng thái tài khoản (M01) được ghi b
 | Cung cấp | M12 | Lớp/Khối của người dùng, để lọc bảng xếp hạng (M12 lấy giá trị tại lúc chốt bảng) | FR-M02-03.02 |
 | Dùng | M08 | Mức cảnh báo của người dùng, không được hiện trên hồ sơ | FR-M02-01.13 |
 | Cung cấp | M03, M04, M16, M01 | Avatar, display_name hiện ở nơi hiển thị tác giả, người gửi tin nhắn và danh sách gợi ý nhắc tên; avatar mặc định khi chưa đặt | FR-M02-04.01, FR-M02-01.18 |
-| Cung cấp | M16 | Nút "Nhắn tin" trên trang hồ sơ người khác, lối vào trò chuyện 1-1 | FR-M02-01.26, FR-M02-01.27 |
+| Cung cấp | M16 | Nút "Nhắn tin" trên trang hồ sơ người khác, lối vào trò chuyện 1-1; nút vẫn hiện khi cờ Chat tắt, mở ra thì báo hệ thống đang bận (M16 sở hữu) | FR-M02-01.26, FR-M02-01.27 |
 | Dùng | M03 | Trạng thái của bài (đã đăng, nháp, chờ duyệt, bị từ chối, tự ẩn, đã xóa, bị Mod ẩn) để chọn bài hiện ở tab Bài viết và dòng "Nội dung không tồn tại" ở tab Bookmark; thời điểm bài bị xóa hẳn | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03, FR-M02-07.06 |
 | Dùng | M11 | Bài đăng ẩn danh; thành viên nhóm Private, để chọn bài hiện ở tab Bài viết và bài đã lưu xem được; khi cờ Group tắt, bài nhóm vẫn hiện ở tab Bài viết và Bookmark, mở ra thì báo hệ thống đang bận (M11 sở hữu) | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03 |
 | Dùng | M08 | Việc xử lý báo cáo người dùng không gồm gỡ avatar, bio (cảnh cáo hoặc khóa như M08) | FR-M02-03.10, FR-M02-04.07 |
@@ -453,6 +453,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.3 | 2026-10-24 | Đối chiếu với FR-M16: nút "Nhắn tin" trên hồ sơ người khác, ẩn với Guest và trên hồ sơ của chính mình (DEC-252, DEC-256: FR-M02-01.26, FR-M02-01.27); dòng quyền và dòng Cung cấp M16. Chốt bản 1.3 | Phạm Văn Đức |
 | 1.4 | 2026-10-24 | Đối chiếu với FR-M14 (DEC-259 đóng OPEN-009): điểm Trending Post cộng bookmark trọng số 1; sửa mục 3.2 và dòng Cung cấp M14; không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 | 1.5 | 2026-10-24 | Đối chiếu với FR-M15: thêm dòng Cung cấp M15 (Lớp/Khối trên hồ sơ cho thống kê người dùng) và dòng M15 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
+| 1.6 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): dòng "Cung cấp M16" ghi nút "Nhắn tin" vẫn hiện khi cờ Chat tắt (DEC-256); ghi vào C.2 các DEC sinh sau khi chốt; không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -804,3 +805,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-020 → DEC-153 (QA-301) | Lượt nhắc tới tài khoản DEACTIVATED, DELETED không dẫn tới trang hồ sơ. |
 | DEC-065 → DEC-151 | Dòng "người theo dõi mới" (in-app, không email) không đổi; DEC-151 chỉ thêm việc đặt lại mật khẩu cũng gửi thông báo "đổi mật khẩu", không chạm M02. |
 | DEC-121 → DEC-242, DEC-247; DEC-244 → DEC-247 | Tổng điểm trên hồ sơ cập nhật tức thời. Bảng xếp hạng Toàn thời gian tính lại mỗi 60 phút, bảng Tuần, Tháng chỉ đổi khi chốt (M12). Hồ sơ hiện danh hiệu "Ngôi sao tuần" chỉ khi đạt ở tuần vừa chốt, tới lần chốt sau; không có số lần, lịch sử; badge hiện vĩnh viễn. |
+| DEC-038 → DEC-184; DEC-079 → DEC-188, DEC-211; DEC-122, DEC-167, QA-018 → DEC-246; QA-011 → DEC-206, DEC-208; QA-127 → DEC-215 | Không đổi hành vi M02. DEC-184: thời điểm bài sang Đã xóa hẳn (M03) như đã dùng; DEC-188, DEC-211 đổi cách hạ mức và giảm hạng tìm kiếm (M08, M06), mức cảnh cáo vẫn không hiện trên hồ sơ; DEC-246: Khóa toàn bộ chặn upvote, nhãn "[Người dùng đã xóa]" trên bảng xếp hạng (M12), bookmark vẫn được; DEC-206, DEC-208: tóm tắt, tìm kiếm của Guest (M13, M06); DEC-215: bỏ theo dõi bài viết, bookmark vẫn chỉ để lưu (rà soát chéo 2026-10-24). |
+| DEC-256 | Khi cờ Chat tắt, nút "Nhắn tin" trên hồ sơ vẫn hiện; thao tác Chat bị từ chối với thông báo hệ thống đang bận (M16 sở hữu danh sách). |

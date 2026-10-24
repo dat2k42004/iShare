@@ -2,11 +2,11 @@
 module: M09
 ten_module: Appeal
 ma_tai_lieu: FR-M09
-phien_ban: 1.1
+phien_ban: 1.2
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-202, QA-383, ISS-323, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M09 Appeal
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M09 — Appeal |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -137,7 +137,7 @@ chấp nhận thì xử lý bị lật.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp; draft không có mục riêng cho khiếu nại |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-202, QA-383, ISS-323, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -183,7 +183,7 @@ Không có.
 | Khiếu nại riêng cảnh cáo AI ra cùng lần từ chối một bài | ✗ | ✗ | ✗ | — | FR-M09-01.21 |
 | Gửi lại khiếu nại cho xử lý đã khiếu nại | ✗ | ✗ | ✗ | ✗ | FR-M09-01.14 |
 | Khiếu nại một xử lý đã bị lật | ✗ | ✗ | ✗ | — | FR-M09-01.23 |
-| Khiếu nại bình luận bị ẩn, nhóm bị ẩn hoặc khóa, thao tác kiểm duyệt cấp nhóm, việc giáng cấp Mod | ✗ | ✗ | ✗ | ✗ | FR-M09-01.15 |
+| Khiếu nại bình luận bị ẩn, nhóm bị ẩn hoặc khóa, thao tác kiểm duyệt cấp nhóm, việc giáng cấp Mod, việc thu hồi vai trò Admin | ✗ | ✗ | ✗ | ✗ | FR-M09-01.15 |
 | Rút, sửa khiếu nại đã gửi | ✗ | ✗ | ✗ | — | FR-M09-01.22 |
 | Xem khiếu nại của mình, kết luận và lý do | ✗ | ✓ (của mình) | ✓ (của mình) | — | FR-M09-02.01, FR-M09-02.02, FR-M09-02.05 |
 | Xem hàng chờ khiếu nại | ✗ | ✗ | ✓ | ✓ | FR-M09-03.01, FR-M09-03.02, FR-M09-03.07 |
@@ -249,7 +249,7 @@ cột MoSCoW ở dòng M09 của bảng Module List bị lệch nên không dùn
 | FR-M09-01.12 | Nếu một ảnh bằng chứng lớn hơn 5MB hoặc có định dạng khác JPEG, PNG, WebP, hệ thống phải từ chối ảnh đó (BR-M09-03). |
 | FR-M09-01.13 | Nếu đã hết hạn khiếu nại của xử lý (BR-M09-04, BR-M09-05), hệ thống phải từ chối khiếu nại. |
 | FR-M09-01.14 | Nếu xử lý đã có một khiếu nại, đang chờ xét hoặc đã kết luận, hệ thống phải từ chối khiếu nại mới cho xử lý đó (BR-M09-06). |
-| FR-M09-01.15 | Nếu người dùng khiếu nại một bình luận bị ẩn, một nhóm bị ẩn hoặc bị khóa, một thao tác kiểm duyệt cấp nhóm hoặc việc giáng cấp Mod, hệ thống phải từ chối khiếu nại (BR-M09-02). |
+| FR-M09-01.15 | Nếu người dùng khiếu nại một bình luận bị ẩn, một nhóm bị ẩn hoặc bị khóa, một thao tác kiểm duyệt cấp nhóm, việc giáng cấp Mod hoặc việc thu hồi vai trò Admin, hệ thống phải từ chối khiếu nại (BR-M09-02). |
 | FR-M09-01.16 | Hệ thống phải không xóa khiếu nại đã lưu, kể cả khi tài khoản người khiếu nại bị xóa (BR-M09-22). |
 | FR-M09-01.17 | Hệ thống phải không cho đổi hạn khiếu nại và giới hạn bằng chứng qua giao diện (BR-M09-23). |
 | FR-M09-01.18 | Trong khi tài khoản BANNED, nếu người dùng gửi khiếu nại một xử lý khác lệnh ban đang hiệu lực, hệ thống phải từ chối khiếu nại (BR-M09-07). |
@@ -389,19 +389,20 @@ cột MoSCoW ở dòng M09 của bảng Module List bị lệch nên không dùn
 | FR-M09-08.09 | Khi khiếu nại bài bị gỡ được chấp nhận, hệ thống phải hoàn điểm đã trừ vì lần gỡ đó (BR-M09-18). |
 | FR-M09-08.10 | Khi khiếu nại bài bị gỡ được chấp nhận, hệ thống phải lật cảnh cáo, ban ra cùng lần gỡ đó chưa bị lật theo FR-M09-08.01 đến FR-M09-08.07 (BR-M09-18, BR-M09-29). |
 | FR-M09-08.11 | Khi khiếu nại ban của một người từng có vai trò Mod được chấp nhận, hệ thống phải giữ vai trò User cho tài khoản đó, không trả lại vai trò Mod (BR-M09-16). |
-| FR-M09-08.12 | Khi khiếu nại gộp về một bài bị AI tự từ chối được chấp nhận, hệ thống phải chuyển bài sang Đã đăng ngay mà không quét lại (BR-M09-24). |
+| FR-M09-08.12 | Khi khiếu nại gộp về một bài không thuộc nhóm bị AI tự từ chối được chấp nhận, hệ thống phải chuyển bài sang Đã đăng ngay mà không quét lại (BR-M09-24). |
 | FR-M09-08.13 | Khi khiếu nại gộp về một bài bị AI tự từ chối được chấp nhận, hệ thống phải lật cảnh cáo AI ra cùng lần từ chối theo FR-M09-08.04 đến FR-M09-08.07 (BR-M09-24). |
 | FR-M09-08.14 | Nếu tác giả đã gửi lại bài trước khi khiếu nại gộp được kết luận, hệ thống phải chỉ lật cảnh cáo AI khi chấp nhận, giữ nguyên trạng thái hiện tại của bài (BR-M09-24). |
 | FR-M09-08.15 | Khi lật một cảnh cáo hay một ban ra cùng lần ẩn một bình luận, hệ thống phải giữ bình luận đó ở trạng thái Bị ẩn (BR-M09-26). |
 | FR-M09-08.16 | Nếu cảnh cáo hay ban ra cùng lần gỡ bài đã có khiếu nại riêng bị Từ chối, khi chấp nhận khiếu nại bài hệ thống phải không lật cảnh cáo hay ban đó (BR-M09-29). |
 | FR-M09-08.17 | Khi chấp nhận khiếu nại của một xử lý đã bị lật, hệ thống phải giữ nguyên xử lý đó, không đổi gì thêm (BR-M09-29). |
+| FR-M09-08.18 | Khi khiếu nại gộp về một bài nhóm bị AI tự từ chối được chấp nhận, hệ thống phải đưa bài qua cổng duyệt của nhóm như bài có điểm quét sạch mà không quét lại (M11) (BR-M09-24). |
 
 ### 5.9 Quy tắc nghiệp vụ
 
 | ID | Loại | Quy tắc | Ví dụ |
 |---|---|---|---|
 | BR-M09-01 | Sự kiện | Xử lý khiếu nại được: một cảnh cáo (do AI, Mod hoặc Admin ra); một ban tạm thời hoặc vĩnh viễn; một bài viết bị Mod, Admin gỡ vì vi phạm (trạng thái kiểm duyệt Bị ẩn); một bài viết bị AI tự từ chối, khiếu nại gộp với cảnh cáo AI ra cùng lần (BR-M09-24). Admin không bị báo cáo, cảnh cáo, ban và nội dung của Admin không bị AI quét, nên Admin không có khiếu nại. | — |
-| BR-M09-02 | Ràng buộc | Không khiếu nại được: bình luận bị ẩn (do Mod, Admin hay AI); nhóm bị ẩn hoặc bị khóa; thao tác kiểm duyệt cấp nhóm của Group Mod, Owner; việc giáng cấp Mod. | — |
+| BR-M09-02 | Ràng buộc | Không khiếu nại được: bình luận bị ẩn (do Mod, Admin hay AI); nhóm bị ẩn hoặc bị khóa; thao tác kiểm duyệt cấp nhóm của Group Mod, Owner; việc giáng cấp Mod; việc thu hồi vai trò Admin. | — |
 | BR-M09-03 | Ràng buộc | Khiếu nại gồm lời giải thích (bắt buộc) và bằng chứng (tùy chọn): tối đa 3 ảnh, mỗi ảnh tối đa 5MB, định dạng JPEG, PNG hoặc WebP — cùng giới hạn với bằng chứng của báo cáo. | Lời giải thích trống: từ chối. 3 ảnh 4MB: nhận. Ảnh thứ 4: từ chối. Ảnh đúng 5MB: nhận; ảnh 5,1MB: từ chối. Tệp PDF: từ chối. |
 | BR-M09-04 | Tính toán | Hạn khiếu nại tính từ lúc có xử lý: cảnh cáo — 7, 10 hoặc 15 ngày theo mức mà chính cảnh cáo đó đưa người dùng tới (LIGHT, MEDIUM, HEAVY), không đổi khi có cảnh cáo sau hay khi giảm mức; ban tạm thời — bằng thời hạn ban (30 hoặc 90 ngày); ban vĩnh viễn — 90 ngày; bài bị gỡ — 30 ngày; bài bị AI tự từ chối — bằng hạn của cảnh cáo AI đi kèm, không có cảnh cáo đi kèm thì 3 ngày. "N ngày" là đủ N × 24 giờ, theo giờ Việt Nam. | Ban 30 ngày lúc 01/10 09:00: gửi được tới trước 31/10 09:00 (31/10 08:59 nhận; 31/10 09:00 từ chối). Ban vĩnh viễn lúc 01/10 09:00: tới trước 30/12 09:00. Bài bị gỡ lúc 05/10 14:00: tới trước 04/11 14:00. C1 lúc 01/10 09:00 (lần 1, LIGHT): tới trước 08/10 09:00; C2 lúc 05/10 09:00 (lần 2): tới trước 12/10 09:00, hạn của C1 vẫn là 08/10 09:00. Bài bị AI từ chối lúc 01/10 10:00 kèm cảnh cáo lần 3 (MEDIUM): tới trước 11/10 10:00; không kèm cảnh cáo (tác giả đang HEAVY): tới trước 04/10 10:00. |
 | BR-M09-05 | Suy diễn | Quá hạn khiếu nại thì không gửi được khiếu nại cho xử lý đó; với ban vĩnh viễn, quyền khiếu nại mất hẳn. Nút "Gửi khiếu nại" trên màn hình tài khoản bị khóa chỉ hiện khi ban còn trong hạn khiếu nại. | Ban vĩnh viễn lúc 01/10 09:00: ngày 30/12 09:00 trở đi màn hình khóa chỉ còn lý do ban và nút OK. |
@@ -423,7 +424,7 @@ cột MoSCoW ở dòng M09 của bảng Module List bị lệch nên không dùn
 | BR-M09-21 | Ràng buộc | Người khiếu nại mở xem lại nội dung của mình đã bị xử lý (chỉ đọc) từ khiếu nại của mình; không thấy danh tính người báo cáo, lý do người báo cáo chọn, mô tả, bằng chứng của báo cáo. | — |
 | BR-M09-22 | Sự kiện | Khiếu nại không bị xóa; dữ liệu khiếu nại được giữ cả khi tài khoản người khiếu nại bị xóa, để phục vụ an toàn cộng đồng. | — |
 | BR-M09-23 | Sự kiện | Hạn khiếu nại và giới hạn bằng chứng là hằng số chính sách: không đổi qua giao diện, chỉ đổi qua triển khai. | — |
-| BR-M09-24 | Sự kiện | Bài bị AI tự từ chối kèm một cảnh cáo AI: tác giả nhận một thông báo nêu cả hai (bài bị từ chối, chưa được đăng; bạn bị cảnh cáo), kèm một nút Khiếu nại; bài và cảnh cáo được khiếu nại chung trong một khiếu nại, không khiếu nại riêng cảnh cáo đó. Chấp nhận: bài chuyển sang Đã đăng ngay, không quét lại, và cảnh cáo bị lật; nếu tác giả đã gửi lại bài trước khi kết luận thì chỉ cảnh cáo bị lật. Tác giả vẫn được sửa và gửi lại bài không giới hạn (M03). | An gửi P lúc 01/10 10:00, AI chấm 0,92: P Bị từ chối, An nhận C1. An khiếu nại 03/10, Mod chấp nhận 04/10: P Đã đăng, C1 bị lật. Nếu 03/10 An tự sửa và gửi lại, P đã đăng: chấp nhận ngày 04/10 chỉ lật C1. |
+| BR-M09-24 | Sự kiện | Bài bị AI tự từ chối kèm một cảnh cáo AI: tác giả nhận một thông báo nêu cả hai (bài bị từ chối, chưa được đăng; bạn bị cảnh cáo), kèm một nút Khiếu nại; bài và cảnh cáo được khiếu nại chung trong một khiếu nại, không khiếu nại riêng cảnh cáo đó. Chấp nhận: cảnh cáo bị lật; bài không thuộc nhóm chuyển sang Đã đăng ngay, không quét lại; bài nhóm đi tiếp như bài nhóm có điểm quét sạch, không quét lại: nhóm bật duyệt trước thì vào hàng chờ duyệt của nhóm, nhóm tắt duyệt trước hoặc bài của Owner nhóm thì Đã đăng ngay (M11); nếu tác giả đã gửi lại bài trước khi kết luận thì chỉ cảnh cáo bị lật. Tác giả vẫn được sửa và gửi lại bài không giới hạn (M03). | An gửi P lúc 01/10 10:00, AI chấm 0,92: P Bị từ chối, An nhận C1. An khiếu nại 03/10, Mod chấp nhận 04/10: P Đã đăng, C1 bị lật. Nếu 03/10 An tự sửa và gửi lại, P đã đăng: chấp nhận ngày 04/10 chỉ lật C1. |
 | BR-M09-25 | Sự kiện | Khiếu nại gửi trong hạn vẫn được xét và lật như thường dù xử lý đã kết thúc trước lúc kết luận (ban hết hạn hoặc được gỡ, mức cảnh cáo đã giảm). | Ban 30 ngày lúc 01/10, khiếu nại 05/10, ban hết 31/10, chấp nhận 02/11: ban Bị lật, không tính vào số lần đã bị ban, tài khoản vẫn ACTIVE. C3 lúc 01/10 (MEDIUM), khiếu nại 05/10, 11/10 về LIGHT với 2 lần, chấp nhận 15/10: còn 1 lần, LIGHT. C1 lúc 01/10, khiếu nại 03/10, 08/10 về Sạch, chấp nhận 10/10: số lần giữ 0, C1 bị lật. |
 | BR-M09-26 | Sự kiện | Lật một cảnh cáo hay một ban ra cùng lần ẩn một bình luận không làm bình luận hiện lại; bình luận giữ trạng thái Bị ẩn. | Bình luận B của An bị AI ẩn kèm cảnh cáo C1; C1 được lật: B vẫn Bị ẩn. |
 | BR-M09-27 | Ràng buộc | Kết luận khiếu nại bắt buộc có lý do ở cả Chấp nhận và Từ chối; người khiếu nại thấy kết luận kèm lý do. Người khiếu nại không rút, không sửa khiếu nại đã gửi. | Mod chọn Từ chối mà lý do trống: từ chối thao tác. |
@@ -491,7 +492,8 @@ cột MoSCoW ở dòng M09 của bảng Module List bị lệch nên không dùn
 |---|---|---|---|---|
 | (bắt đầu) | Tác giả gửi bài (M03) | — | Chờ duyệt | M03 |
 | Chờ duyệt | AI cho điểm quét từ 0,9 trở lên (M03) | — | Bị từ chối | M03 |
-| Bị từ chối | Khiếu nại gộp được chấp nhận | Tác giả chưa gửi lại bài (BR-M09-24) | Đã đăng | FR-M09-08.12, FR-M09-08.14 |
+| Bị từ chối | Khiếu nại gộp được chấp nhận | Tác giả chưa gửi lại bài (BR-M09-24); bài không thuộc nhóm | Đã đăng | FR-M09-08.12, FR-M09-08.14 |
+| Bị từ chối | Khiếu nại gộp được chấp nhận | Tác giả chưa gửi lại bài (BR-M09-24); bài nhóm | Theo cổng duyệt của nhóm (M11): chờ nhóm duyệt hoặc Đã đăng | FR-M09-08.18 |
 
 #### Tài khoản (phần M09)
 
@@ -506,7 +508,7 @@ cột MoSCoW ở dòng M09 của bảng Module List bị lệch nên không dùn
 |---|---|---|---|
 | Cung cấp | M01 | Hạn khiếu nại để màn hình tài khoản bị khóa hiện hoặc ẩn nút khiếu nại; khiếu nại ban được chấp nhận đưa tài khoản về ACTIVE | FR-M09-01.13, FR-M09-08.02 |
 | Dùng | M01 | Tài khoản BANNED đăng nhập vào màn hình bị khóa, chỉ khiếu nại được lệnh ban; đặt lại mật khẩu để vào màn hình đó; đăng nhập trước khi tới trang khiếu nại | FR-M09-01.04, FR-M09-01.05, FR-M09-01.18 |
-| Cung cấp | M03 | Khiếu nại bài bị gỡ hoặc bị AI tự từ chối; chấp nhận thì bài bị gỡ về Bình thường, bài bị AI từ chối sang Đã đăng không quét lại; thông báo từ chối gộp với cảnh cáo AI kèm nút Khiếu nại | FR-M09-01.03, FR-M09-01.19, FR-M09-08.08, FR-M09-08.12 |
+| Cung cấp | M03 | Khiếu nại bài bị gỡ hoặc bị AI tự từ chối; chấp nhận thì bài bị gỡ về Bình thường, bài bị AI từ chối không thuộc nhóm sang Đã đăng không quét lại; thông báo từ chối gộp với cảnh cáo AI kèm nút Khiếu nại | FR-M09-01.03, FR-M09-01.19, FR-M09-08.08, FR-M09-08.12 |
 | Dùng | M03 | Bài đã xóa, đã xóa hẳn, tự ẩn được giữ để xem trong khiếu nại; tác giả xem lại bài chỉ đọc từ khiếu nại của mình; tác giả sửa và gửi lại bài bị AI từ chối | FR-M09-06.04, FR-M09-02.03, FR-M09-08.14 |
 | Cung cấp | M04 | Khiếu nại cảnh cáo, ban; bình luận không có khiếu nại riêng; lật cảnh cáo, ban không làm bình luận bị ẩn hiện lại | FR-M09-01.15, FR-M09-08.15 |
 | Dùng | M04 | Bình luận đã xóa được giữ để xét khiếu nại; chủ bình luận xem lại bình luận chỉ đọc từ khiếu nại của mình | FR-M09-06.04, FR-M09-02.03 |
@@ -514,7 +516,7 @@ cột MoSCoW ở dòng M09 của bảng Module List bị lệch nên không dùn
 | Cung cấp | M08 | Lật cảnh cáo (giảm số lần, không dưới 0, tính lại mức), lật ban (không tính vào số lần đã bị ban) | FR-M09-08.01, FR-M09-08.03, FR-M09-08.04, FR-M09-08.05 |
 | Dùng | M08 | Cảnh cáo, ban, kết luận vụ là đối tượng khiếu nại; nút Khiếu nại trong mọi thông báo về xử lý khiếu nại được; nhật ký để Mod xem thao tác của Mod khác khi xét khiếu nại | FR-M09-01.06, FR-M09-06.02, FR-M09-06.03 |
 | Dùng | M10 | Vai trò Mod, Admin để xem hàng chờ và xét khiếu nại; Mod bị ban mất vai trò Mod, lật ban không trả lại vai trò (Admin gửi đề xuất làm Mod) | FR-M09-03.07, FR-M09-04.04, FR-M09-08.11 |
-| Dùng | M11 | Thao tác kiểm duyệt cấp nhóm không khiếu nại được | FR-M09-01.15 |
+| Dùng | M11 | Thao tác kiểm duyệt cấp nhóm không khiếu nại được; cổng duyệt của nhóm cho bài nhóm bị AI từ chối được chấp nhận khiếu nại | FR-M09-01.15, FR-M09-08.18 |
 | Cung cấp | M12 | Hoàn điểm đã trừ khi khiếu nại bài bị gỡ được chấp nhận | FR-M09-08.09 |
 | Dùng | M13 | Nhật ký quyết định AI để xét khiếu nại bài bị AI tự từ chối | FR-M09-06.05 |
 | Cung cấp | M15 | Khiếu nại theo loại và kết luận cho thống kê kiểm duyệt | FR-M09-01.01, FR-M09-07.01, FR-M09-07.02 |
@@ -544,6 +546,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-16 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-18 | Chốt. Bổ sung theo DEC-195–202: Admin không bị báo cáo, không có khiếu nại; khiếu nại của Mod chỉ Admin xét; khiếu nại gộp bài bị AI từ chối và cảnh cáo AI; một hàng chờ chung; hạn cảnh cáo cố định; lật cả khi xử lý đã kết thúc; bỏ FR-M09-05; đóng OPEN-012 | Phạm Văn Đức |
 | 1.1 | 2026-10-24 | Đối chiếu với FR-M16: dòng Cung cấp M16 (hạn khiếu nại ban vĩnh viễn và khiếu nại bị từ chối, DEC-250). Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
+| 1.2 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): thu hồi vai trò Admin không khiếu nại được (DEC-221: BR-M09-02, FR-M09-01.15, ma trận quyền); bài nhóm bị AI từ chối được chấp nhận khiếu nại đi qua cổng duyệt của nhóm (DEC-271: BR-M09-24, FR-M09-08.12, thêm FR-M09-08.18, bảng trạng thái, giao tiếp M03, M11); khôi phục dòng TBD-M09-01 đã đóng ở B.2; C.1, C.2. Chốt bản 1.2 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -571,7 +574,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M09-01.12 | DEC-084, DEC-130 | Suy ra | "5MB/file", chỉ nhận JPEG/PNG/WebP ⇒ vượt thì từ chối |
 | FR-M09-01.13 | DEC-086, DEC-115, DEC-198, DEC-199 | Suy ra | Hạn khiếu nại là khoảng được gửi; ban vĩnh viễn "appeal right permanently expires" ⇒ quá hạn thì từ chối |
 | FR-M09-01.14 | DEC-087 | Suy ra | "appealed exactly once" ⇒ khiếu nại thứ hai cho cùng xử lý bị từ chối, dù khiếu nại đầu chưa kết luận |
-| FR-M09-01.15 | DEC-115, DEC-180, DEC-194, DEC-109, DEC-091 | Suy ra | Nguồn nói các trường hợp này không có khiếu nại ⇒ từ chối |
+| FR-M09-01.15 | DEC-115, DEC-180, DEC-194, DEC-109, DEC-091, DEC-221 | Suy ra | Nguồn nói các trường hợp này không có khiếu nại ⇒ từ chối |
 | FR-M09-01.16 | DEC-154, DEC-129 | Nói thẳng | — |
 | FR-M09-01.17 | DEC-090 | Nói thẳng | — |
 | FR-M09-01.18 | DEC-197, QA-373 | Nói thẳng | — |
@@ -634,14 +637,15 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M09-08.09 | DEC-115, DEC-113 | Nói thẳng | Việc cộng điểm thực hiện ở M12 |
 | FR-M09-08.10 | DEC-115, DEC-202 | Nói thẳng | — |
 | FR-M09-08.11 | DEC-201, QA-380 | Nói thẳng | Đề xuất làm Mod thuộc M10 (DEC-091) |
-| FR-M09-08.12 | DEC-198, QA-375 | Nói thẳng | Trạng thái đăng thuộc M03 |
+| FR-M09-08.12 | DEC-198, QA-375, DEC-271 | Nói thẳng | Trạng thái đăng thuộc M03 |
 | FR-M09-08.13 | DEC-198 | Nói thẳng | — |
 | FR-M09-08.14 | DEC-198 | Nói thẳng | — |
 | FR-M09-08.15 | DEC-201, QA-381 | Nói thẳng | Đóng OPEN-012 |
 | FR-M09-08.16 | DEC-202, QA-383 | Nói thẳng | — |
 | FR-M09-08.17 | DEC-202 | Nói thẳng | — |
+| FR-M09-08.18 | DEC-271, DEC-198, DEC-237 | Nói thẳng | Kết quả trong nhóm do M11 xử lý (FR-M11-13.14) |
 | BR-M09-01 | DEC-087, DEC-078, DEC-115, DEC-161, DEC-198, QA-019, DEC-195, QA-371 | Nói thẳng | — |
-| BR-M09-02 | DEC-115, DEC-180, DEC-194, DEC-192, DEC-109, DEC-091 | Nói thẳng | — |
+| BR-M09-02 | DEC-115, DEC-180, DEC-194, DEC-192, DEC-109, DEC-091, DEC-221 | Nói thẳng | — |
 | BR-M09-03 | DEC-084, DEC-130 | Nói thẳng | — |
 | BR-M09-04 | DEC-086, DEC-079, DEC-080, DEC-115, DEC-127, DEC-188, DEC-198, DEC-199, QA-377, QA-375 | Nói thẳng | — |
 | BR-M09-05 | DEC-086, DEC-085, DEC-019 | Nói thẳng | — |
@@ -663,7 +667,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M09-21 | DEC-179, DEC-184 | Nói thẳng | — |
 | BR-M09-22 | DEC-154, DEC-129 | Nói thẳng | — |
 | BR-M09-23 | DEC-090 | Nói thẳng | — |
-| BR-M09-24 | DEC-198, DEC-199, QA-375, DEC-166 | Nói thẳng | — |
+| BR-M09-24 | DEC-198, DEC-199, QA-375, DEC-166, DEC-271 | Nói thẳng | — |
 | BR-M09-25 | DEC-199, QA-378 | Nói thẳng | — |
 | BR-M09-26 | DEC-201, DEC-180, QA-381 | Nói thẳng | — |
 | BR-M09-27 | DEC-201, QA-382 | Nói thẳng | — |
@@ -696,6 +700,7 @@ Chưa có — chờ giai đoạn thiết kế.
 
 | ID | Nội dung | Ảnh hưởng | Lý do chưa chốt |
 |---|---|---|---|
+| TBD-M09-01 | (Đã đóng ở phiên bản 1.0 — DEC-201: bình luận bị ẩn vẫn Bị ẩn khi cảnh cáo, ban liên quan bị lật) | Thấp | Đã chốt |
 
 <!-- TBD-M09-01 (OPEN-012) đã chốt ở bước 6: Q-14, DEC-201. -->
 
@@ -861,7 +866,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-195 | Sở hữu | Hiện hành | FR-M09-03, FR-M09-04, FR-M09-03.06, FR-M09-03.08, FR-M09-04.08, FR-M09-06.08, FR-M09-07.12, BR-M09-01, BR-M09-12, BR-M09-14 | Nhóm A. Admin không bị báo cáo, không có khiếu nại; vụ, khiếu nại về Mod chỉ Admin; nội dung Admin không duyệt, không quét |
 | DEC-196 | Sở hữu | Hiện hành | FR-M09-03, FR-M09-05, FR-M09-03.04, FR-M09-03.05, FR-M09-03.09, FR-M09-05.01, BR-M09-12, BR-M09-13 | Nhóm A. Ai thấy khiếu nại; chuyển lên Admin là quy tắc lọc |
 | DEC-197 | Sở hữu | Hiện hành | FR-M09-01, FR-M09-01.04, FR-M09-01.06, FR-M09-01.07, FR-M09-01.18, BR-M09-07, BR-M09-28 | Nhóm A. Trong lúc bị ban chỉ khiếu nại lệnh ban; mọi thông báo xử lý khiếu nại được kèm nút Khiếu nại |
-| DEC-198 | Sở hữu | Hiện hành | FR-M09-01, FR-M09-06, FR-M09-08, FR-M09-01.01, FR-M09-01.03, FR-M09-01.13, FR-M09-01.19, FR-M09-01.20, FR-M09-01.21, FR-M09-03.06, FR-M09-06.05, FR-M09-07.03, FR-M09-08.12, FR-M09-08.13, FR-M09-08.14, BR-M09-01, BR-M09-04, BR-M09-06, BR-M09-14, BR-M09-15, BR-M09-19, BR-M09-24 | Nhóm A. Khiếu nại gộp bài bị AI từ chối và cảnh cáo AI; không chụp nội dung |
+| DEC-198 | Sở hữu | Sửa một phần bởi DEC-271 | FR-M09-01, FR-M09-06, FR-M09-08, FR-M09-01.01, FR-M09-01.03, FR-M09-01.13, FR-M09-01.19, FR-M09-01.20, FR-M09-01.21, FR-M09-03.06, FR-M09-06.05, FR-M09-07.03, FR-M09-08.12, FR-M09-08.13, FR-M09-08.14, BR-M09-01, BR-M09-04, BR-M09-06, BR-M09-14, BR-M09-15, BR-M09-19, BR-M09-24 | Nhóm A. Khiếu nại gộp bài bị AI từ chối và cảnh cáo AI; không chụp nội dung |
 | DEC-199 | Sở hữu | Hiện hành | FR-M09-08, FR-M09-01.13, FR-M09-01.21, FR-M09-08.01, FR-M09-08.05, BR-M09-04, BR-M09-17, BR-M09-24, BR-M09-25 | Nhóm A. Hạn khiếu nại cảnh cáo cố định; vẫn lật khi xử lý đã kết thúc |
 | DEC-200 | Sở hữu | Hiện hành | FR-M09-03, FR-M09-01.02, FR-M09-01.03, FR-M09-03.01, FR-M09-03.02, FR-M09-03.03, BR-M09-09, BR-M09-10 | Nhóm A. Một danh sách khiếu nại chung, lọc theo loại |
 | DEC-201 | Sở hữu | Hiện hành | FR-M09-02, FR-M09-07, FR-M09-08, FR-M09-01.22, FR-M09-02.02, FR-M09-07.01, FR-M09-07.02, FR-M09-07.04, FR-M09-07.05, FR-M09-07.11, FR-M09-08.11, FR-M09-08.15, BR-M09-16, BR-M09-26, BR-M09-27 | Nhóm A. Lật ban Mod không trả vai trò; bình luận vẫn ẩn; lý do kết luận bắt buộc; không rút, sửa |
@@ -900,6 +905,11 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-383 | Sở hữu | Hiện hành | FR-M09-01.23, FR-M09-08.16, BR-M09-29 | Nhóm A. Câu trả lời FR M09 |
 | GL:Appeal | Sở hữu | Sửa một phần bởi DEC-115, DEC-198 | Không áp dụng: nằm ngoài chỉ mục nên không trích ở Phụ lục A; phần còn hiệu lực (giao diện gọi là "Khiếu nại") ghi ở mục 2.1 | Ngoài chỉ mục: glossary.md dòng 47 viết dạng đoạn in đậm, index_sources.py không đọc. Định nghĩa "chỉ cảnh cáo và ban". Phần "không áp dụng cho bài bị xóa" bị thay |
 | DEC-250 | Nhắc tới | Hiện hành | Không áp dụng: M16 dùng hạn và kết luận khiếu nại ban vĩnh viễn | Đối chiếu FR-M16 (bản 1.1) |
+| DEC-221 | Phụ thuộc | Hiện hành | FR-M09-01.15, BR-M09-02 | Rà soát chéo 2026-10-24. M10: thu hồi vai trò Admin trực tiếp, không có khiếu nại |
+| DEC-271 | Sở hữu | Hiện hành | FR-M09-08.18, FR-M09-08.12, BR-M09-24 | Rà soát chéo 2026-10-24. Bài nhóm bị AI từ chối, được chấp nhận khiếu nại thì đi qua cổng duyệt của nhóm |
+| QA-477 | Sở hữu | Trùng với DEC-271 | — | Rà soát chéo 2026-10-24. Câu trả lời của stakeholder |
+| ISS-415 | Sở hữu | Trùng với DEC-271 | — | Rà soát chéo 2026-10-24. Câu hỏi rà soát chéo, đã có DEC-271 |
+| DEC-237 | Phụ thuộc | Sửa một phần bởi DEC-240, DEC-271 | FR-M09-08.18 | Rà soát chéo 2026-10-24. M11: bài nhóm bị AI tự từ chối khiếu nại qua M09 như bài thường (L11) |
 
 ### C.2 Chuỗi quyết định
 
@@ -919,3 +929,6 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-129; DEC-131 → DEC-154 | Dữ liệu khiếu nại thuộc nhóm dữ liệu giữ cho an toàn cộng đồng: không xóa, giữ cả khi tài khoản bị xóa. Phần còn lại của DEC-154 (trang chính sách) thuộc M01. |
 | QA-013, DEC-189 → DEC-195, DEC-201 | Chỉ Admin cảnh cáo, ban Mod; ban Mod thì Mod mất vai trò; khiếu nại ban đó do Admin xét; chấp nhận thì không trả lại vai trò Mod. |
 | DEC-180 → OPEN-012 → DEC-201 | Bình luận bị ẩn không hiện lại khi cảnh cáo, ban ra cùng lần ẩn được lật. OPEN-012 đóng. |
+| DEC-198 → DEC-271 | Khiếu nại gộp về bài bị AI tự từ chối được chấp nhận: cảnh cáo bị lật; bài không thuộc nhóm sang Đã đăng ngay, không quét lại; bài nhóm đi tiếp qua cổng duyệt của nhóm như bài có điểm quét sạch (nhóm bật duyệt trước → chờ nhóm duyệt; tắt, hoặc bài của Owner → Đã đăng) (rà soát chéo 2026-10-24). |
+| DEC-091 → DEC-220, DEC-221, DEC-222, DEC-223 | Thu hồi vai trò Admin (chỉ ADMIN gốc làm) trực tiếp, không có khiếu nại; đề xuất có hạn 7 ngày và tự từ chức không phải xử lý kiểm duyệt nên không có khiếu nại. Mod bị ban mất vai trò, lật ban không trả lại vai trò như đã ghi. |
+| DEC-065 → DEC-215, DEC-218, DEC-221, DEC-231, DEC-237, DEC-246; DEC-079 → DEC-211; DEC-081, DEC-090 → DEC-224; DEC-109 → DEC-237; DEC-113 → DEC-231, DEC-241; DEC-129 → DEC-248; DEC-133 → DEC-207; DEC-194 → DEC-235; DEC-195 → DEC-240 | Không đổi hành vi M09 ngoài hai dòng trên. Thông báo kết luận khiếu nại vẫn tạo cho người nhận BANNED (DEC-218); thao tác kiểm duyệt cấp nhóm vẫn không khiếu nại được (DEC-237); gỡ khỏi nhóm không trừ điểm nên không có hoàn điểm (DEC-231), bình luận không có khiếu nại nên DEC-241 không đổi việc hoàn điểm; Admin vẫn không bị quét, không có khiếu nại (DEC-240). |

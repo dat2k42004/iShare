@@ -1457,6 +1457,8 @@ ISS-292 → ISS-309
 - No snapshot of content is kept at the time of an action for MS1. Reviewers rely on the resolution reason (required, DEC-192), report evidence, post edit history and the AI decision log. Remaining gap (a comment or profile warned without being hidden, then edited before the appeal) is recorded as a point to reconsider after MS1.
 - Source: QA-375, QA-376
 
+**[Amended 2026-10-24 — DEC-271: bài nhóm được chấp nhận khiếu nại đi qua cổng duyệt của nhóm]**
+
 ### DEC-199: M09 — Warning appeal window; appeals reviewed after the action ended (clarifies DEC-086, DEC-089)
 - Each warning has a fixed appeal window counted from the moment it is issued: 7, 10 or 15 × 24 hours according to the level that warning brings the user to (LIGHT, MEDIUM, HEAVY). Later warnings and step-downs do not change it. Example: warning 1 at 01/10 09:00 (LIGHT) → until before 08/10 09:00; warning 2 at 05/10 09:00 → until before 12/10 09:00.
 - A warning issued together with an AI rejection of a post is appealed only through the combined post appeal (DEC-198), within this same window.
@@ -1720,6 +1722,8 @@ ISS-352 → ISS-359
 - No appeal (DEC-109 unchanged).
 - Source: QA-423
 
+**[Clarified 2026-10-24 — DEC-270: bài bị gỡ khỏi nhóm giữ trạng thái đăng, đếm theo trạng thái đó]**
+
 ### DEC-232: M11 — Triggers of forced ownership succession (clarifies DEC-107)
 - Any ban (temporary or permanent), deactivation (including self-deactivation that can still be reactivated) or deletion of the Owner account triggers the DEC-107 succession immediately.
 - When the former Owner's account becomes active again, they stay in the group as Member; the role is not given back automatically.
@@ -1766,6 +1770,8 @@ ISS-352 → ISS-359
 - Source: QA-430
 
 **[Amended 2026-10-21 — DEC-240: bài của Owner không qua duyệt của nhóm]**
+
+**[Clarified 2026-10-24 — DEC-271: L11, kết quả khiếu nại bài nhóm bị AI từ chối]**
 
 ### DEC-238: M11 — Member list, withdrawing requests, unblocking (scope extension; invite link unchanged)
 - Whoever can view the group page can view its member list with roles (Public: everyone including Guest; Private: members).
@@ -2011,6 +2017,8 @@ ISS-394 → ISS-402
 
 **[Clarified 2026-10-24 — DEC-269: bài bị ẩn theo tài khoản tác giả hoặc theo nhóm vẫn đếm theo trạng thái đăng]**
 
+**[Clarified 2026-10-24 — DEC-270: bài bị gỡ khỏi nhóm giữ trạng thái đăng, đếm theo trạng thái đó]**
+
 ### DEC-269: M15 — Posts hidden by their author's account or their group (clarifies DEC-268)
 - Content Stats counts a post by its own publish state, moderation state and Topics, also when it is hidden because its author is DEACTIVATED or DELETED (DEC-019, DEC-156) or because its group is hidden (DEC-194). Such posts are neither left out nor shown as a separate group.
 - Example: 500 posts Đã đăng, 15 of them by deactivated or deleted accounts, 5 in a hidden group → Đã đăng 500.
@@ -2018,3 +2026,22 @@ ISS-394 → ISS-402
 
 ### Issues Closed
 ISS-403 → ISS-413
+
+---
+
+## Cross-module review — 2026-10-24
+
+### DEC-270: Cross-module — A post removed from its group keeps its publish state (clarifies DEC-231, DEC-239, DEC-268)
+- "Gỡ khỏi nhóm" (DEC-231) does not create a new publish state. The post keeps its publish state (normally Đã đăng) and is marked "bị gỡ khỏi nhóm" (soft delete, DEC-239); visibility, no restore, no deduction and no appeal stay as DEC-231.
+- Content Stats counts such a post by its own publish state, as DEC-269 does for posts hidden by their author's account or their group; it is neither left out nor shown as a separate group. The six publish-state groups of DEC-268 are unchanged.
+- Example: post P published in CLB Toán on 01/10, removed from the group by a Group Mod on 05/10 → on 06/10 the 7-day Content Stats count P under Đã đăng.
+- Source: QA-476
+
+### DEC-271: Cross-module — Accepted appeal of an AI-rejected group post goes through the group gate (amends DEC-198; clarifies DEC-237 L11, DEC-104)
+- Accepting the appeal overturns only the AI decision (and the AI warning, as DEC-198). The post then continues as a group post with a clean scan: pre-moderation ON → waits in the group's approval queue (Owner or another Group Mod approves; DEC-237 L12 unchanged); pre-moderation OFF → Đã đăng at once; post by the group's Owner → Đã đăng at once (DEC-240). No rescan.
+- Posts not in any group keep DEC-198 unchanged (Đã đăng at once, no rescan). If the author resubmitted before the outcome, only the warning is overturned (DEC-198 unchanged).
+- Example: An's post P in a group with pre-moderation ON, AI score 0.92 on 01/10, appeal accepted on 03/10 → P waits for group approval; same group with pre-moderation OFF → P is published on 03/10.
+- Source: QA-477
+
+### Issues Closed
+ISS-414 → ISS-415

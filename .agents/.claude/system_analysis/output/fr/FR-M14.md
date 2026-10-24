@@ -2,11 +2,11 @@
 module: M14
 ten_module: Feed & Discovery
 ma_tai_lieu: FR-M14
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-263, QA-464, ISS-402, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M14 Feed & Discovery
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M14 — Feed & Discovery |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
+| Phiên bản | 1.1 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -117,7 +117,7 @@ không có tab cá nhân hóa bằng thuật toán.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-263, QA-464, ISS-402, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -454,6 +454,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-24 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-24 | Chốt sau 7 bước; câu trả lời bước 6 ghi ở DEC-258–261; ở bước 7 rút bài nhóm Private khỏi tab Following (DEC-262) và áp quy tắc bài ẩn danh cho bộ lọc đang theo dõi của M06 (DEC-263) | Phạm Văn Đức |
+| 1.1 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): ghi vào C.2 DEC-271 (làm rõ DEC-237 mà M14 trích); không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -788,3 +789,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-225 → DEC-236, DEC-245, DEC-261 (QA-429) | M14 là trang chủ, không có cờ tính năng. Cờ Group tắt: bài nhóm vẫn hiện ở Trending, tab Following và tab Group như lối vào, mở ra báo "Hệ thống đang bận, vui lòng thử lại sau", mọi tương tác bị từ chối. Cờ Gamification tắt: số upvote vẫn hiện, Trending không đổi. |
 | QA-225, ISS-170, ISS-186 → QA-240 | M14 không phụ thuộc M13; không có hành vi khi tắt AI. |
 | DEC-038 → DEC-162, DEC-184; DEC-079 → DEC-163, DEC-188, DEC-211; DEC-118, DEC-122 → DEC-242, DEC-246; DEC-225 → DEC-256; DEC-237 → DEC-240; QA-011 → DEC-171, DEC-206, DEC-208 | Các sửa đổi này chỉ chạm phần M14 không dùng: khôi phục và hết hạn khôi phục bài (M03); hạn chế, thời gian thử thách, giảm hạng tìm kiếm của cảnh cáo (M08, M06); bảng xếp hạng (M12); cờ Chat (M16); duyệt bài của Owner (M11); hồ sơ, tóm tắt AI, tìm kiếm của Guest (M02, M13, M06). Phần M14 dùng giữ nguyên: bài đã xóa mềm ẩn khỏi feed; cảnh cáo riêng tư; nhãn BANNED; quy tắc chung khi cờ tắt; trang danh sách nhóm; Guest xem được bài công khai. |
+| DEC-237 → DEC-271 | Không đổi hành vi M14: DEC-271 nói kết quả khiếu nại bài nhóm bị AI từ chối (M09, M11); phần L6 (trang danh sách nhóm cho nút "Khám phá Group") không đổi (rà soát chéo 2026-10-24). |

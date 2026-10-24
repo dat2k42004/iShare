@@ -2,11 +2,11 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.9
+phien_ban: 1.10
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M01 Authentication & Account
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.9 |
+| Phiên bản | 1.10 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -140,7 +140,7 @@ vô hiệu hóa rồi xóa tài khoản của mình. Module cũng xác định h
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -778,6 +778,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.7 | 2026-10-24 | Đối chiếu với FR-M16: hiển thị tin nhắn thuộc M16, M01 chỉ cung cấp tên thay thế (FR-M01-13.06); thêm tên thay thế cho người gửi tin nhắn của tài khoản DEACTIVATED (DEC-253: FR-M01-13.07); dòng Cung cấp M16. Chốt bản 1.7 | Phạm Văn Đức |
 | 1.8 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (ẩn bài của tài khoản DEACTIVATED, DELETED ở feed; đăng nhập cho tab Following, Group) và dòng M14 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.8 | Phạm Văn Đức |
 | 1.9 | 2026-10-24 | Đối chiếu với FR-M15: dòng Cung cấp M15 thêm mức xác minh (M15 tách nhóm chờ xác minh email, chờ hoàn tất hồ sơ) và tài khoản DELETED vẫn được đếm; sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.9 | Phạm Văn Đức |
+| 1.10 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): ghi vào C.2 các DEC sinh sau khi chốt có sửa một phần nguồn của M01 (DEC-231, DEC-237, DEC-248); không đổi yêu cầu. Chốt bản 1.10 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1351,3 +1352,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-065 → DEC-215, DEC-218, DEC-221; DEC-070 → DEC-219, DEC-220 (đối chiếu FR-M07, FR-M10) | Phần thuộc M07: thêm sự kiện "người bạn theo dõi có bài mới", quy tắc người nhận; tắt thông báo Chat chỉ ẩn popup, công tắc tắt thông báo bài có trên mọi bài. Không đổi yêu cầu của module này. |
 | DEC-007 → DEC-221; DEC-092 → DEC-152, DEC-225, DEC-226, DEC-228 (đối chiếu FR-M10) | Tài khoản ADMIN gốc vẫn tạo sẵn, không qua đăng ký; chỉ tài khoản gốc cấp, thu hồi vai trò Admin (M10). Tạm dừng đăng ký, chế độ bảo trì không đổi đối với M01; DEC-225, DEC-226, DEC-228 chỉ thêm cờ tính năng, banner, giá trị khởi tạo (tạm dừng đăng ký, bảo trì khởi tạo ở Tắt) thuộc M10. M01 cung cấp trạng thái tài khoản và bước 3 để M10 chọn đối tượng đề xuất. |
 | QA-018 → DEC-246 | Trên bảng xếp hạng (M12): tài khoản DEACTIVATED bị loại trong thời gian vô hiệu hóa; tài khoản đã xóa hiện mờ với nhãn "[Người dùng đã xóa]" trên bảng đã chốt, bảng Toàn thời gian loại ngay. |
+| DEC-065 → DEC-231, DEC-237; DEC-129 → DEC-248 | Không đổi hành vi M01. DEC-231, DEC-237 thêm sự kiện thông báo của nhóm (M07, M11); DEC-248: thu hồi tin nhắn là xóa mềm, tin nhắn của tài khoản đã xóa vẫn được giữ như BR-M01-47 (rà soát chéo 2026-10-24). |

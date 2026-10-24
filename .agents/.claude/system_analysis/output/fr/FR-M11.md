@@ -2,11 +2,11 @@
 module: M11
 ten_module: Group
 ma_tai_lieu: FR-M11
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M11 Group
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M11 — Group |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -116,7 +116,7 @@ theo quyền xem khi nhóm ở chế độ Private.
 | Ký tự (tên, mô tả nhóm) | Đơn vị đếm độ dài tên và mô tả nhóm: số ký tự của nội dung. |
 | Trạng thái tồn tại của nhóm | Hoạt động hoặc Đã xóa (Owner xóa, hoặc nhóm bị xóa mềm khi Owner là thành viên cuối cùng). Khác trạng thái kiểm duyệt của nhóm. |
 | Chờ duyệt (đang quét), Chờ duyệt (chờ nhóm duyệt) | Hai giai đoạn của trạng thái đăng Chờ duyệt (M03) với bài nhóm: đang được AI quét; đã vào hàng chờ duyệt của nhóm. Người khác tác giả không thấy bài trong cả hai giai đoạn. |
-| Bị gỡ khỏi nhóm | Trạng thái của bài, bình luận sau khi Owner hoặc Group Mod gỡ khỏi nhóm (xóa mềm). |
+| Bị gỡ khỏi nhóm | Dấu đặt trên bài, bình luận khi Owner hoặc Group Mod gỡ khỏi nhóm (xóa mềm). Không phải trạng thái đăng: bài giữ trạng thái đăng của nó (M03). |
 | Đã rút | Trạng thái của yêu cầu tham gia sau khi người gửi tự rút. |
 
 ### 2.2 Viết tắt
@@ -135,7 +135,7 @@ theo quyền xem khi nhóm ở chế độ Private.
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -543,6 +543,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | FR-M11-13.11 | Khi tác giả sửa và gửi lại bài bị nhóm từ chối, hệ thống phải đưa bài vào cổng duyệt của nhóm thêm một lần (BR-M11-38). |
 | FR-M11-13.12 | Nếu tác giả khiếu nại một bài nhóm bị AI tự từ chối, hệ thống phải nhận khiếu nại qua M09 như với bài không thuộc nhóm (BR-M11-38). |
 | FR-M11-13.13 | Nếu Group Mod nhận, chấp nhận hoặc từ chối bài chờ duyệt của chính mình, hệ thống phải từ chối (BR-M11-39). |
+| FR-M11-13.14 | Khi khiếu nại về một bài nhóm bị AI tự từ chối được chấp nhận (M09), hệ thống phải đưa bài qua cổng duyệt của nhóm như bài có điểm quét dưới 0.5 mà không quét lại: công tắc duyệt trước bật thì bài chờ nhóm duyệt, tắt hoặc bài của Owner thì bài sang Đã đăng (BR-M11-38). |
 
 ### 5.14 FR-M11-14 Gỡ bài và bình luận khỏi nhóm
 
@@ -660,7 +661,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | BR-M11-35 | Sự kiện | Trang danh sách nhóm (nơi nút "Khám phá Group" của M14 dẫn tới) gồm các nhóm Private mà người xem là thành viên và các nhóm Public; mỗi nhóm hiện tên, mô tả, chế độ; xếp theo thời điểm tạo, mới nhất trước. Tìm nhóm theo tên thuộc M06. | Nhóm Public N1 tạo 01/11, N2 tạo 05/11, nhóm Private P (C là thành viên) tạo 03/11 → C thấy N2, P, N1 theo thứ tự đó; Guest thấy N2, N1. |
 | BR-M11-36 | Kích hoạt | Người gửi rút được yêu cầu tham gia đang Chờ duyệt của mình; yêu cầu chuyển sang Đã rút. | — |
 | BR-M11-37 | Sự kiện | Thông báo trong ứng dụng của nhóm (M07): được mời → người được mời (kèm link mời); có yêu cầu tham gia mới → Owner và các Group Mod; yêu cầu được chấp nhận → người gửi; được bổ nhiệm Group Mod → người đó; bị kick → người đó; trở thành Owner (do chỉ định hoặc tự chuyển) → người đó; bài, bình luận bị gỡ khỏi nhóm → tác giả. Không có thông báo khi: vào ngay nhóm Public, yêu cầu bị từ chối, bị giáng Group Mod. | — |
-| BR-M11-38 | Ràng buộc | Nhóm từ chối bài chờ duyệt phải kèm lý do; tác giả sửa và gửi lại được, bài gửi lại đi qua cổng duyệt của nhóm thêm một lần. Bài nhóm bị AI tự từ chối khiếu nại qua M09 như bài thường. | Group Mod B từ chối bài P không nhập lý do → bị từ chối thao tác; nhập "Lạc đề" → P Bị từ chối. Tác giả sửa P, gửi lại → P được quét lại và qua cổng của nhóm. |
+| BR-M11-38 | Ràng buộc | Nhóm từ chối bài chờ duyệt phải kèm lý do; tác giả sửa và gửi lại được, bài gửi lại đi qua cổng duyệt của nhóm thêm một lần. Bài nhóm bị AI tự từ chối khiếu nại qua M09 như bài thường; khiếu nại được chấp nhận thì bài đi tiếp qua cổng duyệt của nhóm như bài có điểm quét dưới 0.5, không quét lại: công tắc duyệt trước bật → chờ nhóm duyệt; tắt, hoặc bài của Owner → Đã đăng. | Group Mod B từ chối bài P không nhập lý do → bị từ chối thao tác; nhập "Lạc đề" → P Bị từ chối. Tác giả sửa P, gửi lại → P được quét lại và qua cổng của nhóm. |
 | BR-M11-39 | Ràng buộc | Group Mod không tự nhận, chấp nhận hay từ chối bài chờ duyệt của chính mình; bài của Group Mod do Owner hoặc Group Mod khác duyệt. Bài của Owner không vào hàng chờ của nhóm (BR-M11-40). | Group Mod B gửi bài, điểm 0.6 → Owner A hoặc Group Mod D duyệt; B nhận bài của mình → bị từ chối. |
 | BR-M11-40 | Kích hoạt | Bài của Owner trong nhóm của mình không qua duyệt của nhóm (bỏ qua công tắc duyệt trước và bước nhóm bắt buộc duyệt với điểm 0.5–< 0.9). Quét AI vẫn áp dụng: điểm ≥ 0.9 → bị tự từ chối; 0.5 ≤ điểm < 0.9, hoặc quét thất bại sau một lần thử lại → vào hàng chờ duyệt của Mod hệ thống như bài không thuộc nhóm (M03); điểm < 0.5, hoặc công tắc AI tổng hay Moderation tắt → đăng ngay. Owner là Admin thì không quét, đăng ngay. | Owner An, nhóm bật công tắc duyệt trước: bài điểm 0.30 → Đã đăng; 0.95 → Bị từ chối; 0.60 → hàng chờ Mod hệ thống; quét lỗi → hàng chờ Mod hệ thống; AI tắt → Đã đăng. An là Admin → Đã đăng, không quét. |
 
@@ -672,7 +673,7 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | Thành viên nhóm | Người dùng; nhóm; vai trò nhóm (Owner, Group Mod, Member); thời điểm tham gia; thời điểm được bổ nhiệm Group Mod (khi là Group Mod) | Một người dùng là thành viên của nhiều nhóm, mỗi nhóm một vai trò |
 | Yêu cầu tham gia | Người gửi; nhóm; câu trả lời (bắt buộc khi nhóm có câu hỏi); trạng thái (Chờ duyệt, Đã chấp nhận, Đã từ chối, Đã rút) | Một người có thể có nhiều yêu cầu theo thời gian tới cùng một nhóm, tối đa một yêu cầu Chờ duyệt |
 | Chặn tham gia | Nhóm; người bị chặn | Một nhóm chặn nhiều người dùng |
-| Bài viết (M03) — phần M11 | Nhóm (tùy chọn); ẩn danh (Có, Không); điểm quét; người đang giữ và thời điểm thao tác cuối (khi bài trong hàng chờ duyệt của nhóm); lý do khi nhóm từ chối; bị gỡ khỏi nhóm (xóa mềm) | Thuộc tối đa một nhóm; tác giả là thành viên nhóm |
+| Bài viết (M03) — phần M11 | Nhóm (tùy chọn); ẩn danh (Có, Không); điểm quét; người đang giữ và thời điểm thao tác cuối (khi bài trong hàng chờ duyệt của nhóm); lý do khi nhóm từ chối; dấu bị gỡ khỏi nhóm (xóa mềm; bài giữ trạng thái đăng) | Thuộc tối đa một nhóm; tác giả là thành viên nhóm |
 
 **Ma trận CRUD:**
 
@@ -761,7 +762,9 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | Chờ duyệt (chờ nhóm duyệt) | Owner hoặc Group Mod chấp nhận | Đang giữ bài; không phải bài của chính mình (BR-M11-20, BR-M11-39) | Đã đăng | FR-M11-13.05 |
 | Chờ duyệt (chờ nhóm duyệt) | Owner hoặc Group Mod từ chối | Đang giữ bài; có lý do; không phải bài của chính mình (BR-M11-20, BR-M11-38, BR-M11-39) | Bị từ chối | FR-M11-13.06 |
 | Bị từ chối | Tác giả sửa và gửi lại | — | Chờ duyệt (đang quét) | FR-M11-13.11 |
-| Đã đăng | Owner hoặc Group Mod gỡ khỏi nhóm | Người gỡ là Group Mod thì bài không phải của Owner, Group Mod khác (BR-M11-05) | Bị gỡ khỏi nhóm | FR-M11-14.01 |
+| Bị từ chối | Khiếu nại bài bị AI tự từ chối được chấp nhận (M09) | Tác giả chưa gửi lại; tác giả khác Owner; công tắc duyệt trước bật | Chờ duyệt (chờ nhóm duyệt) | FR-M11-13.14 |
+| Bị từ chối | Khiếu nại bài bị AI tự từ chối được chấp nhận (M09) | Tác giả chưa gửi lại; công tắc duyệt trước tắt, hoặc tác giả là Owner | Đã đăng | FR-M11-13.14 |
+| Đã đăng | Owner hoặc Group Mod gỡ khỏi nhóm | Người gỡ là Group Mod thì bài không phải của Owner, Group Mod khác (BR-M11-05) | Đã đăng, mang dấu bị gỡ khỏi nhóm | FR-M11-14.01 |
 
 ### 5.21 Giao tiếp với module khác
 
@@ -775,10 +778,12 @@ Module List và bảng MoSCoW Summary của module-registry khớp nhau: Should 
 | Cung cấp | M04 | Quyền bình luận theo thành viên nhóm; nhóm Private chặn bình luận của người ngoài; nhóm chuyển Private chặn tương tác | FR-M11-03.07, FR-M11-03.08, FR-M11-02.03 |
 | Cung cấp | M05 | Bài nhóm Public tính vào Trending, bài nhóm Private không tính | FR-M11-12.12, FR-M11-12.13 |
 | Cung cấp | M06 | Nhóm, chế độ Public, Private, thành viên nhóm, việc nhóm đổi sang Private, để tìm Group và lọc bài | FR-M11-02.02, FR-M11-02.04, FR-M11-03.02 |
-| Cung cấp | M07 | Sự kiện thông báo trong ứng dụng: mời (kèm link mời), yêu cầu tham gia mới (tới Owner, Group Mod), yêu cầu được chấp nhận, bổ nhiệm Group Mod, kick, trở thành Owner, bài, bình luận bị gỡ khỏi nhóm; quyền xem nội dung nhóm Private | FR-M11-05.02, FR-M11-06.04, FR-M11-06.07, FR-M11-08.03, FR-M11-09.06, FR-M11-10.07, FR-M11-11.07, FR-M11-14.06 |
+| Cung cấp | M07 | Sự kiện thông báo trong ứng dụng: mời (kèm link mời), yêu cầu tham gia mới (tới Owner, Group Mod), yêu cầu được chấp nhận, bổ nhiệm Group Mod, kick, trở thành Owner, bài, bình luận bị gỡ khỏi nhóm; quyền xem nội dung nhóm Private; bài nhóm được đăng hoặc bị nhóm từ chối qua cổng duyệt (dùng chung sự kiện bài được đăng, bị từ chối của M03) | FR-M11-12.05, FR-M11-12.06, FR-M11-13.05, FR-M11-13.06, FR-M11-05.02, FR-M11-06.04, FR-M11-06.07, FR-M11-08.03, FR-M11-09.06, FR-M11-10.07, FR-M11-11.07, FR-M11-14.06 |
 | Dùng | M08 | Trạng thái kiểm duyệt của nhóm (Bình thường, Bị khóa, Bị ẩn); báo cáo và can thiệp của Mod, Admin với nhóm và nội dung nhóm; vụ báo cáo là nơi Mod, Admin xem nội dung nhóm Private | FR-M11-16.01, FR-M11-16.04, FR-M11-16.06, FR-M11-16.07, FR-M11-14.04, FR-M11-03.12 |
 | Cung cấp | M08 | Danh tính thật của bài ẩn danh; nhóm Private chặn báo cáo của người ngoài | FR-M11-03.10, FR-M11-02.03 |
-| Cung cấp | M09 | Quyết định kiểm duyệt cấp nhóm không khiếu nại được; bài nhóm bị AI tự từ chối khiếu nại được như bài thường | FR-M11-13.07, FR-M11-14.03, FR-M11-13.12 |
+| Cung cấp | M09 | Quyết định kiểm duyệt cấp nhóm không khiếu nại được; bài nhóm bị AI tự từ chối khiếu nại được như bài thường, được chấp nhận thì đi tiếp qua cổng duyệt của nhóm | FR-M11-13.07, FR-M11-14.03, FR-M11-13.12, FR-M11-13.14 |
+| Cung cấp | M13 | Bài nhóm chuyển sang Đã đăng qua cổng duyệt của nhóm, để tạo embedding như mọi bài Đã đăng | FR-M11-12.05, FR-M11-12.06, FR-M11-13.05, FR-M11-13.14 |
+| Cung cấp | M15 | Bài bị gỡ khỏi nhóm giữ trạng thái đăng (dấu bị gỡ khỏi nhóm), để thống kê nội dung đếm theo trạng thái đăng của bài | FR-M11-14.01 |
 | Dùng | M10 | Cờ tính năng Group | FR-M11-17.01, FR-M11-17.03 |
 | Cung cấp | M12 | Nhóm bị xóa, thành viên rời hoặc bị kick, nội dung bị gỡ khỏi nhóm, để M12 không trừ điểm | FR-M11-15.03, FR-M11-09.05, FR-M11-10.02, FR-M11-14.07 |
 | Cung cấp | M12 | Quyền vote bài nhóm: thành viên vote bài nhóm mình; người ngoài nhóm đã đăng nhập vote bài nhóm Public; nhóm Private (kể cả vừa chuyển Private) và nhóm Bị khóa chặn vote | FR-M11-03.07, FR-M11-03.08, FR-M11-03.13, FR-M11-02.03, FR-M11-16.04 |
@@ -809,6 +814,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-21 | Chốt sau 7 bước; câu trả lời bước 6 và sửa ở bước 7 (bài của Owner không qua duyệt của nhóm) ghi ở DEC-229–240 | Phạm Văn Đức |
 | 1.1 | 2026-10-23 | Rà lại với register tới DEC-247: thêm dòng Cung cấp M12 về quyền vote bài nhóm, khớp FR-M12. Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-24 | Đối chiếu với FR-M14 (DEC-258, DEC-261, DEC-262): bài nhóm Public vào tab Following, bài nhóm Private vẫn không ra feed chính kể cả tab Following (BR-M11-14); tab Group, tab Following là lối vào khi cờ Group tắt (FR-M11-17.07, BR-M11-29); dòng Cung cấp M14 thêm bài nhóm cho tab Following và bài đăng ẩn danh. Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): gỡ khỏi nhóm là dấu, bài giữ trạng thái đăng (DEC-270: thuật ngữ, dữ liệu, bảng trạng thái, thêm dòng Cung cấp M15); bài nhóm bị AI từ chối được chấp nhận khiếu nại đi qua cổng duyệt của nhóm (DEC-271: thêm FR-M11-13.14, BR-M11-38, bảng trạng thái, giao tiếp M09); dòng Cung cấp M07 và dòng mới Cung cấp M13 gồm bài nhóm được đăng, bị từ chối qua cổng duyệt; C.1, C.2. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -965,8 +971,9 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M11-13.11 | DEC-237 | Nói thẳng | — |
 | FR-M11-13.12 | DEC-237 | Nói thẳng | — |
 | FR-M11-13.13 | DEC-237, DEC-240 | Nói thẳng | — |
+| FR-M11-13.14 | DEC-271, DEC-237, DEC-104, DEC-240 | Nói thẳng | — |
 | FR-M11-14 | DEC-102, DEC-109 | Nói thẳng | — |
-| FR-M11-14.01 | DEC-102, DEC-231 | Nói thẳng | — |
+| FR-M11-14.01 | DEC-102, DEC-231, DEC-270 | Nói thẳng | — |
 | FR-M11-14.02 | DEC-102 | Nói thẳng | — |
 | FR-M11-14.03 | DEC-109, DEC-115 | Nói thẳng | — |
 | FR-M11-14.04 | DEC-104, QA-016 | Nói thẳng | — |
@@ -1037,7 +1044,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M11-35 | DEC-237, QA-230 | Nói thẳng | — |
 | BR-M11-36 | DEC-238 | Nói thẳng | — |
 | BR-M11-37 | DEC-065, DEC-231, DEC-237, DEC-238 | Nói thẳng | — |
-| BR-M11-38 | DEC-237 | Nói thẳng | — |
+| BR-M11-38 | DEC-237, DEC-271 | Nói thẳng | — |
 | BR-M11-39 | DEC-237, DEC-240 | Nói thẳng | — |
 | BR-M11-40 | DEC-240 | Nói thẳng | — |
 
@@ -1324,7 +1331,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | MR-A05 | Nhắc tới | Trùng với DEC-137 | — | Nhóm D. Dùng chung; không quy định hành vi M11|
 | DEC-229 | Sở hữu | Hiện hành | FR-M11-03.18, FR-M11-05.05, BR-M11-12 | Nhóm A. Người được mời theo luồng tham gia; giải mâu thuẫn QA-044, F-GRP-07 với DEC-110 |
 | DEC-230 | Sở hữu | Sửa một phần bởi DEC-240 | FR-M11-12.06, FR-M11-12.14, FR-M11-12.15, BR-M11-18, BR-M11-19 | Nhóm A. Bài nhóm không có điểm quét: AI tắt, tác giả Admin theo công tắc; quét lỗi chờ nhóm duyệt |
-| DEC-231 | Sở hữu | Hiện hành | FR-M11-14.01, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-30, BR-M11-37 | Nhóm A. Gỡ khỏi nhóm: một thao tác, xóa mềm, thông báo, không trừ điểm, theo thứ bậc |
+| DEC-231 | Sở hữu | Sửa một phần bởi DEC-270 | FR-M11-14.01, FR-M11-14.05, FR-M11-14.06, FR-M11-14.07, FR-M11-14.08, BR-M11-05, BR-M11-30, BR-M11-37 | Nhóm A. Gỡ khỏi nhóm: một thao tác, xóa mềm, thông báo, không trừ điểm, theo thứ bậc |
 | DEC-232 | Sở hữu | Hiện hành | FR-M11-11.01, FR-M11-11.05, BR-M11-26 | Nhóm A. Mọi ban, vô hiệu hóa, xóa đều chuyển Owner ngay; Owner cũ là Member |
 | DEC-233 | Sở hữu | Sửa một phần bởi DEC-240 | FR-M11-03.11, FR-M11-03.12, FR-M11-13.09, BR-M11-33 | Nhóm A. Mod, Admin ngoài nhóm chỉ xem nhóm Private trong vụ báo cáo; hàng chờ nhóm chỉ Owner, Group Mod |
 | DEC-234 | Sở hữu | Hiện hành | FR-M11-02.12, FR-M11-02.13, FR-M11-03.13, BR-M11-13, BR-M11-15 | Nhóm A. Người ngoài tương tác bài nhóm Public; "đã hiện" khi chuyển Private |
@@ -1363,6 +1370,12 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-240 | Sở hữu | Hiện hành | FR-M11-12.01, FR-M11-12.03, FR-M11-12.04, FR-M11-12.05, FR-M11-12.06, FR-M11-12.14, FR-M11-12.15, FR-M11-12.16, FR-M11-12.17, FR-M11-12.18, FR-M11-12.19, FR-M11-12.20, FR-M11-13.13, BR-M11-18, BR-M11-19, BR-M11-33, BR-M11-39, BR-M11-40 | Nhóm A. Bài của Owner không qua duyệt của nhóm; điểm 0.5–< 0.9 hoặc quét lỗi vào hàng chờ Mod hệ thống |
 | ISS-371 | Sở hữu | Trùng với DEC-240 | — | Nhóm A. Vấn đề dẫn tới DEC-240 |
 | QA-433 | Sở hữu | Trùng với DEC-240 | — | Nhóm A. Câu trả lời của stakeholder cho DEC-240 |
+| DEC-270 | Sở hữu | Hiện hành | FR-M11-14.01 | Rà soát chéo 2026-10-24. Gỡ khỏi nhóm là dấu, bài giữ trạng thái đăng; M15 đếm theo trạng thái đó |
+| DEC-271 | Sở hữu | Hiện hành | FR-M11-13.14, BR-M11-38 | Rà soát chéo 2026-10-24. Bài nhóm bị AI từ chối, được chấp nhận khiếu nại thì đi qua cổng duyệt của nhóm |
+| QA-476 | Sở hữu | Trùng với DEC-270 | — | Rà soát chéo 2026-10-24. Câu trả lời của stakeholder |
+| QA-477 | Sở hữu | Trùng với DEC-271 | — | Rà soát chéo 2026-10-24. Câu trả lời của stakeholder |
+| ISS-414 | Sở hữu | Trùng với DEC-270 | — | Rà soát chéo 2026-10-24. Câu hỏi rà soát chéo, đã có DEC-270 |
+| ISS-415 | Sở hữu | Trùng với DEC-271 | — | Rà soát chéo 2026-10-24. Câu hỏi rà soát chéo, đã có DEC-271 |
 
 ### C.2 Chuỗi quyết định
 
@@ -1392,3 +1405,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-035 → DEC-053 → DEC-209 | Tìm Group khớp theo tên (bất kỳ vị trí, bỏ dấu, gần đúng), không khớp mô tả. |
 | QA-011 → DEC-171, DEC-206, DEC-208 (DEC-171, DEC-206 ngoài bảng nguồn) | Phần GRP của Guest còn hiệu lực: xem danh sách, mô tả, nội dung nhóm Public; nhóm Private ẩn hoàn toàn. Các DEC sau chỉ sửa phần hồ sơ, tóm tắt AI, tìm bài của Guest. |
 | DEC-115 → DEC-198, DEC-200, DEC-202 (ngoài bảng nguồn) | Khiếu nại xóa nội dung chỉ cho thao tác của Mod, Admin hệ thống; quyết định cấp nhóm không khiếu nại (DEC-109). |
+| DEC-231 → DEC-270 | Gỡ khỏi nhóm không tạo trạng thái đăng mới: bài giữ trạng thái đăng (thường là Đã đăng), mang dấu "bị gỡ khỏi nhóm"; hiển thị, không khôi phục, không trừ điểm, không khiếu nại như DEC-231; M15 đếm theo trạng thái đăng (rà soát chéo 2026-10-24). |
+| DEC-237 (L11), DEC-198 → DEC-271 | Bài nhóm bị AI tự từ chối, khiếu nại qua M09 được chấp nhận: đi tiếp qua cổng duyệt của nhóm như bài có điểm quét dưới 0.5, không quét lại (công tắc duyệt trước bật → chờ nhóm duyệt; tắt, hoặc bài của Owner → Đã đăng). |

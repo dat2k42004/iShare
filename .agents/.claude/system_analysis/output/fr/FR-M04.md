@@ -2,11 +2,11 @@
 module: M04
 ten_module: Comment
 ma_tai_lieu: FR-M04
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M04 Comment
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M04 — Comment |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.4 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -101,7 +101,7 @@ trích dẫn), chỉ nhận upvote để đánh giá mức độ hữu ích củ
 | Bình luận hiển thị bình thường | Bình luận chưa bị xóa và ở trạng thái kiểm duyệt Bình thường. |
 | Số bình luận của bài | Số bình luận gốc và trả lời đang hiển thị bình thường của bài; không tính dấu "[Bình luận đã bị xóa]" và bình luận bị ẩn. |
 | Thông báo xử lý | Thông báo kết quả xử lý báo cáo gửi cho người vi phạm (M08) và thông báo "Bình luận của bạn đã bị ẩn" khi AI ẩn bình luận (M07). |
-| Khóa bình luận, Khóa toàn bộ | Mức khóa của bài viết (M03). Cả hai mức chặn bình luận mới trên bài. |
+| Khóa bình luận, Khóa toàn bộ | Mức khóa của bài viết (M03). Cả hai mức chặn bình luận mới trên bài; Khóa toàn bộ còn chặn upvote và rút upvote trên bài và trên mọi bình luận của bài (M03, M12). |
 | Mức cảnh cáo HEAVY | Mức cảnh cáo nặng nhất (5–6 lần cảnh cáo, M08); trong thời gian thử thách, người dùng không tạo được bình luận mới. |
 
 ### 2.2 Viết tắt
@@ -117,7 +117,7 @@ trích dẫn), chỉ nhận upvote để đánh giá mức độ hữu ích củ
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -412,7 +412,7 @@ cột MoSCoW ở dòng M04 của bảng Module List bị lệch nên không dùn
 | Cung cấp | M15 | Bình luận mới theo thời gian để thống kê | FR-M04-02.01 |
 | Dùng | M01 | Cách hiển thị tác giả bình luận theo trạng thái tài khoản (vô hiệu hóa, đã xóa); danh sách gợi ý và thông báo nhắc tên | — |
 | Dùng | M02 | Avatar, tên hiển thị của tác giả bình luận | — |
-| Dùng | M03 | Bài đang hiển thị với người xem; mức khóa của bài; bài bị xóa (bình luận giữ cùng bài) | FR-M04-01.11, FR-M04-01.13, FR-M04-02.06, FR-M04-03.07, FR-M04-04.09, FR-M04-05.08, FR-M04-05.11 |
+| Dùng | M03 | Bài đang hiển thị với người xem; mức khóa của bài (Khóa toàn bộ chặn cả upvote bình luận, M12); bài bị xóa (bình luận giữ cùng bài) | FR-M04-01.11, FR-M04-01.13, FR-M04-02.06, FR-M04-03.07, FR-M04-04.09, FR-M04-05.08, FR-M04-05.11 |
 | Dùng | M07 | Gửi thông báo bình luận mới, trả lời, nhắc tên, upvote bình luận, "Bình luận của bạn đã bị ẩn" (chỉ trong ứng dụng); tắt thông báo theo bài | FR-M04-06.01 |
 | Dùng | M08 | Quét AI theo tốc độ trả lời và ẩn bình luận; báo cáo bình luận; Mod, Admin ẩn bình luận; thông báo kết quả xử lý; mức cảnh cáo HEAVY | FR-M04-01.09, FR-M04-02.07, FR-M04-03.08, FR-M04-06.02 |
 | Dùng | M09 | Khiếu nại cảnh cáo, ban; bình luận không có khiếu nại riêng | FR-M04-06.03 |
@@ -445,6 +445,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-20 | Đối chiếu với FR-M06: ghi chuỗi DEC-208, DEC-211 ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231, DEC-234, DEC-235, DEC-237): "Dùng M11" ghi rõ người ngoài bình luận bài nhóm Public, gỡ bình luận khỏi nhóm, nhóm Bị khóa, người đã rời nhóm Private; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: bình luận của Admin không bị quét, không báo cáo được (DEC-195, BR-M04-12, dòng Cung cấp M08); đóng TBD-M04-01 (DEC-201); ghi chú thời điểm trừ điểm bình luận theo DEC-241, DEC-231. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): thuật ngữ Khóa toàn bộ và dòng "Dùng M03" ghi thêm việc chặn upvote bình luận (DEC-246); sửa ghi chú C.1 về theo dõi bài; C.2; không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -726,7 +727,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-032 | Sở hữu | Sửa một phần bởi DEC-040 | FR-M04-03, BR-M04-03 | Nhóm B. Độ sâu bình luận "1 cấp, không reply to reply" (Phase 4); đối chiếu DEC-040 ở bước 2 |
 | QA-035 | Nhắc tới | Sửa một phần bởi DEC-053 | Không áp dụng: M06: bình luận không được tìm kiếm | Nhóm B. M06: bình luận không được tìm kiếm |
 | QA-037 | Nhắc tới | Bị thay bởi DEC-053 | — | Nhóm B. M06: bình luận chỉ FTS (khác DEC-053) |
-| QA-043 | Phụ thuộc | Hiện hành | Chuyển M07 | Nhóm B. M07: theo dõi bài nhận thông báo bình luận |
+| QA-043 | Phụ thuộc | Hiện hành | Chuyển M07 | Nhóm B. M07: theo dõi người dùng, Topic (theo dõi bài viết đã bỏ, DEC-215) |
 | QA-065 | Phụ thuộc | Trùng với DEC-019 | — | Nhóm B. M01: bình luận của tài khoản vô hiệu hóa |
 | QA-066 | Phụ thuộc | Sửa một phần bởi DEC-149 | Chuyển M01 | Nhóm B. M01: bình luận sau khi tài khoản bị xóa |
 | QA-090 | Sở hữu | Trùng với DEC-037 | — | Nhóm B. Lịch sử sửa bình luận: chỉ thời điểm sửa, không có giao diện lịch sử |
@@ -874,3 +875,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | OPEN-012 → DEC-201 | Bình luận bị ẩn không hiện lại khi cảnh cáo, ban gắn với nó bị lật. |
 | DEC-077 → DEC-195 | Bình luận của Admin không bị AI quét và không báo cáo được; phần còn lại của việc quét sau khi đăng giữ nguyên (M08). |
 | DEC-113 → DEC-231, DEC-241 | Bình luận do tác giả tự xóa bị trừ điểm ngay lúc xóa (không chờ 7 ngày như bài); bình luận bị AI ẩn ≥ 0,9 trừ ngay, 0,5–< 0,9 trừ khi Mod kết luận vi phạm; gỡ khỏi nhóm không trừ. Việc trừ điểm thuộc M12. |
+| DEC-167 → DEC-246 | Khóa toàn bộ chặn upvote và rút upvote trên bài và trên mọi bình luận của bài (M03 FR-M03-14.06, M12); yêu cầu bình luận của M04 không đổi (rà soát chéo 2026-10-24). |
+| DEC-195 → DEC-240; QA-227 → DEC-260 | Không đổi hành vi M04: bài của Owner nhóm không qua duyệt của nhóm (M11); tab mặc định của trang chủ (M14). |

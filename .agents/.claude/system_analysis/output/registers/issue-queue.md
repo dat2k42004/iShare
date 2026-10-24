@@ -634,3 +634,10 @@
 | ISS-411 | Danh sách xác nhận thống kê nội dung: trạng thái đăng hiện, bài nhóm và ẩn danh, mốc thời gian, bài nhiều Topic, bình luận bị ẩn hoặc xóa | Closed | Xem DEC-268 |
 | ISS-412 | Danh sách xác nhận thống kê kiểm duyệt: mức của cảnh cáo, cảnh cáo bị bỏ hoặc lật, khiếu nại Chờ xét, nhóm trạng thái báo cáo | Closed | Xem DEC-267 |
 | ISS-413 | Bài Đã đăng bị ẩn vì tác giả vô hiệu hóa, xóa tài khoản hoặc vì nhóm bị ẩn: thống kê nội dung đếm thế nào | Closed | Xem DEC-269 |
+
+## Cross-module review — 2026-10-24 | Status: CLOSED ✓
+
+| ID | Title | Status | Decision |
+|----|-------|--------|----------|
+| ISS-414 | Bài bị Owner, Group Mod gỡ khỏi nhóm thuộc trạng thái đăng nào: M11 ghi vừa là trạng thái vừa là dấu, M03 không có trạng thái này; thống kê nội dung (M15) đếm vào nhóm nào | Closed | Xem DEC-270 |
+| ISS-415 | Bài nhóm bị AI tự từ chối, khiếu nại được chấp nhận: lên nhóm ngay (BR-M09-24) hay qua cổng duyệt của nhóm khi công tắc duyệt trước bật | Closed | Xem DEC-271 |

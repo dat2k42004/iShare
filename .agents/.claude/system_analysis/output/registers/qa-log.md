@@ -1350,3 +1350,12 @@
 | QA-473 | ISS-411: Danh sách xác nhận Q-09 (a)–(e) | (a) "không hiện Nháp" → bài Nháp không được đếm ở ô nào của trang nội dung; (e) hỏi "chưa hiểu cái này thống kê gì?", sau khi giải thích: "ok đồng ý các đề xuất" — đếm mọi bình luận đăng trong khoảng, kể cả về sau bị ẩn hoặc xóa; (b), (c), (d) "ok" — theo đề xuất |
 | QA-474 | ISS-412: Danh sách xác nhận Q-10 (a)–(d) | "ok" — theo đề xuất |
 | QA-475 | ISS-413: Bài bị ẩn theo tài khoản tác giả hoặc theo nhóm có được đếm ở thống kê nội dung không? | "A nhé" — đếm theo trạng thái đăng của bài như mọi bài khác; không bỏ, không tách nhóm riêng |
+
+---
+
+## Cross-module review — 2026-10-24 (QA-476 → QA-477)
+
+| ID | Question | Answer |
+|----|----------|--------|
+| QA-476 | ISS-414: Bài bị gỡ khỏi nhóm thuộc trạng thái đăng nào? | "ok chọn A" — bài giữ trạng thái đăng của nó, kèm dấu "bị gỡ khỏi nhóm"; không thêm trạng thái mới; thống kê nội dung đếm theo trạng thái đăng của bài |
+| QA-477 | ISS-415: Bài nhóm bị AI từ chối, khiếu nại được chấp nhận thì lên nhóm ngay hay chờ nhóm duyệt? | "B nhé" — khiếu nại chỉ gỡ kết luận của AI; nhóm bật duyệt trước thì bài vào hàng chờ duyệt của nhóm, nhóm tắt hoặc bài của Owner thì Đã đăng ngay |

@@ -2,11 +2,11 @@
 module: M15
 ten_module: Analytics & Stats
 ma_tai_lieu: FR-M15
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-269, QA-475, ISS-413, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M15 Analytics & Stats
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M15 — Analytics & Stats |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
+| Phiên bản | 1.1 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -105,7 +105,7 @@ Mọi số liệu lấy từ dữ liệu nghiệp vụ sẵn có, tính tại l�
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-269, QA-475, ISS-413, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -230,7 +230,7 @@ của module-registry: Could gồm M14, M15). Không có yêu cầu ngoại lệ
 | FR-M15-02.24 | Hệ thống phải đếm ở mọi chỉ số của trang các đối tượng được tạo, hoặc các sự kiện xảy ra, trong khoảng đã chọn, và xếp nhóm theo trạng thái của đối tượng tại lúc xem (BR-M15-18). |
 | FR-M15-02.25 | Khi Admin chọn 7 ngày hoặc 30 ngày, hệ thống phải lấy khoảng từ 00:00 của ngày thứ 7 hoặc thứ 30 tính lùi cả hôm nay, giờ Việt Nam, tới lúc xem (BR-M15-04). |
 | FR-M15-02.26 | Hệ thống phải chia biểu đồ xu hướng theo giờ khi chọn Hôm nay, theo ngày khi chọn 7 ngày hoặc 30 ngày, theo tháng khi chọn Toàn thời gian (BR-M15-19). |
-| FR-M15-02.27 | Hệ thống phải đếm bài theo trạng thái đăng, trạng thái kiểm duyệt và Topic của chính bài, kể cả bài bị ẩn vì tác giả ở trạng thái DEACTIVATED, DELETED hoặc vì nhóm của bài bị ẩn (BR-M15-21). |
+| FR-M15-02.27 | Hệ thống phải đếm bài theo trạng thái đăng, trạng thái kiểm duyệt và Topic của chính bài, kể cả bài bị ẩn vì tác giả ở trạng thái DEACTIVATED, DELETED, vì nhóm của bài bị ẩn, hoặc bài bị gỡ khỏi nhóm (M11) (BR-M15-21). |
 
 ### 5.3 FR-M15-03 Xem thống kê kiểm duyệt
 
@@ -277,7 +277,7 @@ của module-registry: Could gồm M14, M15). Không có yêu cầu ngoại lệ
 | BR-M15-06 | Sự kiện | Mọi chỉ số lấy từ dữ liệu nghiệp vụ các module đã có. Module không ghi thêm dữ liệu hoạt động của người dùng và không có chỉ số người dùng hoạt động (DAU, WAU, MAU). | — |
 | BR-M15-07 | Sự kiện | Trang thống kê người dùng gồm: số tài khoản theo trạng thái (Chờ xác minh email, Chờ hoàn tất hồ sơ, ACTIVE, DEACTIVATED, BANNED, DELETED); xu hướng đăng ký mới; số tài khoản theo vai trò (USER, MODERATOR, ADMIN); theo Lớp/Khối trên hồ sơ (10, 11, 12, Chưa khai); theo mức cảnh cáo (Sạch, LIGHT, MEDIUM, HEAVY, BANNED). | — |
 | BR-M15-08 | Sự kiện | Trang thống kê nội dung gồm: số bài theo trạng thái đăng (Chờ duyệt, Đã đăng, Tự ẩn, Bị từ chối, Đã xóa, Đã xóa hẳn); số bài theo trạng thái kiểm duyệt (Bình thường, Bị gắn cờ, Bị Mod ẩn); xu hướng bài đăng mới; số bài theo Topic; xu hướng bình luận mới; tỷ lệ Topic gợi ý được giữ lại. | — |
-| BR-M15-09 | Tính toán | Tỷ lệ Topic gợi ý được giữ lại = tổng số Topic AI gợi ý mà tác giả giữ lại ÷ tổng số Topic AI gợi ý, trên các phản hồi gợi ý Topic được ghi trong khoảng thời gian chọn, kể cả phản hồi của tài khoản đã xóa. Khoảng không có phản hồi nào thì không có tỷ lệ. Do M13 tính, M15 hiển thị. | Ba phản hồi trong khoảng: {Toán, Vật lý, Hóa} → {Toán, Hóa} (giữ 2/3); {Ngữ văn} → {Ngữ văn, Lịch sử} (giữ 1/1); {Tin học, Toán} → {Tin học, Toán} (giữ 2/2): tỷ lệ = 5/6 ≈ 83,3%. Khoảng Hôm nay chưa có phản hồi nào: không có dữ liệu. |
+| BR-M15-09 | Tính toán | Tỷ lệ Topic gợi ý được giữ lại tính theo BR-M13-29 (M13 sở hữu cách tính), trên các phản hồi gợi ý Topic được ghi trong khoảng thời gian chọn, kể cả phản hồi của tài khoản đã xóa; khoảng không có phản hồi nào thì không có tỷ lệ. M13 tính, M15 hiển thị. | Ba phản hồi trong khoảng: {Toán, Vật lý, Hóa} → {Toán, Hóa} (giữ 2/3); {Ngữ văn} → {Ngữ văn, Lịch sử} (giữ 1/1); {Tin học, Toán} → {Tin học, Toán} (giữ 2/2): tỷ lệ = 5/6 ≈ 83,3%. Khoảng Hôm nay chưa có phản hồi nào: không có dữ liệu. |
 | BR-M15-10 | Sự kiện | Trang thống kê kiểm duyệt gồm: số báo cáo theo trạng thái; số báo cáo theo lý do; số cảnh cáo đã ra theo mức, theo thời gian; số lần ban và gỡ ban theo thời gian; số khiếu nại theo loại (ban, cảnh cáo, bài viết) và theo kết quả (Chờ xét, Chấp nhận, Từ chối). | — |
 | BR-M15-11 | Sự kiện | Báo cáo ở trạng thái Mở hoặc Đã xử lý; vụ đã xử lý có kết luận Có xử lý hoặc Bác bỏ. Mục do AI tạo (người báo cáo "Hệ thống (AI)") là một báo cáo. | — |
 | BR-M15-12 | Sự kiện | Lý do báo cáo theo loại đối tượng. Bài viết (8): Spam/Quảng cáo; Nội dung sai/hiểu nhầm; Đạo văn/Vi phạm bản quyền; Quấy rối/Bắt nạt; Ngôn từ thù ghét/Phân biệt; Nội dung người lớn/Không phù hợp; Bạo lực/Đe dọa; Khác. Bình luận (7): như bài viết, bỏ Đạo văn/Vi phạm bản quyền. Người dùng (2): Quấy rối/Bắt nạt có hệ thống; Khác. Nhóm (4): Nội dung người lớn/Không phù hợp; Group giả mạo; Quấy rối/Bắt nạt có hệ thống; Khác. | — |
@@ -289,7 +289,7 @@ của module-registry: Could gồm M14, M15). Không có yêu cầu ngoại lệ
 | BR-M15-18 | Ràng buộc | Mọi chỉ số đếm các đối tượng được tạo, hoặc các sự kiện xảy ra, trong khoảng đã chọn, và xếp nhóm theo trạng thái của đối tượng tại lúc xem. Toàn thời gian cho số toàn hệ thống. | 1.000 tài khoản (950 ACTIVE, 30 DEACTIVATED, 20 BANNED); 50 tài khoản tạo trong 7 ngày, nay 48 ACTIVE, 2 BANNED. Toàn thời gian: 950 / 30 / 20. 7 ngày: 48 / 0 / 2. |
 | BR-M15-19 | Ràng buộc | Biểu đồ xu hướng: Hôm nay mỗi cột một giờ; 7 ngày, 30 ngày mỗi cột một ngày; Toàn thời gian mỗi cột một tháng; ranh giới theo giờ Việt Nam. | Xem lúc 15:00 ngày 10/10: Hôm nay 16 cột 00h…15h; 7 ngày 7 cột 04/10…10/10; 30 ngày 30 cột 11/09…10/10; hệ thống chạy từ 01/03 thì Toàn thời gian 8 cột T3…T10. |
 | BR-M15-20 | Ràng buộc | Thống kê người dùng: ô trạng thái có sáu nhóm, mỗi tài khoản đúng một nhóm — Chờ xác minh email (ACTIVE, chưa xác minh email), Chờ hoàn tất hồ sơ (ACTIVE, đã xác minh email hoặc tài khoản Google, chưa xong bước 3), ACTIVE (đã xong bước 3), DEACTIVATED, BANNED, DELETED. Đăng ký mới đếm mọi tài khoản được tạo. Phân bố vai trò, Lớp/Khối, mức cảnh cáo chỉ đếm tài khoản đã xong bước 3 và không DELETED; Lớp/Khối có nhóm Chưa khai; ở mức cảnh cáo, tài khoản BANNED chỉ ở nhóm BANNED, tài khoản ADMIN ở nhóm Sạch. | 60 tài khoản tạo trong 7 ngày: trạng thái 6 / 4 / 48 / 0 / 1 / 1 (Chờ xác minh email / Chờ hoàn tất hồ sơ / ACTIVE / DEACTIVATED / BANNED / DELETED); đăng ký mới 60; vai trò USER 49 (48 ACTIVE + 1 BANNED, không có Mod). |
-| BR-M15-21 | Ràng buộc | Thống kê nội dung: bài Nháp không được đếm ở chỉ số nào; bài nhóm, bài ẩn danh đếm như bài khác; ô trạng thái đăng, trạng thái kiểm duyệt, Topic xếp bài theo thời điểm tạo; xu hướng bài viết mới xếp theo thời điểm đăng; bài nhiều Topic đếm một lần ở mỗi Topic; xu hướng bình luận mới đếm mọi bình luận đăng trong khoảng, kể cả về sau bị ẩn hoặc bị xóa; bài bị ẩn vì tác giả DEACTIVATED, DELETED hoặc vì nhóm bị ẩn vẫn được đếm theo trạng thái của chính bài. | 7 ngày: tạo 30 bài không phải Nháp, 25 đã đăng; thêm 2 bài tạo tuần trước, đăng tuần này → ô trạng thái đăng tổng 30, xu hướng bài viết mới tổng 27. Bài {Toán, Vật lý}: Toán +1, Vật lý +1. Ngày 05/10 có 62 bình luận, 3 về sau bị xóa hoặc ẩn → cột 05/10 vẫn 62. 500 bài Đã đăng, 15 của tài khoản đã vô hiệu hóa hoặc xóa, 5 trong nhóm bị ẩn → Đã đăng 500. |
+| BR-M15-21 | Ràng buộc | Thống kê nội dung: bài Nháp không được đếm ở chỉ số nào; bài nhóm, bài ẩn danh đếm như bài khác; ô trạng thái đăng, trạng thái kiểm duyệt, Topic xếp bài theo thời điểm tạo; xu hướng bài viết mới xếp theo thời điểm đăng; bài nhiều Topic đếm một lần ở mỗi Topic; xu hướng bình luận mới đếm mọi bình luận đăng trong khoảng, kể cả về sau bị ẩn hoặc bị xóa; bài bị ẩn vì tác giả DEACTIVATED, DELETED, vì nhóm bị ẩn, hoặc bài bị gỡ khỏi nhóm (giữ trạng thái đăng, M11) vẫn được đếm theo trạng thái của chính bài. | 7 ngày: tạo 30 bài không phải Nháp, 25 đã đăng; thêm 2 bài tạo tuần trước, đăng tuần này → ô trạng thái đăng tổng 30, xu hướng bài viết mới tổng 27. Bài {Toán, Vật lý}: Toán +1, Vật lý +1. Ngày 05/10 có 62 bình luận, 3 về sau bị xóa hoặc ẩn → cột 05/10 vẫn 62. 500 bài Đã đăng, 15 của tài khoản đã vô hiệu hóa hoặc xóa, 5 trong nhóm bị ẩn → Đã đăng 500. |
 | BR-M15-22 | Ràng buộc | Thống kê kiểm duyệt: đếm theo từng báo cáo, không theo vụ; mục do AI tạo, kể cả yêu cầu ban của hệ thống, là một báo cáo; lý do tách theo loại đối tượng; cảnh cáo xếp theo mức tài khoản đạt ngay sau cảnh cáo đó, kể cả cảnh cáo về sau bị bỏ hoặc bị lật; ban đếm mọi ban ra trong khoảng, tách tạm thời và vĩnh viễn, kể cả ban về sau bị lật; gỡ ban chỉ đếm thao tác gỡ của Mod, Admin; khiếu nại theo kết quả có ba nhóm Chờ xét, Chấp nhận, Từ chối. | Bài X bị 5 người báo cáo Spam (vụ Bác bỏ); bình luận Y bị 1 người và AI báo cáo Quấy rối/Bắt nạt (vụ Mở); người dùng Z bị báo cáo Khác (Có xử lý) → Mở 2, Bác bỏ 5, Có xử lý 1; lý do: Bài viết – Spam 5, Bình luận – Quấy rối/Bắt nạt 2, Người dùng – Khác 1. Cảnh cáo thứ 3 của một người: MEDIUM. 30 ngày: 10 ban (8 tạm thời, 2 vĩnh viễn, 1 về sau bị lật), Mod gỡ 2, 3 ban hết hạn → Ban 10, Gỡ ban 2. |
 
 ### 5.5 Dữ liệu nghiệp vụ
@@ -346,6 +346,7 @@ Không áp dụng: module không có thực thể có trạng thái riêng và k
 | Dùng | M05 | Danh mục Topic, liên kết bài viết–Topic, kết quả gộp Topic | FR-M15-02.04, FR-M15-02.05 |
 | Dùng | M13 | Tỷ lệ Topic gợi ý được giữ lại theo khoảng thời gian | FR-M15-02.07, FR-M15-02.08, FR-M15-02.09 |
 | Dùng | M08 | Mức cảnh cáo của tài khoản; báo cáo, vụ, kết luận, cảnh cáo, ban, gỡ ban | FR-M15-01.05, FR-M15-03.01, FR-M15-03.02, FR-M15-03.03, FR-M15-03.04, FR-M15-03.05, FR-M15-03.06 |
+| Dùng | M11 | Bài bị gỡ khỏi nhóm giữ trạng thái đăng (dấu bị gỡ khỏi nhóm) | FR-M15-02.27 |
 | Dùng | M09 | Khiếu nại theo loại và kết luận | FR-M15-03.07, FR-M15-03.08 |
 | Cung cấp | — | Không có: module chỉ đọc dữ liệu, không cung cấp gì cho module khác | — |
 
@@ -369,6 +370,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-24 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-24 | Chốt sau 7 bước; bổ sung DEC-264–269 (danh sách chỉ số cuối, bộ lọc thời gian, tài khoản được đếm, cách đếm nội dung và kiểm duyệt, bài bị ẩn theo tài khoản hoặc nhóm). Đối chiếu chéo: cập nhật dòng giao tiếp ở FR-M01 (1.9), FR-M02 (1.5), FR-M03 (1.9), FR-M08 (1.6), FR-M10 (1.3), FR-M13 (1.2); tỷ lệ Topic gợi ý: M13 tính và không có giá trị khi khoảng không có phản hồi, M15 hiển thị "không có dữ liệu" | Phạm Văn Đức |
+| 1.1 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): bài bị gỡ khỏi nhóm giữ trạng thái đăng và được đếm theo trạng thái đó (DEC-270: FR-M15-02.27, BR-M15-21); thêm dòng "Dùng M11"; BR-M15-09 trỏ cách tính sang BR-M13-29; sửa trích dẫn ở Q-11; C.1, C.2. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -422,7 +424,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M15-02.24 | DEC-265 | Nói thẳng | — |
 | FR-M15-02.25 | DEC-265, DEC-127 | Nói thẳng | — |
 | FR-M15-02.26 | DEC-265 | Nói thẳng | — |
-| FR-M15-02.27 | DEC-269, DEC-019, DEC-156, DEC-194 | Nói thẳng | Bài bị ẩn theo tài khoản tác giả (DEC-019, DEC-156) hoặc theo nhóm (DEC-194) |
+| FR-M15-02.27 | DEC-269, DEC-019, DEC-156, DEC-194, DEC-270 | Nói thẳng | Bài bị ẩn theo tài khoản tác giả (DEC-019, DEC-156), theo nhóm (DEC-194) hoặc bị gỡ khỏi nhóm (DEC-270) |
 | FR-M15-03.01 | QA-244, DEC-267, DEC-076 | Nói thẳng | "pending/resolved/dismissed" ở QA-244 ứng với trạng thái, kết luận của DEC-076 (C.2) |
 | FR-M15-03.02 | DEC-190, DEC-267 | Nói thẳng | DEC-190 "the AI entry counts as one report" |
 | FR-M15-03.03 | QA-244, DEC-267, DEC-072 | Nói thẳng | Danh sách lý do theo DEC-072 thay "5 category + Khác" ở QA-244 (C.2) |
@@ -453,7 +455,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M15-06 | QA-242, QA-255, MR-A03 | Nói thẳng | — |
 | BR-M15-07 | QA-242, DEC-266, DEC-018 | Nói thẳng | Tên trạng thái, vai trò, mức cảnh cáo theo FR-M01, FR-M08, FR-M10 |
 | BR-M15-08 | QA-243, DEC-203, DEC-268, DEC-032, DEC-161 | Nói thẳng | Tên trạng thái kiểm duyệt theo DEC-032, DEC-161 thay danh sách cũ trong QA-243 (C.2) |
-| BR-M15-09 | DEC-203, DEC-159, DEC-127 | Nói thẳng | Ví dụ lấy từ DEC-203; trùng BR-M13-29 |
+| BR-M15-09 | DEC-203, DEC-159, DEC-127 | Nói thẳng | Ví dụ lấy từ DEC-203; cách tính thuộc BR-M13-29 |
 | BR-M15-10 | QA-244, DEC-267, DEC-115, DEC-198, DEC-200, DEC-089 | Nói thẳng | Ba loại khiếu nại theo DEC-200 |
 | BR-M15-11 | DEC-076, DEC-190 | Nói thẳng | — |
 | BR-M15-12 | DEC-072 | Nói thẳng | Thay "5 category + Khác" của QA-244 (C.2) |
@@ -465,7 +467,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | BR-M15-18 | DEC-265 | Nói thẳng | Ví dụ lấy từ DEC-265 |
 | BR-M15-19 | DEC-265 | Nói thẳng | — |
 | BR-M15-20 | DEC-266 | Nói thẳng | Ví dụ lấy từ DEC-266 |
-| BR-M15-21 | DEC-268, DEC-269 | Nói thẳng | Ví dụ lấy từ DEC-268, DEC-269 |
+| BR-M15-21 | DEC-268, DEC-269, DEC-270 | Nói thẳng | Ví dụ lấy từ DEC-268, DEC-269 |
 | BR-M15-22 | DEC-267 | Nói thẳng | Ví dụ lấy từ DEC-267 |
 
 ## Phụ lục B. Câu hỏi, giả định và TBD
@@ -484,7 +486,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | Q-08 | Thiếu chi tiết | Danh sách xác nhận FR-M15-01: (a) tài khoản không khai Lớp/Khối hiện thành nhóm "Chưa khai"; (b) ở phân bố mức cảnh cáo, tài khoản BANNED chỉ nằm ở nhóm BANNED, không đếm lại ở mức cảnh cáo của nó; tài khoản Admin (không bị cảnh cáo) ở nhóm Sạch. | Theo đề xuất | ISS-410, QA-472, DEC-266 |
 | Q-09 | Thiếu chi tiết | Danh sách xác nhận FR-M15-02: (a) hiện đủ 7 trạng thái đăng, kể cả Nháp và Đã xóa hẳn; (b) bài trong nhóm, bài ẩn danh đếm như bài thường; (c) "bài viết mới" tính theo thời điểm đăng (lúc chuyển sang Đã đăng); (d) bài nhiều Topic được đếm ở mỗi Topic của nó; (e) xu hướng bình luận mới đếm mọi bình luận đăng trong khoảng, kể cả về sau bị ẩn hay bị xóa. | (a) không hiện Nháp, bài Nháp không đếm ở chỉ số nào; (b)–(e) theo đề xuất | ISS-411, QA-473, DEC-268 |
 | Q-10 | Thiếu chi tiết | Danh sách xác nhận FR-M15-03: (a) "theo mức" là mức LIGHT, MEDIUM, HEAVY tài khoản đạt ngay sau cảnh cáo đó; (b) cảnh cáo về sau bị bỏ hoặc bị lật vẫn được đếm là đã ra; (c) khiếu nại chưa kết luận hiện ở nhóm "Chờ xét" bên cạnh Chấp nhận, Từ chối. | Theo đề xuất | ISS-412, QA-474, DEC-267 |
-| Q-11 | Thiếu chi tiết | Phát sinh khi đối chiếu chéo M01, M11: bài Đã đăng nhưng bị ẩn vì tác giả vô hiệu hóa, xóa tài khoản (BR-M01-24) hoặc vì nhóm bị ẩn (BR-M11-27) đếm thế nào ở thống kê nội dung (DEC-268 chưa nói)? | Đếm theo trạng thái đăng của chính bài, không bỏ, không tách nhóm (A) | ISS-413, QA-475, DEC-269 |
+| Q-11 | Thiếu chi tiết | Phát sinh khi đối chiếu chéo M01, M11: bài Đã đăng nhưng bị ẩn vì tác giả vô hiệu hóa, xóa tài khoản (FR-M01-13.01, BR-M01-24) hoặc vì nhóm bị ẩn (BR-M11-27) đếm thế nào ở thống kê nội dung (DEC-268 chưa nói)? | Đếm theo trạng thái đăng của chính bài, không bỏ, không tách nhóm (A) | ISS-413, QA-475, DEC-269 |
 
 ### B.2 TBD
 
@@ -658,7 +660,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-265 | Sở hữu | Hiện hành | FR-M15-01.16–01.19, FR-M15-02.23–02.26, FR-M15-03.19–03.22, BR-M15-03, BR-M15-04, BR-M15-18, BR-M15-19 | Nhóm A (bước 6). Bộ lọc áp cho mọi chỉ số, mặc định Toàn thời gian, ngày lịch, đơn vị biểu đồ |
 | DEC-266 | Sở hữu | Hiện hành | FR-M15-01.01, FR-M15-01.02, FR-M15-01.04, FR-M15-01.05, FR-M15-01.15, BR-M15-07, BR-M15-20 | Nhóm A (bước 6). Tài khoản được đếm ở thống kê người dùng; mở rộng phạm vi CC-01 |
 | DEC-267 | Sở hữu | Hiện hành | FR-M15-03.01, FR-M15-03.02, FR-M15-03.03, FR-M15-03.04, FR-M15-03.05, FR-M15-03.06, FR-M15-03.08, BR-M15-10, BR-M15-22 | Nhóm A (bước 6). Cách đếm ở thống kê kiểm duyệt |
-| DEC-268 | Sở hữu | Sửa một phần bởi DEC-269 | FR-M15-02.01, FR-M15-02.03, FR-M15-02.06, FR-M15-02.19, FR-M15-02.20, FR-M15-02.21, FR-M15-02.22, BR-M15-08, BR-M15-21 | Nhóm A (bước 6). Cách đếm ở thống kê nội dung |
+| DEC-268 | Sở hữu | Sửa một phần bởi DEC-269, DEC-270 | FR-M15-02.01, FR-M15-02.03, FR-M15-02.06, FR-M15-02.19, FR-M15-02.20, FR-M15-02.21, FR-M15-02.22, BR-M15-08, BR-M15-21 | Nhóm A (bước 6). Cách đếm ở thống kê nội dung |
 | QA-465 | Sở hữu | Trùng với DEC-264 | — | Nhóm A (bước 6). Bỏ Stars per day, Popular tags |
 | QA-466 | Sở hữu | Trùng với DEC-265 | — | Nhóm A (bước 6). Bộ lọc áp cho mọi chỉ số; mặc định Toàn thời gian |
 | QA-467 | Sở hữu | Trùng với DEC-265 | — | Nhóm A (bước 6). 7 ngày, 30 ngày theo ngày lịch |
@@ -684,6 +686,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-413 | Sở hữu | Trùng với DEC-269 | — | Nhóm A (bước 7). Câu hỏi bước 7, đã có DEC-269 |
 | DEC-019 | Phụ thuộc | Sửa một phần bởi DEC-156 | FR-M15-02.27 | Nhóm C (bước 7). M01: bài của tài khoản vô hiệu hóa bị ẩn; DEC-148, DEC-149 chỉ sửa thời hạn, username, email |
 | DEC-194 | Phụ thuộc | Hiện hành | FR-M15-02.27 | Nhóm C (bước 7). M08: nhóm bị ẩn, mọi nội dung không hiện, dữ liệu giữ; DEC-235 chỉ làm rõ nhóm Bị khóa |
+| DEC-270 | Phụ thuộc | Hiện hành | FR-M15-02.27, BR-M15-21 | Rà soát chéo 2026-10-24. M11: bài bị gỡ khỏi nhóm giữ trạng thái đăng; thống kê nội dung đếm theo trạng thái đó |
 
 ### C.2 Chuỗi quyết định
 
@@ -714,3 +717,6 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-019 → DEC-148, DEC-149, DEC-156 | Bài của tài khoản DEACTIVATED, DELETED bị ẩn; DEC-148, DEC-149 (thời hạn 14 × 24 giờ, username, email), DEC-156 (danh mục dữ liệu bị xóa) không đổi việc ẩn bài. |
 | DEC-194 → DEC-235 | Nhóm bị ẩn: nhóm và mọi nội dung không hiện với ai, dữ liệu giữ; DEC-235 chỉ làm rõ nhóm Bị khóa. |
 | QA-033 → DEC-140 | Topic phẳng; Lớp/Khối là trường độc lập, tùy chọn. |
+| DEC-268, DEC-231 → DEC-270 | Bài bị gỡ khỏi nhóm giữ trạng thái đăng của nó (dấu "bị gỡ khỏi nhóm", M11), nên được đếm ở ô trạng thái đăng như mọi bài; sáu nhóm trạng thái đăng của DEC-268 không đổi (rà soát chéo 2026-10-24). |
+| DEC-161 → DEC-185 | Không đổi hành vi M15: DEC-185 nói Mod, Admin xem bài Tự ẩn trong ngữ cảnh kiểm duyệt và quét lại khi hiện lại bài đã sửa (M03); ô Tự ẩn của thống kê không đổi. |
+| DEC-198 → DEC-271 | Không đổi hành vi M15: khiếu nại vẫn đếm theo loại và kết luận; bài nhóm được chấp nhận khiếu nại được đếm theo trạng thái đăng lúc xem. |

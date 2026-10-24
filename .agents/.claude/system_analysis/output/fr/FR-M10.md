@@ -2,11 +2,11 @@
 module: M10
 ten_module: Admin Panel
 ma_tai_lieu: FR-M10
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-228, QA-420, ISS-359, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M10 Admin Panel
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M10 — Admin Panel |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -136,7 +136,7 @@ Admin. Các hằng số chính sách (thời hạn, ngưỡng) không chỉnh qu
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-228, QA-420, ISS-359, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -654,6 +654,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-24 | Đối chiếu với FR-M11, FR-M12, FR-M16: đóng TBD-M10-01 (DEC-236, DEC-245, DEC-256). Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (không có cờ cho M14; trạng thái cờ Group, Gamification) và dòng M14 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-24 | Đối chiếu với FR-M15: thêm dòng Cung cấp M15 (vai trò của tài khoản; không có cờ cho M15); sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): ghi vào C.2 các DEC sinh sau khi chốt có sửa một phần nguồn của M10 (DEC-236, DEC-240, DEC-245, DEC-248, DEC-256); không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1002,3 +1003,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | MR-M10 → DEC-221 (DEC-221–228) | Dòng module M10 có dấu sửa đổi FR M10; nội dung hiện hành theo các chuỗi trên. |
 | QA-011 → DEC-206; DEC-171, DEC-208 (ngoài bảng nguồn) | Guest không có quyền ở Admin Panel ("ADMN: Không") giữ nguyên; các sửa đổi chỉ chạm hồ sơ, tóm tắt AI, tìm kiếm. |
 | MR-M15 → DEC-203; ISS-178 (QA-241) | Bảng thống kê chỉ Admin xem thuộc M15; không chạm M10. |
+| DEC-225 → DEC-236, DEC-245, DEC-256 | Danh sách thao tác bị chặn, vẫn chạy, vẫn hiện khi cờ tắt nằm ở FR của M11 (DEC-236), M12 (DEC-245), M16 (DEC-256); quy tắc chung của M10 (BR-M10-28) không đổi (rà soát chéo 2026-10-24). |
+| DEC-129 → DEC-248; DEC-195 → DEC-240 | Không đổi hành vi M10: thu hồi tin nhắn là xóa mềm (M16); bài của Owner nhóm không qua duyệt của nhóm (M11). |

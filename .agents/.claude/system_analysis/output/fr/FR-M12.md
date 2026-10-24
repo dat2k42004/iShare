@@ -2,11 +2,11 @@
 module: M12
 ten_module: Gamification
 ma_tai_lieu: FR-M12
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M12 Gamification
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M12 — Gamification |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -82,7 +82,7 @@ thưởng rõ ràng, đồng thời hạn chế việc spam bình luận để "
 | Chu kỳ tuần, chu kỳ tháng | Tuần lịch từ 00:00 thứ Hai đến trước 00:00 thứ Hai tuần sau; tháng lịch từ 00:00 ngày mùng 1 đến trước 00:00 ngày mùng 1 tháng sau; tính theo giờ Việt Nam (UTC+7). Chu kỳ toàn thời gian không có kết thúc. |
 | Đồng hạng | Những người có cùng điểm trong chu kỳ hiện cùng một thứ hạng; người kế tiếp nhận thứ hạng bằng số người đứng trước cộng một. |
 | Hạng cắt | Thứ hạng thấp nhất được nhận danh hiệu "Ngôi sao tuần" (hạng 3). |
-| Gỡ vì vi phạm | Mod hoặc Admin hệ thống ẩn một bài viết (bài sang trạng thái kiểm duyệt HIDDEN) hoặc ẩn một bình luận vì chính nội dung đó vi phạm (M08). Khác với gỡ khỏi nhóm của Owner, Group Mod (M11). |
+| Gỡ vì vi phạm | Mod hoặc Admin hệ thống ẩn một bài viết (bài sang trạng thái kiểm duyệt Bị Mod ẩn của M03, FR-M08 gọi là Bị ẩn) hoặc ẩn một bình luận vì chính nội dung đó vi phạm (M08). Khác với gỡ khỏi nhóm của Owner, Group Mod (M11). |
 | Đã xóa hẳn | Cờ của bài do tác giả tự xóa khi hết 7 ngày khôi phục (M03); bài không còn khôi phục được. |
 | Thời điểm upvote | Lúc người dùng bấm upvote và upvote có hiệu lực; dùng để xếp upvote vào chu kỳ. |
 | Chốt chu kỳ | Tính một lần bảng xếp hạng cuối cùng của một tuần hoặc tháng vừa kết thúc bằng số liệu đúng mốc đầu, cuối chu kỳ; bảng này hiện ở tab Tuần hoặc Tháng cho tới lần chốt sau. |
@@ -110,7 +110,7 @@ thưởng rõ ràng, đồng thời hạn chế việc spam bình luận để "
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -535,6 +535,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 0.1 | 2026-10-21 | Tạo mới | Phạm Văn Đức |
 | 0.2 | 2026-10-23 | Cập nhật theo câu trả lời Q-01–Q-15 (DEC-241–DEC-247): bảng Tuần, Tháng hiện chu kỳ vừa chốt; điểm chu kỳ; trừ điểm bình luận; cờ Gamification | Phạm Văn Đức |
 | 1.0 | 2026-10-23 | Chốt sau 7 bước; câu trả lời ghi ở DEC-241–DEC-247; đối chiếu chéo và sửa các module liên quan | Phạm Văn Đức |
+| 1.1 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): thuật ngữ "Gỡ vì vi phạm" dùng tên trạng thái Bị Mod ẩn (M03) thay mã HIDDEN; C.2 thêm MR-M12 → DEC-079 và DEC-256; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1012,3 +1013,6 @@ Không có mục OPEN nào hoãn hành vi của M12.
 | DEC-092 → DEC-225, DEC-228 → DEC-245 | Cờ tính năng Gamification, khởi tạo Bật. Khi tắt: upvote, rút upvote, mở bảng xếp hạng của người không phải Admin bị từ chối ("Hệ thống đang bận, vui lòng thử lại sau"), nút và lối vào vẫn hiện; vẫn chạy trừ, hoàn điểm, trao huy hiệu, tính Toàn thời gian, chốt tuần, tháng, trao danh hiệu, thông báo; vẫn hiển thị số upvote, điểm, huy hiệu, danh hiệu, nhãn bị khóa; dữ liệu giữ nguyên, bật lại không bù; Admin dùng bình thường. |
 | DEC-052 → DEC-145; QA-106 → DEC-145 | Câu "tuần của leaderboard là tuần lịch cố định" của DEC-052 dùng cho M12, với mốc 00:00 thứ Hai của DEC-242; công thức Trending thuộc M05. |
 | DEC-019, DEC-065, DEC-079, DEC-089, DEC-090, DEC-092, DEC-115, DEC-122, DEC-156, DEC-161, DEC-180, DEC-225, QA-011, QA-017 → DEC-148, DEC-147, DEC-151, DEC-215, DEC-218, DEC-221, DEC-237, DEC-163, DEC-188, DEC-211, DEC-199, DEC-201, DEC-141, DEC-224, DEC-152, DEC-226, DEC-198, DEC-200, DEC-202, ISS-154, DEC-159, DEC-185, DEC-236, DEC-171, DEC-206, DEC-208, DEC-203 | Các sửa đổi này không chạm phần M12 dùng: thêm sự kiện thông báo khác; hạn chế đăng bài, thử thách nối tiếp, giảm hạng tìm kiếm của HEAVY; chi tiết lật ban, nhật ký Mod, Topic; tạm dừng đăng ký, banner; phạm vi và danh sách khiếu nại; dữ liệu bị xóa khác; quét lại bài; bình luận bị ẩn không hiện lại; cờ Group; quyền Guest xem hồ sơ, tóm tắt AI, tìm kiếm; vòng phản hồi AI. ISS-154 → DEC-122 là cạnh tool đọc nhầm (bác bỏ ở bước 2). |
+| DEC-079 → MR-M12 | Dòng module M12 của registry ghi lại phần bảng xếp hạng của DEC-079 (người ở mức HEAVY bị loại khỏi bảng xếp hạng), đã có ở BR-M12-20; không đổi hành vi (rà soát chéo 2026-10-24). |
+| DEC-225 → DEC-256 | Danh sách khi cờ Chat tắt thuộc M16; không chạm M12. Danh sách khi cờ Gamification tắt của M12 theo DEC-245 (BR-M12-28). |
+| DEC-231 → DEC-270 | Không đổi hành vi M12: bài bị gỡ khỏi nhóm giữ trạng thái đăng, gỡ khỏi nhóm vẫn không trừ điểm. |

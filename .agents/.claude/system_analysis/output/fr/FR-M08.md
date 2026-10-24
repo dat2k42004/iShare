@@ -2,11 +2,11 @@
 module: M08
 ten_module: Moderation
 ma_tai_lieu: FR-M08
-phien_ban: 1.6
+phien_ban: 1.7
 trang_thai: Đã chốt
 ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
-moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
+moc_nguon: DEC-271, QA-477, ISS-415, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
 ---
 # Tài liệu yêu cầu chức năng — M08 Moderation
@@ -16,7 +16,7 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M08 — Moderation |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.6 |
+| Phiên bản | 1.7 |
 | Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
@@ -149,7 +149,7 @@ Mọi thao tác kiểm duyệt được ghi vào nhật ký để minh bạch v�
 | Tài liệu | Phiên bản / mốc |
 |---|---|
 | Draft: docs/_temp/iShare_modules.md, iShare_specs_general.md | Theo ngày sửa tệp |
-| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-247, QA-444, ISS-382, OPEN-012 (khớp `moc_nguon`) |
+| Register: decisions, qa-log, issue-queue, open-issues, glossary, module-registry | DEC-271, QA-477, ISS-415, OPEN-012 (khớp `moc_nguon`) |
 
 ### 3.2 Tài liệu liên quan
 
@@ -617,7 +617,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | FR-M08-18.02 | Trong khi nhóm ở trạng thái Bị ẩn, hệ thống phải không hiển thị nhóm và mọi nội dung của nhóm với bất kỳ ai, kể cả thành viên và Owner (M11) (BR-M08-50). |
 | FR-M08-18.03 | Hệ thống phải không có thao tác bỏ ẩn nhóm (BR-M08-50). |
 | FR-M08-18.04 | Khi Mod hoặc Admin đang giữ vụ về một nhóm chọn "Khóa nhóm", hệ thống phải chuyển trạng thái kiểm duyệt của nhóm sang Bị khóa (BR-M08-50). |
-| FR-M08-18.05 | Trong khi nhóm ở trạng thái Bị khóa, hệ thống phải chặn đăng bài, bình luận, upvote, bình chọn poll, tham gia và mời thành viên trong nhóm với mọi người, kể cả Owner và Group Mod (M11) (BR-M08-50). |
+| FR-M08-18.05 | Trong khi nhóm ở trạng thái Bị khóa, hệ thống phải chặn với mọi người, kể cả Owner và Group Mod, các thao tác trong nhóm theo danh sách của M11 (BR-M11-28), gồm đăng bài, bình luận, upvote, bình chọn poll, tham gia và mời thành viên (BR-M08-50). |
 | FR-M08-18.06 | Trong khi nhóm ở trạng thái Bị khóa, hệ thống phải vẫn cho người được phép xem nhóm đọc nội dung, lưu bài và báo cáo (BR-M08-50). |
 | FR-M08-18.07 | Khi Mod hoặc Admin mở khóa một nhóm Bị khóa, hệ thống phải chuyển nhóm về Bình thường mà không cần vụ (BR-M08-50). |
 | FR-M08-18.08 | Hệ thống phải cho Mod, Admin ẩn một nhóm đang Bị khóa trong một vụ sau (BR-M08-50). |
@@ -678,7 +678,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | BR-M08-47 | Ràng buộc | Gửi báo cáo: không báo cáo được bài viết, bình luận, tài khoản của chính mình; khi đối tượng đang có vụ Mở, một người chỉ có một báo cáo trong vụ đó; người ở mức HEAVY vẫn báo cáo được; đối tượng không còn hiển thị với người báo cáo thì bị từ chối; báo cáo đã gửi không rút, không sửa được. | Minh báo cáo bài P lúc 10:00 (vụ V1 mở); báo cáo lại P lúc 10:30: bị từ chối. V1 kết luận lúc 11:00; Minh báo cáo P lúc 12:00: nhận, mở vụ V2. |
 | BR-M08-48 | Sự kiện | Ẩn nội dung, cảnh cáo, ban, ẩn và khóa nhóm chỉ làm được trong một vụ mà người làm đang giữ; Mod tự phát hiện vi phạm thì báo cáo trước rồi nhận xử lý. Ngoại lệ: gỡ ban và mở khóa nhóm làm trực tiếp, không cần vụ. Báo cáo của người dùng không làm đổi trạng thái kiểm duyệt của bài viết, bình luận; chỉ AI quét lại (M03) mới làm bài Bị gắn cờ. | Bài P của Bình bị 3 người báo cáo: P vẫn hiển thị cho tới khi Mod kết luận. |
 | BR-M08-49 | Kích hoạt | Các việc do AI phát hiện cần Mod xem trở thành mục do "Hệ thống (AI)" tạo trong hàng chờ báo cáo: bình luận bị AI ẩn với điểm 0,5–< 0,9; bài Bị gắn cờ sau khi quét lại; nội dung của Mod có điểm ≥ 0,9; yêu cầu ban (BR-M08-36). Đối tượng đang có vụ Mở thì mục được thêm vào vụ đó, không thì mở vụ mới. Lý do của mục là nhóm vi phạm AI phát hiện; mục tính là một báo cáo. | Bình luận C bị AI chấm Quấy rối 0,7, chưa có vụ: vụ mới, điểm 10 + 1 × 2 = 12. C đã có vụ với 2 báo cáo "Spam" (điểm 2 + 2 × 2 = 6): thêm mục AI, điểm max(2, 10) + 3 × 2 = 16. |
-| BR-M08-50 | Ràng buộc | Vụ về một nhóm: người bị báo cáo là Owner. Mod, Admin đang giữ vụ có thể Ẩn nhóm hoặc Khóa nhóm, và có thể cảnh cáo, ban Owner theo BR-M08-46. Ẩn nhóm: nhóm và mọi nội dung không hiện với ai, kể cả thành viên và Owner; dữ liệu giữ nguyên; không có bỏ ẩn. Khóa nhóm: nhóm và nội dung cũ vẫn hiện như trước; đăng bài, bình luận, upvote, bình chọn poll, tham gia, mời thành viên bị chặn với mọi người, kể cả Owner và Group Mod; lưu bài, báo cáo vẫn được; Mod, Admin mở khóa trực tiếp. Nhóm Bị khóa có thể bị Ẩn ở vụ sau; nhóm Bị ẩn không khóa, không mở khóa được. | Nhóm giả mạo bị Ẩn: biến mất với mọi người, không hiện lại. Nhóm có bắt nạt trong bình luận bị Khóa 1 tuần rồi Mod mở khóa: trong thời gian khóa vẫn đọc được, không ai đăng được. |
+| BR-M08-50 | Ràng buộc | Vụ về một nhóm: người bị báo cáo là Owner. Mod, Admin đang giữ vụ có thể Ẩn nhóm hoặc Khóa nhóm, và có thể cảnh cáo, ban Owner theo BR-M08-46. Ẩn nhóm: nhóm và mọi nội dung không hiện với ai, kể cả thành viên và Owner; dữ liệu giữ nguyên; không có bỏ ẩn. Khóa nhóm: nhóm và nội dung cũ vẫn hiện như trước; đăng bài, bình luận, upvote, bình chọn poll, tham gia, mời thành viên bị chặn với mọi người, kể cả Owner và Group Mod, cùng các thao tác quản lý nhóm theo danh sách đầy đủ của M11 (BR-M11-28); lưu bài, báo cáo vẫn được; Mod, Admin mở khóa trực tiếp. Nhóm Bị khóa có thể bị Ẩn ở vụ sau; nhóm Bị ẩn không khóa, không mở khóa được. | Nhóm giả mạo bị Ẩn: biến mất với mọi người, không hiện lại. Nhóm có bắt nạt trong bình luận bị Khóa 1 tuần rồi Mod mở khóa: trong thời gian khóa vẫn đọc được, không ai đăng được. |
 | BR-M08-51 | Tính toán | Điểm quét của một bài viết, bình luận = điểm cao nhất trong bốn nhóm vi phạm AI trả về; nhóm có điểm cao nhất là lý do của mục do AI tạo. | Quấy rối 0,92, Bạo lực 0,10, Thù ghét 0,05, Người lớn 0,01: điểm quét 0,92, lý do "Quấy rối/Bắt nạt". |
 | BR-M08-52 | Ràng buộc | Không ban chồng: tài khoản đang có ban Đang hiệu lực thì không ban mới được; muốn đổi sang vĩnh viễn thì gỡ ban rồi chọn "Ban vĩnh viễn". | Lan đang bị ban 30 ngày; Mod chọn "Ban vĩnh viễn": bị từ chối. Mod gỡ ban rồi chọn "Ban vĩnh viễn": được; ban đã gỡ vẫn tính vào số lần đã bị ban. |
 | BR-M08-53 | Sự kiện | Thao tác của Mod, Admin với tài khoản người vi phạm chỉ có cảnh cáo, "Ban" và "Ban vĩnh viễn". "Suspend" trong draft là ban tạm thời; không có thao tác suspend hay vô hiệu hóa tài khoản người khác. | — |
@@ -855,6 +855,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.4 | 2026-10-24 | Đối chiếu với FR-M16: đóng TBD-M08-02 (DEC-248: thu hồi tin nhắn là xóa mềm); dòng Dùng M16; C.1 OPEN-011, C.2. Không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 | 1.5 | 2026-10-24 | Đối chiếu với FR-M14: thêm dòng Cung cấp M14 (mức cảnh cáo riêng tư ở feed, báo cáo bài từ feed) và dòng M14 ở mục 3.2; không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 | 1.6 | 2026-10-24 | Đối chiếu với FR-M15: dòng Cung cấp M15 thêm mức cảnh cáo của tài khoản (cùng mức đạt sau mỗi cảnh cáo) và gỡ ban; sửa mục 3.2; không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
+| 1.7 | 2026-10-24 | Rà soát chéo toàn bộ FR (review-cross-module.md): FR-M08-18.05, BR-M08-50 trỏ danh sách thao tác bị chặn khi nhóm Bị khóa sang BR-M11-28 (DEC-235); C.1, C.2. Chốt bản 1.7 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1037,7 +1038,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M08-18.02 | DEC-194 | Nói thẳng | — |
 | FR-M08-18.03 | DEC-194 | Nói thẳng | — |
 | FR-M08-18.04 | DEC-194, QA-369 | Nói thẳng | — |
-| FR-M08-18.05 | DEC-194 | Nói thẳng | — |
+| FR-M08-18.05 | DEC-194, DEC-235 | Nói thẳng | Danh sách đầy đủ thuộc M11 (DEC-235) |
 | FR-M08-18.06 | DEC-194 | Nói thẳng | — |
 | FR-M08-18.07 | DEC-194 | Nói thẳng | — |
 | FR-M08-18.08 | DEC-194 | Nói thẳng | — |
@@ -1532,6 +1533,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-239 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (rà lại 1.3). M11: nội dung nhóm mất đi đều là xóa mềm; đóng phần M11 của OPEN-011 |
 | DEC-241 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: bình luận bị AI ẩn ≥ 0,9 trừ điểm ngay; 0,5–< 0,9 trừ khi Mod kết luận vi phạm |
 | DEC-248 | Nhắc tới | Hiện hành | Không áp dụng: đóng TBD-M08-02 | Đối chiếu FR-M16 (bản 1.4). M16: thu hồi tin nhắn là xóa mềm |
+| DEC-235 | Phụ thuộc | Hiện hành | FR-M08-18.05; Chuyển M11 | Rà soát chéo 2026-10-24. M11: nhóm Bị khóa chặn thêm các thao tác quản lý của Owner, Group Mod |
 
 ### C.2 Chuỗi quyết định
 
@@ -1567,3 +1569,5 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-074, DEC-078 → DEC-192 → DEC-197 | Mọi thông báo về thao tác khiếu nại được (cảnh cáo kể cả do AI, ban, bài bị ẩn) kèm đường dẫn khiếu nại; bình luận bị ẩn, nhóm bị ẩn hoặc khóa thì không. |
 | OPEN-012 → DEC-201 | Bình luận bị ẩn không hiện lại khi cảnh cáo, ban gắn với nó bị lật. |
 | OPEN-011 → DEC-239, DEC-248 | Đã đóng: nội dung nhóm mất đi đều là xóa mềm (DEC-239); thu hồi tin nhắn chat là xóa mềm, nội dung giữ, không ai xem được ở MS1 (DEC-248). TBD-M08-02 đóng. |
+| DEC-194 → DEC-235 | Nhóm Bị khóa: M08 quyết việc khóa và mở khóa; danh sách đầy đủ thao tác bị chặn và vẫn được làm thuộc M11 (BR-M11-28), gồm thêm duyệt, gỡ, kick, chặn, bổ nhiệm, đổi cài đặt, xóa nhóm, Owner rời nhóm (rà soát chéo 2026-10-24). |
+| DEC-065 → DEC-231, DEC-237, DEC-246; DEC-104 → DEC-230, DEC-233, DEC-240; DEC-108 → DEC-234; DEC-118 → DEC-242, DEC-246; DEC-167, QA-018 → DEC-246; DEC-195 → DEC-240 | Không đổi hành vi M08. DEC-231, DEC-237, DEC-246: sự kiện thông báo của M11, M12 (đạt huy hiệu là "mốc điểm"); DEC-230, DEC-233, DEC-240: cổng duyệt của nhóm và hàng chờ của Mod hệ thống cho bài của Owner nhóm (M03, M11); Mod, Admin không là thành viên chỉ xem nội dung nhóm Private trong vụ đang giữ, như FR-M08 đã ghi; DEC-234: người ngoài nhóm báo cáo bài nhóm Public như bài thường; DEC-242, DEC-246: bảng xếp hạng (M12), mức HEAVY và BANNED vẫn bị loại; DEC-240: Admin vẫn không bị quét. |
