@@ -2,9 +2,9 @@
 module: M09
 ten_module: Appeal
 ma_tai_lieu: FR-M09
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-10-18
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-202, QA-383, ISS-323, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M09 — Appeal |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-18 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -518,6 +518,7 @@ cột MoSCoW ở dòng M09 của bảng Module List bị lệch nên không dùn
 | Cung cấp | M12 | Hoàn điểm đã trừ khi khiếu nại bài bị gỡ được chấp nhận | FR-M09-08.09 |
 | Dùng | M13 | Nhật ký quyết định AI để xét khiếu nại bài bị AI tự từ chối | FR-M09-06.05 |
 | Cung cấp | M15 | Khiếu nại theo loại và kết luận cho thống kê kiểm duyệt | FR-M09-01.01, FR-M09-07.01, FR-M09-07.02 |
+| Cung cấp | M16 | Hạn khiếu nại lệnh ban vĩnh viễn (90 ngày) và việc khiếu nại bị từ chối, để M16 biết tài khoản Admin nhóm chat không còn khôi phục được | FR-M09-01.13, FR-M09-07.03 |
 
 ### 5.13 AI hỗ trợ và hành vi khi tắt AI
 
@@ -542,6 +543,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-16 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-18 | Chốt. Bổ sung theo DEC-195–202: Admin không bị báo cáo, không có khiếu nại; khiếu nại của Mod chỉ Admin xét; khiếu nại gộp bài bị AI từ chối và cảnh cáo AI; một hàng chờ chung; hạn cảnh cáo cố định; lật cả khi xử lý đã kết thúc; bỏ FR-M09-05; đóng OPEN-012 | Phạm Văn Đức |
+| 1.1 | 2026-10-24 | Đối chiếu với FR-M16: dòng Cung cấp M16 (hạn khiếu nại ban vĩnh viễn và khiếu nại bị từ chối, DEC-250). Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -897,6 +899,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-323 | Sở hữu | Trùng với DEC-202 | — | Nhóm A. Câu hỏi FR M09 |
 | QA-383 | Sở hữu | Hiện hành | FR-M09-01.23, FR-M09-08.16, BR-M09-29 | Nhóm A. Câu trả lời FR M09 |
 | GL:Appeal | Sở hữu | Sửa một phần bởi DEC-115, DEC-198 | Không áp dụng: nằm ngoài chỉ mục nên không trích ở Phụ lục A; phần còn hiệu lực (giao diện gọi là "Khiếu nại") ghi ở mục 2.1 | Ngoài chỉ mục: glossary.md dòng 47 viết dạng đoạn in đậm, index_sources.py không đọc. Định nghĩa "chỉ cảnh cáo và ban". Phần "không áp dụng cho bài bị xóa" bị thay |
+| DEC-250 | Nhắc tới | Hiện hành | Không áp dụng: M16 dùng hạn và kết luận khiếu nại ban vĩnh viễn | Đối chiếu FR-M16 (bản 1.1) |
 
 ### C.2 Chuỗi quyết định
 

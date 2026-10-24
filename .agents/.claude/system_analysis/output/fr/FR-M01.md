@@ -2,9 +2,9 @@
 module: M01
 ten_module: Authentication & Account
 ma_tai_lieu: FR-M01
-phien_ban: 1.6
+phien_ban: 1.7
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M01 — Authentication & Account |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.6 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.7 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -536,7 +536,8 @@ Summary: Must gồm M01–M10, M13). Không có yêu cầu ngoại lệ về ưu
 | FR-M01-13.03 | Trong khi tài khoản ở trạng thái DEACTIVATED, hệ thống phải hiển thị bình luận của tài khoản với nội dung gốc, tên tác giả "Tài khoản tạm thời vô hiệu hoá" và avatar mặc định. |
 | FR-M01-13.04 | Trong khi tài khoản ở trạng thái DELETED, hệ thống phải hiển thị bình luận của tài khoản với nội dung gốc, tên tác giả "[Người dùng đã xóa]" và avatar mặc định. |
 | FR-M01-13.05 | Trong khi tài khoản ở trạng thái DEACTIVATED, hệ thống phải cho Mod và Admin xem các bài viết bị ẩn và danh tính thật của tác giả. |
-| FR-M01-13.06 | Trong khi tài khoản ở trạng thái DELETED, hệ thống phải hiển thị tin nhắn của tài khoản đó với nội dung gốc và người gửi "[Người dùng đã xóa]". |
+| FR-M01-13.06 | Trong khi tài khoản ở trạng thái DELETED, hệ thống phải cung cấp cho M16 tên thay thế "[Người dùng đã xóa]" làm tên người gửi tin nhắn của tài khoản đó; cách hiển thị tin nhắn thuộc M16. |
+| FR-M01-13.07 | Trong khi tài khoản ở trạng thái DEACTIVATED, hệ thống phải cung cấp cho M16 tên thay thế "Tài khoản tạm thời vô hiệu hoá" và avatar mặc định làm người gửi tin nhắn của tài khoản đó. |
 
 
 ### 5.14 FR-M01-14 Nhắc tên người dùng (@mention)
@@ -740,7 +741,7 @@ SETUP_COMPLETED là mức cuối; nguồn không có đường đi ngược lạ
 | Cung cấp | M15 | Trạng thái tài khoản và việc tạo tài khoản mới để thống kê | FR-M01-01.01, FR-M01-04.01 |
 | Cung cấp | M05 | Trang Privacy Policy/ToS nêu việc tiêu đề và nội dung bài đang soạn, kể cả chưa đăng, được xử lý bởi nhà cung cấp dịch vụ AI khi bấm "Gợi ý topic" | FR-M01-15.04 |
 | Cung cấp | M05 | Trạng thái tài khoản tác giả (bài của tài khoản vô hiệu hóa hoặc đã xóa bị ẩn); dữ liệu của tài khoản đã xóa: upvote giữ, bookmark và lượt theo dõi Topic bị xóa, phản hồi gợi ý Topic giữ | FR-M01-13.01, FR-M01-12.08, FR-M01-12.09, FR-M01-12.11 |
-| Cung cấp | M16 | Tên thay thế "[Người dùng đã xóa]" cho người gửi tin nhắn của tài khoản đã xóa | FR-M01-13.06 |
+| Cung cấp | M16 | Tên thay thế cho người gửi tin nhắn: "[Người dùng đã xóa]" (DELETED), "Tài khoản tạm thời vô hiệu hoá" và avatar mặc định (DEACTIVATED); M16 hiển thị | FR-M01-13.06, FR-M01-13.07 |
 | Cung cấp | M08 | Trạng thái tài khoản: ban chuyển ACTIVE sang BANNED, gỡ ban và khiếu nại ban được chấp nhận đưa về ACTIVE, ban tạm thời hết hạn thì tự về ACTIVE; màn hình tài khoản bị khóa hiển thị lý do ban | FR-M01-05.05, FR-M01-05.07, FR-M01-05.14, FR-M01-05.15, FR-M01-05.17 |
 | Cung cấp | M08, M13 | Liên kết nhật ký kiểm duyệt và nhật ký AI với tài khoản đã xóa qua username | FR-M01-12.10 |
 | Cung cấp | M12 | Upvote đã cho của tài khoản đã xóa vẫn tính cho người nhận, không còn biết ai cho | FR-M01-12.09 |
@@ -772,6 +773,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.4 | 2026-10-21 | Đối chiếu với FR-M07 (DEC-215): khi DELETED chỉ xóa lượt theo dõi người dùng, Topic; bỏ "bài viết" (FR-M01-12.08, BR-M01-47, C.2). Chốt bản 1.4 | Phạm Văn Đức |
 | 1.5 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-221, DEC-228): thêm dòng "Cung cấp M10" (vai trò USER khi tạo, trạng thái tài khoản và bước 3 cho đề xuất làm Mod, Admin); DEC-007 sửa một phần (chỉ ADMIN gốc cấp, thu hồi Admin). Không đổi yêu cầu. Chốt bản 1.5 | Phạm Văn Đức |
 | 1.6 | 2026-10-23 | Rà lại với register tới DEC-247: dòng Cung cấp M12 thêm trạng thái DEACTIVATED, DELETED cho bảng xếp hạng (DEC-246); thêm dòng Dùng M02 khớp FR-M02, dòng Cung cấp M09 khớp FR-M09. Không đổi yêu cầu. Chốt bản 1.6 | Phạm Văn Đức |
+| 1.7 | 2026-10-24 | Đối chiếu với FR-M16: hiển thị tin nhắn thuộc M16, M01 chỉ cung cấp tên thay thế (FR-M01-13.06); thêm tên thay thế cho người gửi tin nhắn của tài khoản DEACTIVATED (DEC-253: FR-M01-13.07); dòng Cung cấp M16. Chốt bản 1.7 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -930,6 +932,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M01-13.04 | DEC-019, QA-066, DEC-149 | Nói thẳng | — |
 | FR-M01-13.05 | DEC-150 | Nói thẳng | — |
 | FR-M01-13.06 | DEC-156 | Nói thẳng | — |
+| FR-M01-13.07 | DEC-253, DEC-019 | Nói thẳng | — |
 | FR-M01-14 | DEC-020, DEC-015, DEC-045, MR-M01 | Nói thẳng | — |
 | FR-M01-14.01 | DEC-020 | Nói thẳng | — |
 | FR-M01-14.02 | DEC-020, DEC-148, DEC-214 | Nói thẳng | — |
@@ -1321,6 +1324,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-221 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm B (đối chiếu FR-M10). M10: tài khoản ADMIN gốc; chỉ gốc cấp (qua đề xuất), thu hồi vai trò Admin |
 | DEC-228 | Phụ thuộc | Hiện hành | Chuyển M10 | Nhóm B (đối chiếu FR-M10). M10: đề xuất chỉ gửi cho tài khoản ACTIVE đã xong bước 3 (M01 cung cấp trạng thái) |
 | DEC-246 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.6). M12: tài khoản DEACTIVATED bị loại khỏi bảng xếp hạng; tài khoản đã xóa hiện mờ với nhãn "[Người dùng đã xóa]" trên bảng đã chốt; sửa phần bảng xếp hạng của QA-018 |
+| DEC-253 | Phụ thuộc | Hiện hành | FR-M01-13.07 | Đối chiếu FR-M16 (bản 1.7). M16: người gửi của tài khoản DEACTIVATED hiện "Tài khoản tạm thời vô hiệu hoá" |
 
 ### C.2 Chuỗi quyết định
 

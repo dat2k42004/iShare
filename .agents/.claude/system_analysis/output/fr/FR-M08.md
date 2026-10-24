@@ -2,9 +2,9 @@
 module: M08
 ten_module: Moderation
 ma_tai_lieu: FR-M08
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M08 — Moderation |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.4 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -813,6 +813,7 @@ cột MoSCoW ở dòng M08 của bảng Module List bị lệch nên không dùn
 | Dùng | M09 | Khiếu nại thành công lật cảnh cáo (giảm số lần), lật ban (về ACTIVE, không tính vào số lần đã bị ban), hiện lại bài bị gỡ | FR-M08-14.12 |
 | Dùng | M10 | Công tắc AI tổng và công tắc Moderation; việc thu hồi vai trò Mod khi Mod bị ban | FR-M08-08.10, FR-M08-09.07, FR-M08-14.05 |
 | Cung cấp | M10 | Sự kiện ban một tài khoản Mod để M10 thu hồi vai trò Mod; nhật ký kiểm duyệt lọc theo người làm để Admin theo dõi Mod | FR-M08-14.05, FR-M08-17.06 |
+| Dùng | M16 | Tin nhắn chat chưa báo cáo được, không bị quét AI ở MS1 (TBD-M08-01); nội dung tin bị thu hồi được giữ (xóa mềm) cho báo cáo tin nhắn ở phase sau | — |
 | Cung cấp | M11 | Trạng thái kiểm duyệt của nhóm (Bình thường, Bị khóa, Bị ẩn) để M11 ẩn nhóm, chặn thao tác trong nhóm bị khóa | FR-M08-18.02, FR-M08-18.05, FR-M08-18.06 |
 | Dùng | M11 | Nhóm là đối tượng báo cáo, Owner là người bị báo cáo; nhóm Private chặn báo cáo của người ngoài; danh tính thật của bài ẩn danh | FR-M08-01.11, FR-M08-04.06, FR-M08-04.10 |
 | Cung cấp | M12 | Nội dung bị Mod, Admin gỡ vì vi phạm (để trừ điểm ngay); bình luận bị AI tự ẩn với điểm quét ≥ 0,9 (trừ điểm ngay) và kết luận của Mod, Admin với bình luận bị AI ẩn 0,5–< 0,9 (vi phạm thì trừ điểm, DEC-241); mức HEAVY và tài khoản BANNED (loại khỏi bảng xếp hạng, nhãn "Tài khoản đã bị khóa") | FR-M08-06.01, FR-M08-06.02, FR-M08-09.04, FR-M08-14.03, FR-M08-08.04, FR-M08-07.03, FR-M08-07.04 |
@@ -849,6 +850,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-20 | Đối chiếu với FR-M06: ghi cách M06 áp giảm hạng ×0,5 (DEC-211) ở C.2; không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-224, DEC-227): Admin lọc nhật ký kiểm duyệt theo người làm (FR-M08-17.06, BR-M08-41); thêm dòng "Cung cấp M10"; C.1, C.2. Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: không báo cáo được Admin, vụ về Mod chỉ Admin xử lý, bình luận của Admin không bị quét (DEC-195: BR-M08-46, BR-M08-55, FR-M08-01.20, FR-M08-02.09, FR-M08-03.09, FR-M08-08.12); thông báo cảnh cáo kèm đường dẫn khiếu nại (DEC-197); đóng TBD-M08-03 (DEC-201), thu hẹp TBD-M08-02 (DEC-239); dòng Cung cấp M12 thêm bình luận bị AI ẩn (DEC-241); thêm dòng Cung cấp M13 khớp FR-M13. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-24 | Đối chiếu với FR-M16: đóng TBD-M08-02 (DEC-248: thu hồi tin nhắn là xóa mềm); dòng Dùng M16; C.1 OPEN-011, C.2. Không đổi yêu cầu. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -1132,7 +1134,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | ID | Nội dung | Ảnh hưởng | Lý do chưa chốt |
 |---|---|---|---|
 | TBD-M08-01 | Báo cáo tin nhắn chat (đối tượng "Message" của draft) | Thấp | OPEN-003 hoãn có chủ đích; MS1 không làm |
-| TBD-M08-02 | Tin nhắn chat có chỉ xóa mềm để Mod xem lại trong báo cáo không (phần nhóm đã đóng ở phiên bản 1.3 — DEC-239: mọi cách nội dung nhóm mất đi đều là xóa mềm) | Thấp | Phần M16 của OPEN-011 hoãn có chủ đích; chốt khi làm FR-M16 |
+| TBD-M08-02 | (Đã đóng ở phiên bản 1.4 — DEC-248: thu hồi tin nhắn là xóa mềm, nội dung giữ, không ai xem được ở MS1; phần nhóm đã đóng ở phiên bản 1.3 — DEC-239) | Thấp | — |
 | TBD-M08-03 | (Đã đóng ở phiên bản 1.3 — DEC-201: bình luận bị ẩn vẫn Bị ẩn khi cảnh cáo, ban gắn với nó bị lật) | Thấp | Đã chốt |
 | TBD-M08-04 | Ngưỡng tốc độ trả lời và khoảng thời gian trượt để kích hoạt quét luồng (giá trị tạm "10 trả lời trong 5 phút") | Trung bình | Nguồn (DEC-077) để ngỏ có chủ đích: cần dữ liệu dùng thật để chỉnh |
 | TBD-M08-05 | Ngưỡng 0,9 và 0,5 là giá trị tạm | Thấp | Nguồn (DEC-098) để ngỏ có chủ đích: chỉnh theo dữ liệu thật (DEC-133) |
@@ -1388,7 +1390,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | ISS-REWD-02 | Phụ thuộc | Trùng với DEC-118 | — | Nhóm B. M12: mức cảnh cáo và bảng xếp hạng |
 | OPEN-003 | Sở hữu | Hiện hành | Không áp dụng: báo cáo tin nhắn ngoài phạm vi MS1 (ghi ở 1.2 và B.2) | Nhóm B. Hoãn có chủ đích: chưa có báo cáo tin nhắn ở MS1 |
 | OPEN-008 | Phụ thuộc | Sửa một phần bởi DEC-154, DEC-156 | Chuyển M01 | Nhóm B. M01: privacy — giữ nhật ký vĩnh viễn so với xóa dữ liệu cá nhân. Phần còn mở không chạm M08 |
-| OPEN-011 | Nhắc tới | Sửa một phần bởi DEC-239 | Không áp dụng: M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được | Nhóm B. M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được |
+| OPEN-011 | Nhắc tới | Sửa một phần bởi DEC-239, DEC-248 | Không áp dụng: M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được | Nhóm B. M11, M16: xét áp nguyên tắc xóa mềm cho nội dung báo cáo được |
 | OPEN-012 | Phụ thuộc | Bị thay bởi DEC-201 | — | Nhóm B. M09: bình luận bị ẩn có hiện lại khi khiếu nại cảnh cáo/ban thành công |
 | QA-007 | Nhắc tới | Hiện hành | Không áp dụng: AI Moderation API miễn phí | Nhóm B. AI Moderation API miễn phí |
 | QA-011 | Sở hữu | Hiện hành | FR-M08-01, BR-M08-01 | Nhóm B. Khách không báo cáo bài, bình luận. DEC-171 (ngoài bảng nguồn) chỉ sửa quyền Guest xem hồ sơ |
@@ -1525,6 +1527,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-201 | Phụ thuộc | Hiện hành | Chuyển M09 | Nhóm B (rà lại 1.3). M09: bình luận bị ẩn không hiện lại khi cảnh cáo, ban liên quan bị lật; đóng OPEN-012 |
 | DEC-239 | Phụ thuộc | Hiện hành | Chuyển M11 | Nhóm B (rà lại 1.3). M11: nội dung nhóm mất đi đều là xóa mềm; đóng phần M11 của OPEN-011 |
 | DEC-241 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: bình luận bị AI ẩn ≥ 0,9 trừ điểm ngay; 0,5–< 0,9 trừ khi Mod kết luận vi phạm |
+| DEC-248 | Nhắc tới | Hiện hành | Không áp dụng: đóng TBD-M08-02 | Đối chiếu FR-M16 (bản 1.4). M16: thu hồi tin nhắn là xóa mềm |
 
 ### C.2 Chuỗi quyết định
 
@@ -1559,4 +1562,4 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-189, DEC-191, DEC-186 → DEC-195 | Vụ về bài viết, bình luận, tài khoản của Mod chỉ Admin thấy và xử lý; không ai báo cáo được Admin (bài, bình luận, tài khoản, nhóm có Owner là Admin); nội dung của Admin không bị AI quét. Các phần khác của DEC-189, DEC-191, DEC-186 giữ nguyên. |
 | DEC-074, DEC-078 → DEC-192 → DEC-197 | Mọi thông báo về thao tác khiếu nại được (cảnh cáo kể cả do AI, ban, bài bị ẩn) kèm đường dẫn khiếu nại; bình luận bị ẩn, nhóm bị ẩn hoặc khóa thì không. |
 | OPEN-012 → DEC-201 | Bình luận bị ẩn không hiện lại khi cảnh cáo, ban gắn với nó bị lật. |
-| OPEN-011 → DEC-239 | Phần nhóm đã đóng: nội dung nhóm mất đi đều là xóa mềm. Phần chat (M16) còn mở (TBD-M08-02). |
+| OPEN-011 → DEC-239, DEC-248 | Đã đóng: nội dung nhóm mất đi đều là xóa mềm (DEC-239); thu hồi tin nhắn chat là xóa mềm, nội dung giữ, không ai xem được ở MS1 (DEC-248). TBD-M08-02 đóng. |

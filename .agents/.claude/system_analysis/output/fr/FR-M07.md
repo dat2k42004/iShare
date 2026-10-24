@@ -2,9 +2,9 @@
 module: M07
 ten_module: Notification
 ma_tai_lieu: FR-M07
-phien_ban: 1.3
+phien_ban: 1.4
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M07 — Notification |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.3 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.4 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -343,7 +343,7 @@ Các sự kiện phát sinh từ module Should (M11 Group, M12 Gamification, M16
 | ID | Yêu cầu |
 |---|---|
 | FR-M07-07.01 | Hệ thống phải hiện biểu tượng Tin nhắn trên thanh điều hướng, tách khỏi chuông thông báo. |
-| FR-M07-07.02 | Hệ thống phải hiện trên biểu tượng Tin nhắn số cuộc trò chuyện có tin chưa đọc của người dùng theo mốc đã đọc của M16, gồm cả cuộc đã tắt thông báo (BR-M07-02). |
+| FR-M07-07.02 | Hệ thống phải hiện trên biểu tượng Tin nhắn số cuộc trò chuyện có tin chưa đọc của người dùng theo mốc đã đọc của M16, chỉ tính tin người dùng thấy được (thành viên cũ của nhóm chat: tin gửi trước thời điểm rời, FR-M16-07.10), gồm cả cuộc đã tắt thông báo (BR-M07-02). |
 | FR-M07-07.03 | Khi người dùng bấm biểu tượng Tin nhắn, hệ thống phải chuyển người dùng tới hộp thư Chat (M16). |
 | FR-M07-07.04 | Hệ thống phải chỉ hiện biểu tượng Tin nhắn cho người đã đăng nhập. |
 | FR-M07-07.05 | Khi có tin nhắn mới trong một cuộc trò chuyện mà người dùng là thành viên và người dùng đang mở ứng dụng, hệ thống phải hiện một popup nhỏ báo tin nhắn đó (BR-M07-28). |
@@ -385,6 +385,7 @@ Các sự kiện phát sinh từ module Should (M11 Group, M12 Gamification, M16
 | FR-M07-09.05 | Nếu người dùng không là thành viên của một cuộc trò chuyện, hệ thống phải từ chối tắt thông báo cuộc trò chuyện đó. |
 | FR-M07-09.06 | Nếu người chưa đăng nhập dùng cài đặt tắt thông báo Chat, hệ thống phải từ chối và yêu cầu đăng nhập. |
 | FR-M07-09.07 | Hệ thống phải giữ số trên biểu tượng Tin nhắn như nhau dù cuộc trò chuyện có bị tắt thông báo hay không. |
+| FR-M07-09.08 | Khi người dùng rời hoặc bị xóa khỏi một nhóm chat (M16), hệ thống phải bỏ cài đặt tắt thông báo của người đó cho nhóm chat đó; người đó vào lại thì thông báo của nhóm bắt đầu ở Đang nhận. |
 
 
 ### 5.10 Quy tắc nghiệp vụ
@@ -474,6 +475,8 @@ Người dùng không tự chuyển thông báo về Chưa đọc; chỉ thông 
 | (bắt đầu) | Người dùng trở thành thành viên cuộc trò chuyện (M16) | — | Đang nhận | FR-M07-09.02 |
 | Đang nhận | Thành viên tắt thông báo cuộc trò chuyện | Là thành viên | Đã tắt | FR-M07-09.01, FR-M07-09.05 |
 | Đã tắt | Thành viên bật lại thông báo cuộc trò chuyện | — | Đang nhận | FR-M07-09.02 |
+| Đang nhận | Người dùng rời hoặc bị xóa khỏi nhóm chat (M16) | — | (kết thúc) | FR-M07-09.08 |
+| Đã tắt | Người dùng rời hoặc bị xóa khỏi nhóm chat (M16) | — | (kết thúc) | FR-M07-09.08 |
 
 "Đã tắt" chỉ làm tin nhắn không hiện popup (BR-M07-08). Cài đặt "Tắt thông báo cho toàn bộ Chat" cũng có hai trạng thái
 Đang nhận / Đã tắt; khi nó Đã tắt thì mọi cuộc trò chuyện coi như Đã tắt, và khi nó trở lại Đang nhận thì mỗi cuộc theo
@@ -492,7 +495,7 @@ trạng thái riêng (FR-M07-09.03, FR-M07-09.04). Quan hệ theo dõi không c�
 | Dùng | M10 | Sự kiện đề xuất làm Mod, đề xuất làm Admin, đề xuất lại; đề xuất quá hạn hoặc bị đề xuất mới thay | FR-M07-02.14, FR-M07-02.30, FR-M07-02.31, FR-M07-02.32 |
 | Dùng | M11 | Sự kiện nhóm kèm người nhận: mời (kèm link mời), yêu cầu tham gia mới (Owner, Group Mod), yêu cầu được chấp nhận, được bổ nhiệm Group Mod, bị kick, trở thành Owner, bài hoặc bình luận bị gỡ khỏi nhóm; quyền xem nội dung nhóm Private | FR-M07-02.01, FR-M07-02.11 |
 | Dùng | M12 | Sự kiện upvote, bỏ upvote bài và bình luận, đạt badge (cũng là "mốc điểm"), đạt danh hiệu tuần; sự kiện vẫn phát sinh khi cờ Gamification tắt (DEC-245) | FR-M07-02.01, FR-M07-02.03, FR-M07-02.19 |
-| Dùng | M16 | Tin nhắn mới, thành viên cuộc trò chuyện, mốc đã đọc tin nhắn, cuộc trò chuyện người dùng đang xem, hộp thư Chat | FR-M07-07.02, FR-M07-07.03, FR-M07-07.05, FR-M07-07.06, FR-M07-09.05 |
+| Dùng | M16 | Tin nhắn mới, thành viên cuộc trò chuyện (kể cả việc rời, bị xóa khỏi nhóm chat), mốc đã đọc tin nhắn và việc cuộc có tin chưa đọc mà người dùng thấy được, cuộc trò chuyện người dùng đang xem, hộp thư Chat | FR-M07-07.02, FR-M07-07.03, FR-M07-07.05, FR-M07-07.06, FR-M07-09.05, FR-M07-09.08 |
 | Cung cấp | M01 | Quan hệ theo dõi để xếp danh sách gợi ý nhắc tên | FR-M07-01.01 |
 | Cung cấp | M02 | Quan hệ theo dõi và thời điểm bắt đầu theo dõi, để hiện số và danh sách người theo dõi, đang theo dõi | FR-M07-01.01 |
 | Cung cấp | M03, M04 | Công tắc "Tắt thông báo cho bài này" trên mỗi bài; nó tắt thông báo bình luận mới, trả lời, upvote của bài | FR-M07-08.01, FR-M07-02.08 |
@@ -523,6 +526,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.1 | 2026-10-21 | Đối chiếu với FR-M10 (DEC-221, DEC-222): thêm thông báo "Đề xuất làm Admin"; đề xuất có hạn 7 ngày, hiện "Đã hết hạn" (FR-M07-02.31, 02.32); bỏ FR-M07-02.29 (không hết hạn); sửa BR-M07-01, BR-M07-20, giao tiếp M10, C.1, C.2. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-231, DEC-237, DEC-238): sự kiện nhóm trong BR-M07-01 gồm mời kèm link, yêu cầu tham gia mới, được chấp nhận, được bổ nhiệm, bị kick, trở thành Owner, bị gỡ khỏi nhóm; người nhận theo M11; cập nhật "Dùng M11". Chốt bản 1.2 | Phạm Văn Đức |
 | 1.3 | 2026-10-23 | Rà lại với register tới DEC-247: "mốc điểm" là đạt badge, không có thông báo riêng (DEC-246: BR-M07-01); dòng Dùng M12; C.1 DEC-121 theo DEC-242, DEC-247. Chốt bản 1.3 | Phạm Văn Đức |
+| 1.4 | 2026-10-24 | Đối chiếu với FR-M16: số trên biểu tượng Tin nhắn chỉ tính tin người dùng thấy được (DEC-249: FR-M07-07.02); rời, bị xóa khỏi nhóm chat thì bỏ cài đặt tắt thông báo (FR-M07-09.08, bảng trạng thái); dòng Dùng M16. Chốt bản 1.4 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -614,7 +618,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M07-06.06 | DEC-126 | Suy ra | Guest không có thông báo (xem FR-M07-05.06) |
 | FR-M07-07 | DEC-067, DEC-065, DEC-219, DEC-220 | Nói thẳng | — |
 | FR-M07-07.01 | DEC-067 | Nói thẳng | — |
-| FR-M07-07.02 | DEC-067, DEC-219, DEC-220 | Nói thẳng | — |
+| FR-M07-07.02 | DEC-067, DEC-219, DEC-220, DEC-249 | Suy ra | DEC-220 đếm theo mốc đã đọc của M16; thành viên cũ không thấy tin sau thời điểm rời (DEC-249) ⇒ không tính tin đó |
 | FR-M07-07.03 | DEC-067 | Nói thẳng | — |
 | FR-M07-07.04 | DEC-067 | Suy ra | Guest không nhắn tin được (QA-011: MSG Không) ⇒ không có tin nhắn để báo |
 | FR-M07-07.05 | DEC-219 | Nói thẳng | — |
@@ -634,6 +638,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M07-09.05 | DEC-070 | Suy ra | "mute individual DM/Group chat threads" của chính người dùng ⇒ chỉ thành viên |
 | FR-M07-09.06 | DEC-126 | Suy ra | Guest không nhắn tin được (QA-011) |
 | FR-M07-09.07 | DEC-219 | Nói thẳng | — |
+| FR-M07-09.08 | DEC-070, DEC-249 | Suy ra | Tắt thông báo chỉ cho thành viên (FR-M07-09.05); người vào lại là trở thành thành viên, bắt đầu ở Đang nhận (bảng trạng thái) ⇒ rời, bị xóa thì bỏ cài đặt |
 | BR-M07-01 | DEC-065, DEC-147, DEC-151, DEC-180, DEC-091, DEC-215, DM-8.1, DEC-221, DEC-231, DEC-237, DEC-238, DEC-246 | Suy ra | DEC-065 ghi "Appeal — post/comment/warn-related"; bình luận không có khiếu nại (DEC-180) nên chỉ còn bài viết, cảnh cáo. "Đề xuất làm Mod" thêm từ DEC-091, "bài mới của người đang theo dõi" từ DEC-215 |
 | BR-M07-02 | DEC-065, DEC-067, ISS-165, DEC-219, DEC-220 | Nói thẳng | — |
 | BR-M07-03 | DEC-065, DEC-147, DEC-151, ISS-165 | Nói thẳng | — |
@@ -911,6 +916,7 @@ Không có TBD sinh từ OPEN: không mục OPEN nào (OPEN-001 … OPEN-012) ch
 | DEC-242 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: bảng Tuần, Tháng hiện chu kỳ vừa chốt; thông báo danh hiệu vẫn trễ tối đa 60 phút sau lúc chốt |
 | DEC-245 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.3). M12: khi cờ Gamification tắt, thông báo badge, danh hiệu vẫn gửi |
 | DEC-246 | Phụ thuộc | Hiện hành | BR-M07-01 | Nhóm B (rà lại 1.3). M12: "mốc điểm" là đạt badge |
+| DEC-249 | Phụ thuộc | Hiện hành | FR-M07-07.02, FR-M07-09.08 | Đối chiếu FR-M16 (bản 1.4). M16: thành viên cũ chỉ thấy tin trước thời điểm rời; vào lại theo luồng thường |
 
 <!-- Nhãn: Sở hữu · Phụ thuộc · Nhắc tới · Loại (khớp nhầm)
      Trạng thái: Hiện hành · Sửa một phần bởi X · Bị thay bởi X · Trùng với X · Mâu thuẫn với X

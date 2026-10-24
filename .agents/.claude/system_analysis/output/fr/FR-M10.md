@@ -2,9 +2,9 @@
 module: M10
 ten_module: Admin Panel
 ma_tai_lieu: FR-M10
-phien_ban: 1.0
+phien_ban: 1.1
 trang_thai: Đã chốt
-ngay: 2026-10-21
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-228, QA-420, ISS-359, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M10 — Admin Panel |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.0 |
-| Ngày | 2026-10-21 |
+| Phiên bản | 1.1 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -648,6 +648,7 @@ Chưa có — chờ giai đoạn thiết kế.
 |---|---|---|---|
 | 0.1 | 2026-10-21 | Tạo mới | Phạm Văn Đức |
 | 1.0 | 2026-10-21 | Chốt sau 7 bước; ghi register DEC-221–228, QA-412–420, ISS-352–359; còn TBD-M10-01 (Trung bình) | Phạm Văn Đức |
+| 1.1 | 2026-10-24 | Đối chiếu với FR-M11, FR-M12, FR-M16: đóng TBD-M10-01 (DEC-236, DEC-245, DEC-256). Không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -831,7 +832,7 @@ Chưa có — chờ giai đoạn thiết kế.
 
 | ID | Nội dung | Ảnh hưởng | Lý do chưa chốt |
 |---|---|---|---|
-| TBD-M10-01 | Danh sách thao tác bị chặn và việc chạy ngầm khi cờ Group, Chat, Gamification tắt, gồm cả tác động lên tìm kiếm (M06), thông báo (M07), báo cáo (M08), feed (M14) và thao tác trên nội dung nằm trong module đang tắt (ví dụ bình luận, Star bài trong nhóm). | Trung bình | Thuộc FR-M11, FR-M12, FR-M16 (DEC-225); chốt khi viết các FR đó, khi đó đối chiếu lại FR-M06, FR-M07, FR-M08. |
+| TBD-M10-01 | (Đã đóng ở phiên bản 1.1 — danh sách thao tác bị chặn, vẫn chạy, vẫn hiển thị khi cờ tắt ghi ở FR của từng module: Group DEC-236, Gamification DEC-245, Chat DEC-256) | Thấp | — |
 
 <!-- Bước 2: không OPEN nào sinh TBD cho M10. OPEN-001 (ngân sách AI) chỉ gắn nhãn ADMN, đã loại ở bước 1. OPEN-008: phần còn mở (email liên hệ, bản sao dữ liệu) thuộc M01. -->
 
@@ -976,6 +977,9 @@ Chưa có — chờ giai đoạn thiết kế.
 | QA-418 | Sở hữu | Trùng với DEC-226 | — | Nhóm A. Lời stakeholder cho DEC-226 |
 | QA-419 | Sở hữu | Trùng với DEC-227 | — | Nhóm A. Lời stakeholder cho DEC-227 |
 | QA-420 | Sở hữu | Trùng với DEC-228 | — | Nhóm A. Lời stakeholder cho DEC-228 |
+| DEC-236 | Nhắc tới | Hiện hành | Không áp dụng: đóng TBD-M10-01 (phần Group) | Đối chiếu FR-M11, FR-M16 (bản 1.1) |
+| DEC-245 | Nhắc tới | Hiện hành | Không áp dụng: đóng TBD-M10-01 (phần Gamification) | Đối chiếu FR-M12, FR-M16 (bản 1.1) |
+| DEC-256 | Nhắc tới | Hiện hành | Không áp dụng: đóng TBD-M10-01 (phần Chat) | Đối chiếu FR-M16 (bản 1.1) |
 
 ### C.2 Chuỗi quyết định
 

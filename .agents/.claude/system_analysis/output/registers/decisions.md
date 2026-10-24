@@ -495,6 +495,8 @@ Batch upvotes (post + comment) within a 5-minute rolling window into one notific
 
 **[Clarified 2026-10-20 — DEC-217, DEC-220: chuông 10 thông báo, số chưa đọc; trang tải 20; biểu tượng Tin nhắn đếm cuộc trò chuyện]**
 
+**[Clarified 2026-10-24 — DEC-254: hộp thư Chat]**
+
 ### DEC-068: Email delivery architecture
 Event → write to email_queue table → cron scans every 1 minute → sends. Async, no blocking, no message broker needed for v1 scope.
 
@@ -925,6 +927,8 @@ Audit/mod action log and chat message content are both kept indefinitely — no 
 **General principle established for all future hard-delete decisions in this project:** hard-delete only when it is genuinely safe — i.e. there is a clear justification (privacy/PII that must be erased, or cleaning up content a user deliberately deleted with a sensible UX reason) AND it does not break referential integrity with other tables that reference it. Existing hard-delete decisions (Post 7-day soft-delete then hard-delete — DEC-011; Comment permanent delete — DEC-038; Account PII wipe on DELETED — DEC-019) all satisfy this principle and remain unchanged.
 
 **[Amended 2026-10-11 — DEC-156: tin nhắn, nhật ký của tài khoản đã xóa hiện "[Người dùng đã xóa]", vẫn tra cứu qua username]**
+
+**[Clarified 2026-10-24 — DEC-248: tin thu hồi giữ nội dung (xóa mềm)]**
 
 ### DEC-130: File/media upload — no virus/malware scanning
 No dedicated malware scan layer is added. The existing per-feature type/size whitelist (image formats only — JPEG/PNG/WebP, size caps per feature) combined with CDN-side (Cloudinary) image re-encoding/transcoding on upload (which naturally strips malicious payloads hidden in image files) is considered sufficient for MS1, given upload scope is image-only (no executable file types accepted).
@@ -1662,6 +1666,8 @@ ISS-345 → ISS-351
 
 **[Clarified 2026-10-23 — DEC-245: danh sách khi cờ Gamification tắt]**
 
+**[Clarified 2026-10-24 — DEC-256: danh sách khi cờ Chat tắt]**
+
 ### DEC-226: M10 — Site-wide banner (clarifies DEC-092)
 - One banner at a time, plain text, 1–200 characters after trimming leading and trailing spaces. ADMIN sets, edits and removes it. It is shown on every page to everyone, including Guests.
 - A viewer can close it; a closed banner reappears when the ADMIN edits it or sets a new one.
@@ -1822,3 +1828,84 @@ ISS-360 → ISS-371
 
 ### Issues Closed
 ISS-372 → ISS-382
+
+---
+
+## Functional Requirement — M16: Chat & Messaging
+
+### DEC-248: M16 — Recalling a message is a soft delete (amends QA-214; closes the M16 part of OPEN-011)
+- Recalling sets a recalled flag on the message; the original content is kept. Every member sees "Tin nhắn đã bị thu hồi" in its place, as before (QA-214, QA-215, QA-216 unchanged otherwise).
+- In MS1 nobody can view the content of a recalled message (messages cannot be reported, OPEN-003). This keeps chat in line with DEC-129 (chat content kept, no hard delete) and with M11 (DEC-239).
+- Source: QA-445
+
+### DEC-249: M16 — Group chat membership over time (clarifies QA-221, QA-222)
+- "3+ members" is checked only when the group chat is created. A group chat left with 2 or 1 members stays a normal group chat (members can still message and add people).
+- When the group chat Admin is the last member, they can leave without transferring the role; the group chat then has no members and nobody can send messages in it.
+- A member who left and a member removed by the Admin both keep the group chat in their inbox and can read its history up to the moment they left or were removed; they cannot send and do not see later messages.
+- A person who left or was removed can be brought back through the normal ways (direct add or invite link, through approval if it is on). Group chats have no block list.
+- Every new member, including one who returns, can read the whole history from the first message (QA-224).
+- Source: QA-446, QA-447, QA-454
+
+### DEC-250: M16 — Group chat whose Admin can no longer be restored (clarifies QA-222)
+- The system never transfers the group chat Admin role (QA-222 unchanged).
+- While the Admin account can still become ACTIVE again (deactivated within 14 days; temporarily banned; permanently banned within the 90-day appeal window with no outcome yet), nothing changes in the group chat.
+- When the Admin account can no longer become ACTIVE (DELETED; permanent ban with no appeal within 90 days; permanent ban whose appeal was rejected): if member approval is on, the system turns it off, and everyone waiting for approval joins at once, up to the 100-member limit. The group chat stays without an Admin.
+- Example: approval on, Admin An permanently banned 01/11 → nothing changes; An does not appeal, the window ends 30/01 → approval turns off, the pending person Dũng joins; afterwards people added by members join at once.
+- Source: QA-448
+
+**[Clarified 2026-10-24 — DEC-257: chờ trước vào trước; người không đủ chỗ bị từ chối]**
+
+### DEC-251: M16 — Group chat invite link and join request (scope extension; amends QA-222)
+- Besides adding someone directly, a member can share the group chat's invite link; the recipient opens it and asks to join. No "invited" notification is sent.
+- Every member (Member and Admin) can get the link. Each group chat has one shared link; it does not expire and cannot be revoked or regenerated (as the Group invite link, DEC-229).
+- Opening the link shows the group chat name and a "Xin gia nhập" button, no messages. A Guest must sign in.
+- Approval on: the request waits for the Admin to accept or reject, like a person added by a Member. Approval off: the person joins at once.
+- A full group chat (100) refuses the request. A person with a pending request cannot send another to the same group chat. A rejected person can ask again at once, without limit.
+- Source: QA-449
+
+### DEC-252: M16 — One 1-1 conversation per pair (clarifies QA-220)
+- Each pair of users has exactly one 1-1 conversation. Starting a 1-1 again opens the existing conversation with its whole history.
+- A user cannot message themselves.
+- Source: QA-450
+
+### DEC-253: M16 — Chat with banned, deactivated and deleted accounts (clarifies QA-220, DEC-156)
+- A new 1-1 conversation cannot be started with, and nobody can be added to a group chat if they are, BANNED, DEACTIVATED or DELETED.
+- In an existing 1-1 conversation, messages can still be sent to a BANNED or DEACTIVATED account (read when the account is ACTIVE again), not to a DELETED one.
+- These accounts stay members of their group chats.
+- Sender shown on their messages: BANNED — as normal (DEC-122); DEACTIVATED — "Tài khoản tạm thời vô hiệu hoá" with the default avatar (as DEC-019); DELETED — "[Người dùng đã xóa]" (DEC-156).
+- Source: QA-451
+
+### DEC-254: M16 — Chat inbox (clarifies DEC-067)
+- Conversations are ordered by their latest message, newest first.
+- Each row: group chat name, or the other person's display name and avatar for a 1-1; the latest message content ("Tin nhắn đã bị thu hồi" if recalled); the time it was sent.
+- A conversation with a message newer than the viewer's read marker is marked unread (presentation decided at design), counted the same way as the Message icon (DEC-220).
+- A 1-1 conversation appears only once it has at least one message.
+- Group chats the viewer left or was removed from stay in the inbox, ordered by the last message they can still see.
+- 20 conversations per scroll, no total limit.
+- Source: QA-452
+
+### DEC-255: M16 — Confirmation list (clarifies QA-219, QA-211, QA-222, QA-214)
+- Member approval is Off when a group chat is created. When the Admin turns it off, everyone waiting joins at once, up to 100. People waiting do not count toward 100; the limit is checked when they join.
+- A message has at most 1,000 words (as comments) and cannot be empty or whitespace only.
+- The 30 messages per minute limit counts the last 60 seconds (as DEC-213). Example: message #1 at 10:00:00, #30 at 10:00:40 → #31 at 10:00:59 is refused, at 10:01:00 it is accepted. The sender is told they are sending too fast; exact wording at design.
+- Sending a message moves the sender's read marker to it. Under the latest message, the avatars of its sender and of the viewer are not shown.
+- A group chat name is required at creation, 1–100 characters after trimming leading and trailing spaces; names may repeat (as Group names, DEC-237). Every member can rename it under the same rule.
+- A recall reaches members who have the conversation open at once. If the latest message is recalled, its placeholder remains the latest message and carries the Đã gửi / Đã xem status.
+- Source: QA-454
+
+**[Clarified 2026-10-24 — DEC-257: chờ trước vào trước; người không đủ chỗ bị từ chối]**
+
+### DEC-256: M16 — Behaviour while the Chat flag is off (clarifies DEC-225)
+- Refused with "Hệ thống đang bận, vui lòng thử lại sau": opening the inbox or a conversation, starting a 1-1, creating a group chat, sending, recalling, adding, removing, approving, renaming, transferring the Admin role, leaving, switching approval, getting the invite link, asking to join. ADMIN is not affected.
+- Keeps showing: the Message icon and its unread count (M07), the "Nhắn tin" button on profiles.
+- Keeps running: turning approval off when an Admin can no longer be restored (DEC-250); the 5-minute recall window keeps running.
+- Source: QA-453
+
+### DEC-257: M16 — Pending people when approval turns off and the group chat lacks room (clarifies DEC-250, DEC-255)
+- When approval is turned off (by the Admin, or automatically under DEC-250), pending people join in the order they started waiting, earliest first, until the group chat has 100 members.
+- Those who do not fit are set to Đã từ chối; they can be added again or ask to join again through the normal ways (DEC-249).
+- Example: 98 members, 5 pending since 01/11, 02/11, 03/11, 04/11, 05/11 → the first two join; the other three are rejected.
+- Source: QA-455
+
+### Issues Closed
+ISS-383 → ISS-393

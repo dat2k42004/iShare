@@ -2,9 +2,9 @@
 module: M02
 ten_module: User Profile
 ma_tai_lieu: FR-M02
-phien_ban: 1.2
+phien_ban: 1.3
 trang_thai: Đã chốt
-ngay: 2026-10-23
+ngay: 2026-10-24
 tac_gia: Phạm Văn Đức
 moc_nguon: DEC-247, QA-444, ISS-382, OPEN-012
 steps_completed: [1, 2, 3, 4, 5, 6, 7]
@@ -16,8 +16,8 @@ steps_completed: [1, 2, 3, 4, 5, 6, 7]
 | Dự án | iShare |
 | Module | M02 — User Profile |
 | Trạng thái | Đã chốt |
-| Phiên bản | 1.2 |
-| Ngày | 2026-10-23 |
+| Phiên bản | 1.3 |
+| Ngày | 2026-10-24 |
 | Tác giả | Phạm Văn Đức |
 
 <!-- Quy ước chung cho mọi bảng dưới đây:
@@ -157,6 +157,7 @@ Không có.
 | Hành động | Guest | User | Mod | Admin | Yêu cầu |
 |---|---|---|---|---|---|
 | Xem trang hồ sơ của một người dùng (thông tin hồ sơ, tab Bài viết) | ✓ | ✓ | ✓ | ✓ | FR-M02-01.01, FR-M02-01.16 |
+| Nhắn tin từ trang hồ sơ người khác | ✗ | ✓ | ✓ | ✓ | FR-M02-01.26, FR-M02-01.27 |
 | Xem danh sách người theo dõi, đang theo dõi của một người dùng | ✗ | ✓ | ✓ | ✓ | FR-M02-02.01, FR-M02-02.03, FR-M02-02.05 |
 | Sửa thông tin hồ sơ (bio, Lớp/Khối) | ✗ | ✓ (của mình) | ✓ (của mình) | ✓ (của mình) | FR-M02-03.02, FR-M02-03.10 |
 | Đổi avatar | ✗ | ✓ (của mình) | ✓ (của mình) | ✓ (của mình) | FR-M02-04.01, FR-M02-04.07 |
@@ -227,6 +228,8 @@ cột MoSCoW ở dòng M02 của bảng Module List bị lệch nên không dùn
 | FR-M02-01.23 | Hệ thống phải không hiển thị số stars nhận, số stars cho trên trang hồ sơ. |
 | FR-M02-01.24 | Nếu chủ hồ sơ đạt danh hiệu "Ngôi sao tuần" ở tuần vừa chốt, hệ thống phải hiển thị danh hiệu đó trên trang hồ sơ cạnh badge, từ lúc chốt tuần tới lần chốt tuần sau, không kèm số lần đạt hay danh sách tuần đạt (BR-M02-37). |
 | FR-M02-01.25 | Hệ thống phải không hiển thị trên hồ sơ các lần đạt "Ngôi sao tuần" của những tuần trước tuần vừa chốt (BR-M02-37). |
+| FR-M02-01.26 | Khi người dùng đã đăng nhập xem trang hồ sơ của một người dùng khác, hệ thống phải hiển thị nút "Nhắn tin" dẫn tới trò chuyện 1-1 với người đó (M16). |
+| FR-M02-01.27 | Hệ thống phải không hiển thị nút "Nhắn tin" với Guest và trên trang hồ sơ của chính người xem. |
 
 ### 5.2 FR-M02-02 Xem danh sách người theo dõi và đang theo dõi
 
@@ -420,6 +423,7 @@ Cách trang hồ sơ hiện theo trạng thái tài khoản (M01) được ghi b
 | Cung cấp | M12 | Lớp/Khối của người dùng, để lọc bảng xếp hạng (M12 lấy giá trị tại lúc chốt bảng) | FR-M02-03.02 |
 | Dùng | M08 | Mức cảnh báo của người dùng, không được hiện trên hồ sơ | FR-M02-01.13 |
 | Cung cấp | M03, M04, M16, M01 | Avatar, display_name hiện ở nơi hiển thị tác giả, người gửi tin nhắn và danh sách gợi ý nhắc tên; avatar mặc định khi chưa đặt | FR-M02-04.01, FR-M02-01.18 |
+| Cung cấp | M16 | Nút "Nhắn tin" trên trang hồ sơ người khác, lối vào trò chuyện 1-1 | FR-M02-01.26, FR-M02-01.27 |
 | Dùng | M03 | Trạng thái của bài (đã đăng, nháp, chờ duyệt, bị từ chối, tự ẩn, đã xóa, bị Mod ẩn) để chọn bài hiện ở tab Bài viết và dòng "Nội dung không tồn tại" ở tab Bookmark; thời điểm bài bị xóa hẳn | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03, FR-M02-07.06 |
 | Dùng | M11 | Bài đăng ẩn danh; thành viên nhóm Private, để chọn bài hiện ở tab Bài viết và bài đã lưu xem được; khi cờ Group tắt, bài nhóm vẫn hiện ở tab Bài viết và Bookmark, mở ra thì báo hệ thống đang bận (M11 sở hữu) | FR-M02-01.07, FR-M02-01.17, FR-M02-07.03 |
 | Dùng | M08 | Việc xử lý báo cáo người dùng không gồm gỡ avatar, bio (cảnh cáo hoặc khóa như M08) | FR-M02-03.10, FR-M02-04.07 |
@@ -444,6 +448,7 @@ Chưa có — chờ giai đoạn thiết kế.
 | 1.0 | 2026-10-13 | Chốt sau 7 bước; câu trả lời bước 6 ghi ở DEC-170–177 | Phạm Văn Đức |
 | 1.1 | 2026-10-21 | Đối chiếu với FR-M11 (DEC-236): "Dùng M11" ghi thêm hành vi khi cờ Group tắt (M11 sở hữu); không đổi yêu cầu. Chốt bản 1.1 | Phạm Văn Đức |
 | 1.2 | 2026-10-23 | Rà lại với register tới DEC-247: hồ sơ hiện danh hiệu "Ngôi sao tuần" của tuần vừa chốt (DEC-244, DEC-247: FR-M02-01.24, FR-M02-01.25, BR-M02-37); ví dụ BR-M02-12 theo cách tính bảng xếp hạng mới (DEC-242); thêm dòng Cung cấp M12 (Lớp/Khối). Chốt bản 1.2 | Phạm Văn Đức |
+| 1.3 | 2026-10-24 | Đối chiếu với FR-M16: nút "Nhắn tin" trên hồ sơ người khác, ẩn với Guest và trên hồ sơ của chính mình (DEC-252, DEC-256: FR-M02-01.26, FR-M02-01.27); dòng quyền và dòng Cung cấp M16. Chốt bản 1.3 | Phạm Văn Đức |
 
 ## Phụ lục A. Truy vết
 
@@ -475,6 +480,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | FR-M02-01.23 | DEC-173 | Nói thẳng | — |
 | FR-M02-01.24 | DEC-244, DEC-247 | Nói thẳng | — |
 | FR-M02-01.25 | DEC-247 | Nói thẳng | — |
+| FR-M02-01.26 | DEC-256, DEC-252 | Nói thẳng | — |
+| FR-M02-01.27 | DEC-252, QA-011 | Suy ra | Không tự nhắn cho chính mình (DEC-252); Guest không nhắn tin (QA-011) ⇒ không hiện nút |
 | FR-M02-02 | DEC-025, DEC-171, DEC-172, DEC-176, QA-067, DM-1.2 | Nói thẳng | — |
 | FR-M02-02.01 | DEC-025, DEC-171, QA-067 | Nói thẳng | — |
 | FR-M02-02.02 | DEC-025, DEC-172, QA-067 | Nói thẳng | — |
@@ -768,6 +775,8 @@ Chưa có — chờ giai đoạn thiết kế.
 | DEC-244 | Phụ thuộc | Sửa một phần bởi DEC-247 | FR-M02-01, FR-M02-01.24, BR-M02-37 | Nhóm B (rà lại 1.2). M12: danh hiệu hiện trên hồ sơ |
 | DEC-246 | Phụ thuộc | Hiện hành | Chuyển M12 | Nhóm B (rà lại 1.2). M12: tài khoản đã xóa trên bảng xếp hạng; HEAVY/BANNED lúc chốt |
 | DEC-247 | Sở hữu | Hiện hành | FR-M02-01, FR-M02-01.24, FR-M02-01.25, BR-M02-37 | Nhóm B (rà lại 1.2). M12: hồ sơ chỉ hiện danh hiệu của tuần vừa chốt; chỉ badge hiện vĩnh viễn |
+| DEC-252 | Phụ thuộc | Hiện hành | FR-M02-01.26, FR-M02-01.27 | Đối chiếu FR-M16 (bản 1.3). M16: một cuộc 1-1 mỗi cặp, không tự nhắn |
+| DEC-256 | Phụ thuộc | Hiện hành | FR-M02-01.26 | Đối chiếu FR-M16 (bản 1.3). M16: nút "Nhắn tin" trên hồ sơ |
 
 ### C.2 Chuỗi quyết định
 
