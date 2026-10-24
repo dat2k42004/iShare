@@ -9,7 +9,7 @@ The single entry point for any agent working on iShare. This directory tells an 
 1. Read [COMMON-RULES.md](./COMMON-RULES.md) — rules for every agent and every phase.
 2. Open the file of your phase in [phases/](./phases/).
 3. Pick the skill for your task and follow its `SKILL.md`. Each skill also has a `README.md` for the user.
-4. Work in the agent workspace (see below); promote finished, approved documents to `docs/approved/`.
+4. Work in the agent workspace (see below); promote finished, approved documents to `docs/specs/`.
 
 | Phase | Entry file | Use for | Status |
 |---|---|---|---|
@@ -65,7 +65,7 @@ Agents write working files in their own workspace, not in the project root:
 └── system_analysis/output/       registers/, fr/, ... (see phases/system-analysis.md)
 ```
 
-Create it once (`mkdir -p .agents/.claude/{system_analysis,design,coding}`), reuse it for every task, keep one workspace per agent, and follow the git rule in COMMON-RULES Rule 3. Approved documents move to `docs/approved/`; stakeholder drafts stay read-only in `docs/_temp/`.
+Create it once (`mkdir -p .agents/.claude/{system_analysis,design,coding}`), reuse it for every task, keep one workspace per agent, and follow the git rule in COMMON-RULES Rule 3. Approved documents move to `docs/specs/`; stakeholder drafts stay read-only in `docs/_temp/`.
 
 ---
 

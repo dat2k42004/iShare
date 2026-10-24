@@ -112,7 +112,7 @@ Task: "Document the API"
   - `.agents/.claude/design/` - Design phase drafts
   - `.agents/.claude/coding/` - Coding phase drafts
 - Temporary work includes: drafts, research, experiments, intermediate outputs
-- Working documents the project keeps (for example the System Analysis registers and FR drafts in `.agents/.claude/system_analysis/output/`) stay in the workspace; **approved** deliverables are promoted to `docs/approved/` or delivered to the user
+- Working documents the project keeps (for example the System Analysis registers and FR drafts in `.agents/.claude/system_analysis/output/`) stay in the workspace; **approved** deliverables are promoted to `docs/specs/` or delivered to the user
 - Stakeholder drafts are read-only inputs in `docs/_temp/`
 - Create the workspace once (`mkdir -p .agents/.claude/{system_analysis,design,coding}`), reuse it for every task, one workspace per agent, short lowercase name (`.claude`, `.gpt`, …)
 

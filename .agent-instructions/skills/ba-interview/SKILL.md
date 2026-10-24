@@ -24,7 +24,7 @@ Idea draft + summary
 | Stakeholder draft (read-only source, cited as `DRAFT §x.y`) | `docs/_temp/iShare_specs_general.md`, `iShare_modules.md`, `iShare_dev_priority.md` |
 | Registers, intake, module registry (live) | `.agents/.claude/system_analysis/output/registers/`, `.../output/phase0-intake.md` |
 | FR documents | `.agents/.claude/system_analysis/output/fr/FR-Mxx.md` — see [analyzing-functional-requirements](../analyzing-functional-requirements/SKILL.md) |
-| Approved documents | `docs/approved/` — promoted only after stakeholder approval |
+| Approved documents | `docs/specs/` — promoted only after stakeholder approval |
 
 ## 0. YOUR ROLE
 
@@ -261,7 +261,7 @@ IDs are permanent — never renumber, deprecate instead.
 
 ## 10. FILE STORAGE AND PROMOTION
 
-Working files stay in `.agents/.claude/system_analysis/output/` (see [COMMON-RULES.md](../../COMMON-RULES.md) Rule 3). A document moves to `docs/approved/` only when its checklist passes and the stakeholder confirms. Approved files change only through a new version plus a revision-history entry, never a silent edit.
+Working files stay in `.agents/.claude/system_analysis/output/` (see [COMMON-RULES.md](../../COMMON-RULES.md) Rule 3). A document moves to `docs/specs/` only when its checklist passes and the stakeholder confirms. Approved files change only through a new version plus a revision-history entry, never a silent edit.
 
 ## 11. PHASE EXIT GATE
 
@@ -274,7 +274,7 @@ Working files stay in `.agents/.claude/system_analysis/output/` (see [COMMON-RUL
 - [ ] Permission matrix reviewed and approved
 - [ ] All acronyms in the glossary
 - [ ] Every file is valid Markdown (FR documents: Vietnamese, per the analyzing-functional-requirements skill)
-- [ ] Stakeholder approval recorded; documents promoted to `docs/approved/`
+- [ ] Stakeholder approval recorded; documents promoted to `docs/specs/`
 
 **Next:** HMI / screen specification, derived from the functional requirements (rules for that phase to be defined). A requirement gap found later comes back to this role for that scope only — it is never patched inside a design document.
 

@@ -50,7 +50,7 @@ A requirement gap found in a later phase comes back to this phase for that scope
 | Registers, intake, module registry (live) | `.agents/.claude/system_analysis/output/registers/`, `.../output/phase0-intake.md` |
 | FR documents | `.agents/.claude/system_analysis/output/fr/FR-Mxx.md` (tool cache in `.../fr/.work/`) |
 | Technical design outputs | `.agents/.claude/system_analysis/output/<architecture or data-model or api or adr or performance>/` |
-| Approved documents | `docs/approved/` — promoted only after stakeholder approval |
+| Approved documents | `docs/specs/` — promoted only after stakeholder approval |
 
 ---
 
