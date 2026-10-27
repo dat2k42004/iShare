@@ -5,8 +5,8 @@ description: >
   và sản xuất tài liệu Đặc tả Use Case (US-Mxx.md) lưu tại docs/specs/us/.
   Kết quả bao gồm: bảng tổng hợp chức năng con, sơ đồ Use Case tổng quan
   (macro), 3–6 Use Case Chính kèm actor và quy trình nghiệp vụ hoàn chỉnh,
-  phân rã Use Case con với quan hệ <<include>> và <<extend>>, và ma trận
-  truy vết FR-to-UC đầy đủ.
+  phân rã Use Case con với 3 loại quan hệ UML chuẩn: <<include>>, <<extend>>,
+  và Generalization (Kế thừa / Cha-Con), cùng ma trận truy vết FR-to-UC đầy đủ.
   Dùng khi người dùng yêu cầu tạo, viết, hoặc phân tích use case
   (US document, tài liệu use case, phân tích use case) cho một module iShare.
 ---
@@ -19,7 +19,8 @@ Bạn là chuyên viên phân tích nghiệp vụ. Bạn đọc tài liệu Yêu
 
 Đây là đồ án tốt nghiệp. Tài liệu phân tích được chấm chặt — mỗi Use Case phải
 truy được về đúng mã FR, mỗi sơ đồ Mermaid phải render không lỗi, và các phán
-đoán phân loại `<<include>>` / `<<extend>>` phải có lý do nghiệp vụ rõ ràng.
+đoán phân loại quan hệ (`<<include>>`, `<<extend>>`, `Generalization`) phải có
+lý do nghiệp vụ rõ ràng.
 
 ## Nguyên tắc cốt lõi
 
@@ -29,18 +30,27 @@ truy được về đúng mã FR, mỗi sơ đồ Mermaid phải render không l
    mã chức năng `FR-Mxx-nn` hoặc một Business Rule `BR-Mxx-nn`.
 3. **100% truy vết.** Mọi mã `FR-Mxx-nn` trong mục 4.4 của tài liệu FR phải
    xuất hiện trong ma trận truy vết (Mục 4 của US). Không bỏ sót.
-4. **Mermaid phải render.** Áp dụng nghiêm túc Quy tắc Mermaid ở mục cuối
-   file này. Sơ đồ có lỗi cú pháp là lỗi nghiêm trọng.
-5. **Ngôn ngữ:** Tài liệu viết bằng tiếng Việt, thuật ngữ kỹ thuật giữ nguyên
-   tiếng Anh (`username`, `JWT`, `OAuth`, `ACTIVE`, `<<include>>`, v.v.).
-6. **Một bước một lượt.** Mỗi lượt làm đúng một bước, rồi dừng chờ xác nhận.
+4. **Ba loại quan hệ chuẩn UML giữa các Use Case:**
+   - **`<<include>>` (Bao hàm bắt buộc):** Use Case chính bắt buộc phải thực hiện Use Case con để hoàn thành. Thiếu nó quy trình không thể kết thúc. (Chiều mũi tên nét đứt từ Chính sang Con: `UC_Chinh -.->|"<<include>>"| UC_Con`).
+   - **`<<extend>>` (Mở rộng tùy chọn / Rẽ nhánh):** Use Case con mở rộng hoặc bổ sung hành vi cho Use Case chính tại điểm mở rộng khi thỏa mãn điều kiện nhất định. Use Case chính vẫn có thể hoàn tất mà không cần Use Case con này. (Chiều mũi tên nét đứt từ Con sang Chính: `UC_Con -.->|"<<extend>>"| UC_Chinh`).
+   - **`Generalization` (Kế thừa / Khái quát hóa / Quan hệ Cha - Con):** Use Case con là một dạng chuyên biệt hóa cụ thể của Use Case cha tổng quát (*"is-a-kind-of"*). Use Case con kế thừa toàn bộ mục tiêu, quyền truy cập và hành vi cơ bản của cha, đồng thời chuyên biệt hóa cơ chế thực hiện.
+     *Ví dụ kinh điển:* Use Case cha **"Đăng nhập hệ thống"** khái quát hóa cho 2 Use Case con: **"Đăng nhập bằng Email/Password"** và **"Đăng nhập bằng Google OAuth"**; hoặc **"Đăng ký tài khoản"** là cha của **"Đăng ký bằng Email"** và **"Đăng ký bằng Google OAuth"**. (Trong sơ đồ Mermaid dùng mũi tên nét liền từ Con trỏ về Cha: `UC_Con -->|"<<generalization>>"| UC_Cha`, tương ứng mũi tên tam giác rỗng trong UML).
+5. **Phân định rõ chức năng không phải Use Case:**
+   - **`*(Tiến trình ngầm)*`:** Các tác vụ daemon, cron job, batch job, rotation token nền tảng kỹ thuật tự động chạy (ví dụ `FR-M01-06`, `FR-M01-12`).
+   - **`*(Tầng hiển thị)*`:** Các logic kiểm soát hiển thị thụ động, filter dữ liệu (ví dụ `FR-M01-13`).
+   Cả hai nhóm này KHÔNG biến thành Use Case tương tác của Actor mà được ghi nhận vai trò đặc thù trong ma trận truy vết (Mục 4.1).
+6. **Quan hệ nhiều-nhiều giữa FR và Use Case:**
+   - Một mã `FR-Mxx-nn` có thể tham gia vào **nhiều Use Case Chính** (ví dụ `FR-M01-04` vừa thuộc `UC-C01` vừa thuộc `UC-C02`).
+   - Một mã `FR-Mxx-nn` có thể sinh ra **nhiều Use Case con** với các vai trò khác nhau (cả `<<include>>`, `<<extend>>`, `Generalization`).
+7. **Mermaid phải render.** Áp dụng nghiêm túc Quy tắc Mermaid ở mục cuối file này. Sơ đồ có lỗi cú pháp là lỗi nghiêm trọng.
+8. **Ngôn ngữ:** Tài liệu viết bằng tiếng Việt, thuật ngữ kỹ thuật giữ nguyên tiếng Anh (`username`, `JWT`, `OAuth`, `ACTIVE`, `<<include>>`, `<<extend>>`, `Generalization`, v.v.).
+9. **Một bước một lượt.** Mỗi lượt làm đúng một bước, rồi dừng chờ xác nhận.
 
 ## Bắt đầu hoặc tiếp tục
 
 1. Xác định module (Mxx). Chưa rõ thì hỏi.
 2. Đọc `input/INPUTS.md` và kiểm tra tệp FR tồn tại. Thiếu thì dừng, báo lỗi.
-3. Nếu `US-Mxx.md` chưa có: chép `output/us-template.md` sang
-   `docs/specs/us/US-Mxx.md`, điền metadata, bắt đầu Bước 1.
+3. Nếu `US-Mxx.md` chưa có: chép `output/us-template.md` sang `docs/specs/us/US-Mxx.md`, điền metadata, bắt đầu Bước 1.
 4. Nếu đã có: đọc phần cuối file để biết bước đã làm, tiếp tục bước kế tiếp.
 5. Chỉ đọc file bước đang làm trong `steps/`. Không nạp trước file bước sau.
 
@@ -51,7 +61,7 @@ truy được về đúng mã FR, mỗi sơ đồ Mermaid phải render không l
 | 1 | `steps/01-extract-functions.md` | Mục 1: Bảng tổng hợp chức năng con |
 | 2 | `steps/02-identify-core-ucs.md` | Mục 2.1–2.2: Danh sách UC Chính + Macro Diagram |
 | 3 | `steps/03-map-actors.md` | Mục 2.3: Actor + Quy trình nghiệp vụ hoàn chỉnh |
-| 4 | `steps/04-decompose-sub-ucs.md` | Mục 3: Phân rã UC con + Per-UC Diagrams |
+| 4 | `steps/04-decompose-sub-ucs.md` | Mục 3: Phân rã UC con (Include, Extend, Generalization) + Per-UC Diagrams |
 | 5 | `steps/05-build-traceability.md` | Mục 4.1: Ma trận truy vết FR→UC |
 | 6 | `steps/06-write-diagrams.md` | Mục 4.2: Sơ đồ tổng hợp toàn module |
 | 7 | `steps/07-assemble-verify.md` | Kiểm tra cuối, hoàn thiện, chốt |
@@ -78,15 +88,20 @@ Trả lời "ok" để sang bước N+1, hoặc nói chỗ cần sửa.
 ## Quy tắc Mermaid (bắt buộc, không có ngoại lệ)
 
 1. Chỉ dùng `flowchart LR` (macro) hoặc `flowchart TB` (per-UC và tổng hợp).
-2. Node label có dấu ngoặc đơn `()`, dấu nháy, ký tự đặc biệt → **bắt buộc đặt
-   trong chuỗi kép**: `["text"]` hoặc `(["text"])`.
-3. Arrow label **bắt buộc đặt trong chuỗi kép**: `-.->|"<<include>>"| ` hoặc
-   `-->|"<<extend>>"|`. KHÔNG ĐƯỢC để nhãn không có dấu nháy.
+2. Node label có dấu ngoặc đơn `()`, dấu nháy, ký tự đặc biệt → **bắt buộc đặt trong chuỗi kép**: `["text"]` hoặc `(["text"])`.
+3. Arrow label **bắt buộc đặt trong chuỗi kép**:
+   - Include: `-.->|"<<include>>"|`
+   - Extend: `-.->|"<<extend>>"|`
+   - Generalization: `-->|"<<generalization>>"|`
+   KHÔNG ĐƯỢC để nhãn không có dấu nháy.
 4. **Không dùng `\n` trong nhãn.** Xuống dòng trong node → dùng `<br/>`.
 5. **Không dùng HTML tags** (`<b>`, `<i>`, `<u>`) bên trong label node.
-6. `classDef` cho style: include = `fill:#e8f5e9,stroke:#2e7d32`;
-   extend = `fill:#fffde7,stroke:#f57f17,stroke-dasharray: 4 4`;
-   actor = `fill:#ffffff,stroke:#333333,stroke-width:2px`.
+6. `classDef` cho style chuẩn:
+   - Include: `classDef incStyle fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;` (xanh lá)
+   - Extend: `classDef extStyle fill:#fffde7,stroke:#f57f17,stroke-width:1.5px,stroke-dasharray: 4 4;` (vàng đứt đoạn)
+   - Generalization: `classDef genStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1.5px;` (tím nhạt, nét liền)
+   - Actor: `classDef actorStyle fill:#ffffff,stroke:#333333,stroke-width:2px;`
+   - Core UC: `classDef coreUC fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,font-weight:bold;`
 7. Test nhanh: Nếu label có `(` hoặc `)` → PHẢI bọc bằng `"..."`.
 8. **Tuyệt đối không dùng dấu ngoặc nhọn kép `{{` hoặc `}}` bên trong code block Mermaid.** Trong cú pháp Mermaid, `{{` được hiểu là toán tử tạo hình Hexagon / Diamond (`DIAMOND_START`), sẽ gây lỗi phân tích cú pháp nghiêm trọng (`Parse error`). Khi làm template hoặc placeholder trong sơ đồ, chỉ dùng các định danh an toàn như `Actor1`, `Mxx_Core`, `UC_C01`.
 
@@ -94,4 +109,3 @@ Trả lời "ok" để sang bước N+1, hoặc nói chỗ cần sửa.
 
 - Input mẫu: `docs/specs/fr/FR-M01.md`
 - Output mẫu: `docs/specs/us/US-M01.md` ← **Chuẩn vàng, đọc trước khi bắt đầu**
-

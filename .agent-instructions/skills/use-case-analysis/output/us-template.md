@@ -70,7 +70,9 @@ flowchart LR
 
 ### 2.3 Mô tả Quy trình Nghiệp vụ Hoàn chỉnh của từng Use Case Chính
 
-#### 1. UC-C01: {{UC1_NAME_VI}} ({{UC1_NAME_EN}})
+<!-- Áp dụng Kiểu A (Quy trình tuần tự) HOẶC Kiểu B (Phân nhánh song song) tùy bản chất UC -->
+
+#### 1. UC-C01: {{UC1_NAME_VI}} ({{UC1_NAME_EN}}) — [Ví dụ Kiểu A: Tuần tự]
 - **Actor chính:** `{{ACTOR_1}}`.
 - **Mục tiêu:** {{GOAL_DESCRIPTION_1}}.
 - **Quy trình nghiệp vụ hoàn chỉnh:**
@@ -78,13 +80,12 @@ flowchart LR
   2. *Thực hiện & Kiểm tra:* {{STEP_1_EXECUTION}}
   3. *Kết thúc:* {{STEP_1_END}}
 
-#### 2. UC-C02: {{UC2_NAME_VI}} ({{UC2_NAME_EN}})
-- **Actor chính:** `{{ACTOR_2}}`.
+#### 2. UC-C02: {{UC2_NAME_VI}} ({{UC2_NAME_EN}}) — [Ví dụ Kiểu B: Phân nhánh song song]
+- **Actor chính:** `{{ACTOR_A}}` (cho Nhánh 1), `{{ACTOR_B}}` (cho Nhánh 2).
 - **Mục tiêu:** {{GOAL_DESCRIPTION_2}}.
 - **Quy trình nghiệp vụ hoàn chỉnh:**
-  1. *Khởi đầu:* {{STEP_2_START}}
-  2. *Thực hiện & Kiểm tra:* {{STEP_2_EXECUTION}}
-  3. *Kết thúc:* {{STEP_2_END}}
+  - *Nhánh 1 — {{BRANCH_1_NAME}}:* {{ACTOR_A}} bắt đầu từ {{SCREEN_1}} $\to$ {{ACTIONS_AND_RULES_1}} $\to$ Hệ thống phản hồi {{RESULT_1}}.
+  - *Nhánh 2 — {{BRANCH_2_NAME}}:* {{ACTOR_B}} bắt đầu từ {{SCREEN_2}} $\to$ {{ACTIONS_AND_RULES_2}} $\to$ Hệ thống phản hồi {{RESULT_2}}.
 
 <!-- Tiếp tục mô tả cho các UC Chính tiếp theo -->
 
@@ -92,9 +93,10 @@ flowchart LR
 
 ## 3. Xác định Use Case con Chi tiết và Mối quan hệ với Use Case Chính
 
-Phần này phân tích chi tiết quan hệ giữa các Use Case Chính và các Use Case con theo đúng 2 loại quan hệ chuẩn UML:
-- **`<<include>>` (Bắt buộc):** Bước nghiệp vụ tiên quyết, bắt buộc phải có để Use Case chính thành công.
-- **`<<extend>>` (Tùy chọn / Rẽ nhánh):** Bước mở rộng, phương thức thay thế hoặc nhánh ngoại lệ có thể có hoặc không.
+Phần này phân tích chi tiết quan hệ giữa các Use Case Chính và các Use Case con theo đúng 3 loại quan hệ chuẩn UML:
+- **`<<include>>` (Bao hàm Bắt buộc):** Bước nghiệp vụ tiên quyết, bắt buộc phải có để Use Case chính thành công. (Mũi tên nét đứt từ Chính sang Con).
+- **`<<extend>>` (Mở rộng Tùy chọn / Rẽ nhánh):** Bước mở rộng, tính năng tùy chọn hoặc nhánh ngoại lệ. (Mũi tên nét đứt từ Con sang Chính).
+- **`Generalization` (Kế thừa / Cha - Con):** Use Case con là một dạng chuyên biệt hóa cụ thể của Use Case cha tổng quát (*is-a-kind-of*). (Mũi tên nét liền từ Con sang Cha).
 
 ---
 
@@ -111,6 +113,9 @@ flowchart TB
 
         %% Tùy chọn / Mở rộng (Extend)
         EXT_01_1(["UC-01.2: Tên UC con Mở rộng<br/>[FR-Mxx-02]"])
+
+        %% Kế thừa / Cha-Con (Generalization)
+        GEN_01_1(["UC-01.3: Tên UC con Kế thừa Chuyên biệt hóa<br/>[FR-Mxx-03]"])
     end
 
     %% Quan hệ Include
@@ -119,10 +124,15 @@ flowchart TB
     %% Quan hệ Extend
     EXT_01_1 -.->|"<<extend>>"| UC_C01
 
+    %% Quan hệ Generalization
+    GEN_01_1 -->|"<<generalization>>"| UC_C01
+
     classDef incStyle fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;
     classDef extStyle fill:#fffde7,stroke:#f57f17,stroke-width:1.5px,stroke-dasharray: 4 4;
+    classDef genStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1.5px;
     class INC_01_1 incStyle;
     class EXT_01_1 extStyle;
+    class GEN_01_1 genStyle;
 ```
 
 #### Bảng chi tiết quan hệ, điều kiện & lý do nghiệp vụ (UC-C01):
@@ -130,6 +140,7 @@ flowchart TB
 |---|---|:---:|:---:|---|
 | **UC-01.1** | {{INC_SUB_UC_NAME}} | FR-{{MODULE_CODE}}-01 | `<<include>>` | **Bắt buộc:** {{REASON_MANDATORY}} |
 | **UC-01.2** | {{EXT_SUB_UC_NAME}} | FR-{{MODULE_CODE}}-02 | `<<extend>>` | **{{EXTENSION_TYPE}}:** {{REASON_CONDITIONAL}} |
+| **UC-01.3** | {{GEN_SUB_UC_NAME}} | FR-{{MODULE_CODE}}-03 | Generalization | **Kế thừa (Chuyên biệt hóa):** Là một dạng hình thức cụ thể của Use Case cha; kế thừa toàn bộ mục tiêu và quy tắc của cha nhưng áp dụng phương thức thực thi chuyên biệt. |
 
 ---
 
@@ -141,13 +152,16 @@ flowchart TB
 
 ## 4. Bảng Tổng kết Ánh xạ & Sơ đồ Use Case Chi tiết Toàn Module
 
-### 4.1 Ma trận Truy vết Toàn bộ Chức năng (FR → UC)
+### 4.1 Bảng Ma trận Ánh xạ Toàn bộ Chức năng con vào Hệ thống Use Case
 
-| Mã FR | Tên chức năng con | UC Chính liên quan | UC con tương ứng | Vai trò quan hệ |
-|:---:|---|:---:|:---:|:---:|
-| **FR-{{MODULE_CODE}}-01** | {{FUNCTION_NAME_1}} | UC-C01 | UC-01.1 | `<<include>>` (Bắt buộc) |
-| **FR-{{MODULE_CODE}}-02** | {{FUNCTION_NAME_2}} | UC-C01 | UC-01.2 | `<<extend>>` (Tùy chọn) |
-| ... | ... | ... | ... | ... |
+| Mã FR | Tên chức năng con trong `FR-{{MODULE_CODE}}.md` | Thuộc Use Case Chính | Thuộc Use Case Phụ cụ thể | Vai trò quan hệ trong UC Chính |
+|:---:|---|:---:|---|:---:|
+| **FR-{{MODULE_CODE}}-01** | {{FUNCTION_NAME_1}} | **UC-C01** | UC-01.1: {{SUB_NAME_1}} | `<<include>>` (Bắt buộc) |
+| **FR-{{MODULE_CODE}}-02** | {{FUNCTION_NAME_2}} | **UC-C01** | UC-01.2: {{SUB_NAME_2}}<br>UC-01.3: {{SUB_NAME_3}} | `<<include>>` (Bắt buộc)<br>`<<extend>>` (Tùy chọn) |
+| **FR-{{MODULE_CODE}}-03** | {{FUNCTION_NAME_3}} | **UC-C01** | UC-01.4: {{SUB_NAME_4}} | Generalization (Chuyên biệt hóa) |
+| **FR-{{MODULE_CODE}}-04** | {{FUNCTION_NAME_4}} | **UC-C01**<br>**UC-C02** | UC-01.5: {{SUB_NAME_5}}<br>UC-02.3: {{SUB_NAME_6}} | `<<extend>>` (Thay thế)<br>`<<extend>>` (Rẽ nhánh) |
+| **FR-{{MODULE_CODE}}-05** | {{FUNCTION_NAME_5}} | *(Tiến trình ngầm)* | {{BACKGROUND_JOB_DESCRIPTION}} | Nền tảng hạ tầng kỹ thuật |
+| **FR-{{MODULE_CODE}}-06** | {{FUNCTION_NAME_6}} | *(Tầng hiển thị)* | {{DISPLAY_FILTER_DESCRIPTION}} | Logic kiểm soát hiển thị |
 
 ---
 
@@ -163,17 +177,19 @@ flowchart TB
     subgraph UCC01 ["UC-C01: Tên Use Case Chính 1"]
         direction TB
         UC_C01(["UC-C01: Tên Use Case Chính 1"])
-        INC_C01_1(["UC-01.1: Tên UC con 1<br/>[FR-Mxx-01]"])
-        EXT_C01_1(["UC-01.2: Tên UC con 2<br/>[FR-Mxx-02]"])
+        INC_C01_1(["UC-01.1: Tên UC con Bao hàm<br/>[FR-Mxx-01]"])
+        EXT_C01_1(["UC-01.2: Tên UC con Mở rộng<br/>[FR-Mxx-02]"])
+        GEN_C01_1(["UC-01.3: Tên UC con Kế thừa<br/>[FR-Mxx-03]"])
         UC_C01 -.->|"<<include>>"| INC_C01_1
         EXT_C01_1 -.->|"<<extend>>"| UC_C01
+        GEN_C01_1 -->|"<<generalization>>"| UC_C01
     end
 
     %% UC-C02 GROUP
     subgraph UCC02 ["UC-C02: Tên Use Case Chính 2"]
         direction TB
         UC_C02(["UC-C02: Tên Use Case Chính 2"])
-        INC_C02_1(["UC-02.1: Tên UC con 3<br/>[FR-Mxx-03]"])
+        INC_C02_1(["UC-02.1: Tên UC con Bao hàm<br/>[FR-Mxx-04]"])
         UC_C02 -.->|"<<include>>"| INC_C02_1
     end
 
@@ -187,8 +203,10 @@ flowchart TB
     classDef coreUC fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,font-weight:bold;
     classDef incStyle fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;
     classDef extStyle fill:#fffde7,stroke:#f57f17,stroke-width:1.5px,stroke-dasharray: 4 4;
+    classDef genStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1.5px;
     class Actor1,Actor2 actorStyle;
     class UC_C01,UC_C02 coreUC;
     class INC_C01_1,INC_C02_1 incStyle;
     class EXT_C01_1 extStyle;
+    class GEN_C01_1 genStyle;
 ```

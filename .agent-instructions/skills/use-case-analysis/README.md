@@ -36,7 +36,7 @@ Agent sẽ tự tìm file FR tương ứng và bắt đầu quy trình 7 bước
 | 1 | Trích xuất chức năng con | Bảng tổng hợp (Mục 1) |
 | 2 | Xác định Use Case Chính | Danh sách UC + Macro Diagram (Mục 2.1–2.2) |
 | 3 | Ánh xạ Actor & Quy trình | Mô tả nghiệp vụ hoàn chỉnh (Mục 2.3) |
-| 4 | Phân rã Use Case con | Per-UC Diagrams + Bảng quan hệ (Mục 3) |
+| 4 | Phân rã Use Case con | Per-UC Diagrams (Include, Extend, Generalization) + Bảng quan hệ (Mục 3) |
 | 5 | Xây dựng ma trận truy vết | 100% FR → UC (Mục 4.1) |
 | 6 | Vẽ sơ đồ tổng hợp | Full module diagram (Mục 4.2) |
 | 7 | Kiểm tra & hoàn thiện | Tài liệu US hoàn chỉnh |
