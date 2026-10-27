@@ -31,6 +31,7 @@ Căn cứ theo mục 4.4 và mục 5 trong tài liệu [`FR-{{MODULE_CODE}}.md`]
 - **Đủ lớn & Độc lập:** Đại diện cho một mục tiêu nghiệp vụ trọn vẹn của người dùng (User Goal) hoặc của hệ thống.
 - **Có tương tác giao diện trực tiếp:** Bắt đầu bằng một hành động chủ động của Actor trên giao diện (UI) và kết thúc khi đạt được kết quả mong đợi.
 - **Bao hàm các chức năng con:** Chứa đựng các bước thực hiện mang tính nghiệp vụ bắt buộc hoặc tùy chọn mở rộng.
+- **Quy tắc đặt tên:** Cấu trúc `[1 Động từ duy nhất] + [Cụm danh từ]`. Tuyệt đối không dùng nhiều động từ nối nhau ("và", "&", "/", "hoặc"). Văn phong con người, chuẩn nghiệp vụ.
 
 Từ {{N}} chức năng con, module được phân rã thành **{{M}} Use Case Chính** sau:
 1. **UC-C01: {{UC1_NAME_VI}} ({{UC1_NAME_EN}})**

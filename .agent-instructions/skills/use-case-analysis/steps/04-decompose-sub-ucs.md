@@ -45,11 +45,22 @@
 
 ---
 
-## Quy ước đặt mã Use Case con
+## Quy ước đặt mã và đặt tên Use Case con
 
-- UC con của `UC-C01` $\to$ `UC-01.1`, `UC-01.2`, `UC-01.3`, ...
-- UC con của `UC-C02` $\to$ `UC-02.1`, `UC-02.2`, ...
-- Số đầu tiên tương ứng với số thứ tự của UC Chính.
+1. **Quy ước mã:**
+   - UC con của `UC-C01` $\to$ `UC-01.1`, `UC-01.2`, `UC-01.3`, ...
+   - UC con của `UC-C02` $\to$ `UC-02.1`, `UC-02.2`, ...
+   - Số đầu tiên tương ứng với số thứ tự của UC Chính.
+
+2. **Quy tắc đặt tên Use Case con (Đồng bộ chuẩn BA):**
+   - **Cấu trúc:** `UC-nn.n: [Động từ duy nhất] + [Cụm danh từ]`.
+   - **Chỉ chứa ĐÚNG 1 động từ duy nhất:** Tuyệt đối không dùng nhiều động từ nối với nhau ("và", "&", "/", "hoặc").
+   - *Ví dụ sai:* `UC-01.1: Nhập thông tin & Cam kết ToS` $\to$ *Ví dụ đúng:* `UC-01.1: Điền thông tin đăng ký`.
+   - *Ví dụ sai:* `UC-01.3: Thiết lập Username & Display Name` $\to$ *Ví dụ đúng:* `UC-01.3: Đặt định danh tài khoản`.
+   - *Ví dụ sai:* `UC-02.5: Tải lên & Thay đổi Ảnh đại diện Avatar` $\to$ *Ví dụ đúng:* `UC-02.5: Đổi ảnh đại diện`.
+   - *Ví dụ sai:* `UC-02.4: Cập nhật hoặc bỏ chọn Lớp/Khối` $\to$ *Ví dụ đúng:* `UC-02.4: Cập nhật khối lớp`.
+   - *Ví dụ sai:* `UC-01.5: Xem chi tiết danh sách Người theo dõi & Đang theo dõi` $\to$ *Ví dụ đúng:* `UC-01.5: Xem danh sách theo dõi`.
+   - *Ví dụ sai:* `UC-01.4: Duyệt toàn bộ bài viết & tab Đã xóa` $\to$ *Ví dụ đúng:* `UC-01.4: Quản lý bài viết cá nhân`.
 
 ## Xử lý quan hệ giữa mã FR và Use Case con
 
@@ -81,6 +92,7 @@
 ## Kiểm tra trước khi trình cổng
 
 - [ ] Phân định rõ ràng giữa `<<include>>`, `<<extend>>`, và `Generalization`, không có sự lẫn lộn.
+- [ ] Tên TẤT CẢ các Use Case con đều tuân thủ: 1 động từ duy nhất + cụm danh từ (không có từ nối động từ).
 - [ ] Mũi tên Mermaid đúng chiều chuẩn UML:
   + Include: từ Chính sang Con.
   + Extend: từ Con sang Chính.
